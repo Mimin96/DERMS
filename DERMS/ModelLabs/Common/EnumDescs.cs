@@ -14,7 +14,7 @@ namespace FTN.Common
             property2enumType.Add(ModelCode.MEASUREMENT_MEAS_TYPE, typeof(MeasurementType));
             property2enumType.Add(ModelCode.CONDUCTOR_TYPE, typeof(ConductorType));
             property2enumType.Add(ModelCode.ENERGYSOURCE_TYPE, typeof(EnergySourceType));
-            property2enumType.Add(ModelCode.SYNCHRONOUSMACHINE_GENERATORTYPE, typeof(GeneratorType));
+            property2enumType.Add(ModelCode.GENERATOR_GENERATORTYPE, typeof(GeneratorType));
         }
 
 		public List<string> GetEnumList(ModelCode propertyId)

@@ -142,8 +142,8 @@
 		<cim:Conductor.conductorType>Overhead</cim:Conductor.conductorType>	
 		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
 		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
-		<cim:ConductingEquipment.longitude>20</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>20</cim:ConductingEquipment.latitude>
+		<cim:ConductingEquipment.longitude>1</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>5009021.27018186</cim:ConductingEquipment.latitude>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>
 	</cim:ACLineSegment>
 	
@@ -176,8 +176,8 @@
 		<cim:IdentifiedObject.name>EC2</cim:IdentifiedObject.name>
 		<cim:EnergyConsumer.pfixed>2</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>2</cim:EnergyConsumer.qfixed>
-		<cim:ConductingEquipment.longitude>20</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>20</cim:ConductingEquipment.latitude>
+		<cim:ConductingEquipment.longitude>202.0112</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>2020.0</cim:ConductingEquipment.latitude>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>		
 	</cim:EnergyConsumer>
 	
@@ -211,10 +211,10 @@
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_2</cim:IdentifiedObject.mRID>
-		<cim:IdentifiedObject.description>b2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.description>b</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.name>B2</cim:IdentifiedObject.name>
-		<cim:ConductingEquipment.longitude>20</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>20</cim:ConductingEquipment.latitude>
+		<cim:ConductingEquipment.longitude>20232.1</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>20000</cim:ConductingEquipment.latitude>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>
 	</cim:Breaker>	
 	
@@ -224,7 +224,7 @@
 		<cim:IdentifiedObject.name>D2</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>Voltage</cim:Measurement.measurementType>
 		<cim:Discrete.maxValue>4</cim:Discrete.maxValue>			
-		<cim:Discrete.minValue>2</cim:Discrete.minValue>			
+		<cim:Discrete.minValue>22</cim:Discrete.minValue>			
 		<cim:Discrete.normalValue>3</cim:Discrete.normalValue>
 		<cim:Measurement.powerSystemResource rdf:resource="b_2"/>		
 	</cim:Discrete>
@@ -252,18 +252,18 @@
 		<!-- <cim:Terminal.connectivityNode rdf:resource="cn_8"/>		 -->
 	<!-- </cim:Terminal> -->
 	
-	<cim:SynchronousMachine rdf:id="sm_2">
+	<cim:Generator rdf:id="sm_2">
 		<cim:IdentifiedObject.description>sm2</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>sm_2</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>SM2</cim:IdentifiedObject.name>
-		<cim:SynchronousMachine.maxQ>8</cim:SynchronousMachine.maxQ>			
-		<cim:SynchronousMachine.minQ>0</cim:SynchronousMachine.minQ>			
-		<cim:SynchronousMachine.condenserP>2</cim:SynchronousMachine.condenserP>
+		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
+		<cim:Generator.minQ>0</cim:Generator.minQ>			
+		<cim:Generator.condenserP>2</cim:Generator.condenserP>
 		<cim:ConductingEquipment.longitude>20</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>20</cim:ConductingEquipment.latitude>
-		<cim:SynchronousMachine.generatorType>Wind</cim:SynchronousMachine.generatorType>
+		<cim:Generator.generatorType>Wind</cim:Generator.generatorType>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>		
-	</cim:SynchronousMachine>
+	</cim:Generator>
 	
 	<cim:Analog rdf:id="a_2">
 		<cim:IdentifiedObject.description>a2</cim:IdentifiedObject.description>
@@ -395,15 +395,15 @@
 		<cim:Terminal.connectivityNode rdf:resource="cn_11"/>		
 	</cim:Terminal>
 	
-	<cim:SynchronousMachine rdf:id="sm_3">
+	<cim:Generator rdf:id="sm_3">
 		<cim:IdentifiedObject.description>sm3</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>sm_3</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>SM3</cim:IdentifiedObject.name>
-		<cim:SynchronousMachine.maxQ>8</cim:SynchronousMachine.maxQ>			
-		<cim:SynchronousMachine.minQ>0</cim:SynchronousMachine.minQ>			
-		<cim:SynchronousMachine.condenserP>2</cim:SynchronousMachine.condenserP>
+		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
+		<cim:Generator.minQ>0</cim:Generator.minQ>			
+		<cim:Generator.condenserP>2</cim:Generator.condenserP>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>		
-	</cim:SynchronousMachine>
+	</cim:Generator>
 	
 	
 	
@@ -423,15 +423,15 @@
 	
 	
 	
-	<cim:SynchronousMachine rdf:id="sm_1">
+	<cim:Generator rdf:id="sm_1">
 		<cim:IdentifiedObject.description>sm1</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>sm_1</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>SM2</cim:IdentifiedObject.name>
-		<cim:SynchronousMachine.maxQ>8</cim:SynchronousMachine.maxQ>			
-		<cim:SynchronousMachine.minQ>0</cim:SynchronousMachine.minQ>			
-		<cim:SynchronousMachine.condenserP>2</cim:SynchronousMachine.condenserP>
+		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
+		<cim:Generator.minQ>0</cim:Generator.minQ>			
+		<cim:Generator.condenserP>2</cim:Generator.condenserP>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>		
-	</cim:SynchronousMachine>	
+	</cim:Generator>	
 	
 	<cim:ConnectivityNode rdf:ID="cn_4">
 		<cim:IdentifiedObject.description>cn4</cim:IdentifiedObject.description>

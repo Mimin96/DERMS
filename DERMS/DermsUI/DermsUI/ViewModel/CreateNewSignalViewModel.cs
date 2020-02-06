@@ -32,7 +32,7 @@ namespace DermsUI.ViewModel
         {
             switch (SelectedType)
             {
-                
+
                 case FTN.ESI.SIMES.CIM.CIMAdapter.Manager.SupportedProfiles.PowerTransformer:
                     break;
                 case FTN.ESI.SIMES.CIM.CIMAdapter.Manager.SupportedProfiles.ProtectionDevices:

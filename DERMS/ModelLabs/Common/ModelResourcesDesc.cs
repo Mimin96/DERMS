@@ -871,7 +871,7 @@ namespace FTN.Common
             typeIdsInInsertOrder.Add(ModelCode.SUBSTATION);
             typeIdsInInsertOrder.Add(ModelCode.BREAKER);
             typeIdsInInsertOrder.Add(ModelCode.ENERGYCONSUMER);
-            typeIdsInInsertOrder.Add(ModelCode.SYNCHRONOUSMACHINE);
+            typeIdsInInsertOrder.Add(ModelCode.GENERATOR);
             typeIdsInInsertOrder.Add(ModelCode.ENERGYSOURCE);
             typeIdsInInsertOrder.Add(ModelCode.ACLINESEGMENT);
             typeIdsInInsertOrder.Add(ModelCode.CONNECTIVITYNODE);

@@ -74,7 +74,10 @@ C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\ModelLabs\CIMAdapter\obj\x86\
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\ModelLabs\CIMAdapter\obj\x86\Debug\CIMAdapter.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\ModelLabs\CIMAdapter\obj\x86\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.dll
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\ModelLabs\CIMAdapter\obj\x86\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.pdb
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\CIMAdapter\obj\x86\Debug\CIMAdapter.csprojAssemblyReference.cache
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\CIMAdapter\obj\x86\Debug\CIMAdapter.csproj.CoreCompileInputs.cache
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\bin\FTN.ESI.SIMES.CIM.CIMAdapter.dll
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\bin\FTN.ESI.SIMES.CIM.CIMAdapter.pdb
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\CIMAdapter\obj\x86\Debug\CIMAdapter.csprojAssemblyReference.cache
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\CIMAdapter\obj\x86\Debug\CIMAdapter.csproj.CopyComplete
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\CIMAdapter\obj\x86\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\CIMAdapter\obj\x86\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.pdb

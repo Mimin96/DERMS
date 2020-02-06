@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace DermsUI.View
 {
     /// <summary>
-    /// Interaction logic for AddNewSynchronousMachine.xaml
+    /// Interaction logic for AddNewGenerator.xaml
     /// </summary>
-    public partial class AddNewSynchronousMachine : UserControl
+    public partial class AddNewGenerator : UserControl
     {
-        public AddNewSynchronousMachine()
+        public AddNewGenerator()
         {
             InitializeComponent();
         }

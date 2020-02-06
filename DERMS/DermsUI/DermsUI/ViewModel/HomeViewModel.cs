@@ -100,7 +100,7 @@ namespace DermsUI.ViewModel
                         new SampleVm("Terminal",typeof(View.AddNewTerminal)),
                         new SampleVm("Connectivity Node",typeof(View.AddNewConnectivityNode)),
                         new SampleVm("Energy Consumer",typeof(View.AddNewEnergyConsumer)),
-                        new SampleVm("Synchronous Machine",typeof(View.AddNewSynchronousMachine)),
+                        new SampleVm("Synchronous Machine",typeof(View.AddNewGenerator)),
                         new SampleVm("Breaker",typeof(View.AddNewBreaker)),
                         new SampleVm("Geographical Region",typeof(View.AddNewGeoRegion)),
                         new SampleVm("Analog Signal",typeof(View.AddNewAnalogSignal)),

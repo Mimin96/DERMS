@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DermsUI.ViewModel
 {
-    public class AddNewSynchronousMachineViewModel:BindableBase
+    public class AddNewGeneratorViewModel:BindableBase
     {
         private string description;
         private string name;
@@ -22,7 +22,7 @@ namespace DermsUI.ViewModel
         private double condenserU;
         private string errorString;
 
-        public AddNewSynchronousMachineViewModel()
+        public AddNewGeneratorViewModel()
         {
             errorString = "";
             name = "";

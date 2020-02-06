@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
-    public class SynchronousMachine : RegulatingCondEq
+    public class Generator : RegulatingCondEq
     {
         
         private float maxQ;
@@ -19,7 +19,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
         public float ConsiderP { get => considerP; set => considerP = value; }
         public GeneratorType GeneratorType { get => generatorType; set => generatorType = value; }
 
-        public SynchronousMachine(long globalId) : base(globalId)
+        public Generator(long globalId) : base(globalId)
         {
         }
 
@@ -27,7 +27,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
         {
             if (base.Equals(obj))
             {
-                SynchronousMachine x = (SynchronousMachine)obj;
+                Generator x = (Generator)obj;
                 return (x.maxQ == this.maxQ && x.minQ == this.minQ && x.considerP == this.considerP && x.generatorType == this.generatorType);
             }
             else
@@ -47,10 +47,10 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
         {
             switch (property)
             {
-                case ModelCode.SYNCHRONOUSMACHINE_GENERATORTYPE:
-                case ModelCode.SYNCHRONOUSMACHINE_MAXQ:
-                case ModelCode.SYNCHRONOUSMACHINE_MINQ:
-                case ModelCode.SYNCHRONOUSMACHINE_CONSIDERP:
+                case ModelCode.GENERATOR_GENERATORTYPE:
+                case ModelCode.GENERATOR_MAXQ:
+                case ModelCode.GENERATOR_MINQ:
+                case ModelCode.GENERATOR_CONSIDERP:
                     return true;
 
                 default:
@@ -62,19 +62,19 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
         {
             switch (prop.Id)
             {
-                case ModelCode.SYNCHRONOUSMACHINE_GENERATORTYPE:
+                case ModelCode.GENERATOR_GENERATORTYPE:
                     prop.SetValue((short)generatorType);
                     break;
 
-                case ModelCode.SYNCHRONOUSMACHINE_MAXQ:
+                case ModelCode.GENERATOR_MAXQ:
                     prop.SetValue(maxQ);
                     break;
 
-                case ModelCode.SYNCHRONOUSMACHINE_MINQ:
+                case ModelCode.GENERATOR_MINQ:
                     prop.SetValue(minQ);
                     break;
                 
-                case ModelCode.SYNCHRONOUSMACHINE_CONSIDERP:
+                case ModelCode.GENERATOR_CONSIDERP:
                     prop.SetValue(considerP);
                     break;
 
@@ -89,18 +89,18 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
             switch (property.Id)
             {
 
-                case ModelCode.SYNCHRONOUSMACHINE_GENERATORTYPE:
+                case ModelCode.GENERATOR_GENERATORTYPE:
                     generatorType = (GeneratorType)property.AsEnum();
                     break;
-                case ModelCode.SYNCHRONOUSMACHINE_MAXQ:
+                case ModelCode.GENERATOR_MAXQ:
                     maxQ = property.AsFloat();
                     break;
 
-                case ModelCode.SYNCHRONOUSMACHINE_MINQ:
+                case ModelCode.GENERATOR_MINQ:
                     minQ = property.AsFloat();
                     break;                
                 
-                case ModelCode.SYNCHRONOUSMACHINE_CONSIDERP:
+                case ModelCode.GENERATOR_CONSIDERP:
                     considerP = property.AsFloat();
                     break;
 

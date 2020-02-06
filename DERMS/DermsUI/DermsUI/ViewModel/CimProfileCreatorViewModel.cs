@@ -62,13 +62,13 @@ namespace DermsUI.ViewModel
 
         public void OnLoadCommand(string parameter)
         {
-                LogResultString = cimProfileCreator.LoadCIMRDFSFile(CimLocationString);
+            LogResultString = cimProfileCreator.LoadCIMRDFSFile(CimLocationString);
         }
 
         public void OnGenerateCommand(string parameter)
         {
-            if (CimNamespaceString.Trim() != "" && CimFileNameString.Trim() != "" && CimVersionString.Trim() != "" && CimProductNameString.Trim() != "")
-                LogResultString = cimProfileCreator.GenerateDLL(CimFileNameString, CimVersionString, CimProductNameString, CimNamespaceString);
+            if (CimNamespaceString.Trim() != "" && CimFileNameString.Trim() != "" && CimVersionString.Trim() != "" && CimProductNameString.Trim() != "") 
+            LogResultString = cimProfileCreator.GenerateDLL(CimFileNameString, CimVersionString, CimProductNameString, CimNamespaceString);
             else
                 LogResultString = "ERROR >> None of the values can be left out.";
         }

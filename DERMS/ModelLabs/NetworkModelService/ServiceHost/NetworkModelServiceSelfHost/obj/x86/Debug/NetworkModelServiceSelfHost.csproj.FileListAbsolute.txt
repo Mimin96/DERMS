@@ -147,14 +147,6 @@ C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\ModelLabs\NetworkModelS
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.exe
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.pdb
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.exe.config
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.exe
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.pdb
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csprojAssemblyReference.cache
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csproj.CoreCompileInputs.cache
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csproj.CopyComplete
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.exe
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.pdb
 C:\Users\Mimin\Desktop\Master\6.2.2020\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.exe.config
 C:\Users\Mimin\Desktop\Master\6.2.2020\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.exe
 C:\Users\Mimin\Desktop\Master\6.2.2020\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.pdb
@@ -163,3 +155,11 @@ C:\Users\Mimin\Desktop\Master\6.2.2020\DERMS\DERMS\ModelLabs\NetworkModelService
 C:\Users\Mimin\Desktop\Master\6.2.2020\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csproj.CopyComplete
 C:\Users\Mimin\Desktop\Master\6.2.2020\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.exe
 C:\Users\Mimin\Desktop\Master\6.2.2020\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.pdb
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csprojAssemblyReference.cache
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csproj.CoreCompileInputs.cache
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.exe.config
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.exe
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.pdb
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csproj.CopyComplete
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.exe
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.pdb

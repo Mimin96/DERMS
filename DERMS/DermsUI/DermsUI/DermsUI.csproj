@@ -38,6 +38,9 @@
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="FTN.ESI.SIMES.CIM.CIMAdapter">
+      <HintPath>..\bin\FTN.ESI.SIMES.CIM.CIMAdapter.dll</HintPath>
+    </Reference>
     <Reference Include="GMap.NET.Core">
       <HintPath>D:\FAX\IV\blok5\PZ2\GMap\GMap\bin\Debug\GMap.NET.Core.dll</HintPath>
     </Reference>
@@ -328,17 +331,13 @@
       <Project>{776eb305-b428-4d01-b4a7-0b05fa59f9b9}</Project>
       <Name>DERMSCommon</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CIMAdapter\CIMAdapter.csproj">
-      <Project>{f680d34f-c148-4314-8914-b2df3e7b17af}</Project>
-      <Name>CIMAdapter</Name>
+    <ProjectReference Include="..\..\ModelLabs\Common\Common.csproj">
+      <Project>{B1E36476-2A09-4271-B336-3158CBD9DF2F}</Project>
+      <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\CIMProfileCreator\CIMProfileCreator.csproj">
       <Project>{d71cae36-d5c0-4aa0-ab0b-c10449e4e109}</Project>
       <Name>CIMProfileCreator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
-      <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

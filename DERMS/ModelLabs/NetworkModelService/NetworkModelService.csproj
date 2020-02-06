@@ -99,13 +99,13 @@
       <Project>{776EB305-B428-4D01-B4A7-0B05FA59F9B9}</Project>
       <Name>DERMSCommon</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DermsUI\NetworkModelGDAContract\NetworkModelGDAContract.csproj">
-      <Project>{9798f72e-e42d-4b8e-a5c6-6da9c41de1de}</Project>
-      <Name>NetworkModelGDAContract</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
-      <Name>Common %28Common\Common%29</Name>
+      <Project>{B1E36476-2A09-4271-B336-3158CBD9DF2F}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceContracts\NetworkModelQueryContract\NetworkModelGDAContract.csproj">
+      <Project>{B726FB71-D295-41EE-9644-B2B0B1BC8911}</Project>
+      <Name>NetworkModelGDAContract</Name>
     </ProjectReference>
     <ProjectReference Include="DataModel\DataModel.csproj">
       <Project>{ADE96497-7C11-40B6-AE82-57F956C9F104}</Project>

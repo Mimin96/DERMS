@@ -47,7 +47,7 @@ namespace TelventDMS.Services.NetworkModelService.TestClient.Tests
 
         public Dictionary<long, ModelCode> GetAllGids()
         {
-            List<ModelCode> tipovi = new List<ModelCode>() { ModelCode.BREAKER, ModelCode.ACLINESEGMENT, ModelCode.TERMINAL, ModelCode.ANALOG, ModelCode.DISCRETE, ModelCode.SUBGEOGRAPHICALREGION, ModelCode.GEOGRAPHICALREGION, ModelCode.SUBSTATION, ModelCode.ENERGYSOURCE, ModelCode.ENERGYCONSUMER, ModelCode.CONNECTIVITYNODE, ModelCode.SYNCHRONOUSMACHINE };
+            List<ModelCode> tipovi = new List<ModelCode>() { ModelCode.BREAKER, ModelCode.ACLINESEGMENT, ModelCode.TERMINAL, ModelCode.ANALOG, ModelCode.DISCRETE, ModelCode.SUBGEOGRAPHICALREGION, ModelCode.GEOGRAPHICALREGION, ModelCode.SUBSTATION, ModelCode.ENERGYSOURCE, ModelCode.ENERGYCONSUMER, ModelCode.CONNECTIVITYNODE, ModelCode.GENERATOR };
             string message = "";
             ModelCode modelCode = ModelCode.BREAKER;
 

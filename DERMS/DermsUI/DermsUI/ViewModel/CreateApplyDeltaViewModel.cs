@@ -30,7 +30,7 @@ namespace DermsUI.ViewModel
             SearchCommand = new MyICommand<string>(OnSearchCommand);
             ConvertDeltaCommand = new MyICommand<string>(OnConvertCommand);
             ApplyDeltaCommand = new MyICommand<string>(OnSearchCommand);
-            
+
             supportedProfiles = new List<FTN.ESI.SIMES.CIM.CIMAdapter.Manager.SupportedProfiles>();
             supportedProfiles.Add(FTN.ESI.SIMES.CIM.CIMAdapter.Manager.SupportedProfiles.PowerTransformer);
             supportedProfiles.Add(FTN.ESI.SIMES.CIM.CIMAdapter.Manager.SupportedProfiles.OverheadLines);

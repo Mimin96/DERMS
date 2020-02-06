@@ -102,7 +102,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
             //ImportFeederObjects();
             ImportSubstations();
             ImportBreakers();           
-            ImportSynchronousMachines();
+            ImportGenerators();
             ImportEnergyConsumers();
             ImportEnergySources();
             ImportACLineSegments();
@@ -918,45 +918,45 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
             }
             return rd;
         }
-        private void ImportSynchronousMachines()
+        private void ImportGenerators()
         {
             bool isUpdated = false;
-            SortedDictionary<string, ResourceDescription> mrids = test.GetAllMrids(ModelCode.IDOBJ_MRID, ModelCode.SYNCHRONOUSMACHINE);
-            SortedDictionary<string, object> cimSynchronousMachines = concreteModel.GetAllObjectsOfType("FTN.SynchronousMachine");
-            if (cimSynchronousMachines != null)
+            SortedDictionary<string, ResourceDescription> mrids = test.GetAllMrids(ModelCode.IDOBJ_MRID, ModelCode.GENERATOR);
+            SortedDictionary<string, object> cimGenerators = concreteModel.GetAllObjectsOfType("FTN.Generator");
+            if (cimGenerators != null)
             {
-                foreach (KeyValuePair<string, object> cimSynchronousMachinePair in cimSynchronousMachines)
+                foreach (KeyValuePair<string, object> cimGeneratorPair in cimGenerators)
                 {
-                    FTN.SynchronousMachine cimSynchronousMachine = cimSynchronousMachinePair.Value as FTN.SynchronousMachine;
+                    FTN.Generator cimGenerator = cimGeneratorPair.Value as FTN.Generator;
                     
                     ResourceDescription rd = new ResourceDescription();
-                    PowerTransformerConverter.PopulateSynchronousMachineProperties(cimSynchronousMachine, rd, importHelper, report);
+                    PowerTransformerConverter.PopulateGeneratorProperties(cimGenerator, rd, importHelper, report);
                     ResourceDescription rdResult = null;
-                    if (mrids.ContainsKey(cimSynchronousMachine.MRID))
+                    if (mrids.ContainsKey(cimGenerator.MRID))
                     {
-                        rd.Id = mrids[cimSynchronousMachine.MRID].Id;
-                        rdResult = new ResourceDescription(mrids[cimSynchronousMachine.MRID].Id);
-                        importHelper.DefineIDMapping(cimSynchronousMachine.ID, rdResult.Id);
-                        for (int i = 0; i < mrids[cimSynchronousMachine.MRID].Properties.Count; i++)
+                        rd.Id = mrids[cimGenerator.MRID].Id;
+                        rdResult = new ResourceDescription(mrids[cimGenerator.MRID].Id);
+                        importHelper.DefineIDMapping(cimGenerator.ID, rdResult.Id);
+                        for (int i = 0; i < mrids[cimGenerator.MRID].Properties.Count; i++)
                         {
-                            if (mrids[cimSynchronousMachine.MRID].Properties[i].Id == ModelCode.IDOBJ_GID && mrids[cimSynchronousMachine.MRID].Properties[i].Type != PropertyType.Reference)
+                            if (mrids[cimGenerator.MRID].Properties[i].Id == ModelCode.IDOBJ_GID && mrids[cimGenerator.MRID].Properties[i].Type != PropertyType.Reference)
                                 continue;
                             for (int j = 0; j < rd.Properties.Count; j++)
-                                if (mrids[cimSynchronousMachine.MRID].Properties[i].Id == rd.Properties[j].Id)
+                                if (mrids[cimGenerator.MRID].Properties[i].Id == rd.Properties[j].Id)
                                 {
-                                    if (!rd.Properties[j].PropertyValue.StringValue.Equals(mrids[cimSynchronousMachine.MRID].Properties[i].PropertyValue.StringValue))
+                                    if (!rd.Properties[j].PropertyValue.StringValue.Equals(mrids[cimGenerator.MRID].Properties[i].PropertyValue.StringValue))
                                     {
                                         rdResult.Properties.Add(rd.Properties[j]);
                                         isUpdated = true;
                                         break;
                                     }
-                                    if (!rd.Properties[j].PropertyValue.LongValue.Equals(mrids[cimSynchronousMachine.MRID].Properties[i].PropertyValue.LongValue))
+                                    if (!rd.Properties[j].PropertyValue.LongValue.Equals(mrids[cimGenerator.MRID].Properties[i].PropertyValue.LongValue))
                                     {
                                         rdResult.Properties.Add(rd.Properties[j]);
                                         isUpdated = true;
                                         break;
                                     }
-                                    if (!rd.Properties[j].PropertyValue.FloatValue.Equals(mrids[cimSynchronousMachine.MRID].Properties[i].PropertyValue.FloatValue))
+                                    if (!rd.Properties[j].PropertyValue.FloatValue.Equals(mrids[cimGenerator.MRID].Properties[i].PropertyValue.FloatValue))
                                     {
                                         rdResult.Properties.Add(rd.Properties[j]);
                                         isUpdated = true;
@@ -967,7 +967,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 
                         if (isUpdated)
                         {
-                            report.Report.Append("SynchronousMachine ID = ").Append(cimSynchronousMachine.ID).Append(" SUCCESSFULLY updated GID = ").AppendLine(mrids[cimSynchronousMachine.MRID].Id.ToString());
+                            report.Report.Append("Generator ID = ").Append(cimGenerator.ID).Append(" SUCCESSFULLY updated GID = ").AppendLine(mrids[cimGenerator.MRID].Id.ToString());
                             isUpdated = false;
                         }
 
@@ -976,15 +976,15 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     }
                     else
                     {
-                        rd = CreateSynchronousMachineResourceDescription(cimSynchronousMachine);
+                        rd = CreateGeneratorResourceDescription(cimGenerator);
                         if (rd != null)
                         {
                             delta.AddDeltaOperation(DeltaOpType.Insert, rd, true);
-                            report.Report.Append("SynchronousMachine ID = ").Append(cimSynchronousMachine.ID).Append(" SUCCESSFULLY converted to GID = ").AppendLine(rd.Id.ToString());
+                            report.Report.Append("Generator ID = ").Append(cimGenerator.ID).Append(" SUCCESSFULLY converted to GID = ").AppendLine(rd.Id.ToString());
                         }
                         else
                         {
-                            report.Report.Append("SynchronousMachine ID = ").Append(cimSynchronousMachine.ID).AppendLine(" FAILED to be converted");
+                            report.Report.Append("Generator ID = ").Append(cimGenerator.ID).AppendLine(" FAILED to be converted");
                         }
                     }
                 }
@@ -992,17 +992,17 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
             }
         }
 
-        private ResourceDescription CreateSynchronousMachineResourceDescription(FTN.SynchronousMachine cimSynchronousMachine)
+        private ResourceDescription CreateGeneratorResourceDescription(FTN.Generator cimGenerator)
         {
             ResourceDescription rd = null;
-            if (cimSynchronousMachine != null)
+            if (cimGenerator != null)
             {
-                long gid = ModelCodeHelper.CreateGlobalId(0, (short)DMSType.SYNCHRONOUSMACHINE, importHelper.CheckOutIndexForDMSType(DMSType.SYNCHRONOUSMACHINE));
+                long gid = ModelCodeHelper.CreateGlobalId(0, (short)DMSType.GENERATOR, importHelper.CheckOutIndexForDMSType(DMSType.GENERATOR));
                 rd = new ResourceDescription(gid);
-                importHelper.DefineIDMapping(cimSynchronousMachine.ID, gid);
+                importHelper.DefineIDMapping(cimGenerator.ID, gid);
 
                 ////populate ResourceDescription
-                PowerTransformerConverter.PopulateSynchronousMachineProperties(cimSynchronousMachine, rd, importHelper, report);
+                PowerTransformerConverter.PopulateGeneratorProperties(cimGenerator, rd, importHelper, report);
             }
             return rd;
         }

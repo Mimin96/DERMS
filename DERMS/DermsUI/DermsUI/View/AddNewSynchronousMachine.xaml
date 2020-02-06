@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="DermsUI.View.AddNewSynchronousMachine"
+﻿<UserControl x:Class="DermsUI.View.AddNewGenerator"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,7 +9,7 @@
               d:DesignHeight="530" d:DesignWidth="754">
 
     <UserControl.DataContext>
-        <ViewModel:AddNewSynchronousMachineViewModel></ViewModel:AddNewSynchronousMachineViewModel>
+        <ViewModel:AddNewGeneratorViewModel></ViewModel:AddNewGeneratorViewModel>
     </UserControl.DataContext>
 
     <Grid>

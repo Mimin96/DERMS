@@ -62,8 +62,8 @@
     <Compile Include="WeatherForecast\WeatherForecast.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DermsUI\Common\Common.csproj">
-      <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
+    <ProjectReference Include="..\ModelLabs\Common\Common.csproj">
+      <Project>{B1E36476-2A09-4271-B336-3158CBD9DF2F}</Project>
       <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\ModelLabs\NetworkModelService\DataModel\DataModel.csproj">

@@ -119,12 +119,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CIMAdapter\CIMAdapter.csproj">
-      <Project>{F680D34F-C148-4314-8914-B2DF3E7B17AF}</Project>
+      <Project>{E0DAC37C-A981-4CBB-BAC4-813AB1177385}</Project>
       <Name>CIMAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
-      <Name>Common %28Common\Common%29</Name>
+      <Project>{B1E36476-2A09-4271-B336-3158CBD9DF2F}</Project>
+      <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -137,8 +137,8 @@ namespace FTN.Services.NetworkModelService
                 case DMSType.ENERGYCONSUMER:
                     io = new EnergyConsumer(globalId);
                     break;
-                case DMSType.SYNCHRONOUSMACHINE:
-                    io = new SynchronousMachine(globalId);
+                case DMSType.GENERATOR:
+                    io = new Generator(globalId);
                     break;
                 case DMSType.TERMINAL:
                     io = new Terminal(globalId);
