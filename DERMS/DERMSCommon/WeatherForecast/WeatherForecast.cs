@@ -11,6 +11,8 @@ namespace DERMSCommon.WeatherForecast
     public class WeatherForecast
     {
         [DataMember]
+        private long _gid;
+        [DataMember]
         private float _windSpeed;
         [DataMember]
         private float _visibility;
@@ -23,8 +25,9 @@ namespace DERMSCommon.WeatherForecast
         [DataMember]
         private float _cloudCover;
 
-        public WeatherForecast(float windSpeed, float visibility, float temperature, float cloudCover, DateTime time, string summary)
+        public WeatherForecast(long gid, float windSpeed, float visibility, float temperature, float cloudCover, DateTime time, string summary)
         {
+            _gid = gid;
             _windSpeed = windSpeed;
             _visibility = visibility;
             _temperature = temperature;
@@ -33,6 +36,7 @@ namespace DERMSCommon.WeatherForecast
             _summary = summary;
         }
 
+        public long Gid { get { return _gid; } }
         public float WindSpeed { get { return _windSpeed; } }
         public float Visibility { get { return _visibility; } }
         public float Temperature { get { return _temperature; } }

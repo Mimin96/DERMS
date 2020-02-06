@@ -212,16 +212,13 @@ C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\DermsUI.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\CIMProfileCreator.dll
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\ControlzEx.dll
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\FTN.Common.dll
-C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.dll
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\MahApps.Metro.dll
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\System.Windows.Interactivity.dll
-C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\CIMParser.dll
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\FTN.Common.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\CIMProfileCreator.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\ControlzEx.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\MahApps.Metro.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\MahApps.Metro.xml
-C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\CIMParser.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.csprojAssemblyReference.cache
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\Resources\AppDictionary.baml
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\View\AddNewAnalogSignal.g.cs
@@ -930,9 +927,6 @@ C:\Users\Filip\Desktop\New folder\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.csproj.CopyComplete
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.exe
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.pdb
-C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\NetworkModelGDAContract.dll
-C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.pdb
-C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\NetworkModelGDAContract.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\FTN.DataModel.dll
 C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\FTN.DataModel.pdb
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\DermsUI.exe.config

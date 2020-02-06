@@ -1,6 +1,6 @@
 ﻿using CalculationEngineServiceCommon;
-using DERMSCommon;
 using DERMSCommon.SCADACommon;
+using DERMSCommon.SmartCache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +14,8 @@ namespace CalculationEngineService
     {
         public void ReceiveFromScada(List<DataPoint> data)
         {
-            SmartCache smartCache = new SmartCache();
+            SCADADataPointSmartCache smartCache = new SCADADataPointSmartCache();
             smartCache.WriteToFile(data);
-            smartCache.ReadFromFile();
             ClientSideCE.Instance.ProxyUI.SendDataUI(data);
         }
     }

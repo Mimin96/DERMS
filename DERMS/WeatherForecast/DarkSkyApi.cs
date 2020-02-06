@@ -23,7 +23,7 @@ namespace WeatherForecast
             Forecast result = await darkSkyProxy.GetTimeMachineWeatherAsync(latitude, longitude, DateTime.Now, Unit.Auto);
             List<HourDataPoint> hourDataPoints =  result.Hourly.Hours.ToList();
 
-            DERMSCommon.WeatherForecast.WeatherForecast weatherForecast = new DERMSCommon.WeatherForecast.WeatherForecast(1, 1, 1, 1, DateTime.Now, "");
+            DERMSCommon.WeatherForecast.WeatherForecast weatherForecast = new DERMSCommon.WeatherForecast.WeatherForecast(1001,1, 1, 1, 1, DateTime.Now, "");
 
             return weatherForecast;
         }
