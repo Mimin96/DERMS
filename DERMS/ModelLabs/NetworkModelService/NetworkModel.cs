@@ -21,7 +21,9 @@ namespace FTN.Services.NetworkModelService
         CommunicationWithScada proxyFromNMSToScada;
         List<long> gidoviA = new List<long>();
         List<long> gidoviD = new List<long>();
-        Dictionary<int, List<long>> signals = new Dictionary<int, List<long>>();
+        NetworkModelTransfer networkModelTransfer;
+        SignalsTransfer signalsTransfer;
+
         public NetworkModelDeepCopy()
         {
             proxyFromNMSToCE = new CommunicationWithCE();
@@ -33,14 +35,13 @@ namespace FTN.Services.NetworkModelService
             //signals.Add(0, gidoviA);
             //signals.Add(1, gidoviD);
 
+            DataForSendingToCEandSCADA();
+
             proxyFromNMSToCE.Open();
-
-            NetworkModelTransfer networkModelTransfer = DataForSendingToCE();
-
             proxyFromNMSToCE.sendToCE.SendNetworkModel(networkModelTransfer);
 
             proxyFromNMSToScada.Open();
-            proxyFromNMSToScada.sendToScada.SendGids(signals);
+            proxyFromNMSToScada.sendToScada.SendGids(signalsTransfer);
 
         }
 
@@ -117,11 +118,14 @@ namespace FTN.Services.NetworkModelService
             return updateResult;
         }
 
-        private NetworkModelTransfer DataForSendingToCE()
+        private void DataForSendingToCEandSCADA()
         {
-            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> insert = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
-            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> update = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
-            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> delete = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
+            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> insertCE = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
+            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> updateCE = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
+            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> deleteCE = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
+            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> insertSCADA = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
+            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> updateSCADA = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
+            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> deleteSCADA = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
 
             foreach (DMSType dmst in networkModel.networkDataModel.Keys)
             {
@@ -132,53 +136,58 @@ namespace FTN.Services.NetworkModelService
                     //insert
                     if (networkModel.insert.Contains(key)) 
                     {
-                        if (!insert.ContainsKey(dmst))
+                        if (!insertCE.ContainsKey(dmst))
                         {
                             Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
                             helper.Add(key, container.Entities[key]);
-                            insert[dmst] = helper;
+                            insertCE[dmst] = helper;
+                            if (dmst == DMSType.ANALOG || dmst == DMSType.DISCRETE) 
+                                insertSCADA[dmst] = helper;
                         }
                         else 
                         {
-                            insert[dmst].Add(key, container.Entities[key]);
+                            insertCE[dmst].Add(key, container.Entities[key]);
                         }
                     }
 
                     //update
                     if (networkModel.update.Contains(key))
                     {
-                        if (!update.ContainsKey(dmst))
+                        if (!updateCE.ContainsKey(dmst))
                         {
                             Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
                             helper.Add(key, container.Entities[key]);
-                            update[dmst] = helper;
+                            updateCE[dmst] = helper;
+                            if (dmst == DMSType.ANALOG || dmst == DMSType.DISCRETE)
+                                updateSCADA[dmst] = helper;
                         }
                         else
                         {
-                            update[dmst].Add(key, container.Entities[key]);
+                            updateCE[dmst].Add(key, container.Entities[key]);
                         }
                     }
 
                     //delete
                     if (networkModel.delete.Contains(key))
                     {
-                        if (!delete.ContainsKey(dmst))
+                        if (!deleteCE.ContainsKey(dmst))
                         {
                             Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
                             helper.Add(key, container.Entities[key]);
-                            delete[dmst] = helper;
+                            deleteCE[dmst] = helper;
+                            if (dmst == DMSType.ANALOG || dmst == DMSType.DISCRETE)
+                                deleteSCADA[dmst] = helper;
                         }
                         else
                         {
-                            delete[dmst].Add(key, container.Entities[key]);
+                            deleteCE[dmst].Add(key, container.Entities[key]);
                         }
                     }
                 }
             }
 
-            NetworkModelTransfer networkModelTransfer = new NetworkModelTransfer(insert, update, delete);
-
-            return networkModelTransfer;
+            networkModelTransfer = new NetworkModelTransfer(insertCE, updateCE, deleteCE);
+            signalsTransfer = new SignalsTransfer(insertSCADA, updateSCADA, deleteSCADA);
         }
     }
     public class NetworkModel

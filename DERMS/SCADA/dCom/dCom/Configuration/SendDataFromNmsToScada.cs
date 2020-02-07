@@ -9,7 +9,7 @@ namespace dCom.Configuration
 {
     public class SendDataFromNmsToScada : ISendDataFromNMSToScada
     {
-        public void SendGids(Dictionary<int, List<long>> signals)
+        public void SendGids(SignalsTransfer signals)
         {
             return;
         }

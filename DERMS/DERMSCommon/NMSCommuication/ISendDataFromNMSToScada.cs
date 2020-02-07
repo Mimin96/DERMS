@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FTN.Services.NetworkModelService.DataModel.Meas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -11,6 +12,9 @@ namespace DERMSCommon.NMSCommuication
     public interface ISendDataFromNMSToScada
     {
         [OperationContract]
-        void SendGids(Dictionary<int, List<long>> signals);
+        [ServiceKnownType(typeof(Measurement))]
+        [ServiceKnownType(typeof(Discrete))]
+        [ServiceKnownType(typeof(Analog))]
+        void SendGids(SignalsTransfer signals);
     }
 }

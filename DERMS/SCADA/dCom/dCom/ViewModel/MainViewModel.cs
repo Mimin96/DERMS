@@ -15,7 +15,7 @@ namespace dCom.ViewModel
 {
 	internal class MainViewModel : ViewModelBase, IDisposable, IStateUpdater
 	{
-		public ObservableCollection<BasePointItem> Points { get; set; }
+        public ObservableCollection<BasePointItem> Points { get; set; }
         private ISendDataToCEThroughScada ProxyUI { get; set; }
         private ChannelFactory<ISendDataToCEThroughScada> factoryUI;
 
@@ -99,7 +99,7 @@ namespace dCom.ViewModel
 
 		public MainViewModel()
 		{
-			configuration = new ConfigReader();
+            configuration = new ConfigReader();
 			commandExecutor = new FunctionExecutor(this, configuration);
 			this.acquisitor = new Acquisitor(acquisitionTrigger, this.commandExecutor, this, configuration);
 			InitializePointCollection();
@@ -107,7 +107,7 @@ namespace dCom.ViewModel
 			logBuilder = new StringBuilder();
 			ConnectionState = ConnectionState.DISCONNECTED;
 			Thread.CurrentThread.Name = "Main Thread";
-		}
+        }
 
 		#region Private methods
 
@@ -130,7 +130,7 @@ namespace dCom.ViewModel
 
 				
 			}
-           
+
             NetTcpBinding binding = new NetTcpBinding();
             binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
             factoryUI = new ChannelFactory<ISendDataToCEThroughScada>(binding, new EndpointAddress("net.tcp://localhost:19999/ISendDataToCEThroughScada"));
@@ -203,11 +203,11 @@ namespace dCom.ViewModel
 
 		public void UpdateConnectionState(ConnectionState currentConnectionState)
 		{
-			dispather.Invoke((Action)(() =>
-			{
-				ConnectionState = currentConnectionState;
-			}));
-		}
+            dispather.Invoke((Action)(() =>
+            {
+                ConnectionState = currentConnectionState;
+            }));
+        }
 
 		public void LogMessage(string message)
 		{
