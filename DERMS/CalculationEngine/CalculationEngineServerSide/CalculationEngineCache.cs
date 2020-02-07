@@ -7,14 +7,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeatherForecast;
 
-namespace DERMSCommon
+namespace CalculationEngineService
 {
     public class CalculationEngineCache
     {
         private Dictionary<long, IdentifiedObject> nmsCache = new Dictionary<long, IdentifiedObject>();
         private Dictionary<long, List<DataPoint>> scadaPointsCached = new Dictionary<long, List<DataPoint>>();
-        private Dictionary<long, WeatherForecast.WeatherForecast> derWeatherCached = new Dictionary<long, WeatherForecast.WeatherForecast>();
+        private Dictionary<long, DERMSCommon.WeatherForecast.WeatherForecast> derWeatherCached = new Dictionary<long, DERMSCommon.WeatherForecast.WeatherForecast>();
 
         private static CalculationEngineCache instance = null;
 
@@ -62,7 +63,7 @@ namespace DERMSCommon
         public void PopulateWeatherForecast(NetworkModelTransfer networkModel)
         {
             //KRUZNA REFERENCA PROBLEM!!!!!!!
-            DarkSkyApi darkSkyApi = new DarkSkyApi(); 
+            DarkSkyApi darkSkyApi = new DarkSkyApi();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
                 foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
@@ -99,14 +100,14 @@ namespace DERMSCommon
             return scadaPointsCached[gid];
         }
 
-        public WeatherForecast.WeatherForecast GetForecast(long gid)
+        public DERMSCommon.WeatherForecast.WeatherForecast GetForecast(long gid)
         {
             if (!derWeatherCached.ContainsKey(gid))
                 return null;
             return derWeatherCached[gid];
         }
 
-        public void AddForecast(WeatherForecast.WeatherForecast wf, long gid)
+        public void AddForecast(DERMSCommon.WeatherForecast.WeatherForecast wf, long gid)
         {
             if (!derWeatherCached.ContainsKey(gid))
                 derWeatherCached.Add(gid, wf);

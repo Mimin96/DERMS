@@ -17,7 +17,9 @@ namespace CalculationEngineService
             // U ZAVISNOSTI OD TOGA TREBA POZVATI SLEDECE METODE:
             // AKO JE U PITANJU MODEL UPDATE POZIVA SE CalculationEngineCache.Instance.RestartCache(networkModel);
             // AKO JE U PITANJU CITAV MODEL PRILIKOM POKRETANJA APLIKACIJE POZIVA SE CalculationEngineCache.Instance.PopulateNSMModelCache(networkModel);
-            return;
+            CalculationEngineCache.Instance.PopulateNSMModelCache(networkModel);
+            CalculationEngineCache.Instance.PopulateWeatherForecast(networkModel);
+            //return;
         }
     }
 }
