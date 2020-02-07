@@ -144,3 +144,6 @@ C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\Calculati
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\obj\Debug\CalculationEngineService.csproj.CopyComplete
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\obj\Debug\CalculationEngineService.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\obj\Debug\CalculationEngineService.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\WeatherForecast.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\DarkSkyApi.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\WeatherForecast.pdb
