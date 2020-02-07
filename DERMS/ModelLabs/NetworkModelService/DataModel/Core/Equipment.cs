@@ -9,8 +9,10 @@ using FTN.Common;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
+    [DataContract]
 	public class Equipment : PowerSystemResource
-	{		
+	{
+        [DataMember]
         private long container = 0;
 		//private bool normallyInService;
 						

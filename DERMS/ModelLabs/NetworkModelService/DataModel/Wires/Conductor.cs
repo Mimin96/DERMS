@@ -3,12 +3,15 @@ using FTN.Services.NetworkModelService.DataModel.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Wires
 {
+    [DataContract]
     public class Conductor : ConductingEquipment
     {
+        [DataMember]
         private ConductorType type;
 
         public ConductorType Type { get => type; set => type = value; }

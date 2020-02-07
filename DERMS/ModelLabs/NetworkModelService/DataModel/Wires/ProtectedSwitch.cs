@@ -3,10 +3,12 @@ using FTN.Services.NetworkModelService.DataModel.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Wires
 {
+    [DataContract]
     public class PROTECTED_SWITCH : Switch
     {
         public PROTECTED_SWITCH(long globalId) : base(globalId)

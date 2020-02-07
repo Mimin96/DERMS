@@ -62,6 +62,14 @@
       <Project>{776EB305-B428-4D01-B4A7-0B05FA59F9B9}</Project>
       <Name>DERMSCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ModelLabs\Common\Common.csproj">
+      <Project>{B1E36476-2A09-4271-B336-3158CBD9DF2F}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ModelLabs\NetworkModelService\DataModel\DataModel.csproj">
+      <Project>{ADE96497-7C11-40B6-AE82-57F956C9F104}</Project>
+      <Name>DataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CalculationEngineServiceCommon\CalculationEngineServiceCommon.csproj">
       <Project>{C6A1D90E-C842-4B98-958B-C3267664D121}</Project>
       <Name>CalculationEngineServiceCommon</Name>

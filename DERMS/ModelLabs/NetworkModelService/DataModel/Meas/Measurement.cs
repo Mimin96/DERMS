@@ -3,13 +3,17 @@ using FTN.Services.NetworkModelService.DataModel.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Meas
 {
+    [DataContract]
     public class Measurement : IdentifiedObject
     {
+        [DataMember]
         private MeasurementType measurementType;
+        [DataMember]
         private long powerSystemResource = 0;
 
         public MeasurementType MeasurementType { get => measurementType; set => measurementType = value; }

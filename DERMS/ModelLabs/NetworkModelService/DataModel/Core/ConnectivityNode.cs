@@ -2,13 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
+    [DataContract]
     public class ConnectivityNode : IdentifiedObject
     {
+        [DataMember]
         private List<long> terminals = new List<long>();
+        [DataMember]
         private long container = 0;
         public List<long> Terminals { get => terminals; set => terminals = value; }
         public long Container { get => container; set => container = value; }

@@ -13,18 +13,40 @@ namespace DERMSCommon.NMSCommuication
     public class NetworkModelTransfer
     {
         [DataMember]
-        private Dictionary<DMSType, Dictionary<long, IdentifiedObject>> _networkDataModel;
+        private Dictionary<DMSType, Dictionary<long, IdentifiedObject>> _insert;
+        [DataMember]
+        private Dictionary<DMSType, Dictionary<long, IdentifiedObject>> _update;
+        [DataMember]
+        private Dictionary<DMSType, Dictionary<long, IdentifiedObject>> _delete;
 
-        public NetworkModelTransfer(Dictionary<DMSType, Dictionary<long, IdentifiedObject>> networkDataModel) 
+        public NetworkModelTransfer(Dictionary<DMSType, Dictionary<long, IdentifiedObject>> insert,
+                                    Dictionary<DMSType, Dictionary<long, IdentifiedObject>> update,
+                                    Dictionary<DMSType, Dictionary<long, IdentifiedObject>> delete) 
         {
-            _networkDataModel = networkDataModel;
+            _insert = insert;
+            _update = update;
+            _delete = delete;
         }
 
-        public Dictionary<DMSType, Dictionary<long, IdentifiedObject>> NetworkDataModel
+        public Dictionary<DMSType, Dictionary<long, IdentifiedObject>> Insert
         {
             get
             {
-                return _networkDataModel;
+                return _insert;
+            }
+        }
+        public Dictionary<DMSType, Dictionary<long, IdentifiedObject>> Update
+        {
+            get
+            {
+                return _update;
+            }
+        }
+        public Dictionary<DMSType, Dictionary<long, IdentifiedObject>> Delete
+        {
+            get
+            {
+                return _delete;
             }
         }
     }

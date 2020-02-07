@@ -10,38 +10,45 @@ using FTN.Common;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
-	public enum TypeOfReference : short
+    [DataContract]
+    public enum TypeOfReference : short
 	{
 		Reference = 1,
 		Target = 2,
 		Both = 3,
 	}
 
+    [DataContract]
 	public class IdentifiedObject
 	{
         /// <summary>
         /// Model Resources Description
         /// </summary>
+        [IgnoreDataMember]
         private static ModelResourcesDesc resourcesDescs = new ModelResourcesDesc();
 
         /// <summary>
         /// Global id of the identified object (SystemId - 4 nibls, DMSType - 4 nibls, FragmentId - 8 nibls)
         /// </summary>
+        [DataMember]
         private long globalId;
 
         /// <summary>
         /// Name of identified object
         /// </summary>		
+        [DataMember]
         private string description = string.Empty;
 
         /// <summary>
         /// Mrid (source) id of identified object
-        /// </summary>		
+        /// </summary>
+        [DataMember]
         private string mrid = string.Empty;
 
         /// <summary>
         /// Description of identified object
-        /// </summary>		
+        /// </summary>	
+        [DataMember]
         private string name = string.Empty;
 
         /// <summary>

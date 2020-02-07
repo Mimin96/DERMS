@@ -2,15 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
+    [DataContract]
     public class EquipmentContainer : ConnectivityNodeContainer
     {
+        [DataMember]
         private List<long> equipments = new List<long>();
+        [DataMember]
         private float longitude;
+        [DataMember]
         private float latitude;
+
         public float Longitude { get => longitude; set => longitude = value; }
         public float Latitude { get => latitude; set => latitude = value; }
         public EquipmentContainer(long globalId) : base(globalId)

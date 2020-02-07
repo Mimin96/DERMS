@@ -2,13 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
+    [DataContract]
     public class EnergyConsumer : ConductingEquipment
     {
+        [DataMember]
         private float qFixed;
+        [DataMember]
         private float pFixed;
         public EnergyConsumer(long globalId) : base(globalId)
         {

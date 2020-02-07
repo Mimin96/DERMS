@@ -3,14 +3,19 @@ using FTN.Services.NetworkModelService.DataModel.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Meas
 {
+    [DataContract]
     public class Discrete : Measurement
     {
+        [DataMember]
         private int maxValue;
+        [DataMember]
         private int minValue;
+        [DataMember]
         private int normalValue;
                 
         public int MaxValue { get => maxValue; set => maxValue = value; }

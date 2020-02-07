@@ -3,15 +3,21 @@ using FTN.Services.NetworkModelService.DataModel.Wires;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
+    [DataContract]
     public class EnergySource : ConductingEquipment
     {
+        [DataMember]
         private float activePower;
+        [DataMember]
         private float nominalVoltage;
+        [DataMember]
         private float magnitudeVoltage;
+        [DataMember]
         private EnergySourceType type;
 
         public float ActivePower { get => activePower; set => activePower = value; }

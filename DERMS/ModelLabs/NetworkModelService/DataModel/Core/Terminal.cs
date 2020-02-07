@@ -2,13 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
+    [DataContract]
     public class Terminal : IdentifiedObject
-    {       
+    {
+        [DataMember]
         private long connectivityNode = 0;
+        [DataMember]
         private long condEq = 0;
                 
         public long ConnectivityNode { get => connectivityNode; set => connectivityNode = value; }

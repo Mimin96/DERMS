@@ -10,9 +10,10 @@ using FTN.Common;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
+    [DataContract]
 	public class PowerSystemResource : IdentifiedObject
-	{     
-       
+	{
+        [DataMember]
         private List<long> measurements = new List<long>();        
         public List<long> Measurements { get => measurements; set => measurements = value; }
 

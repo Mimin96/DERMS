@@ -2,16 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
+    [DataContract]
     public class Generator : RegulatingCondEq
     {
-        
+        [DataMember]
         private float maxQ;
+        [DataMember]
         private float minQ;
+        [DataMember]
         private float considerP;
+        [DataMember]
         private GeneratorType generatorType;
       
         public float MaxQ { get => maxQ; set => maxQ = value; }

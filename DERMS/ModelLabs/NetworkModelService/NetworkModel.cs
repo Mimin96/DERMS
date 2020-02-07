@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
+using DERMSCommon.NMSCommuication;
 using FTN.Common;
 using FTN.Services.NetworkModelService.Communication;
 using FTN.Services.NetworkModelService.DataModel;
@@ -33,7 +34,10 @@ namespace FTN.Services.NetworkModelService
             //signals.Add(1, gidoviD);
 
             proxyFromNMSToCE.Open();
-            proxyFromNMSToCE.sendToCE.SendNetworkModel();
+
+            NetworkModelTransfer networkModelTransfer = DataForSendingToCE();
+
+            proxyFromNMSToCE.sendToCE.SendNetworkModel(networkModelTransfer);
 
             proxyFromNMSToScada.Open();
             proxyFromNMSToScada.sendToScada.SendGids(signals);
@@ -105,17 +109,87 @@ namespace FTN.Services.NetworkModelService
                 return updateResult;
             }
 
-
+            /*
+             NetworkModelTransfer networkModelTransfer = DataForSendingToCE();
+             proxyFromNMSToCE.sendToCE.SendNetworkModel(networkModelTransfer);
+             */
 
             return updateResult;
+        }
+
+        private NetworkModelTransfer DataForSendingToCE()
+        {
+            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> insert = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
+            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> update = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
+            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> delete = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
+
+            foreach (DMSType dmst in networkModel.networkDataModel.Keys)
+            {
+                Container container = networkModel.networkDataModel[dmst];
+
+                foreach (long key in container.Entities.Keys) 
+                {
+                    //insert
+                    if (networkModel.insert.Contains(key)) 
+                    {
+                        if (!insert.ContainsKey(dmst))
+                        {
+                            Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
+                            helper.Add(key, container.Entities[key]);
+                            insert[dmst] = helper;
+                        }
+                        else 
+                        {
+                            insert[dmst].Add(key, container.Entities[key]);
+                        }
+                    }
+
+                    //update
+                    if (networkModel.update.Contains(key))
+                    {
+                        if (!update.ContainsKey(dmst))
+                        {
+                            Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
+                            helper.Add(key, container.Entities[key]);
+                            update[dmst] = helper;
+                        }
+                        else
+                        {
+                            update[dmst].Add(key, container.Entities[key]);
+                        }
+                    }
+
+                    //delete
+                    if (networkModel.delete.Contains(key))
+                    {
+                        if (!delete.ContainsKey(dmst))
+                        {
+                            Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
+                            helper.Add(key, container.Entities[key]);
+                            delete[dmst] = helper;
+                        }
+                        else
+                        {
+                            delete[dmst].Add(key, container.Entities[key]);
+                        }
+                    }
+                }
+            }
+
+            NetworkModelTransfer networkModelTransfer = new NetworkModelTransfer(insert, update, delete);
+
+            return networkModelTransfer;
         }
     }
     public class NetworkModel
     {
+        public HashSet<long> insert;
+        public HashSet<long> update;
+        public HashSet<long> delete;
         /// <summary>
         /// Dictionaru which contains all data: Key - DMSType, Value - Container
         /// </summary>
-        private Dictionary<DMSType, Container> networkDataModel;
+        public Dictionary<DMSType, Container> networkDataModel;
 
         /// <summary>
         /// ModelResourceDesc class contains metadata of the model
@@ -334,6 +408,9 @@ namespace FTN.Services.NetworkModelService
 
         public UpdateResult ApplyDelta(Delta delta)
         {
+            insert = new HashSet<long>();
+            update = new HashSet<long>();
+            delete = new HashSet<long>();
             bool applyingStarted = false;
             UpdateResult updateResult = new UpdateResult();
 
@@ -355,16 +432,19 @@ namespace FTN.Services.NetworkModelService
                 foreach (ResourceDescription rd in delta.InsertOperations)
                 {
                     InsertEntity(rd);
+                    insert.Add(rd.Id);
                 }
 
                 foreach (ResourceDescription rd in delta.UpdateOperations)
                 {
                     UpdateEntity(rd);
+                    update.Add(rd.Id);
                 }
 
                 foreach (ResourceDescription rd in delta.DeleteOperations)
                 {
                     DeleteEntity(rd);
+                    delete.Add(rd.Id);
                 }
 
             }
@@ -743,6 +823,9 @@ namespace FTN.Services.NetworkModelService
 
         private void Initialize()
         {
+            insert = new HashSet<long>();
+            update = new HashSet<long>();
+            delete = new HashSet<long>();
             List<Delta> result = ReadAllDeltas();
 
             foreach (Delta delta in result)
@@ -752,16 +835,19 @@ namespace FTN.Services.NetworkModelService
                     foreach (ResourceDescription rd in delta.InsertOperations)
                     {
                         InsertEntity(rd);
+                        insert.Add(rd.Id);
                     }
 
                     foreach (ResourceDescription rd in delta.UpdateOperations)
                     {
                         UpdateEntity(rd);
+                        update.Add(rd.Id);
                     }
 
                     foreach (ResourceDescription rd in delta.DeleteOperations)
                     {
                         DeleteEntity(rd);
+                        delete.Add(rd.Id);
                     }
                 }
                 catch (Exception ex)

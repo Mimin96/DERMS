@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Common
 {
-
+    [DataContract]
     public enum DMSType : short
     {
         MASK_TYPE = unchecked((short)0xFFFF),

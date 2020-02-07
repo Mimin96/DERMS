@@ -2,13 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
+    [DataContract]
     public class ConnectivityNodeContainer : PowerSystemResource
     {
-
+        [DataMember]
         private List<long> connectivityNodes = new List<long>();
         public ConnectivityNodeContainer(long globalId) : base(globalId)
         {

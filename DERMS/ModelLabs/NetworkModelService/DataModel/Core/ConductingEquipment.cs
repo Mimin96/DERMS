@@ -10,12 +10,16 @@ using System.Xml;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
+    [DataContract]
 	public class ConductingEquipment : Equipment
 	{
+        [DataMember]
         private List<long> terminals = new List<long>();
         public List<long> Terminals { get => terminals; set => terminals = value; }
         //private PhaseCode phases;
+        [DataMember]
         private float longitude;
+        [DataMember]
         private float latitude;
         public float Longitude { get => longitude; set => longitude = value; }
         public float Latitude { get => latitude; set => latitude = value; }

@@ -3,14 +3,19 @@ using FTN.Services.NetworkModelService.DataModel.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Wires
 {
+    [DataContract]
     public class Switch : ConductingEquipment 
     {
+        [DataMember]
         private bool normalOpen;
+        [DataMember]
         private string feederId1;
+        [DataMember]
         private string feederId2;
 
         public Switch(long globalId) : base(globalId)

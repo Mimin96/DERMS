@@ -3,18 +3,23 @@ using FTN.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace FTN.Services.NetworkModelService.DataModel.Core
 {
+    [DataContract]
     public class SubGeographicalRegion : IdentifiedObject
     {
+        [DataMember]
         private long georeg = 0;
+        [DataMember]
         private List<long> substations = new List<long>();
         public long GeoReg { get => georeg; set => georeg = value; }
         public List<long> Substations { get => substations; set => substations = value; }
-
+        [DataMember]
         private float longitude;
+        [DataMember]
         private float latitude;
         public float Longitude { get => longitude; set => longitude = value; }
         public float Latitude { get => latitude; set => latitude = value; }
