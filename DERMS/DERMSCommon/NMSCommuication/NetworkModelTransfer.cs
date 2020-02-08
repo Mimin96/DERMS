@@ -13,6 +13,8 @@ namespace DERMSCommon.NMSCommuication
     public class NetworkModelTransfer
     {
         [DataMember]
+        private bool _initState;
+        [DataMember]
         private Dictionary<DMSType, Dictionary<long, IdentifiedObject>> _insert;
         [DataMember]
         private Dictionary<DMSType, Dictionary<long, IdentifiedObject>> _update;
@@ -23,9 +25,22 @@ namespace DERMSCommon.NMSCommuication
                                     Dictionary<DMSType, Dictionary<long, IdentifiedObject>> update,
                                     Dictionary<DMSType, Dictionary<long, IdentifiedObject>> delete) 
         {
+            _initState = false;
             _insert = insert;
             _update = update;
             _delete = delete;
+        }
+
+        public bool InitState 
+        {
+            get 
+            {
+                return _initState;
+            }
+            set 
+            {
+                _initState = value;
+            }
         }
 
         public Dictionary<DMSType, Dictionary<long, IdentifiedObject>> Insert

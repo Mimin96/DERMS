@@ -10,16 +10,23 @@ namespace DermsUI.Communication
 {
     public class CommunicationProxy
     {
-        private ServiceHost serviceHost;
+        private ServiceHost serviceHost_SCADAData;
+        private ServiceHost serviceHost_NetworkModel;
         private ChannelFactory<ICEUpdateThroughUI> factory;
         public ICEUpdateThroughUI sendToCE;
         public CommunicationProxy()
         {
             // Receive from CE
-            serviceHost = new ServiceHost(typeof(SendDataToUI));
+            serviceHost_SCADAData = new ServiceHost(typeof(SendSCADADataToUI));
 
-            serviceHost.AddServiceEndpoint(typeof(ISendDataToUI), new NetTcpBinding(),
-                                            new Uri("net.tcp://localhost:19119/ISendDataToUI"));
+            serviceHost_SCADAData.AddServiceEndpoint(typeof(ISendSCADADataToUI), new NetTcpBinding(),
+                                            new Uri("net.tcp://localhost:19119/ISendSCADADataToUI"));
+
+            // Receive from CE
+            serviceHost_NetworkModel = new ServiceHost(typeof(SendNetworkModelToUI));
+
+            serviceHost_NetworkModel.AddServiceEndpoint(typeof(ISendNetworkModelToUI), new NetTcpBinding(),
+                                            new Uri("net.tcp://localhost:18119/ISendNetworkModelToUI"));
 
             // Send to CE
             factory = new ChannelFactory<ICEUpdateThroughUI>(new NetTcpBinding(),
@@ -28,14 +35,16 @@ namespace DermsUI.Communication
 
         public void Open()
         {
-            serviceHost.Open();
+            serviceHost_SCADAData.Open();
+            serviceHost_NetworkModel.Open();
             sendToCE = factory.CreateChannel();
 
         }
 
         public void Close()
         {
-            serviceHost.Close();
+            serviceHost_SCADAData.Close();
+            serviceHost_NetworkModel.Close();
         }
     }
 }

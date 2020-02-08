@@ -15,6 +15,7 @@ using DERMSCommon;
 using DermsUI.MediatorPattern;
 using DermsUI.Communication;
 using DERMSCommon.SCADACommon;
+using DERMSCommon.NMSCommuication;
 
 namespace DermsUI.ViewModel
 {
@@ -63,7 +64,8 @@ namespace DermsUI.ViewModel
         {
             Mediator.Register("GetAlarmSignals", GetAlarmSignals);
             Mediator.Register("GetAllSignals", GetAllSignals);
-            Mediator.Register("Proxy", GetSignalsFromProxy);
+            Mediator.Register("SCADAData", GetSignalsFromProxy);
+            Mediator.Register("NMSNetworkModelData", GetNetworkModelFromProxy);
             Mediator.Register("SCADACommanding", SCADACommanding);
 
             proxy = new CommunicationProxy();
@@ -176,6 +178,11 @@ namespace DermsUI.ViewModel
             DERMSCommon.SCADACommon.SCADACommanding commanding = (DERMSCommon.SCADACommon.SCADACommanding)parameter;
 
             proxy.sendToCE.UpdateThroughUI(commanding);
+        }
+
+        private void GetNetworkModelFromProxy(object parameter) 
+        {
+            NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
         }
 
         private void GetSignalsFromProxy(object parameter)

@@ -38,6 +38,7 @@ namespace FTN.Services.NetworkModelService
             DataForSendingToCEandSCADA();
 
             proxyFromNMSToCE.Open();
+            networkModelTransfer.InitState = true;
             proxyFromNMSToCE.sendToCE.SendNetworkModel(networkModelTransfer);
 
             proxyFromNMSToScada.Open();

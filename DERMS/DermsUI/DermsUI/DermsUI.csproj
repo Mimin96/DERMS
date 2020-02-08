@@ -85,7 +85,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Communication\CommunicationProxy.cs" />
-    <Compile Include="Communication\SendDataToUI.cs" />
+    <Compile Include="Communication\SendNetworkModelToUI.cs" />
+    <Compile Include="Communication\SendSCADADataToUI.cs" />
     <Compile Include="MediatorPattern\EventArgs.cs" />
     <Compile Include="MediatorPattern\EventRaiser.cs" />
     <Compile Include="MediatorPattern\Mediator.cs" />

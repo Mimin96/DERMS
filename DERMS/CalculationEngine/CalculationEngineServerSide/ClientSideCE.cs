@@ -12,10 +12,12 @@ namespace CalculationEngineService
 {
     public class ClientSideCE
     {
-        public ChannelFactory<ISendDataToUI> factoryUI;
+        public ChannelFactory<ISendSCADADataToUI> factoryUI;
+        public ChannelFactory<ISendNetworkModelToUI> factoryUI_NM;
         public ChannelFactory<IUpdateCommand> factoryScada;
 
-        public ISendDataToUI ProxyUI { get; set; }
+        public ISendSCADADataToUI ProxyUI { get; set; }
+        public ISendNetworkModelToUI ProxyUI_NM { get; set; }
         public IUpdateCommand ProxyScada { get; set; }
 
         private static ClientSideCE instance = null;
@@ -49,16 +51,15 @@ namespace CalculationEngineService
         {
             //Connect to UI
             NetTcpBinding binding = new NetTcpBinding();
-            factoryUI = new ChannelFactory<ISendDataToUI>(binding, new EndpointAddress("net.tcp://localhost:19119/ISendDataToUI"));
+            factoryUI = new ChannelFactory<ISendSCADADataToUI>(binding, new EndpointAddress("net.tcp://localhost:19119/ISendSCADADataToUI"));
             ProxyUI = factoryUI.CreateChannel();
-            Console.WriteLine("Connected: net.tcp://localhost:19119/ISendDataToUI");
+            Console.WriteLine("Connected: net.tcp://localhost:19119/ISendSCADADataToUI");
 
-            //filip
-            //ProxyUI.SendDataUI(new List<DataPoint>() { new DataPoint(10001, PointType.ANALOG_INPUT, 1001, DateTime.Now, "bb",100,  32, AlarmType.NO_ALARM),
-            //                                           new DataPoint(10002, PointType.ANALOG_OUTPUT, 1002, DateTime.Now, "cc",92, 22, AlarmType.LOW_ALARM),
-            //                                           new DataPoint(10003, PointType.DIGITAL_INPUT, 1003, DateTime.Now, "dd",205, 77, AlarmType.HIGH_ALARM),
-            //                                           new DataPoint(10004, PointType.ANALOG_INPUT, 1004, DateTime.Now, "ff",150, 55, AlarmType.ABNORMAL_VALUE),
-            //                                           new DataPoint(10005, PointType.DIGITAL_OUTPUT, 1005, DateTime.Now, "mm",102, 33, AlarmType.REASONABILITY_FAILURE)});
+            //Connect to UI
+            NetTcpBinding binding3 = new NetTcpBinding();
+            factoryUI_NM = new ChannelFactory<ISendNetworkModelToUI>(binding3, new EndpointAddress("net.tcp://localhost:18119/ISendNetworkModelToUI"));
+            ProxyUI_NM = factoryUI_NM.CreateChannel();
+            Console.WriteLine("Connected: net.tcp://localhost:18119/ISendNetworkModelToUI");
 
             //Connect to Scada
             NetTcpBinding binding2 = new NetTcpBinding();
