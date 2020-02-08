@@ -68,8 +68,8 @@ namespace DermsUI.ViewModel
             Mediator.Register("NMSNetworkModelData", GetNetworkModelFromProxy);
             Mediator.Register("SCADACommanding", SCADACommanding);
 
-            proxy = new CommunicationProxy();
-            proxy.Open();
+            //proxy = new CommunicationProxy();
+            //proxy.Open();
 
             Points = new List<DataPoint>();
 

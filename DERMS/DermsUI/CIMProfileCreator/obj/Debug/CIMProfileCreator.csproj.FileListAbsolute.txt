@@ -58,3 +58,4 @@ C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\CIMProfileCreator\b
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csprojAssemblyReference.cache

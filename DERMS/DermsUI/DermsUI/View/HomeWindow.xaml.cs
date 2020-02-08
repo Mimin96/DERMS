@@ -30,6 +30,7 @@ using GMap.NET.WindowsForms.ToolTips;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.IO;
+using System.Drawing;
 
 namespace DermsUI.View
 {
@@ -61,9 +62,8 @@ namespace DermsUI.View
 
             GMapp.DragButton = System.Windows.Forms.MouseButtons.Left;
             GMapp.Position = new PointLatLng(45.2516700, 19.8369400);
+
         }
-
-
 
         private void CheckBoxEntity()
         {
@@ -369,5 +369,30 @@ namespace DermsUI.View
             CheckBoxEnergySourceEntity.IsChecked = false;
 
         }
+
+        //Get clicked coordinates
+        private void GMapp_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+           double lat = GMapp.FromLocalToLatLng(e.X, e.Y).Lat; 
+           double lon = GMapp.FromLocalToLatLng(e.X, e.Y).Lng; 
+
+        }
+
+        private void DrawACLines(object sender, RoutedEventArgs e)
+        {
+            GMapOverlay polyOverlay = new GMapOverlay("polygons");
+            List<PointLatLng> points = new List<PointLatLng>();
+            points.Add(new PointLatLng(45.22867333882806, 19.895433916774838));
+            points.Add(new PointLatLng(45.230883919189736, 19.813390496256019));
+            points.Add(new PointLatLng(45.327444442984572, 19.87210070186676));
+
+            GMapRoute routes = new GMapRoute(points, "mypolygon")
+            {
+                Stroke = new System.Drawing.Pen(System.Drawing.Color.Red, 1)
+            };
+            polyOverlay.Routes.Add(routes);
+            GMapp.Overlays.Add(polyOverlay);
+        }
+
     }
 }
