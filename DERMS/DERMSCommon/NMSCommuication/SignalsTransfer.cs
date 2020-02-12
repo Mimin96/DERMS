@@ -1,5 +1,5 @@
-﻿using FTN.Common;
-using FTN.Services.NetworkModelService.DataModel.Core;
+﻿using DERMSCommon.DataModel.Core;
+using FTN.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

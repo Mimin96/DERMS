@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DarkSkyApi, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DarkSkyApi.3.3\lib\netstandard1.1\DarkSkyApi.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -44,6 +47,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModel\Core\ConductingEquipment.cs" />
+    <Compile Include="DataModel\Core\ConnectivityNode.cs" />
+    <Compile Include="DataModel\Core\ConnectivityNodeContainer.cs" />
+    <Compile Include="DataModel\Core\EnergyConsumer.cs" />
+    <Compile Include="DataModel\Core\EnergySource.cs" />
+    <Compile Include="DataModel\Core\Equipment.cs" />
+    <Compile Include="DataModel\Core\EquipmentContainer.cs" />
+    <Compile Include="DataModel\Core\FeederObject.cs" />
+    <Compile Include="DataModel\Core\GeographicalRegion.cs" />
+    <Compile Include="DataModel\Core\IdentifiedObject.cs" />
+    <Compile Include="DataModel\Core\PowerSystemResource.cs" />
+    <Compile Include="DataModel\Core\RegulatingCondEq.cs" />
+    <Compile Include="DataModel\Core\SubGeographicalRegion.cs" />
+    <Compile Include="DataModel\Core\Substation.cs" />
+    <Compile Include="DataModel\Core\SynchronousMachine.cs" />
+    <Compile Include="DataModel\Core\Terminal.cs" />
+    <Compile Include="DataModel\Meas\Analog.cs" />
+    <Compile Include="DataModel\Meas\Discrete.cs" />
+    <Compile Include="DataModel\Meas\Measurement.cs" />
+    <Compile Include="DataModel\Wires\ACLineSegment.cs" />
+    <Compile Include="DataModel\Wires\Breaker.cs" />
+    <Compile Include="DataModel\Wires\Conductor.cs" />
+    <Compile Include="DataModel\Wires\ProtectedSwitch.cs" />
+    <Compile Include="DataModel\Wires\Switch.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="NMSCommuication\ISendDataFromNMSToCE.cs" />
@@ -61,6 +88,10 @@
     <Compile Include="SCADACommon\SCADACommanding.cs" />
     <Compile Include="SmartCache\SCADADataPointSmartCache.cs" />
     <Compile Include="SmartCache\WeatherForecastSmartCache.cs" />
+    <Compile Include="WeatherForecast\DayAhead.cs" />
+    <Compile Include="WeatherForecast\DerForecastDayAhead.cs" />
+    <Compile Include="WeatherForecast\HourDataPoint.cs" />
+    <Compile Include="WeatherForecast\SPACalculator.cs" />
     <Compile Include="WeatherForecast\WeatherForecast.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,10 +99,9 @@
       <Project>{B1E36476-2A09-4271-B336-3158CBD9DF2F}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ModelLabs\NetworkModelService\DataModel\DataModel.csproj">
-      <Project>{ADE96497-7C11-40B6-AE82-57F956C9F104}</Project>
-      <Name>DataModel</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

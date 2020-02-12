@@ -107,10 +107,6 @@
       <Project>{B726FB71-D295-41EE-9644-B2B0B1BC8911}</Project>
       <Name>NetworkModelGDAContract</Name>
     </ProjectReference>
-    <ProjectReference Include="DataModel\DataModel.csproj">
-      <Project>{ADE96497-7C11-40B6-AE82-57F956C9F104}</Project>
-      <Name>DataModel</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

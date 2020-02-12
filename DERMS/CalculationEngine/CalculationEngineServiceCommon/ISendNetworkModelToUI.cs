@@ -1,7 +1,7 @@
-﻿using DERMSCommon.NMSCommuication;
-using FTN.Services.NetworkModelService.DataModel.Core;
-using FTN.Services.NetworkModelService.DataModel.Meas;
-using FTN.Services.NetworkModelService.DataModel.Wires;
+﻿using DERMSCommon.DataModel.Core;
+using DERMSCommon.DataModel.Meas;
+using DERMSCommon.DataModel.Wires;
+using DERMSCommon.NMSCommuication;
 using System;
 using System.Collections.Generic;
 using System.Linq;

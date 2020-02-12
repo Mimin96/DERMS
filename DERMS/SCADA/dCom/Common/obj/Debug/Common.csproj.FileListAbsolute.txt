@@ -64,3 +64,9 @@ C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\Common\obj\Debug
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.dll
+C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
+C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
+C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb

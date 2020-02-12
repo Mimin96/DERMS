@@ -5,12 +5,11 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
+using DERMSCommon.DataModel.Core;
 using DERMSCommon.NMSCommuication;
 using FTN.Common;
 using FTN.Services.NetworkModelService.Communication;
-using FTN.Services.NetworkModelService.DataModel;
-using FTN.Services.NetworkModelService.DataModel.Core;
-using FTN.Services.NetworkModelService.DataModel.Wires;
+
 
 namespace FTN.Services.NetworkModelService
 {    

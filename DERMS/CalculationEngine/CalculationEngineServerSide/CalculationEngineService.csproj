@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DarkSkyApi, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DarkSkyApi.3.3\lib\netstandard1.1\DarkSkyApi.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,7 +51,9 @@
     <Compile Include="CalculationEngineCache.cs" />
     <Compile Include="CEUpdateThroughUI.cs" />
     <Compile Include="ClientSideCE.cs" />
+    <Compile Include="ConsumptionCalculator.cs" />
     <Compile Include="INotify.cs" />
+    <Compile Include="ProductionCalculator.cs" />
     <Compile Include="PubSubCalculatioEngine.cs" />
     <Compile Include="SendDataFromNMSToCE.cs" />
     <Compile Include="SendDataToCEThroughScada.cs" />
@@ -67,10 +72,6 @@
       <Project>{B1E36476-2A09-4271-B336-3158CBD9DF2F}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ModelLabs\NetworkModelService\DataModel\DataModel.csproj">
-      <Project>{ADE96497-7C11-40B6-AE82-57F956C9F104}</Project>
-      <Name>DataModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\WeatherForecast\WeatherForecast.csproj">
       <Project>{7CD8706F-8BD8-497C-93A4-EB072FA58EB5}</Project>
       <Name>WeatherForecast</Name>
@@ -79,6 +80,9 @@
       <Project>{C6A1D90E-C842-4B98-958B-C3267664D121}</Project>
       <Name>CalculationEngineServiceCommon</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

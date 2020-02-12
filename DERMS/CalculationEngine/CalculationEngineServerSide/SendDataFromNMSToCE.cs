@@ -1,6 +1,7 @@
 ﻿using DERMSCommon.NMSCommuication;
+using DERMSCommon.WeatherForecast;
 using FTN.Common;
-using FTN.Services.NetworkModelService.DataModel.Core;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,12 @@ namespace CalculationEngineService
                 CalculationEngineCache.Instance.RestartCache(networkModel);
             //CalculationEngineCache.Instance.PopulateNSMModelCache(networkModel);
             CalculationEngineCache.Instance.PopulateWeatherForecast(networkModel);
+            //ProductionCalculator productionCalculator = new ProductionCalculator(networkModel);
+            //Dictionary<long, DerForecastDayAhead> substationsForecast = new Dictionary<long, DerForecastDayAhead>();
 
-            ClientSideCE.Instance.ProxyUI_NM.SendDataUI(networkModel);
+            //substationsForecast = productionCalculator.CalculateSubstations(CalculationEngineCache.Instance.GetForecast(4294967297));
+            CalculationEngineCache.Instance.PopulateProductionForecast(networkModel);
+            //ClientSideCE.Instance.ProxyUI_NM.SendDataUI(networkModel);
         }
     }
 }

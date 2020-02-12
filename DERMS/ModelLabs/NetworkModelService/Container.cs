@@ -8,10 +8,9 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
 using FTN.Common;
-using FTN.Services.NetworkModelService.DataModel.Core;
-using FTN.Services.NetworkModelService.DataModel.Wires;
-using FTN.Services.NetworkModelService.DataModel;
-using FTN.Services.NetworkModelService.DataModel.Meas;
+using DERMSCommon.DataModel.Core;
+using DERMSCommon.DataModel.Meas;
+using DERMSCommon.DataModel.Wires;
 
 namespace FTN.Services.NetworkModelService
 {		

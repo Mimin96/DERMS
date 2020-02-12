@@ -1,7 +1,10 @@
-﻿using DERMSCommon.NMSCommuication;
+﻿using DarkSkyApi.Models;
+using DERMSCommon.DataModel.Core;
+using DERMSCommon.NMSCommuication;
 using DERMSCommon.SCADACommon;
+using DERMSCommon.WeatherForecast;
 using FTN.Common;
-using FTN.Services.NetworkModelService.DataModel.Core;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +18,8 @@ namespace CalculationEngineService
     {
         private Dictionary<long, IdentifiedObject> nmsCache = new Dictionary<long, IdentifiedObject>();
         private Dictionary<long, List<DataPoint>> scadaPointsCached = new Dictionary<long, List<DataPoint>>();
-        private Dictionary<long, DERMSCommon.WeatherForecast.WeatherForecast> derWeatherCached = new Dictionary<long, DERMSCommon.WeatherForecast.WeatherForecast>();
+        private Dictionary<long, Forecast> derWeatherCached = new Dictionary<long, Forecast>();
+        private Dictionary<long, DerForecastDayAhead> productionCached = new Dictionary<long, DerForecastDayAhead>();
 
         private static CalculationEngineCache instance = null;
 
@@ -63,31 +67,47 @@ namespace CalculationEngineService
         public void PopulateWeatherForecast(NetworkModelTransfer networkModel)
         {
             //KRUZNA REFERENCA PROBLEM!!!!!!!
-            DarkSkyApi darkSkyApi = new DarkSkyApi();
+            WeatherForecast.DarkSkyApi darkSkyApi = new WeatherForecast.DarkSkyApi();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
                 foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
                 {
                     var type = kvpDic.Value.GetType();
-                    if (type.Name.Equals("GeographicalRegion"))
+                    if (type.Name.Equals("Substation"))
                     {
-                        var gr = (GeographicalRegion)kvpDic.Value;
+                        var gr = (Substation)kvpDic.Value;
                         AddForecast(darkSkyApi.GetWeatherForecastAsync(gr.Latitude, gr.Longitude).Result, kvpDic.Key);
                     }
-                    else if (type.Name.Equals("ConductingEquipment"))
+                    else if (type.Name.Equals("Generator"))
                     {
-                        var gr = (ConductingEquipment)kvpDic.Value;
-                        AddForecast(darkSkyApi.GetWeatherForecastAsync(gr.Latitude, gr.Longitude).Result, kvpDic.Key);
-                    }
-                    else if (type.Name.Equals("EquipmentContainer"))
-                    {
-                        var gr = (EquipmentContainer)kvpDic.Value;
+                        var gr = (Generator)kvpDic.Value;
                         AddForecast(darkSkyApi.GetWeatherForecastAsync(gr.Latitude, gr.Longitude).Result, kvpDic.Key);
                     }
                     else if (type.Name.Equals("SubGeographicalRegion"))
                     {
                         var gr = (SubGeographicalRegion)kvpDic.Value;
                         AddForecast(darkSkyApi.GetWeatherForecastAsync(gr.Latitude, gr.Longitude).Result, kvpDic.Key);
+                    }
+                    else if (type.Name.Equals("GeographicalRegion"))
+                    {
+                        var gr = (GeographicalRegion)kvpDic.Value;
+                        AddForecast(darkSkyApi.GetWeatherForecastAsync(gr.Latitude, gr.Longitude).Result, kvpDic.Key);
+                    }
+                }
+            }
+        }
+        public void PopulateProductionForecast(NetworkModelTransfer networkModel)
+        {
+            ProductionCalculator productionCalculator = new ProductionCalculator(networkModel);
+            foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
+            {
+                foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
+                {
+                    var type = kvpDic.Value.GetType();
+                    if (type.Name.Equals("Substation"))
+                    {
+                        var gr = (Substation)kvpDic.Value;
+                        AddDerForecast(productionCalculator.CalculateSubstation(GetForecast(kvpDic.Key), gr),kvpDic.Key);
                     }
                 }
             }
@@ -100,17 +120,30 @@ namespace CalculationEngineService
             return scadaPointsCached[gid];
         }
 
-        public DERMSCommon.WeatherForecast.WeatherForecast GetForecast(long gid)
+        public Forecast GetForecast(long gid)
         {
             if (!derWeatherCached.ContainsKey(gid))
                 return null;
             return derWeatherCached[gid];
         }
 
-        public void AddForecast(DERMSCommon.WeatherForecast.WeatherForecast wf, long gid)
+        public DerForecastDayAhead GetDerForecastDayAhead(long gid)
+        {
+            if (!productionCached.ContainsKey(gid))
+                return null;
+            return productionCached[gid];
+        }
+
+        public void AddForecast(Forecast wf, long gid)
         {
             if (!derWeatherCached.ContainsKey(gid))
                 derWeatherCached.Add(gid, wf);
+        }
+
+        public void AddDerForecast(DerForecastDayAhead derForecastDayAhead, long gid)
+        {
+            if (!productionCached.ContainsKey(gid))
+                productionCached.Add(gid, derForecastDayAhead);
         }
 
         public void AddScadaPoints(List<DataPoint> dataPoints)

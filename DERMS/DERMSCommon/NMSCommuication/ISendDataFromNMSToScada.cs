@@ -1,4 +1,5 @@
-﻿using FTN.Services.NetworkModelService.DataModel.Meas;
+﻿
+using DERMSCommon.DataModel.Meas;
 using System;
 using System.Collections.Generic;
 using System.Linq;

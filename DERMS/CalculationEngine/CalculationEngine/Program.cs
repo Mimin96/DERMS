@@ -12,8 +12,8 @@ namespace CalculationEngine
     {
         static void Main(string[] args)
         {
-            DarkSkyApi darkSkyApi = new DarkSkyApi();
-            darkSkyApi.GetWeatherForecastAsync(45.25167, 19.83694);
+            //DarkSkyApi darkSkyApi = new DarkSkyApi();
+            //darkSkyApi.GetWeatherForecastAsync(45.25167, 19.83694);
 
             ServiceManager serviceManager = new ServiceManager();
             ClientSideCE n = ClientSideCE.Instance;

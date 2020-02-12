@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using DERMSCommon.DataModel.Core;
+using DERMSCommon.DataModel.Meas;
+using DERMSCommon.DataModel.Wires;
 using FTN.Common;
-using FTN.Services.NetworkModelService.DataModel.Core;
-using FTN.Services.NetworkModelService.DataModel.Meas;
-using FTN.Services.NetworkModelService.DataModel.Wires;
+
 
 namespace DERMSCommon.NMSCommuication
 {
@@ -15,7 +17,7 @@ namespace DERMSCommon.NMSCommuication
     public interface ISendDataFromNMSToCE
     {
         [OperationContract]
-        [ServiceKnownType(typeof(Switch))]
+        [ServiceKnownType(typeof(DataModel.Wires.Switch))]
         [ServiceKnownType(typeof(PROTECTED_SWITCH))]
         [ServiceKnownType(typeof(Conductor))]
         [ServiceKnownType(typeof(Breaker))]

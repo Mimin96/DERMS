@@ -59,10 +59,6 @@
       <Project>{776EB305-B428-4D01-B4A7-0B05FA59F9B9}</Project>
       <Name>DERMSCommon</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ModelLabs\NetworkModelService\DataModel\DataModel.csproj">
-      <Project>{ADE96497-7C11-40B6-AE82-57F956C9F104}</Project>
-      <Name>DataModel</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
