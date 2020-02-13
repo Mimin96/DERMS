@@ -1147,7 +1147,6 @@ C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\D
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\FTN.Common.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\MahApps.Metro.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\System.Windows.Interactivity.dll
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\FTN.DataModel.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\CalculationEngineServiceCommon.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\DERMSCommon.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\CIMProfileCreator.pdb
@@ -1155,7 +1154,6 @@ C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\F
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\ControlzEx.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\MahApps.Metro.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\MahApps.Metro.xml
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\FTN.DataModel.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\App.baml
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\View\AddNewAnalogSignal.baml
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\View\AddNewBreaker.baml
@@ -1265,3 +1263,4 @@ C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\Der
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.exe
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.pdb
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\DarkSkyApi.dll
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\DarkSkyApi.dll

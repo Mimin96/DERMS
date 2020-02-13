@@ -40,6 +40,6 @@ namespace DERMSCommon.NMSCommuication
         [ServiceKnownType(typeof(ConnectivityNode))]
         [ServiceKnownType(typeof(ConductingEquipment))]
         [ServiceKnownType(typeof(GeographicalRegion))]
-        void SendNetworkModel(NetworkModelTransfer networkModel);
+        bool SendNetworkModel(NetworkModelTransfer networkModel);
     }
 }

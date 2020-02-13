@@ -8,6 +8,7 @@ using System.ServiceModel;
 using FTN.Services.NetworkModelService;
 using System.ServiceModel.Description;
 using FTN.Common;
+using DERMSCommon.TransactionManager;
 
 namespace FTN.Services.NetworkModelService
 {
@@ -27,6 +28,7 @@ namespace FTN.Services.NetworkModelService
         public void Start()
         {
             StartHosts();
+            nm.StartService();
         }
 
         public void Dispose()
@@ -39,6 +41,20 @@ namespace FTN.Services.NetworkModelService
         {
             hosts = new List<ServiceHost>();
             hosts.Add(new ServiceHost(typeof(GenericDataAccess)));
+            hosts.Add(StartNmsTCSrv());
+        }
+
+        public ServiceHost StartNmsTCSrv()
+        {
+            ServiceHost serviceHost = new ServiceHost(new NMSTransaction(nm));
+            var behaviour = serviceHost.Description.Behaviors.Find<ServiceBehaviorAttribute>();
+            behaviour.InstanceContextMode = InstanceContextMode.Single;
+            NetTcpBinding binding = new NetTcpBinding();
+            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+
+            string address = String.Format("net.tcp://localhost:19506/ITransactionCheck");
+            serviceHost.AddServiceEndpoint(typeof(ITransactionCheck), binding, address);
+            return serviceHost;
         }
 
         private void StartHosts()

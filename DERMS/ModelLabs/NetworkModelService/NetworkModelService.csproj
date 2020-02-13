@@ -86,11 +86,15 @@
   <ItemGroup>
     <Compile Include="Communication\CommunicationWithCE.cs" />
     <Compile Include="Communication\CommunicationWithScada.cs" />
+    <Compile Include="Communication\CommunicationWithTM.cs" />
     <Compile Include="Container.cs" />
+    <Compile Include="INetworkModelDeepCopy.cs" />
     <Compile Include="NetworkModel.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="GDA\GenericDataAccess.cs" />
+    <Compile Include="NetworkModelDeepCopy.cs" />
     <Compile Include="NetworkModelService.cs" />
+    <Compile Include="NMSTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GDA\ResourceIterator.cs" />
   </ItemGroup>

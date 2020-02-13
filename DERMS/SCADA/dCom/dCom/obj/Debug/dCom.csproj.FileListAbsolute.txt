@@ -392,13 +392,11 @@ C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\D
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Modbus.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\ProcessingModule.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\FTN.Common.dll
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\FTN.DataModel.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\CalculationEngineServiceCommon.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\DERMSCommon.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Common.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\ProcessingModule.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\FTN.Common.pdb
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\FTN.DataModel.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\MainWindow.baml
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.g.resources
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.Properties.Resources.resources
@@ -437,3 +435,4 @@ C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCo
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.exe
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.pdb
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\DarkSkyApi.dll
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\DarkSkyApi.dll

@@ -12,7 +12,7 @@ namespace CalculationEngineService
 {
     public class SendDataFromNMSToCE : ISendDataFromNMSToCE
     {
-        public void SendNetworkModel(NetworkModelTransfer networkModel)
+        public bool SendNetworkModel(NetworkModelTransfer networkModel)
         {
             // TREBA DPDATI U NetworkModelTransfer JEDNO POLJE GDE SE PROVERAVA DA LI JE MODEL UPDATE U PITANJU ILI JE NMS PROSLEDIO CEO MODEL PRILIKOM POKRETANJA APLIKACIJE
             // U ZAVISNOSTI OD TOGA TREBA POZVATI SLEDECE METODE:
@@ -33,6 +33,10 @@ namespace CalculationEngineService
             CalculationEngineCache.Instance.PopulateConsumptionForecast(networkModel);
 
             //ClientSideCE.Instance.ProxyUI_NM.SendDataUI(networkModel);
+            if (networkModel != null)
+                return true;
+            else
+                return false;
         }
     }
 }

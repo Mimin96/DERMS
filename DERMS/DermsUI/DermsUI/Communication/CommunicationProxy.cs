@@ -18,8 +18,9 @@ namespace DermsUI.Communication
         {
             // Receive from CE
             serviceHost_SCADAData = new ServiceHost(typeof(SendSCADADataToUI));
-
-            serviceHost_SCADAData.AddServiceEndpoint(typeof(ISendSCADADataToUI), new NetTcpBinding(),
+            NetTcpBinding binding = new NetTcpBinding();
+            //binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            serviceHost_SCADAData.AddServiceEndpoint(typeof(ISendSCADADataToUI), binding,
                                             new Uri("net.tcp://localhost:19119/ISendSCADADataToUI"));
 
             // Receive from CE

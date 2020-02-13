@@ -9,9 +9,12 @@ namespace dCom.Configuration
 {
     public class SendDataFromNmsToScada : ISendDataFromNMSToScada
     {
-        public void SendGids(SignalsTransfer signals)
+        public bool SendGids(SignalsTransfer signals)
         {
-            return;
+            if (signals != null)
+                return true;
+            else
+                return false;
         }
     }
 }

@@ -16,6 +16,6 @@ namespace DERMSCommon.NMSCommuication
         [ServiceKnownType(typeof(Measurement))]
         [ServiceKnownType(typeof(Discrete))]
         [ServiceKnownType(typeof(Analog))]
-        void SendGids(SignalsTransfer signals);
+        bool SendGids(SignalsTransfer signals);
     }
 }

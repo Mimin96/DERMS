@@ -51,6 +51,7 @@ namespace CalculationEngineService
         {
             //Connect to UI
             NetTcpBinding binding = new NetTcpBinding();
+            //binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
             factoryUI = new ChannelFactory<ISendSCADADataToUI>(binding, new EndpointAddress("net.tcp://localhost:19119/ISendSCADADataToUI"));
             ProxyUI = factoryUI.CreateChannel();
             Console.WriteLine("Connected: net.tcp://localhost:19119/ISendSCADADataToUI");

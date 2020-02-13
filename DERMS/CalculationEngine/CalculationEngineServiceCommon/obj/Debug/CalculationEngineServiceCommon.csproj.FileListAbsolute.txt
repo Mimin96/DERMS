@@ -117,10 +117,8 @@ C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\Calculati
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\CalculationEngineServiceCommon.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DERMSCommon.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.Common.dll
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.DataModel.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DERMSCommon.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.Common.pdb
-C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.DataModel.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csproj.CopyComplete
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.pdb
@@ -136,3 +134,4 @@ C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\CalculationEngine\Calculation
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.dll
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.pdb
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DarkSkyApi.dll
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DarkSkyApi.dll
