@@ -16,6 +16,8 @@ using DermsUI.MediatorPattern;
 using DermsUI.Communication;
 using DERMSCommon.SCADACommon;
 using DERMSCommon.NMSCommuication;
+using DERMSCommon.DataModel.Core;
+using GMap.NET;
 
 namespace DermsUI.ViewModel
 {
@@ -183,6 +185,110 @@ namespace DermsUI.ViewModel
         private void GetNetworkModelFromProxy(object parameter) 
         {
             NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
+        }
+
+        public void GetNetworkModelGeneratorFromProxy(object parameter)
+        {
+            NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
+            Dictionary<long, IdentifiedObject> ioGenerator = networkModel.Insert[FTN.Common.DMSType.GENERATOR];
+            List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za generatore
+
+            foreach (var item in ioGenerator.Keys)
+            {
+                DERMSCommon.DataModel.Core.Generator g = ioGenerator[item] as DERMSCommon.DataModel.Core.Generator;
+                coordinates.Add(new PointLatLng( g.Latitude, g.Longitude));
+            }
+        }
+
+        public void GetNetworkModelSourceFromProxy(object parameter)
+        {
+            NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
+            List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za EnergySource
+            Dictionary<long, IdentifiedObject> ioSource = networkModel.Insert[FTN.Common.DMSType.ENEGRYSOURCE];
+
+            foreach (var item in ioSource.Keys)
+            {
+                DERMSCommon.DataModel.Core.EnergySource s = ioSource[item] as DERMSCommon.DataModel.Core.EnergySource;
+                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+            }
+        }
+
+        public void GetNetworkModelioConsumerFromProxy(object parameter)
+        {
+            NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
+            List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za EnergyConsumer
+            Dictionary<long, IdentifiedObject> ioConsumer = networkModel.Insert[FTN.Common.DMSType.ENERGYCONSUMER];
+
+            foreach (var item in ioConsumer.Keys)
+            {
+                DERMSCommon.DataModel.Core.EnergyConsumer s = ioConsumer[item] as DERMSCommon.DataModel.Core.EnergyConsumer;
+                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+            }
+        }
+
+        public void GetNetworkModelioGeographicalRegionFromProxy(object parameter)
+        {
+            NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
+            List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za GeographicalRegion
+            Dictionary<long, IdentifiedObject> ioGRegion = networkModel.Insert[FTN.Common.DMSType.GEOGRAPHICALREGION];
+
+            foreach (var item in ioGRegion.Keys)
+            {
+                DERMSCommon.DataModel.Core.GeographicalRegion s = ioGRegion[item] as DERMSCommon.DataModel.Core.GeographicalRegion;
+                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+            }
+        }
+
+        public void GetNetworkModelioSubGeographicalRegionFromProxy(object parameter)
+        {
+            NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
+            List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za SubGeographicalRegion
+            Dictionary<long, IdentifiedObject> ioSubGRegion = networkModel.Insert[FTN.Common.DMSType.SUBGEOGRAPHICALREGION];
+
+            foreach (var item in ioSubGRegion.Keys)
+            {
+                DERMSCommon.DataModel.Core.SubGeographicalRegion s = ioSubGRegion[item] as DERMSCommon.DataModel.Core.SubGeographicalRegion;
+                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+            }
+        }
+
+        public void GetNetworkModelioSubstationFromProxy(object parameter)
+        {
+            NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
+            List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za Substation
+            Dictionary<long, IdentifiedObject> ioSubstation = networkModel.Insert[FTN.Common.DMSType.SUBSTATION];
+
+            foreach (var item in ioSubstation.Keys)
+            {
+                DERMSCommon.DataModel.Core.Substation s = ioSubstation[item] as DERMSCommon.DataModel.Core.Substation;
+                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+            }
+        }
+
+        public void GetNetworkModelBreakerFromProxy(object parameter)
+        {
+            NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
+            List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za Breaker
+            Dictionary<long, IdentifiedObject> ioBreaker = networkModel.Insert[FTN.Common.DMSType.BREAKER];
+
+            foreach (var item in ioBreaker.Keys)
+            {
+                DERMSCommon.DataModel.Wires.Breaker s = ioBreaker[item] as DERMSCommon.DataModel.Wires.Breaker;
+                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+            }
+        }
+
+        public void GetNetworkModelACLineSegmentrFromProxy(object parameter)
+        {
+            NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
+            List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za ACLineSegment
+            Dictionary<long, IdentifiedObject> ioACLineSegment = networkModel.Insert[FTN.Common.DMSType.ACLINESEGMENT];
+
+            foreach (var item in ioACLineSegment.Keys)
+            {
+                DERMSCommon.DataModel.Wires.ACLineSegment s = ioACLineSegment[item] as DERMSCommon.DataModel.Wires.ACLineSegment;
+                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+            }
         }
 
         private void GetSignalsFromProxy(object parameter)
