@@ -112,6 +112,11 @@ namespace CalculationEngineService
                 }
             }
         }
+        public void PopulateConsumptionForecast(NetworkModelTransfer networkModel)
+        {
+            ConsumptionCalculator consumptionCalculator = new ConsumptionCalculator(networkModel);
+            consumptionCalculator.Calculate(productionCached);
+        }
 
         public List<DataPoint> GetDataPoints(long gid)
         {

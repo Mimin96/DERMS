@@ -88,6 +88,7 @@
     <Compile Include="SCADACommon\SCADACommanding.cs" />
     <Compile Include="SmartCache\SCADADataPointSmartCache.cs" />
     <Compile Include="SmartCache\WeatherForecastSmartCache.cs" />
+    <Compile Include="WeatherForecast\ConsumerCharacteristics.cs" />
     <Compile Include="WeatherForecast\DayAhead.cs" />
     <Compile Include="WeatherForecast\DerForecastDayAhead.cs" />
     <Compile Include="WeatherForecast\HourDataPoint.cs" />

@@ -12999,3 +12999,93 @@ Exception rethrown at [0]:
    at FTN.Services.NetworkModelService.NetworkModelDeepCopy..ctor() in C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService\NetworkModel.cs:line 44
    at FTN.Services.NetworkModelService.NetworkModelService..ctor() in C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService\NetworkModelService.cs:line 21
    at FTN.Services.NetworkModelService.Program.Main(String[] args) in C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\Program.cs:line 22
+2/12/2020 1:26:48 PM : Starting Network Model Serivice...
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000100000001).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000100000002).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000b00000001).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000b00000002).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000a00000001).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000200000001).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000200000002).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000400000001).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000400000002).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000500000001).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000500000002).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000900000001).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000c00000001).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000c00000002).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000300000001).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000300000002).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000300000003).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000300000004).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000300000005).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000300000006).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000300000007).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000600000001).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000600000002).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000600000003).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000600000004).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000600000005).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000600000006).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000600000007).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000600000008).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000600000009).
+2/12/2020 1:26:49 PM : Inserting entity with GID (000000060000000a).
+2/12/2020 1:26:49 PM : Inserting entity with GID (000000060000000b).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000700000001).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000700000002).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000800000001).
+2/12/2020 1:26:49 PM : Inserting entity with GID (0000000800000002).
+2/12/2020 10:45:19 PM : Starting Network Model Serivice...
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000100000001).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000100000002).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000b00000001).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000b00000002).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000a00000001).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000200000001).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000200000002).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000400000001).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000400000002).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000500000001).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000500000002).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000900000001).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000c00000001).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000c00000002).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000300000001).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000300000002).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000300000003).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000300000004).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000300000005).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000300000006).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000300000007).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000600000001).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000600000002).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000600000003).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000600000004).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000600000005).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000600000006).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000600000007).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000600000008).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000600000009).
+2/12/2020 10:45:19 PM : Inserting entity with GID (000000060000000a).
+2/12/2020 10:45:19 PM : Inserting entity with GID (000000060000000b).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000700000001).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000700000002).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000800000001).
+2/12/2020 10:45:19 PM : Inserting entity with GID (0000000800000002).
+2/12/2020 10:46:43 PM : This request operation sent to net.tcp://localhost:19002/ISendDataFromNMSToCE did not receive a reply within the configured timeout (00:01:00).  The time allotted to this operation may have been a portion of a longer timeout.  This may be because the service is still processing the operation or because the service was unable to send a reply message.  Please consider increasing the operation timeout (by casting the channel/proxy to IContextChannel and setting the OperationTimeout property) and ensure that the service is able to connect to the client.
+2/12/2020 10:46:43 PM : NetworkModelService failed.
+2/12/2020 10:46:43 PM : 
+Server stack trace: 
+   at System.ServiceModel.Dispatcher.DuplexChannelBinder.Request(Message message, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   at DERMSCommon.NMSCommuication.ISendDataFromNMSToCE.SendNetworkModel(NetworkModelTransfer networkModel)
+   at FTN.Services.NetworkModelService.NetworkModelDeepCopy..ctor() in C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService\NetworkModel.cs:line 41
+   at FTN.Services.NetworkModelService.NetworkModelService..ctor() in C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService\NetworkModelService.cs:line 21
+   at FTN.Services.NetworkModelService.Program.Main(String[] args) in C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\Program.cs:line 22

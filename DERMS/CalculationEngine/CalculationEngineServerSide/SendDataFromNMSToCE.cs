@@ -30,6 +30,8 @@ namespace CalculationEngineService
 
             //substationsForecast = productionCalculator.CalculateSubstations(CalculationEngineCache.Instance.GetForecast(4294967297));
             CalculationEngineCache.Instance.PopulateProductionForecast(networkModel);
+            CalculationEngineCache.Instance.PopulateConsumptionForecast(networkModel);
+
             //ClientSideCE.Instance.ProxyUI_NM.SendDataUI(networkModel);
         }
     }
