@@ -466,3 +466,33 @@ C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\d
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CopyComplete
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.exe
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.pdb
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\RtuCfg.txt
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\dCom.exe.config
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\dCom.exe
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\dCom.pdb
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\CalculationEngineServiceCommon.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Common.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\DERMSCommon.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\EasyModbus.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Modbus.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\ProcessingModule.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\FTN.Common.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\DarkSkyApi.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\CalculationEngineServiceCommon.pdb
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\DERMSCommon.pdb
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Common.pdb
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\ProcessingModule.pdb
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\FTN.Common.pdb
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csprojAssemblyReference.cache
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\MainWindow.g.cs
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\App.g.cs
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom_MarkupCompile.cache
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom_MarkupCompile.lref
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\MainWindow.baml
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.g.resources
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.Properties.Resources.resources
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.GenerateResource.cache
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CopyComplete
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.exe
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.pdb

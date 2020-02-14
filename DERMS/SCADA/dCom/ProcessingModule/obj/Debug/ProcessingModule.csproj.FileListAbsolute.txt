@@ -116,3 +116,11 @@ C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\SCADA\dCom\ProcessingModule
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.pdb
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\ProcessingModule\bin\Debug\Common.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\ProcessingModule\bin\Debug\Common.pdb
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csprojAssemblyReference.cache
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb

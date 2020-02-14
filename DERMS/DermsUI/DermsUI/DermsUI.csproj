@@ -84,6 +84,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ClientSideProxy.cs" />
     <Compile Include="Communication\CommunicationProxy.cs" />
     <Compile Include="Communication\SendNetworkModelToUI.cs" />
     <Compile Include="Communication\SendSCADADataToUI.cs" />

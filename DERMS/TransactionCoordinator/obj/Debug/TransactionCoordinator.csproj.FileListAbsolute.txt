@@ -47,3 +47,27 @@ C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\obj\
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csproj.CopyComplete
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.exe
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinator.exe.config
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinator.exe
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinator.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineService.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\DERMSCommon.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Common.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Services.NetworkModelService.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinatorService.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\DarkSkyApi.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\WeatherForecast.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineServiceCommon.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineService.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\DERMSCommon.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinatorService.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Common.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Services.NetworkModelService.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\WeatherForecast.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineServiceCommon.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csprojAssemblyReference.cache
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csproj.CopyComplete
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.exe
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.pdb

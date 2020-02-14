@@ -107,3 +107,11 @@ C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\DERMSCommon\obj\Debug\DERMS
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb
+D:\MasterRepo\DERMS\DERMS\DERMSCommon\bin\Debug\DERMSCommon.dll
+D:\MasterRepo\DERMS\DERMS\DERMSCommon\bin\Debug\DERMSCommon.pdb
+D:\MasterRepo\DERMS\DERMS\DERMSCommon\bin\Debug\DarkSkyApi.dll
+D:\MasterRepo\DERMS\DERMS\DERMSCommon\bin\Debug\FTN.Common.dll
+D:\MasterRepo\DERMS\DERMS\DERMSCommon\bin\Debug\FTN.Common.pdb
+D:\MasterRepo\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
+D:\MasterRepo\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
+D:\MasterRepo\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb

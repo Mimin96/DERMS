@@ -16,7 +16,6 @@ namespace CalculationEngineService
         {
             SCADADataPointSmartCache smartCache = new SCADADataPointSmartCache();
             smartCache.WriteToFile(data);
-            ClientSideCE.Instance.ProxyUI.SendDataUI(data);
         }
     }
 }

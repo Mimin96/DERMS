@@ -63,6 +63,10 @@
       <Project>{1802B261-9FD6-4CD7-80D8-25F0C588A9B7}</Project>
       <Name>CalculationEngineService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CalculationEngineServiceCommon\CalculationEngineServiceCommon.csproj">
+      <Project>{C6A1D90E-C842-4B98-958B-C3267664D121}</Project>
+      <Name>CalculationEngineServiceCommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

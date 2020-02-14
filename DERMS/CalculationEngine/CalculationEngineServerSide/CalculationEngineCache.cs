@@ -1,4 +1,5 @@
 ﻿using DarkSkyApi.Models;
+using DERMSCommon;
 using DERMSCommon.DataModel.Core;
 using DERMSCommon.NMSCommuication;
 using DERMSCommon.SCADACommon;
@@ -107,15 +108,18 @@ namespace CalculationEngineService
                     if (type.Name.Equals("Substation"))
                     {
                         var gr = (Substation)kvpDic.Value;
-                        AddDerForecast(productionCalculator.CalculateSubstation(GetForecast(kvpDic.Key), gr),kvpDic.Key);
+                        AddDerForecast(productionCalculator.CalculateSubstation(GetForecast(kvpDic.Key), gr), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
                     }
                 }
             }
+            PubSubCalculatioEngine.Instance.Notify(productionCached, (int)Enums.Topics.Default); // KAD SE POPUNI CACHE SALJE SVIMA Dictionary
         }
+
         public void PopulateConsumptionForecast(NetworkModelTransfer networkModel)
         {
             ConsumptionCalculator consumptionCalculator = new ConsumptionCalculator(networkModel);
             consumptionCalculator.Calculate(productionCached);
+            PubSubCalculatioEngine.Instance.Notify(productionCached, (int)Enums.Topics.Default);
         }
 
         public List<DataPoint> GetDataPoints(long gid)
@@ -145,10 +149,13 @@ namespace CalculationEngineService
                 derWeatherCached.Add(gid, wf);
         }
 
-        public void AddDerForecast(DerForecastDayAhead derForecastDayAhead, long gid)
+        public void AddDerForecast(DerForecastDayAhead derForecastDayAhead, long gid, bool isInitState)
         {
             if (!productionCached.ContainsKey(gid))
                 productionCached.Add(gid, derForecastDayAhead);
+
+            if (!isInitState)
+                PubSubCalculatioEngine.Instance.Notify(productionCached, (int)Enums.Topics.Default);
         }
 
         public void AddScadaPoints(List<DataPoint> dataPoints)
@@ -167,6 +174,11 @@ namespace CalculationEngineService
                 scadaPointsCached.Add(dp.Gid, new List<DataPoint>(temp));
                 temp.Clear();
             }
+        }
+
+        public Dictionary<long, DerForecastDayAhead> GetAllDerForecastDayAhead()
+        {
+            return productionCached;
         }
 
         public void AddNMSModelEntity(IdentifiedObject io)

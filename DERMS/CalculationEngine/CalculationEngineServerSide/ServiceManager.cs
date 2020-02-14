@@ -15,11 +15,13 @@ namespace CalculationEngineService
         private ServiceHost serviceHostUI;
         private ServiceHost serviceHostScada;
         private ServiceHost serviceHostForNMS;
+        private ServiceHost serviceHostPubSubCE;
 
-        public ServiceManager()
+        public ServiceManager(IPubSubCalculateEngine pubSubCalculateEngine)
         {
             try
             {
+                StartSubscriptionService(pubSubCalculateEngine);
                 StartService();
             }
             catch (Exception e)
@@ -57,6 +59,20 @@ namespace CalculationEngineService
             serviceHostForNMS.AddServiceEndpoint(typeof(ISendDataFromNMSToCE), binding3, address3);
             serviceHostForNMS.Open();
             Console.WriteLine("Open: net.tcp://localhost:19002/ISendDataFromNMSToCE");
+        }
+
+        private void StartSubscriptionService(IPubSubCalculateEngine subcriptionService)
+        {
+            serviceHostPubSubCE = new ServiceHost(subcriptionService);
+            var behaviour = serviceHostPubSubCE.Description.Behaviors.Find<ServiceBehaviorAttribute>();
+            behaviour.InstanceContextMode = InstanceContextMode.Single;
+            NetTcpBinding binding = new NetTcpBinding();
+            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            string address = String.Format("net.tcp://localhost:19000/IPubSubCalculateEngine");
+            serviceHostPubSubCE.AddServiceEndpoint(typeof(IPubSubCalculateEngine), binding, address);
+            serviceHostPubSubCE.Open();
+            Console.WriteLine("CalculationEngineService listening at:");
+            Console.WriteLine(address);
         }
 
         public void StopServices()

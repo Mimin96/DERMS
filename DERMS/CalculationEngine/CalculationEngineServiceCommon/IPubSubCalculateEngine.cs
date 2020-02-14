@@ -11,9 +11,9 @@ namespace CalculationEngineServiceCommon
     public interface IPubSubCalculateEngine
     {
         [OperationContract]
-        void Subscribe(string clientAddress, long gidOfTopic);
+        void Subscribe(string clientAddress, int gidOfTopic);
 
         [OperationContract]
-        void Unsubscribe(string clientAddress, long gidOfTopic, bool disconnect);
+        void Unsubscribe(string clientAddress, int gidOfTopic, bool disconnect);
     }
 }

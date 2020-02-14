@@ -231,3 +231,21 @@ C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\Calculati
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.csproj.CopyComplete
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.exe
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.pdb
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.csprojAssemblyReference.cache
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.exe
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.pdb
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\CalculationEngine.exe.config
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\CalculationEngine.exe
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\CalculationEngine.pdb
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\CalculationEngineService.dll
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\CalculationEngineServiceCommon.dll
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\DERMSCommon.dll
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\WeatherForecast.dll
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\FTN.Common.dll
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\DarkSkyApi.dll
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\DERMSCommon.pdb
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\WeatherForecast.pdb
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\CalculationEngineService.pdb
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\CalculationEngineServiceCommon.pdb
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\FTN.Common.pdb
+D:\MasterRepo\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.csproj.CopyComplete

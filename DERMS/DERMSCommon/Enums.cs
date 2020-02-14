@@ -24,5 +24,11 @@ namespace DERMSCommon
             TransactionCoordinator,
             UI
         }
+
+        public enum Topics
+        {
+            Default = 1
+            //TREBA VIDETI SA CAVICEM KO SE SVE PRETPLACUJE NA PUBSUB
+        }
     }
 }

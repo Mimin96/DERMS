@@ -21,3 +21,14 @@ C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorServi
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CopyComplete
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\TransactionCoordinatorService.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\TransactionCoordinatorService.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DERMSCommon.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\FTN.Common.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DarkSkyApi.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DERMSCommon.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\FTN.Common.pdb
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csprojAssemblyReference.cache
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CopyComplete
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
+D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb

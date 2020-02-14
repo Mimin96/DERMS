@@ -25,6 +25,8 @@ namespace DermsUI.ViewModel
     {
         private List<DataPoint> Points;
         private CommunicationProxy proxy;
+        private ClientSideProxy ClientSideProxy { get; set; }
+        private SendSCADADataToUI SendSCADADataToUI { get; set; }
 
         #region Model Management
         private UserControl _content;
@@ -70,8 +72,13 @@ namespace DermsUI.ViewModel
             Mediator.Register("NMSNetworkModelData", GetNetworkModelFromProxy);
             Mediator.Register("SCADACommanding", SCADACommanding);
 
-            proxy = new CommunicationProxy();
-            proxy.Open();
+            ClientSideProxy = new ClientSideProxy();
+            SendSCADADataToUI = new SendSCADADataToUI();
+            ClientSideProxy.StartServiceHost(SendSCADADataToUI);
+            ClientSideProxy.Subscribe(1);
+
+            //proxy = new CommunicationProxy();
+            //proxy.Open();
 
             Points = new List<DataPoint>();
 

@@ -23,6 +23,7 @@ namespace CalculationEngineService
         public void Connect()
         {
             NetTcpBinding binding = new NetTcpBinding();
+            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
             factory = new ChannelFactory<ISendSCADADataToUI>(binding, new EndpointAddress(ClientAddress));
             Proxy = factory.CreateChannel();
         }

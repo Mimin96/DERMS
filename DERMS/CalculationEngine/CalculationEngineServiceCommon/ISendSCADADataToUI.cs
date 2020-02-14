@@ -1,4 +1,5 @@
 ﻿using DERMSCommon.SCADACommon;
+using DERMSCommon.WeatherForecast;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace CalculationEngineServiceCommon
     public interface ISendSCADADataToUI
     {
         [OperationContract]
-        void SendDataUI(List<DataPoint> data);
+        void SendDataUI(Dictionary<long, DerForecastDayAhead> data);
     }
 }

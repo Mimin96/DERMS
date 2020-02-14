@@ -77,3 +77,10 @@ C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\SCADA\dCom\Common\obj\Debug
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
+D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
