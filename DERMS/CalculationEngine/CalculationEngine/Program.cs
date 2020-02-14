@@ -25,6 +25,7 @@ namespace CalculationEngine
 
             n.Connect();
 
+            n.ProxyTM.Enlist("net.tcp://localhost:20505/ITransactionListing");
             /*CalculationEngineCache.Instance.AddDerForecast(new DerForecastDayAhead(), 1, false);
             CalculationEngineCache.Instance.AddDerForecast(new DerForecastDayAhead(), 2, false);
             CalculationEngineCache.Instance.AddDerForecast(new DerForecastDayAhead(), 3, false);

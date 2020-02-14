@@ -12,13 +12,24 @@ namespace CalculationEngineService
 {
     public class SendDataFromNMSToCE : ISendDataFromNMSToCE
     {
+        private static NetworkModelTransfer _nmt = null;
+        public NetworkModelTransfer Nmt { get => _nmt; set => _nmt = value; }
+        public bool CheckForTM(NetworkModelTransfer networkModel)
+        {
+            Nmt = networkModel;
+            if (networkModel != null)
+                return true;
+            else
+                return false;
+        }
+
         public bool SendNetworkModel(NetworkModelTransfer networkModel)
         {
             // TREBA DPDATI U NetworkModelTransfer JEDNO POLJE GDE SE PROVERAVA DA LI JE MODEL UPDATE U PITANJU ILI JE NMS PROSLEDIO CEO MODEL PRILIKOM POKRETANJA APLIKACIJE
             // U ZAVISNOSTI OD TOGA TREBA POZVATI SLEDECE METODE:
             // AKO JE U PITANJU MODEL UPDATE POZIVA SE CalculationEngineCache.Instance.RestartCache(networkModel);
             // AKO JE U PITANJU CITAV MODEL PRILIKOM POKRETANJA APLIKACIJE POZIVA SE CalculationEngineCache.Instance.PopulateNSMModelCache(networkModel);
-
+            networkModel = Nmt;
             if(networkModel.InitState)
                 CalculationEngineCache.Instance.PopulateNSMModelCache(networkModel);
             else

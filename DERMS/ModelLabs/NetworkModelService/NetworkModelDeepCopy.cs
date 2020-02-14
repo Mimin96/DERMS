@@ -19,37 +19,11 @@ namespace FTN.Services.NetworkModelService
         CommunicationWithCE proxyFromNMSToCE;
         CommunicationWithScada proxyFromNMSToScada;
         CommunicationWithTM proxyFromNMSToTM;
-        List<long> gidoviA = new List<long>();
-        List<long> gidoviD = new List<long>();
         NetworkModelTransfer networkModelTransfer;
         SignalsTransfer signalsTransfer;
         public NetworkModelDeepCopy()
         {
             networkModel = new NetworkModel();
-            //proxyFromNMSToTM = new CommunicationWithTM();
-            //proxyFromNMSToCE = new CommunicationWithCE();
-            //proxyFromNMSToScada = new CommunicationWithScada();
-            //networkModel = new NetworkModel();
-            //bool result;
-            ////gidoviA = networkModel.GetContainer(DMSType.ANALOG).GetEntitiesGlobalIds();
-            ////gidoviD = networkModel.GetContainer(DMSType.DISCRETE).GetEntitiesGlobalIds();           
-            ////signals.Add(0, gidoviA);
-            ////signals.Add(1, gidoviD);
-
-            //proxyFromNMSToTM.Open();
-            //proxyFromNMSToTM.sendToTM.Enlist("net.tcp://localhost:19506/ITransactionCheck");           
-
-            //proxyFromNMSToCE.Open();
-
-            //DataForSendingToCEandSCADA();
-            //networkModelTransfer.InitState = true;
-
-            //result = proxyFromNMSToCE.sendToCE.SendNetworkModel(networkModelTransfer);
-
-            //proxyFromNMSToScada.Open();
-            //result = proxyFromNMSToScada.sendToScada.SendGids(signalsTransfer);
-
-            //proxyFromNMSToTM.sendToTM.FinishList(result);
         }
 
         public void StartService()
@@ -59,12 +33,7 @@ namespace FTN.Services.NetworkModelService
             proxyFromNMSToScada = new CommunicationWithScada();
             networkModel = new NetworkModel();
             bool result;
-            bool result1;
-
-            //gidoviA = networkModel.GetContainer(DMSType.ANALOG).GetEntitiesGlobalIds();
-            //gidoviD = networkModel.GetContainer(DMSType.DISCRETE).GetEntitiesGlobalIds();           
-            //signals.Add(0, gidoviA);
-            //signals.Add(1, gidoviD);
+            bool result1;            
 
             proxyFromNMSToTM.Open();
             proxyFromNMSToTM.sendToTM.Enlist("net.tcp://localhost:19506/ITransactionCheck");
@@ -74,7 +43,7 @@ namespace FTN.Services.NetworkModelService
             DataForSendingToCEandSCADA();
             networkModelTransfer.InitState = true;
 
-            result1 = proxyFromNMSToCE.sendToCE.SendNetworkModel(networkModelTransfer);
+            result1 = proxyFromNMSToCE.sendToCE.CheckForTM(networkModelTransfer);
 
             proxyFromNMSToScada.Open();
             result = proxyFromNMSToScada.sendToScada.SendGids(signalsTransfer);
@@ -147,15 +116,7 @@ namespace FTN.Services.NetworkModelService
             {
                 networkModel = networkModelCopy;
                 return updateResult;
-            }
-
-            //TransactionCoordinatorProxy proxy = new TransactionCoordinatorProxy("transactionCoordinatorEndpoint");////////////////////communication with TM
-            //proxy.Enlist("net.tcp://localhost:20600/ITransactionCheck");
-           
-            /*
-             NetworkModelTransfer networkModelTransfer = DataForSendingToCE();
-             proxyFromNMSToCE.sendToCE.SendNetworkModel(networkModelTransfer);
-             */
+            }          
 
             return updateResult;
         }

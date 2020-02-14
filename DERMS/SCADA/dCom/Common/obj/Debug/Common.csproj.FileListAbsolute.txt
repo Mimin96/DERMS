@@ -84,3 +84,5 @@ D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyRefer
 D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete

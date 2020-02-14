@@ -1,5 +1,6 @@
 ﻿using CalculationEngineServiceCommon;
 using DERMSCommon.NMSCommuication;
+using DERMSCommon.TransactionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,17 @@ namespace CalculationEngineService
         private ServiceHost serviceHostScada;
         private ServiceHost serviceHostForNMS;
         private ServiceHost serviceHostPubSubCE;
+        private ServiceHost serviceHostForTM;
+        private SendDataFromNMSToCE nmsToCe = null;
 
         public ServiceManager(IPubSubCalculateEngine pubSubCalculateEngine)
         {
             try
             {
+                nmsToCe = new SendDataFromNMSToCE();
                 StartSubscriptionService(pubSubCalculateEngine);
                 StartService();
+                StartServiceForTM();
             }
             catch (Exception e)
             {
@@ -73,6 +78,20 @@ namespace CalculationEngineService
             serviceHostPubSubCE.Open();
             Console.WriteLine("CalculationEngineService listening at:");
             Console.WriteLine(address);
+        }
+
+        public void StartServiceForTM()
+        {
+            //Open service for TM
+            string address4 = String.Format("net.tcp://localhost:19516/ITransactionCheck");
+            NetTcpBinding binding4 = new NetTcpBinding();
+            binding4.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            serviceHostForTM = new ServiceHost(new CETransaction(nmsToCe));
+            var behaviour = serviceHostForTM.Description.Behaviors.Find<ServiceBehaviorAttribute>();
+            behaviour.InstanceContextMode = InstanceContextMode.Single;
+            serviceHostForTM.AddServiceEndpoint(typeof(ITransactionCheck), binding4, address4);
+            serviceHostForTM.Open();
+            Console.WriteLine("Open: net.tcp://localhost:19516/ITransactionCheck");
         }
 
         public void StopServices()

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculationEngineCache.cs" />
+    <Compile Include="CETransaction.cs" />
     <Compile Include="CEUpdateThroughUI.cs" />
     <Compile Include="ClientSideCE.cs" />
     <Compile Include="ConsumptionCalculator.cs" />

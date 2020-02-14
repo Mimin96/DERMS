@@ -56,14 +56,22 @@ namespace TransactionCoordinator
         {           
             TranscationCoordinatorCheck proxy = new TranscationCoordinatorCheck("net.tcp://localhost:19506/ITransactionCheck");
             proxy.Rollback();
-            Console.WriteLine(DateTime.Now + ": Distributed transaction successfull. Rollback on NMS is done.");            
+            Console.WriteLine(DateTime.Now + ": Distributed transaction successfull. Rollback on NMS is done.");
+
+            TranscationCoordinatorCheck proxy1 = new TranscationCoordinatorCheck("net.tcp://localhost:19516/ITransactionCheck");
+            proxy1.Rollback();
+            Console.WriteLine(DateTime.Now + ": Distributed transaction failed. Rollback on CE is done.");
         }
 
         private void Commit()
         {
-            TranscationCoordinatorCheck proxy = new TranscationCoordinatorCheck("net.tcp://localhost:19506/ITransactionCheck");
-            proxy.Commit();
-            Console.WriteLine(DateTime.Now + ": Distributed transaction successfull. Commit on NMS is done.");            
+            TranscationCoordinatorCheck proxy_NMS = new TranscationCoordinatorCheck("net.tcp://localhost:19506/ITransactionCheck");
+            proxy_NMS.Commit();
+            Console.WriteLine(DateTime.Now + ": Distributed transaction successfull. Commit on NMS is done.");
+
+            TranscationCoordinatorCheck proxy_CE = new TranscationCoordinatorCheck("net.tcp://localhost:19516/ITransactionCheck");
+            proxy_CE.Commit();
+            Console.WriteLine(DateTime.Now + ": Distributed transaction successfull. Commit on CE is done.");
         }
     }
 }

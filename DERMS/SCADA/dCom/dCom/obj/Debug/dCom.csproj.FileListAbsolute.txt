@@ -496,3 +496,4 @@ D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.GenerateResource
 D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CopyComplete
 D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.exe
 D:\MasterRepo\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.pdb
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\EasyModbus.dll
