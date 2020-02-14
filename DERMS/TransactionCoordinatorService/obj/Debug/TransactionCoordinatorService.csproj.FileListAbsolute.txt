@@ -10,3 +10,14 @@ C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\TransactionCoordinatorServi
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DarkSkyApi.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\TransactionCoordinatorService.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\TransactionCoordinatorService.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DERMSCommon.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\FTN.Common.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DarkSkyApi.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DERMSCommon.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\FTN.Common.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csprojAssemblyReference.cache
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CopyComplete
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb

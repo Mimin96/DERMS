@@ -23,3 +23,27 @@ C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\TransactionCoordinator\obj\
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinatorService.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinatorService.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinator.exe.config
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinator.exe
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinator.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineService.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\DERMSCommon.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Common.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Services.NetworkModelService.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinatorService.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\DarkSkyApi.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\WeatherForecast.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineServiceCommon.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineService.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\DERMSCommon.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinatorService.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Common.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Services.NetworkModelService.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\WeatherForecast.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csprojAssemblyReference.cache
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csproj.CopyComplete
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.exe
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.pdb

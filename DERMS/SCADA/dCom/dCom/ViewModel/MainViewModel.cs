@@ -35,6 +35,7 @@ namespace dCom.ViewModel
 		private bool timerThreadStopSignal = true;
 		private bool disposed = false;
 		IConfiguration configuration;
+		EasyModbus.ModbusClient modbusClient = new EasyModbus.ModbusClient();
 		#endregion Fields
 
 		#region Properties
@@ -102,6 +103,10 @@ namespace dCom.ViewModel
             configuration = new ConfigReader();
 			commandExecutor = new FunctionExecutor(this, configuration);
 			this.acquisitor = new Acquisitor(acquisitionTrigger, this.commandExecutor, this, configuration);
+			modbusClient.Connect();
+			ushort a = configuration.GetStartAddress("DigOut0");
+			bool[] nesto = modbusClient.ReadCoils(configuration.GetStartAddress("DigOut0"), 1);
+
 			InitializePointCollection();
 			InitializeAndStartThreads();
 			logBuilder = new StringBuilder();

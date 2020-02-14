@@ -119,3 +119,9 @@ C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CopyComplete
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.dll
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\ModelLabs\bin\FTN.Services.NetworkModelService.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\ModelLabs\bin\FTN.Services.NetworkModelService.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csprojAssemblyReference.cache
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CopyComplete
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.pdb

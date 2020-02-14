@@ -147,3 +147,14 @@ C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\13.2.2020\DERMS\DERMS\Cal
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\13.2.2020\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csproj.CopyComplete
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\13.2.2020\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.dll
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\13.2.2020\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\CalculationEngineServiceCommon.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DERMSCommon.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.Common.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DarkSkyApi.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DERMSCommon.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.Common.pdb
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csprojAssemblyReference.cache
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csproj.CopyComplete
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.dll
+C:\Users\luka.bosanac\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.pdb
