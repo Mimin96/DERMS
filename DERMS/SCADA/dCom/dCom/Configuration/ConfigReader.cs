@@ -1,6 +1,7 @@
 ﻿using Common;
 using dCom.Exceptions;
 using DERMSCommon.NMSCommuication;
+using DERMSCommon.TransactionManager;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -146,6 +147,18 @@ namespace dCom.Configuration
             serviceHostForNMS.AddServiceEndpoint(typeof(ISendDataFromNMSToScada), binding, address3);
             serviceHostForNMS.Open();
             Console.WriteLine("Open: net.tcp://localhost:19012/ISendDataFromNMSToScada");
+
+            //Open service for TM
+            SendDataFromNmsToScada nmsToScada = new SendDataFromNmsToScada();
+            string address4 = String.Format("net.tcp://localhost:19518/ITransactionCheck");
+            NetTcpBinding binding4 = new NetTcpBinding();
+            binding4.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            ServiceHost serviceHostForTM = new ServiceHost(new SCADATranscation(nmsToScada));
+            var behaviour = serviceHostForTM.Description.Behaviors.Find<ServiceBehaviorAttribute>();
+            behaviour.InstanceContextMode = InstanceContextMode.Single;
+            serviceHostForTM.AddServiceEndpoint(typeof(ITransactionCheck), binding4, address4);
+            serviceHostForTM.Open();
+            Console.WriteLine("Open: net.tcp://localhost:19518/ITransactionCheck");
         }
 
 		public ushort GetTransactionId()

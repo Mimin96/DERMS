@@ -50,6 +50,16 @@ namespace TransactionCoordinatorService
             serviceHostForCE.Open();
             Console.WriteLine("Open: net.tcp://localhost:20505/ITransactionListing");
 
+            // Open service for SCADA 
+            string address2 = String.Format("net.tcp://localhost:20508/ITransactionListing");
+            NetTcpBinding binding2 = new NetTcpBinding();
+            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            serviceHostScada = new ServiceHost(typeof(TransactionCoordinator.TransactionCoordinator));
+
+            serviceHostScada.AddServiceEndpoint(typeof(ITransactionListing), binding2, address2);
+            serviceHostScada.Open();
+            Console.WriteLine("Open: net.tcp://localhost:20508/ITransactionListing");
+
         }
 
         public void StopServices()

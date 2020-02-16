@@ -86,3 +86,11 @@ D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 D:\MasterRepo\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.dll
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb

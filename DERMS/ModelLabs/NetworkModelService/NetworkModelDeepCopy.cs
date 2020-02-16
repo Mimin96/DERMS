@@ -46,7 +46,7 @@ namespace FTN.Services.NetworkModelService
             result1 = proxyFromNMSToCE.sendToCE.CheckForTM(networkModelTransfer);
 
             proxyFromNMSToScada.Open();
-            result = proxyFromNMSToScada.sendToScada.SendGids(signalsTransfer);
+            result = proxyFromNMSToScada.sendToScada.CheckForTM(signalsTransfer);
 
             proxyFromNMSToTM.sendToTM.FinishList(result && result1);
         }

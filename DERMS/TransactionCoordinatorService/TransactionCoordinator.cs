@@ -10,12 +10,11 @@ namespace TransactionCoordinator
 {
     public class TransactionCoordinator : ITransactionListing
     {
-        private List<string> _activeServices;
+        private static List<string> _activeServices = new List<string>();
         bool result = false;
 
         public TransactionCoordinator()
         {
-            this._activeServices = new List<string>();
         }        
 
         public void Enlist(string adress)
@@ -61,6 +60,10 @@ namespace TransactionCoordinator
             TranscationCoordinatorCheck proxy1 = new TranscationCoordinatorCheck("net.tcp://localhost:19516/ITransactionCheck");
             proxy1.Rollback();
             Console.WriteLine(DateTime.Now + ": Distributed transaction failed. Rollback on CE is done.");
+
+            TranscationCoordinatorCheck proxy2 = new TranscationCoordinatorCheck("net.tcp://localhost:19518/ITransactionCheck");
+            proxy2.Rollback();
+            Console.WriteLine(DateTime.Now + ": Distributed transaction failed. Rollback on SCADA is done.");
         }
 
         private void Commit()
@@ -72,6 +75,10 @@ namespace TransactionCoordinator
             TranscationCoordinatorCheck proxy_CE = new TranscationCoordinatorCheck("net.tcp://localhost:19516/ITransactionCheck");
             proxy_CE.Commit();
             Console.WriteLine(DateTime.Now + ": Distributed transaction successfull. Commit on CE is done.");
+
+            TranscationCoordinatorCheck proxy_SCADA = new TranscationCoordinatorCheck("net.tcp://localhost:19518/ITransactionCheck");
+            proxy_SCADA.Commit();
+            Console.WriteLine(DateTime.Now + ": Distributed transaction successfull. Commit on SCADA is done.");
         }
     }
 }

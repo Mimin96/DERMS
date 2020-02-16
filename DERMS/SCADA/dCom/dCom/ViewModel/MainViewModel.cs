@@ -1,6 +1,8 @@
 ﻿using CalculationEngineServiceCommon;
 using Common;
 using dCom.Configuration;
+using DERMSCommon.NMSCommuication;
+using DERMSCommon.TransactionManager;
 using Modbus.Acquisition;
 using Modbus.Connection;
 using System;
@@ -18,6 +20,9 @@ namespace dCom.ViewModel
         public ObservableCollection<BasePointItem> Points { get; set; }
         private ISendDataToCEThroughScada ProxyUI { get; set; }
         private ChannelFactory<ISendDataToCEThroughScada> factoryUI;
+
+        private ITransactionListing ProxyTM { get; set; }
+        private ChannelFactory<ITransactionListing> factoryTM;
 
         #region Fields
 
@@ -100,6 +105,14 @@ namespace dCom.ViewModel
 
 		public MainViewModel()
 		{
+            //Connect to TM
+            NetTcpBinding binding4 = new NetTcpBinding();
+            factoryTM = new ChannelFactory<ITransactionListing>(binding4, new EndpointAddress("net.tcp://localhost:20508/ITransactionListing"));
+            ProxyTM = factoryTM.CreateChannel();
+
+            Console.WriteLine("Connected: net.tcp://localhost:20508/ITransactionListing");
+            ProxyTM.Enlist("net.tcp://localhost:19518/ITransactionCheck");
+
             configuration = new ConfigReader();
 			commandExecutor = new FunctionExecutor(this, configuration);
 			this.acquisitor = new Acquisitor(acquisitionTrigger, this.commandExecutor, this, configuration);

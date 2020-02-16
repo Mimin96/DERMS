@@ -32,3 +32,15 @@ D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoo
 D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CopyComplete
 D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
 D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\TransactionCoordinatorService.dll
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\TransactionCoordinatorService.pdb
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DERMSCommon.dll
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\FTN.Common.dll
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DarkSkyApi.dll
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DERMSCommon.pdb
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CopyComplete
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
+C:\Users\Nemanja\Desktop\master\dermsMaster\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb

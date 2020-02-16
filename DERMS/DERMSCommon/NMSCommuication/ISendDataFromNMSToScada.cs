@@ -17,5 +17,12 @@ namespace DERMSCommon.NMSCommuication
         [ServiceKnownType(typeof(Discrete))]
         [ServiceKnownType(typeof(Analog))]
         bool SendGids(SignalsTransfer signals);
+
+        [OperationContract]
+        [ServiceKnownType(typeof(Measurement))]
+        [ServiceKnownType(typeof(Discrete))]
+        [ServiceKnownType(typeof(Analog))]
+        bool CheckForTM(SignalsTransfer signals);
+
     }
 }
