@@ -30,5 +30,12 @@ namespace DERMSCommon
             Default = 1
             //TREBA VIDETI SA CAVICEM KO SE SVE PRETPLACUJE NA PUBSUB
         }
+
+        public enum Energized
+        {
+            NotEnergized = 0,
+            FromEnergySRC,
+            FromIsland
+        }
     }
 }
