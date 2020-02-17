@@ -34,5 +34,6 @@ namespace DERMSCommon
 
         public IdentifiedObject IdentifiedObject { get { return idenetifiedObj; } set { idenetifiedObj = value; } }
         public Energized Energized { get { return energized; } set { energized = value; } }
+        public DMSType Type { get { return type; } set { type = value; } }
     }
 }

@@ -168,3 +168,14 @@ C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\bin\ModelLabsApp.
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.csproj.CopyComplete
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.exe
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.pdb
+C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\ModelLabs\bin\ModelLabsApp.exe.config
+C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\ModelLabs\bin\ModelLabsApp.exe
+C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\ModelLabs\bin\ModelLabsApp.pdb
+C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.ModelLabsAppForm.resources
+C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.Properties.Resources.resources
+C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.csproj.GenerateResource.cache
+C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.csproj.CopyComplete
+C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.exe
+C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.pdb

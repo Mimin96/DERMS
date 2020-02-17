@@ -334,6 +334,8 @@ namespace CalculationEngineService
                 }
             }
 
+
+            ColorGraph();
             //DO UPDATE
 
             //DO DELETE
@@ -514,5 +516,171 @@ namespace CalculationEngineService
                 }
             }
         }
+
+        private void ColorGraph()
+        {
+            TreeNode<NodeData> rootNode = graphCached.FindTreeNode(x => x.IsRoot);
+
+            foreach (TreeNode<NodeData> node in rootNode.Children)
+            {
+                //Color nodes - 1 Pass 
+                ColorFromNode(node);
+            }
+
+            //Color nodes 2. pass
+            SecondColoringPass();
+
+        }
+
+        private void ColorFromNode(TreeNode<NodeData> node)
+        {
+            if (node.Data.Type == DMSType.SUBSTATION || 
+                node.Data.Type == DMSType.GEOGRAPHICALREGION || node.Data.Type == DMSType.SUBGEOGRAPHICALREGION || node.Data.Type == DMSType.SUBSTATION || 
+                node.Data.Type == DMSType.DISCRETE || node.Data.Type == DMSType.ANALOG)
+            {
+                foreach (TreeNode<NodeData> child in node.Children)
+                {
+                    ColorFromNode(child);
+                }
+            }
+
+
+            if (node.Data.Type == DMSType.ENEGRYSOURCE)
+            {
+                node.Data.Energized = Enums.Energized.FromEnergySRC;
+            }
+            else if (node.Data.Type == DMSType.GENERATOR)
+            {
+                node.Data.Energized = Enums.Energized.FromIsland;
+            }
+
+
+            if (node.Data.Type != DMSType.ENEGRYSOURCE && node.Data.Type != DMSType.BREAKER && node.Data.Type != DMSType.GENERATOR)
+            {
+                node.Data.Energized = node.Parent.Data.Energized;
+            }
+
+            if (node.Data.Type == DMSType.BREAKER)
+            {
+                Breaker breaker = (Breaker)node.Data.IdentifiedObject;
+                if (breaker.NormalOpen)
+                {
+                    node.Data.Energized = Enums.Energized.NotEnergized;
+                }
+                else
+                {
+                    node.Data.Energized = node.Parent.Data.Energized;
+                }
+            }
+
+            foreach (TreeNode<NodeData> child in node.Children)
+            {
+                ColorFromNode(child);
+            }
+
+        }
+
+        private void SecondColoringPass()
+        {
+            TreeNode<NodeData> rootNode = graphCached.FindTreeNode(x => x.IsRoot);
+            foreach (TreeNode<NodeData> node in rootNode.Children)
+            {
+                foundSinchronousMachine(node);
+            }
+
+        }
+
+        private void ColorFromBottom(TreeNode<NodeData> node)
+        {
+            if (node.Data.Type == DMSType.GENERATOR)
+            {
+                if (node.Data.Energized == Enums.Energized.FromEnergySRC)
+                {
+                    return;
+                }
+                node.Data.Energized = Enums.Energized.FromIsland;
+                ColorFromBottom(node.Parent);
+            }
+            else if (node.Data.Type == DMSType.BREAKER)
+            {
+                //vidi stanje ali u sustini se vrati nema zasto gore da ide
+                Breaker breaker = (Breaker)node.Data.IdentifiedObject;
+                if (!breaker.NormalOpen)
+                {
+                    if(node.Data.Energized == Enums.Energized.NotEnergized)
+                    {
+                        node.Data.Energized = Enums.Energized.FromIsland;
+                        ColorFromBottom(node.Parent);
+                    }
+                }
+                return;
+            }
+            else
+            {
+                // Energizuj ga kao sto mu je child energizovan
+                if (node.Data.Energized == Enums.Energized.NotEnergized)
+                {
+                    node.Data.Energized = Enums.Energized.FromIsland;
+                    ColorFromBottom(node.Parent);
+                    foreach(TreeNode<NodeData> children in node.Children)
+                    {
+                            ColorChildrenSecondPass(children);
+                    }
+                }
+                   
+            }
+        }
+
+        public void ColorChildrenSecondPass(TreeNode<NodeData> node)
+        {
+            if (node.Data.Energized != Enums.Energized.NotEnergized || node.Data.Type == DMSType.ANALOG || node.Data.Type == DMSType.DISCRETE)
+            {
+                return;
+            }
+
+            if (node.Data.Type == DMSType.BREAKER)
+            {
+                Breaker breaker = (Breaker)node.Data.IdentifiedObject;
+                if (breaker.NormalOpen)
+                {
+                    return;
+                }
+
+                node.Data.Energized = Enums.Energized.FromIsland;
+                foreach (TreeNode<NodeData> child in node.Children)
+                {
+                    ColorChildrenSecondPass(child);
+                }
+
+            }
+            else if (node.Data.Type == DMSType.ENERGYCONSUMER || node.Data.Type == DMSType.GENERATOR)
+            {
+                node.Data.Energized = Enums.Energized.FromIsland;
+                return;
+            }
+            else
+            {
+                node.Data.Energized = Enums.Energized.FromIsland;
+                foreach (TreeNode<NodeData> child in node.Children)
+                {
+                    ColorChildrenSecondPass(child);
+                }
+            }
+        }
+
+        private void foundSinchronousMachine(TreeNode<NodeData> node)
+        {
+            if (node.Data.Type == DMSType.GENERATOR)
+            {
+                ColorFromBottom(node);
+            }
+
+            foreach (TreeNode<NodeData> child in node.Children)
+            {
+                foundSinchronousMachine(child);
+            }
+        }
+
+
     }
 }
