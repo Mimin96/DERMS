@@ -11,8 +11,8 @@ namespace CalculationEngineService
     // OVA KLASA SE KORISTI ZA PUBSUB TO CE KASNIJE BITI IMPLEMENTIRANO, ZA SAD SU PIPELINE SAMO KLASE ServiceManager i ClientSideCE
     public class ServerSideProxy
     {
-        public ChannelFactory<ISendSCADADataToUI> factory;
-        public ISendSCADADataToUI Proxy { get; set; }
+        public ChannelFactory<ICalculationEnginePubSub> factory;
+        public ICalculationEnginePubSub Proxy { get; set; }
         public string ClientAddress { get; set; }
         public ServerSideProxy(string clientAddress)
         {
@@ -24,7 +24,7 @@ namespace CalculationEngineService
         {
             NetTcpBinding binding = new NetTcpBinding();
             binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-            factory = new ChannelFactory<ISendSCADADataToUI>(binding, new EndpointAddress(ClientAddress));
+            factory = new ChannelFactory<ICalculationEnginePubSub>(binding, new EndpointAddress(ClientAddress));
             Proxy = factory.CreateChannel();
         }
 

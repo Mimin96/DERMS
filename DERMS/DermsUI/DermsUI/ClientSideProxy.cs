@@ -24,19 +24,19 @@ namespace DermsUI
             string ipAddress = GetLocalIPAddress();
             int port = GetAvailablePort();
 
-            clientAddress = String.Format("net.tcp://{0}:{1}/ISendSCADADataToUI", ipAddress, port);
+            clientAddress = String.Format("net.tcp://{0}:{1}/ICalculationEnginePubSub", ipAddress, port);
             ConnectToService();
 
         }
 
-        public void StartServiceHost(ISendSCADADataToUI observerInstance)
+        public void StartServiceHost(ICalculationEnginePubSub observerInstance)
         {
             serviceHost = new ServiceHost(observerInstance);
             var behaviour = serviceHost.Description.Behaviors.Find<ServiceBehaviorAttribute>();
             behaviour.InstanceContextMode = InstanceContextMode.Single;
             NetTcpBinding binding = new NetTcpBinding();
             binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-            serviceHost.AddServiceEndpoint(typeof(ISendSCADADataToUI), binding, clientAddress);
+            serviceHost.AddServiceEndpoint(typeof(ICalculationEnginePubSub), binding, clientAddress);
             serviceHost.Open();
         }
 

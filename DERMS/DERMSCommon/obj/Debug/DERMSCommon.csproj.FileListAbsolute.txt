@@ -135,3 +135,4 @@ C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommo
 C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
 C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
 C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb
+D:\MasterRepo\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csprojAssemblyReference.cache

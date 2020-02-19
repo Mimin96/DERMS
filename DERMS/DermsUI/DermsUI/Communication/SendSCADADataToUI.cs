@@ -13,10 +13,9 @@ namespace DermsUI.Communication
 {
     public class SendSCADADataToUI : ISendSCADADataToUI
     {
-        public void SendDataUI(Dictionary<long, DerForecastDayAhead> data)
+        public void SendScadaDataToUI(List<DataPoint> data)
         {
-            //Mediator.NotifyColleagues("SCADAData", data);
-            MessageBox.Show("Data count: " + data.Count, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            Mediator.NotifyColleagues("SCADAData", data);
         }
     }
 }

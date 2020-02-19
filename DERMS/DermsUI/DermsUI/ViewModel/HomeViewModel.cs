@@ -26,7 +26,7 @@ namespace DermsUI.ViewModel
         private List<DataPoint> Points;
         private CommunicationProxy proxy;
         private ClientSideProxy ClientSideProxy { get; set; }
-        private SendSCADADataToUI SendSCADADataToUI { get; set; }
+        private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
 
         #region Model Management
         private UserControl _content;
@@ -73,8 +73,8 @@ namespace DermsUI.ViewModel
             Mediator.Register("SCADACommanding", SCADACommanding);
 
             ClientSideProxy = new ClientSideProxy();
-            SendSCADADataToUI = new SendSCADADataToUI();
-            ClientSideProxy.StartServiceHost(SendSCADADataToUI);
+            CalculationEnginePubSub = new CalculationEnginePubSub();
+            ClientSideProxy.StartServiceHost(CalculationEnginePubSub);
             ClientSideProxy.Subscribe(1);
 
             //proxy = new CommunicationProxy();

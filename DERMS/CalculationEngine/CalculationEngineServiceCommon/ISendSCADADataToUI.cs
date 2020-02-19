@@ -13,6 +13,6 @@ namespace CalculationEngineServiceCommon
     public interface ISendSCADADataToUI
     {
         [OperationContract]
-        void SendDataUI(Dictionary<long, DerForecastDayAhead> data);
+        void SendScadaDataToUI(List<DataPoint> data);
     }
 }

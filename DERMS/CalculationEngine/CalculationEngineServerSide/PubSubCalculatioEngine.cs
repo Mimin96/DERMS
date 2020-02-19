@@ -54,7 +54,7 @@ namespace CalculationEngineService
                     ServerSideProxy subscriber = subscribersCopy[subscriberAddress];
                     try
                     {
-                        subscriber.Proxy.SendDataUI(forcastDayAhead);
+                        subscriber.Proxy.SendScadaDataToUI(forcastDayAhead);
                     }
                     catch (Exception e)
                     {

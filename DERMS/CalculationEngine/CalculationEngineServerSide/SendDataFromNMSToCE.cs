@@ -43,7 +43,7 @@ namespace CalculationEngineService
             CalculationEngineCache.Instance.PopulateProductionForecast(networkModel);
             CalculationEngineCache.Instance.PopulateConsumptionForecast(networkModel);
 
-            //ClientSideCE.Instance.ProxyUI_NM.SendDataUI(networkModel);
+            ClientSideCE.Instance.ProxyUI_NM.SendDataUI(networkModel);
             if (networkModel != null)
                 return true;
             else
