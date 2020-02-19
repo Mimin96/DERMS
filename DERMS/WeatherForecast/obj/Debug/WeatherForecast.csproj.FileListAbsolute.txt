@@ -157,3 +157,15 @@ C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForec
 C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.csproj.CopyComplete
 C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.dll
 C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.pdb
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\WeatherForecast\bin\Debug\WeatherForecast.dll
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\WeatherForecast\bin\Debug\WeatherForecast.pdb
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\WeatherForecast\bin\Debug\DarkSkyApi.dll
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\WeatherForecast\bin\Debug\DERMSCommon.dll
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\WeatherForecast\bin\Debug\FTN.Common.dll
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\WeatherForecast\bin\Debug\DERMSCommon.pdb
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\WeatherForecast\bin\Debug\FTN.Common.pdb
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.csprojAssemblyReference.cache
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.csproj.CoreCompileInputs.cache
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.csproj.CopyComplete
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.dll
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.pdb

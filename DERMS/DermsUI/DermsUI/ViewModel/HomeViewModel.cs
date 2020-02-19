@@ -189,13 +189,14 @@ namespace DermsUI.ViewModel
             proxy.sendToCE.UpdateThroughUI(commanding);
         }
 
-        private void GetNetworkModelFromProxy(object parameter) 
+        private void GetNetworkModelFromProxy(object parameter)
         {
             NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
         }
 
         public void GetNetworkModelGeneratorFromProxy(object parameter)
         {
+            double lat, lon;
             NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
             Dictionary<long, IdentifiedObject> ioGenerator = networkModel.Insert[FTN.Common.DMSType.GENERATOR];
             List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za generatore
@@ -203,101 +204,115 @@ namespace DermsUI.ViewModel
             foreach (var item in ioGenerator.Keys)
             {
                 DERMSCommon.DataModel.Core.Generator g = ioGenerator[item] as DERMSCommon.DataModel.Core.Generator;
-                coordinates.Add(new PointLatLng( g.Latitude, g.Longitude));
+                ToLatLon(g.Latitude, g.Longitude, 34, out lat, out lon);
+                coordinates.Add(new PointLatLng(lat, lon));
             }
         }
 
         public void GetNetworkModelSourceFromProxy(object parameter)
         {
+            double lat, lon;
             NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
             List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za EnergySource
             Dictionary<long, IdentifiedObject> ioSource = networkModel.Insert[FTN.Common.DMSType.ENEGRYSOURCE];
 
             foreach (var item in ioSource.Keys)
             {
-                DERMSCommon.DataModel.Core.EnergySource s = ioSource[item] as DERMSCommon.DataModel.Core.EnergySource;
-                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+                DERMSCommon.DataModel.Core.EnergySource g = ioSource[item] as DERMSCommon.DataModel.Core.EnergySource;
+                ToLatLon(g.Latitude, g.Longitude, 34, out lat, out lon);
+                coordinates.Add(new PointLatLng(lat, lon));
             }
         }
 
         public void GetNetworkModelioConsumerFromProxy(object parameter)
         {
+            double lat, lon;
             NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
             List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za EnergyConsumer
             Dictionary<long, IdentifiedObject> ioConsumer = networkModel.Insert[FTN.Common.DMSType.ENERGYCONSUMER];
 
             foreach (var item in ioConsumer.Keys)
             {
-                DERMSCommon.DataModel.Core.EnergyConsumer s = ioConsumer[item] as DERMSCommon.DataModel.Core.EnergyConsumer;
-                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+                DERMSCommon.DataModel.Core.EnergyConsumer g = ioConsumer[item] as DERMSCommon.DataModel.Core.EnergyConsumer;
+                ToLatLon(g.Latitude, g.Longitude, 34, out lat, out lon);
+                coordinates.Add(new PointLatLng(lat, lon));
             }
         }
 
         public void GetNetworkModelioGeographicalRegionFromProxy(object parameter)
         {
+            double lat, lon;
             NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
             List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za GeographicalRegion
             Dictionary<long, IdentifiedObject> ioGRegion = networkModel.Insert[FTN.Common.DMSType.GEOGRAPHICALREGION];
 
             foreach (var item in ioGRegion.Keys)
             {
-                DERMSCommon.DataModel.Core.GeographicalRegion s = ioGRegion[item] as DERMSCommon.DataModel.Core.GeographicalRegion;
-                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+                DERMSCommon.DataModel.Core.GeographicalRegion g = ioGRegion[item] as DERMSCommon.DataModel.Core.GeographicalRegion;
+                ToLatLon(g.Latitude, g.Longitude, 34, out lat, out lon);
+                coordinates.Add(new PointLatLng(lat, lon));
             }
         }
 
         public void GetNetworkModelioSubGeographicalRegionFromProxy(object parameter)
         {
+            double lat, lon;
             NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
             List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za SubGeographicalRegion
             Dictionary<long, IdentifiedObject> ioSubGRegion = networkModel.Insert[FTN.Common.DMSType.SUBGEOGRAPHICALREGION];
 
             foreach (var item in ioSubGRegion.Keys)
             {
-                DERMSCommon.DataModel.Core.SubGeographicalRegion s = ioSubGRegion[item] as DERMSCommon.DataModel.Core.SubGeographicalRegion;
-                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+                DERMSCommon.DataModel.Core.SubGeographicalRegion g = ioSubGRegion[item] as DERMSCommon.DataModel.Core.SubGeographicalRegion;
+                ToLatLon(g.Latitude, g.Longitude, 34, out lat, out lon);
+                coordinates.Add(new PointLatLng(lat, lon));
             }
         }
 
         public void GetNetworkModelioSubstationFromProxy(object parameter)
         {
+            double lat, lon;
             NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
             List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za Substation
             Dictionary<long, IdentifiedObject> ioSubstation = networkModel.Insert[FTN.Common.DMSType.SUBSTATION];
 
             foreach (var item in ioSubstation.Keys)
             {
-                DERMSCommon.DataModel.Core.Substation s = ioSubstation[item] as DERMSCommon.DataModel.Core.Substation;
-                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+                DERMSCommon.DataModel.Core.Substation g = ioSubstation[item] as DERMSCommon.DataModel.Core.Substation;
+                ToLatLon(g.Latitude, g.Longitude, 34, out lat, out lon);
+                coordinates.Add(new PointLatLng(lat, lon));
             }
         }
 
         public void GetNetworkModelBreakerFromProxy(object parameter)
         {
+            double lat, lon;
             NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
             List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za Breaker
             Dictionary<long, IdentifiedObject> ioBreaker = networkModel.Insert[FTN.Common.DMSType.BREAKER];
 
             foreach (var item in ioBreaker.Keys)
             {
-                DERMSCommon.DataModel.Wires.Breaker s = ioBreaker[item] as DERMSCommon.DataModel.Wires.Breaker;
-                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+                DERMSCommon.DataModel.Wires.Breaker g = ioBreaker[item] as DERMSCommon.DataModel.Wires.Breaker;
+                ToLatLon(g.Latitude, g.Longitude, 34, out lat, out lon);
+                coordinates.Add(new PointLatLng(lat, lon));
             }
         }
 
         public void GetNetworkModelACLineSegmentrFromProxy(object parameter)
         {
+            double lat, lon;
             NetworkModelTransfer networkModel = (NetworkModelTransfer)parameter;
             List<PointLatLng> coordinates = new List<PointLatLng>(); //Lista koordinata za ACLineSegment
             Dictionary<long, IdentifiedObject> ioACLineSegment = networkModel.Insert[FTN.Common.DMSType.ACLINESEGMENT];
 
             foreach (var item in ioACLineSegment.Keys)
             {
-                DERMSCommon.DataModel.Wires.ACLineSegment s = ioACLineSegment[item] as DERMSCommon.DataModel.Wires.ACLineSegment;
-                coordinates.Add(new PointLatLng(s.Latitude, s.Longitude));
+                DERMSCommon.DataModel.Wires.ACLineSegment g = ioACLineSegment[item] as DERMSCommon.DataModel.Wires.ACLineSegment;
+                ToLatLon(g.Latitude, g.Longitude, 34, out lat, out lon);
+                coordinates.Add(new PointLatLng(lat, lon));
             }
         }
-
         private void GetSignalsFromProxy(object parameter)
         {
             List<DataPoint> newPoints = (List<DataPoint>)parameter;
@@ -341,6 +356,49 @@ namespace DermsUI.ViewModel
         {
             Mediator.NotifyColleagues("AllSignalUpdate", Points);
         }
+
+
+        public static void ToLatLon(double utmX, double utmY, int zoneUTM, out double latitude, out double longitude)
+        {
+            bool isNorthHemisphere = true;
+
+            var diflat = -0.00066286966871111111111111111111111111;
+            var diflon = -0.0003868060578;
+
+            var zone = zoneUTM;
+            var c_sa = 6378137.000000;
+            var c_sb = 6356752.314245;
+            var e2 = Math.Pow((Math.Pow(c_sa, 2) - Math.Pow(c_sb, 2)), 0.5) / c_sb;
+            var e2cuadrada = Math.Pow(e2, 2);
+            var c = Math.Pow(c_sa, 2) / c_sb;
+            var x = utmX - 500000;
+            var y = isNorthHemisphere ? utmY : utmY - 10000000;
+
+            var s = ((zone * 6.0) - 183.0);
+            var lat = y / (c_sa * 0.9996);
+            var v = (c / Math.Pow(1 + (e2cuadrada * Math.Pow(Math.Cos(lat), 2)), 0.5)) * 0.9996;
+            var a = x / v;
+            var a1 = Math.Sin(2 * lat);
+            var a2 = a1 * Math.Pow((Math.Cos(lat)), 2);
+            var j2 = lat + (a1 / 2.0);
+            var j4 = ((3 * j2) + a2) / 4.0;
+            var j6 = ((5 * j4) + Math.Pow(a2 * (Math.Cos(lat)), 2)) / 3.0;
+            var alfa = (3.0 / 4.0) * e2cuadrada;
+            var beta = (5.0 / 3.0) * Math.Pow(alfa, 2);
+            var gama = (35.0 / 27.0) * Math.Pow(alfa, 3);
+            var bm = 0.9996 * c * (lat - alfa * j2 + beta * j4 - gama * j6);
+            var b = (y - bm) / v;
+            var epsi = ((e2cuadrada * Math.Pow(a, 2)) / 2.0) * Math.Pow((Math.Cos(lat)), 2);
+            var eps = a * (1 - (epsi / 3.0));
+            var nab = (b * (1 - epsi)) + lat;
+            var senoheps = (Math.Exp(eps) - Math.Exp(-eps)) / 2.0;
+            var delt = Math.Atan(senoheps / (Math.Cos(nab)));
+            var tao = Math.Atan(Math.Cos(delt) * Math.Tan(nab));
+
+            longitude = ((delt * (180.0 / Math.PI)) + s) + diflon;
+            latitude = ((lat + (1 + e2cuadrada * Math.Pow(Math.Cos(lat), 2) - (3.0 / 2.0) * e2cuadrada * Math.Sin(lat) * Math.Cos(lat) * (tao - lat)) * (tao - lat)) * (180.0 / Math.PI)) + diflat;
+        }
+
         #endregion
 
         #region TreeView Commands
