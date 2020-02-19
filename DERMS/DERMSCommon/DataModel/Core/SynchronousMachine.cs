@@ -35,22 +35,38 @@ namespace DERMSCommon.DataModel.Core
 
             Substation substation = new Substation(gid);
             SubGeographicalRegion subGeoRegion = new SubGeographicalRegion(substation.SubGeoReg);
+            Random random = new Random();
+            
+            float P = 0;
 
             if (this.GeneratorType.Equals(GeneratorType.Wind))
             {
+                ConsiderP = (float)random.Next(500,1000);
                 foreach (DarkSkyApi.Models.HourDataPoint dataPoint in forecast.Hourly.Hours.Take(24))
                 {
                     WeatherForecast.HourDataPoint hourDataPoint = new WeatherForecast.HourDataPoint();
                     hourDataPoint.Time = dataPoint.Time.DateTime;
 
-                    float minWindSpeed = 2;
-                    float maxWindSpeed = 25;
+                    if(dataPoint.WindSpeed < 3.5)
+                    {
+                        P = 0;
+                    }
+                    else if(dataPoint.WindSpeed >= 3.5 && dataPoint.WindSpeed < 14)
+                    {
+                        P = (float)((dataPoint.WindSpeed - 3.5) * 0.035);
+                    }
+                    else if(dataPoint.WindSpeed >= 14 && dataPoint.WindSpeed < 25)
+                    {
+                        P = ConsiderP;
+                    }
+                    else if(dataPoint.WindSpeed >= 25)
+                    {
+                        P = 0;
+                    }
+                    
 
-                    float powerPercent = (dataPoint.WindSpeed - minWindSpeed) / (maxWindSpeed - minWindSpeed);
-                    powerPercent += 0.2f;
-
-                    hourDataPoint.ActivePower = considerP * powerPercent;
-                    hourDataPoint.ReactivePower = considerP * powerPercent / 50;
+                    hourDataPoint.ActivePower = considerP;
+                    hourDataPoint.ReactivePower = 0;
 
                     dayAhead.Hourly.Add(hourDataPoint);
                     //TODO formula za windTurbine
@@ -58,6 +74,7 @@ namespace DERMSCommon.DataModel.Core
             }
             else if(this.GeneratorType.Equals(GeneratorType.Solar))
             {
+                ConsiderP = (float)random.Next(100, 500);
                 foreach (DarkSkyApi.Models.HourDataPoint dataPoint in forecast.Hourly.Hours.Take(24))
                 {
                     WeatherForecast.HourDataPoint hourDataPoint = new WeatherForecast.HourDataPoint();
@@ -72,12 +89,17 @@ namespace DERMSCommon.DataModel.Core
                     double s = ConsiderP * (1 - dataPoint.CloudCover);
                     double test1 = Math.Cos((Math.PI / 100) * zenit);
                     double insolation = s * Math.Cos((Math.PI / 100) * zenit);
-                    if(test1<0)
+
+                    double TCell = dataPoint.Temperature + 0.025 * insolation;
+                    if(TCell >= 25)
                     {
-                        insolation = 0;
+                        TCell = 25;
                     }
-                    hourDataPoint.ActivePower = (float)insolation;
-                    hourDataPoint.ReactivePower = (float)insolation / 50;
+
+                    P = (float)(ConsiderP * insolation * 0.00095 * (1 - 0.005 * (TCell - 25)));
+
+                    hourDataPoint.ActivePower = P;
+                    hourDataPoint.ReactivePower = 0;
 
                     dayAhead.Hourly.Add(hourDataPoint);
                 }

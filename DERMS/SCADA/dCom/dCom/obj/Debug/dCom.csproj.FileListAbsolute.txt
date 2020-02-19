@@ -559,3 +559,4 @@ C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.c
 C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CopyComplete
 C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.exe
 C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.pdb
+C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\EasyModbus.dll

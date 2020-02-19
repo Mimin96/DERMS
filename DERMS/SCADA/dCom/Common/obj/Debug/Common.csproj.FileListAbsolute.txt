@@ -102,3 +102,5 @@ C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Comm
 C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete

@@ -90,16 +90,12 @@ namespace CalculationEngineService
                         var gr = (Generator)kvpDic.Value;
                         AddForecast(darkSkyApi.GetWeatherForecastAsync(gr.Latitude, gr.Longitude).Result, kvpDic.Key);
                     }
-                    else if (type.Name.Equals("SubGeographicalRegion"))
+                    else if (type.Name.Equals("EnergyConsumer"))
                     {
-                        var gr = (SubGeographicalRegion)kvpDic.Value;
+                        var gr = (EnergyConsumer)kvpDic.Value;
                         AddForecast(darkSkyApi.GetWeatherForecastAsync(gr.Latitude, gr.Longitude).Result, kvpDic.Key);
                     }
-                    else if (type.Name.Equals("GeographicalRegion"))
-                    {
-                        var gr = (GeographicalRegion)kvpDic.Value;
-                        AddForecast(darkSkyApi.GetWeatherForecastAsync(gr.Latitude, gr.Longitude).Result, kvpDic.Key);
-                    }
+                    
                 }
             }
         }
