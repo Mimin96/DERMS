@@ -136,3 +136,13 @@ C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommo
 C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
 C:\Users\Caki\Desktop\MasterProject\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb
 D:\MasterRepo\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csprojAssemblyReference.cache
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\bin\Debug\DERMSCommon.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\bin\Debug\DERMSCommon.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\bin\Debug\DarkSkyApi.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\bin\Debug\FTN.Common.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\bin\Debug\FTN.Common.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csprojAssemblyReference.cache
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CoreCompileInputs.cache
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb

@@ -64,26 +64,26 @@ namespace CalculationEngineService
                     {
                         var substation = (Substation)kvpDic.Value;
                         DerForecastDayAhead substationForecast = new DerForecastDayAhead(substation.GlobalId);
-                        foreach(Generator generator in generators)
+                        foreach (Generator generator in generators)
                         {
-                            if(substation.Equipments.Contains(generator.GlobalId))
+                            if (substation.Equipments.Contains(generator.GlobalId))
                             {
-                                DayAhead dayAhead = generator.CalculateDayAhead(forecast, substation.GlobalId);
+                                DayAhead dayAhead = generator.CalculateDayAhead(forecast, substation.GlobalId, substation);
                                 substationForecast.Production += dayAhead;
 
                                 substationsForecast[substation.GlobalId] = substationForecast;
                             }
                         }
-                        
+
                     }
-                    
+
                 }
             }
-         
+
             return substationsForecast;
         }
 
-        public DerForecastDayAhead CalculateSubstation(Forecast forecast,Substation substation)
+        public DerForecastDayAhead CalculateSubstation(Forecast forecast, Substation substation)
         {
             Dictionary<long, DerForecastDayAhead> substationsForecast = new Dictionary<long, DerForecastDayAhead>();
             List<Generator> generators = new List<Generator>();
@@ -99,21 +99,21 @@ namespace CalculationEngineService
                     }
                 }
             }
-            
-            
+
+
             DerForecastDayAhead substationForecast = new DerForecastDayAhead(substation.GlobalId);
             foreach (Generator generator in generators)
             {
                 if (substation.Equipments.Contains(generator.GlobalId))
                 {
-                    DayAhead dayAhead = generator.CalculateDayAhead(forecast, substation.GlobalId);
+                    DayAhead dayAhead = generator.CalculateDayAhead(forecast, substation.GlobalId, substation);
                     substationForecast.Production += dayAhead;
 
                     substationsForecast[substation.GlobalId] = substationForecast;
                 }
             }
 
-             
+
 
             return substationForecast;
         }

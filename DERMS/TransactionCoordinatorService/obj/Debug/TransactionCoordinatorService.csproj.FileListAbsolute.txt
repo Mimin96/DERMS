@@ -68,3 +68,15 @@ C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\TransactionCoordinatorService
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb
 D:\MasterRepo\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csprojAssemblyReference.cache
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\TransactionCoordinatorService.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\TransactionCoordinatorService.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DERMSCommon.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\FTN.Common.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DarkSkyApi.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DERMSCommon.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\FTN.Common.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csprojAssemblyReference.cache
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CoreCompileInputs.cache
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CopyComplete
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb
