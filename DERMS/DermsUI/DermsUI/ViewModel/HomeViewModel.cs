@@ -77,8 +77,8 @@ namespace DermsUI.ViewModel
             ClientSideProxy.StartServiceHost(CalculationEnginePubSub);
             ClientSideProxy.Subscribe(1);
 
-            //proxy = new CommunicationProxy();
-            //proxy.Open();
+            proxy = new CommunicationProxy();
+            proxy.Open();
 
             Points = new List<DataPoint>();
 
