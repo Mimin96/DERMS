@@ -15,6 +15,8 @@ namespace CalculationEngineService
     {
         private Dictionary<long, Forecast> subGeoRegionWeather;
         private NetworkModelTransfer networkModel;
+        Dictionary<long, DerForecastDayAhead> substationsForecast = new Dictionary<long, DerForecastDayAhead>();
+        Dictionary<long, DerForecastDayAhead> subGeographicalRegionsForecast = new Dictionary<long, DerForecastDayAhead>();
 
         public ProductionCalculator(NetworkModelTransfer networkModel)
         {
@@ -23,69 +25,9 @@ namespace CalculationEngineService
             //InitializeWeather();
         }
 
-        //private void InitializeWeather()
-        //{
-        //    subGeoRegionWeather = new Dictionary<long, Forecast>();
-        //    foreach (SubGeographicalRegion subGeoRegion in networkModel.SubGeoRegions)
-        //    {
-        //        Forecast forecast = new Forecast();
-        //        forecast.Hourly = new HourlyForecast();
-        //        forecast.Hourly.Hours = new List<DarkSkyApi.Models.HourDataPoint>();
-        //        for (int i = 0; i < 25; i++)
-        //        {
-        //            forecast.Hourly.Hours.Add(new DarkSkyApi.Models.HourDataPoint());
-        //        }
-        //        subGeoRegionWeather.Add(subGeoRegion.Gid, forecast);
-        //    }
-        //}
-
-        public Dictionary<long, DerForecastDayAhead> CalculateSubstations(Forecast forecast)
-        {
-            Dictionary<long, DerForecastDayAhead> substationsForecast = new Dictionary<long, DerForecastDayAhead>();
-            List<Generator> generators = new List<Generator>();
-            foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
-            {
-                foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
-                {
-                    var type = kvpDic.Value.GetType();
-                    if (type.Name.Equals("Generator"))
-                    {
-                        var generator = (Generator)kvpDic.Value;
-                        generators.Add(generator);
-                    }
-                }
-            }
-            foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
-            {
-                foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
-                {
-                    var type = kvpDic.Value.GetType();
-                    if (type.Name.Equals("Substation"))
-                    {
-                        var substation = (Substation)kvpDic.Value;
-                        DerForecastDayAhead substationForecast = new DerForecastDayAhead(substation.GlobalId);
-                        foreach (Generator generator in generators)
-                        {
-                            if (substation.Equipments.Contains(generator.GlobalId))
-                            {
-                                DayAhead dayAhead = generator.CalculateDayAhead(forecast, substation.GlobalId, substation);
-                                substationForecast.Production += dayAhead;
-
-                                substationsForecast[substation.GlobalId] = substationForecast;
-                            }
-                        }
-
-                    }
-
-                }
-            }
-
-            return substationsForecast;
-        }
-
         public DerForecastDayAhead CalculateSubstation(Forecast forecast, Substation substation)
         {
-            Dictionary<long, DerForecastDayAhead> substationsForecast = new Dictionary<long, DerForecastDayAhead>();
+            
             List<Generator> generators = new List<Generator>();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
@@ -112,10 +54,65 @@ namespace CalculationEngineService
                     substationsForecast[substation.GlobalId] = substationForecast;
                 }
             }
-
-
-
             return substationForecast;
         }
+
+        public DerForecastDayAhead CalculateSubRegion(SubGeographicalRegion subGeographicalRegion)
+        {
+            List<Substation> substations = new List<Substation>();
+            foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
+            {
+                foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
+                {
+                    var type = kvpDic.Value.GetType();
+                    if (type.Name.Equals("Substation"))
+                    {
+                        var substation = (Substation)kvpDic.Value;
+                        substations.Add(substation);
+                    }
+                }
+            }
+            DerForecastDayAhead subGeographicalRegionForecast = new DerForecastDayAhead(subGeographicalRegion.GlobalId);
+            foreach (Substation substation in substations)
+            {
+                if (subGeographicalRegion.Substations.Contains(substation.GlobalId))
+                {
+                    
+                    subGeographicalRegionForecast.Production += substationsForecast[substation.GlobalId].Production;
+
+                    subGeographicalRegionsForecast[subGeographicalRegion.GlobalId] = subGeographicalRegionForecast;
+                }
+            }
+            return subGeographicalRegionForecast;
+        }
+
+        public DerForecastDayAhead CalculateGeoRegion(GeographicalRegion geographicalRegion)
+        {
+            List<SubGeographicalRegion> subGeographicalRegions = new List<SubGeographicalRegion>();
+            foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
+            {
+                foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
+                {
+                    var type = kvpDic.Value.GetType();
+                    if (type.Name.Equals("SubGeographicalRegion"))
+                    {
+                        var substation = (SubGeographicalRegion)kvpDic.Value;
+                        subGeographicalRegions.Add(substation);
+                    }
+                }
+            }
+            DerForecastDayAhead geoRegionForecast = new DerForecastDayAhead(geographicalRegion.GlobalId);
+            foreach (SubGeographicalRegion subGeo in subGeographicalRegions)
+            {
+                if (geographicalRegion.Regions.Contains(subGeo.GlobalId))
+                {
+
+                    geoRegionForecast.Production += subGeographicalRegionsForecast[subGeo.GlobalId].Production;
+
+                }
+            }
+            return geoRegionForecast;
+        }
     }
+    
 }

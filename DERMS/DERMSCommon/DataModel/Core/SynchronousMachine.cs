@@ -93,12 +93,14 @@ namespace DERMSCommon.DataModel.Core
                     double test1 = Math.Cos((Math.PI / 100) * zenit);
                     double insolation = s * Math.Cos((Math.PI / 100) * zenit);
 
+                    insolation = 990 * (1 - dataPoint.CloudCover * dataPoint.CloudCover * dataPoint.CloudCover);
                     double TCell = dataPoint.Temperature + 0.025 * insolation;
                     if (TCell >= 25)
                     {
                         TCell = 25;
                     }
 
+                    
                     P = (float)(ConsiderP * insolation * 0.00095 * (1 - 0.005 * (TCell - 25)));
 
                     hourDataPoint.ActivePower = P;

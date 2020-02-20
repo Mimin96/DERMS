@@ -118,6 +118,30 @@ namespace CalculationEngineService
                     }
                 }
             }
+            foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
+            {
+                foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
+                {
+                    var type = kvpDic.Value.GetType();
+                    if (type.Name.Equals("SubGeographicalRegion"))
+                    {
+                        var gr = (SubGeographicalRegion)kvpDic.Value;
+                        AddDerForecast(productionCalculator.CalculateSubRegion(gr), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
+                    }
+                }
+            }
+            foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
+            {
+                foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
+                {
+                    var type = kvpDic.Value.GetType();
+                    if (type.Name.Equals("GeographicalRegion"))
+                    {
+                        var gr = (GeographicalRegion)kvpDic.Value;
+                        AddDerForecast(productionCalculator.CalculateGeoRegion(gr), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
+                    }
+                }
+            }
             PubSubCalculatioEngine.Instance.Notify(productionCached, (int)Enums.Topics.Default); // KAD SE POPUNI CACHE SALJE SVIMA Dictionary
         }
 
