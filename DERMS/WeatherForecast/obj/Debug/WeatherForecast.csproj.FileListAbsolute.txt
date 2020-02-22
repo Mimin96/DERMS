@@ -44,9 +44,7 @@ C:\Users\Filip\Desktop\New folder\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherF
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.dll
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\WeatherForecast\bin\Debug\FTN.Common.dll
-C:\Users\Filip\Desktop\DERMS\DERMS\WeatherForecast\bin\Debug\FTN.DataModel.dll
 C:\Users\Filip\Desktop\DERMS\DERMS\WeatherForecast\bin\Debug\FTN.Common.pdb
-C:\Users\Filip\Desktop\DERMS\DERMS\WeatherForecast\bin\Debug\FTN.DataModel.pdb
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\WeatherForecast\bin\Debug\WeatherForecast.dll
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\WeatherForecast\bin\Debug\WeatherForecast.pdb
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\WeatherForecast\bin\Debug\DarkSkyApi.dll

@@ -96,9 +96,7 @@ C:\Users\Filip\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngin
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\obj\Debug\CalculationEngineService.dll
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\obj\Debug\CalculationEngineService.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\FTN.Common.dll
-C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\FTN.DataModel.dll
 C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\FTN.Common.pdb
-C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\FTN.DataModel.pdb
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\CalculationEngineService.dll
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\CalculationEngineService.pdb
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\CalculationEngineServiceCommon.dll

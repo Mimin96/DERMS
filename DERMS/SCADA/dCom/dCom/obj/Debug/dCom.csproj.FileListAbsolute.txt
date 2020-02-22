@@ -309,9 +309,7 @@ C:\Users\Filip\Desktop\New folder\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csp
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.exe
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\FTN.Common.dll
-C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\FTN.DataModel.dll
 C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\FTN.Common.pdb
-C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\FTN.DataModel.pdb
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csprojAssemblyReference.cache
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\MainWindow.g.cs
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\App.g.cs
@@ -653,3 +651,5 @@ C:\Users\Caki\Desktop\2102\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.Cor
 C:\Users\Caki\Desktop\2102\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CopyComplete
 C:\Users\Caki\Desktop\2102\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.exe
 C:\Users\Caki\Desktop\2102\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\EasyModbus.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\DarkSkyApi.dll

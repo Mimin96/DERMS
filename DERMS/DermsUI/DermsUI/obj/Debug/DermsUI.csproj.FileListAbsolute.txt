@@ -927,8 +927,6 @@ C:\Users\Filip\Desktop\New folder\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.csproj.CopyComplete
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.exe
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.pdb
-C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\FTN.DataModel.dll
-C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\FTN.DataModel.pdb
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\DermsUI.exe.config
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\DermsUI.exe
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\DermsUI.pdb
@@ -1886,3 +1884,4 @@ C:\Users\Caki\Desktop\2102\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.csproj.
 C:\Users\Caki\Desktop\2102\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.csproj.CopyComplete
 C:\Users\Caki\Desktop\2102\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.exe
 C:\Users\Caki\Desktop\2102\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\DarkSkyApi.dll

@@ -82,9 +82,7 @@ C:\Users\Filip\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngin
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.dll
 C:\Users\Filip\Desktop\New folder\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.Common.dll
-C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.DataModel.dll
 C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.Common.pdb
-C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.DataModel.pdb
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\CalculationEngineServiceCommon.dll
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\CalculationEngineServiceCommon.pdb
 C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DERMSCommon.dll
@@ -229,3 +227,4 @@ C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServic
 C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csproj.CopyComplete
 C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.dll
 C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DarkSkyApi.dll
