@@ -16,6 +16,7 @@ namespace DERMSCommon
         private bool isRoot;
         private Energized energized;
         private DMSType type;
+        private float val;
 
         public NodeData(IdentifiedObject identified, DMSType type, bool isroot)
         {
@@ -35,5 +36,6 @@ namespace DERMSCommon
         public IdentifiedObject IdentifiedObject { get { return idenetifiedObj; } set { idenetifiedObj = value; } }
         public Energized Energized { get { return energized; } set { energized = value; } }
         public DMSType Type { get { return type; } set { type = value; } }
+        public float Value { get { return val; } set { val = value; } }
     }
 }

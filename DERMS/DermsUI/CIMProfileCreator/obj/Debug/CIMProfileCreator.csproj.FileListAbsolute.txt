@@ -98,3 +98,9 @@ C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\Der
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.dll
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.pdb
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\DermsUI\CIMProfileCreator\bin\Debug\CIMProfileCreator.dll
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\DermsUI\CIMProfileCreator\bin\Debug\CIMProfileCreator.pdb
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.dll
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.pdb

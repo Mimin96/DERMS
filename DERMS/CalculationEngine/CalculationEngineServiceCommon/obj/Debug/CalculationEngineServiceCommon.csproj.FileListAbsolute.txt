@@ -217,3 +217,15 @@ C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\Cal
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csproj.CopyComplete
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.dll
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\19.2.2020\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\CalculationEngineServiceCommon.dll
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DERMSCommon.dll
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.Common.dll
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DarkSkyApi.dll
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DERMSCommon.pdb
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.Common.pdb
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csproj.CopyComplete
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.dll
+C:\Users\Caki\Desktop\2102\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.pdb

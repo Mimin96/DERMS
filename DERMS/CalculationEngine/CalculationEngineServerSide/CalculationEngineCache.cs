@@ -10,6 +10,7 @@ using FTN.Common;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -360,9 +361,6 @@ namespace CalculationEngineService
 
 
             ColorGraph();
-            //DO UPDATE
-
-            //DO DELETE
 
             //OBAVESTI UI DA JE DOSLO DO PROMENE I POSALJI OVAJ GRAPH
         }
@@ -575,7 +573,20 @@ namespace CalculationEngineService
             }
             else if (node.Data.Type == DMSType.GENERATOR)
             {
-                node.Data.Energized = Enums.Energized.FromIsland;
+                //CAKI
+                TreeNode<NodeData> analog = graphCached.FindTreeNode(x=>x.Data.Type == DMSType.ANALOG && ((Analog)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
+                if (analog != null)
+                {
+                    if(analog.Data.Value > 0)
+                        node.Data.Energized = Enums.Energized.FromIsland;
+                    else
+                        node.Data.Energized = Enums.Energized.NotEnergized;
+                }
+                else
+                {
+                    node.Data.Energized = Enums.Energized.NotEnergized;
+                }
+
             }
 
 
@@ -586,15 +597,35 @@ namespace CalculationEngineService
 
             if (node.Data.Type == DMSType.BREAKER)
             {
+                //CAKI
+                //Posmatramo vr dig signala koji je zakacen za breaker 
                 Breaker breaker = (Breaker)node.Data.IdentifiedObject;
-                if (breaker.NormalOpen)
+                TreeNode<NodeData> digital = graphCached.FindTreeNode(x => x.Data.Type == DMSType.DISCRETE && ((Discrete)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
+
+                if (digital != null)
+                {
+                    if (digital.Data.Value == 0)
+                    {
+                        node.Data.Energized = Enums.Energized.NotEnergized;
+                    }
+                    else
+                    {
+                        node.Data.Energized = node.Parent.Data.Energized;
+                    }
+                }
+                else
+                {
+                    node.Data.Energized = Enums.Energized.NotEnergized;
+                }
+
+                /*if (breaker.NormalOpen)
                 {
                     node.Data.Energized = Enums.Energized.NotEnergized;
                 }
                 else
                 {
                     node.Data.Energized = node.Parent.Data.Energized;
-                }
+                }*/
             }
 
             foreach (TreeNode<NodeData> child in node.Children)
@@ -745,6 +776,32 @@ namespace CalculationEngineService
             longitude = ((delt * (180.0 / Math.PI)) + s) + diflon;
             latitude = ((lat + (1 + e2cuadrada * Math.Pow(Math.Cos(lat), 2) - (3.0 / 2.0) * e2cuadrada * Math.Sin(lat) * Math.Cos(lat) * (tao - lat)) * (tao - lat)) * (180.0 / Math.PI)) + diflat;
         }
+
+        //CAKI 2102
+        public void UpdateGraphWithScadaValues(List<DataPoint> data)
+        {
+            if (graphCached == null)
+                return;
+
+            foreach(DataPoint dp in data)
+            {
+                TreeNode<NodeData> node = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == dp.Gid);
+                if (node == null)
+                    continue;
+
+                if (node.Data.Type == DMSType.ANALOG)
+                {
+                    node.Data.Value = float.Parse(dp.Value, CultureInfo.InvariantCulture.NumberFormat);
+                }
+                else if (node.Data.Type == DMSType.DISCRETE)
+                {
+                    node.Data.Value = int.Parse(dp.Value, CultureInfo.InvariantCulture.NumberFormat);
+                }
+            }
+
+            ColorGraph();
+        }
+
 
 
     }
