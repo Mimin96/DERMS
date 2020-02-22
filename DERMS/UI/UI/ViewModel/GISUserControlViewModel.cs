@@ -16,17 +16,18 @@ namespace UI.ViewModel
 {
     public class GISUserControlViewModel : BindableBase
     {
+        #region Variables
         private TextBlock _gisTextBlock;
         private Map _map;
+        #endregion
 
         public GISUserControlViewModel(Map map, TextBlock gisTextBlock)
         {
             _map = map;
             _gisTextBlock = gisTextBlock;
-
-
         }
 
+        #region Public Methods
         public void GetCoordinatesOnMouseClick(object sender, MouseButtonEventArgs e)
         {
             var mousePosition = e.GetPosition((UIElement)sender);
@@ -56,7 +57,6 @@ namespace UI.ViewModel
             _map.Children.Add(pushpin);
             _map.Children.Add(polygon);
         }
-
         public void OnMouseClick(object sender, MouseButtonEventArgs e)
         {
             // ovde getujemo element na koji je kliknuto pogledati u Name da se vidi koji mu je  gid
@@ -75,5 +75,6 @@ namespace UI.ViewModel
             _gisTextBlock.Text = String.Empty;
             _gisTextBlock.Inlines.Add(new Bold(new Run("Hello")));
         }
+        #endregion
     }
 }

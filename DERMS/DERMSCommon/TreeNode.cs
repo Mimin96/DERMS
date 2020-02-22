@@ -2,17 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DERMSCommon
 {
+    [DataContract(IsReference = true)]
+
     public class TreeNode<T> : IEnumerable<TreeNode<T>>
     {
+        [DataMember]
+        private T _data;
+        [DataMember]
+        private TreeNode<T> _parent;
+        [DataMember]
+        private ICollection<TreeNode<T>> _children;
+        [DataMember]
+        private int _level;
+
         //Data ce biti identified obj
-        public T Data { get; set; }
-        public TreeNode<T> Parent { get; set; }
-        public ICollection<TreeNode<T>> Children { get; set; }
+        public T Data { get { return _data; } set { _data = value; } }
+        public TreeNode<T> Parent { get { return _parent; } set { _parent = value; } }
+        public ICollection<TreeNode<T>> Children { get { return _children; } set { _children = value; } }
 
         public Boolean IsRoot
         {
@@ -31,6 +43,10 @@ namespace DERMSCommon
                 if (this.IsRoot)
                     return 0;
                 return Parent.Level + 1;
+            }
+            set 
+            {
+                _level = value;
             }
         }
 
@@ -58,7 +74,6 @@ namespace DERMSCommon
         {
             return Data != null ? Data.ToString() : "[data null]";
         }
-
 
         #region searching
 

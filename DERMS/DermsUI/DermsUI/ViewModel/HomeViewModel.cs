@@ -357,7 +357,6 @@ namespace DermsUI.ViewModel
             Mediator.NotifyColleagues("AllSignalUpdate", Points);
         }
 
-
         public static void ToLatLon(double utmX, double utmY, int zoneUTM, out double latitude, out double longitude)
         {
             bool isNorthHemisphere = true;

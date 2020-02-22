@@ -97,8 +97,6 @@ namespace UI.ViewModel
         }
         #endregion
 
-        public ObservableCollection<NetworkModelViewClass> NetworkModelItems { get; set; }
-
         public NetworkModelUserControlViewModel()
         {
             NetworkModelItems = new ObservableCollection<NetworkModelViewClass>() { new NetworkModelViewClass(Brushes.Red, PackIconKind.About, "Potrosacsssssssssssssssssssssdsfsdfsdfsssss", "Info 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35"),
@@ -128,6 +126,10 @@ namespace UI.ViewModel
             NetworkModel[0].GeographicalRegions[0].GeographicalSubRegions[0].Substations[0].SubstationElements.Add(new SubstationElementTreeClass("Potrosac", 4, ""));
             NetworkModel[0].GeographicalRegions[0].GeographicalSubRegions[0].Substations[0].SubstationElements.Add(new SubstationElementTreeClass("Proizvodjac", 5, ""));
         }
+
+        #region Properties
+        public ObservableCollection<NetworkModelViewClass> NetworkModelItems { get; set; }
+        #endregion
 
         #region TreeView Commands Execute
         public void NetworkModelCommandExecute(long gid)

@@ -1,4 +1,5 @@
-﻿using DERMSCommon.DataModel.Core;
+﻿using DERMSCommon;
+using DERMSCommon.DataModel.Core;
 using DERMSCommon.DataModel.Meas;
 using DERMSCommon.DataModel.Wires;
 using DERMSCommon.NMSCommuication;
@@ -14,7 +15,6 @@ namespace CalculationEngineServiceCommon
     [ServiceContract]
     public interface ISendNetworkModelToUI
     {
-        [OperationContract]
         [ServiceKnownType(typeof(Switch))]
         [ServiceKnownType(typeof(PROTECTED_SWITCH))]
         [ServiceKnownType(typeof(Conductor))]
@@ -26,6 +26,7 @@ namespace CalculationEngineServiceCommon
         [ServiceKnownType(typeof(Terminal))]
         [ServiceKnownType(typeof(Generator))]
         [ServiceKnownType(typeof(Substation))]
+        [ServiceKnownType(typeof(GeographicalRegion))]
         [ServiceKnownType(typeof(SubGeographicalRegion))]
         [ServiceKnownType(typeof(RegulatingCondEq))]
         [ServiceKnownType(typeof(PowerSystemResource))]
@@ -37,7 +38,8 @@ namespace CalculationEngineServiceCommon
         [ServiceKnownType(typeof(ConnectivityNodeContainer))]
         [ServiceKnownType(typeof(ConnectivityNode))]
         [ServiceKnownType(typeof(ConductingEquipment))]
-        [ServiceKnownType(typeof(GeographicalRegion))]
-        void SendDataUI(NetworkModelTransfer data);
+        [ServiceKnownType(typeof(LinkedList<TreeNode<NodeData>>))]
+        [OperationContract]
+        void SendDataUI(TreeNode<NodeData> data);
     }
 }

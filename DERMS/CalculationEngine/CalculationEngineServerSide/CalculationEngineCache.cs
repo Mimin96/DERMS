@@ -42,6 +42,12 @@ namespace CalculationEngineService
             }
         }
 
+        public TreeNode<NodeData> GraphCached 
+        {
+            get { return graphCached; }
+            set { graphCached = value; }
+        }
+
         public void PopulateNSMModelCache(NetworkModelTransfer networkModelTransfer)
         {
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> dictionary in networkModelTransfer.Delete)

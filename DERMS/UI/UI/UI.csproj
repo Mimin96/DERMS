@@ -54,6 +54,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -72,12 +73,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Communication\CalculationEnginePubSub.cs" />
+    <Compile Include="Communication\ClientSideProxy.cs" />
+    <Compile Include="Communication\CommunicationProxy.cs" />
+    <Compile Include="Communication\SendNetworkModelToUI.cs" />
     <Compile Include="Model\NetworkModelViewClass.cs" />
     <Compile Include="Model\ThreeViewModel\GeographicalRegionTreeClass.cs" />
     <Compile Include="Model\ThreeViewModel\GeographicalSubRegionTreeClass.cs" />
     <Compile Include="Model\ThreeViewModel\NetworkModelTreeClass.cs" />
     <Compile Include="Model\ThreeViewModel\SubstationElementTreeClass.cs" />
     <Compile Include="Model\ThreeViewModel\SubstationTreeClass.cs" />
+    <Compile Include="Resources\MediatorPattern\EventArgs.cs" />
+    <Compile Include="Resources\MediatorPattern\EventRaiser.cs" />
+    <Compile Include="Resources\MediatorPattern\Mediator.cs" />
     <Compile Include="ViewModel\DERDashboardUserControlViewModel.cs" />
     <Compile Include="ViewModel\GISUserControlViewModel.cs" />
     <Compile Include="ViewModel\NetworkModelUserControlViewModel.cs" />
@@ -152,7 +160,16 @@
   <ItemGroup>
     <Resource Include="Resources\Images\icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\CalculationEngine\CalculationEngineServiceCommon\CalculationEngineServiceCommon.csproj">
+      <Project>{C6A1D90E-C842-4B98-958B-C3267664D121}</Project>
+      <Name>CalculationEngineServiceCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DERMSCommon\DERMSCommon.csproj">
+      <Project>{776EB305-B428-4D01-B4A7-0B05FA59F9B9}</Project>
+      <Name>DERMSCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\icon.png" />
   </ItemGroup>

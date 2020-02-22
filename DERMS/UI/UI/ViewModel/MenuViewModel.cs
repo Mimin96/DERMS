@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DERMSCommon;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Controls;
-using UI.View;
-using System.Windows;
+using UI.Communication;
 using UI.Resources;
+using UI.Resources.MediatorPattern;
+using UI.View;
 
 namespace UI.ViewModel
 {
@@ -18,7 +16,25 @@ namespace UI.ViewModel
         private UserControl _userControlPresenter;
         private Button _selectedMenuItem;
         private RelayCommand<object> _menuSelectCommand;
+        private CommunicationProxy _proxy;
+        private ClientSideProxy _clientSideProxy;
+        private CalculationEnginePubSub _calculationEnginePubSub;
         #endregion
+
+        public MenuViewModel() 
+        {
+            Mediator.Register("NMSNetworkModelData", GetNetworkModelFromProxy);
+
+            _clientSideProxy = new ClientSideProxy();
+            _calculationEnginePubSub = new CalculationEnginePubSub();
+            _clientSideProxy.StartServiceHost(_calculationEnginePubSub);
+            _clientSideProxy.Subscribe(1);
+
+            _proxy = new CommunicationProxy();
+            _proxy.Open();
+
+            Logger.Log("UI is started.", DERMSCommon.Enums.Component.UI, DERMSCommon.Enums.LogLevel.Info);
+        }
 
         #region Properties
         public UserControl UserControlPresenter
@@ -53,6 +69,10 @@ namespace UI.ViewModel
         #endregion
 
         #region Public Methods
+        private void GetNetworkModelFromProxy(object parameter)
+        {
+            //TO DO
+        }
         public void ExecuteMenuSelectCommand(object sender)
         {
             if (_selectedMenuItem != null)
