@@ -5,6 +5,7 @@ using DERMSCommon.DataModel.Meas;
 using DERMSCommon.DataModel.Wires;
 using DERMSCommon.NMSCommuication;
 using DERMSCommon.SCADACommon;
+using DERMSCommon.UIModel.ThreeViewModel;
 using DERMSCommon.WeatherForecast;
 using FTN.Common;
 
@@ -26,8 +27,7 @@ namespace CalculationEngineService
         private Dictionary<long, DerForecastDayAhead> productionCached = new Dictionary<long, DerForecastDayAhead>();
         private TreeNode<NodeData> graphCached;
 
-        private static CalculationEngineCache instance = null;
-
+        private static CalculationEngineCache instance = null;   
         public static CalculationEngineCache Instance
         {
             get
@@ -41,11 +41,15 @@ namespace CalculationEngineService
 
             }
         }
-
         public TreeNode<NodeData> GraphCached 
         {
             get { return graphCached; }
             set { graphCached = value; }
+        }
+        public List<NetworkModelTreeClass> NetworkModelTreeClass 
+        {
+            get;
+            set;
         }
 
         public void PopulateNSMModelCache(NetworkModelTransfer networkModelTransfer)
@@ -77,7 +81,6 @@ namespace CalculationEngineService
             //temp poziv
             PopulateGraphCached(networkModelTransfer);
         }
-
         public void PopulateWeatherForecast(NetworkModelTransfer networkModel)
         {
             double lat, lon;
@@ -151,41 +154,35 @@ namespace CalculationEngineService
             }
             PubSubCalculatioEngine.Instance.Notify(productionCached, (int)Enums.Topics.Default); // KAD SE POPUNI CACHE SALJE SVIMA Dictionary
         }
-
         public void PopulateConsumptionForecast(NetworkModelTransfer networkModel)
         {
             ConsumptionCalculator consumptionCalculator = new ConsumptionCalculator(networkModel);
             consumptionCalculator.Calculate(productionCached);
             PubSubCalculatioEngine.Instance.Notify(productionCached, (int)Enums.Topics.Default);
         }
-
         public List<DataPoint> GetDataPoints(long gid)
         {
             if (!scadaPointsCached.ContainsKey(gid))
                 return null;
             return scadaPointsCached[gid];
         }
-
         public Forecast GetForecast(long gid)
         {
             if (!derWeatherCached.ContainsKey(gid))
                 return null;
             return derWeatherCached[gid];
         }
-
         public DerForecastDayAhead GetDerForecastDayAhead(long gid)
         {
             if (!productionCached.ContainsKey(gid))
                 return null;
             return productionCached[gid];
         }
-
         public void AddForecast(Forecast wf, long gid)
         {
             if (!derWeatherCached.ContainsKey(gid))
                 derWeatherCached.Add(gid, wf);
         }
-
         public void AddDerForecast(DerForecastDayAhead derForecastDayAhead, long gid, bool isInitState)
         {
             if (!productionCached.ContainsKey(gid))
@@ -194,7 +191,6 @@ namespace CalculationEngineService
             if (!isInitState)
                 PubSubCalculatioEngine.Instance.Notify(productionCached, (int)Enums.Topics.Default);
         }
-
         public void AddScadaPoints(List<DataPoint> dataPoints)
         {
             List<DataPoint> temp = new List<DataPoint>();
@@ -212,30 +208,25 @@ namespace CalculationEngineService
                 temp.Clear();
             }
         }
-
         public Dictionary<long, DerForecastDayAhead> GetAllDerForecastDayAhead()
         {
             return productionCached;
         }
-
         public void AddNMSModelEntity(IdentifiedObject io)
         {
             if (!nmsCache.ContainsKey(io.GlobalId))
                 nmsCache.Add(io.GlobalId, io);
         }
-
         public void DeleteNMSModelEntity(IdentifiedObject io)
         {
             if (nmsCache.ContainsKey(io.GlobalId))
                 nmsCache.Remove(io.GlobalId);
         }
-
         public void UpdateNMSModelEntity(IdentifiedObject io)
         {
             if (nmsCache.ContainsKey(io.GlobalId))
                 nmsCache[io.GlobalId] = io;
         }
-
         public void RestartCache(NetworkModelTransfer networkModelTransfer)
         {
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> dictionary in networkModelTransfer.Delete)
@@ -263,8 +254,54 @@ namespace CalculationEngineService
             }
         }
 
+        public static void ToLatLon(double utmX, double utmY, int zoneUTM, out double latitude, out double longitude)
+        {
+            bool isNorthHemisphere = true;
+
+            var diflat = -0.00066286966871111111111111111111111111;
+            var diflon = -0.0003868060578;
+
+            var zone = zoneUTM;
+            var c_sa = 6378137.000000;
+            var c_sb = 6356752.314245;
+            var e2 = Math.Pow((Math.Pow(c_sa, 2) - Math.Pow(c_sb, 2)), 0.5) / c_sb;
+            var e2cuadrada = Math.Pow(e2, 2);
+            var c = Math.Pow(c_sa, 2) / c_sb;
+            var x = utmX - 500000;
+            var y = isNorthHemisphere ? utmY : utmY - 10000000;
+
+            var s = ((zone * 6.0) - 183.0);
+            var lat = y / (c_sa * 0.9996);
+            var v = (c / Math.Pow(1 + (e2cuadrada * Math.Pow(Math.Cos(lat), 2)), 0.5)) * 0.9996;
+            var a = x / v;
+            var a1 = Math.Sin(2 * lat);
+            var a2 = a1 * Math.Pow((Math.Cos(lat)), 2);
+            var j2 = lat + (a1 / 2.0);
+            var j4 = ((3 * j2) + a2) / 4.0;
+            var j6 = ((5 * j4) + Math.Pow(a2 * (Math.Cos(lat)), 2)) / 3.0;
+            var alfa = (3.0 / 4.0) * e2cuadrada;
+            var beta = (5.0 / 3.0) * Math.Pow(alfa, 2);
+            var gama = (35.0 / 27.0) * Math.Pow(alfa, 3);
+            var bm = 0.9996 * c * (lat - alfa * j2 + beta * j4 - gama * j6);
+            var b = (y - bm) / v;
+            var epsi = ((e2cuadrada * Math.Pow(a, 2)) / 2.0) * Math.Pow((Math.Cos(lat)), 2);
+            var eps = a * (1 - (epsi / 3.0));
+            var nab = (b * (1 - epsi)) + lat;
+            var senoheps = (Math.Exp(eps) - Math.Exp(-eps)) / 2.0;
+            var delt = Math.Atan(senoheps / (Math.Cos(nab)));
+            var tao = Math.Atan(Math.Cos(delt) * Math.Tan(nab));
+
+            longitude = ((delt * (180.0 / Math.PI)) + s) + diflon;
+            latitude = ((lat + (1 + e2cuadrada * Math.Pow(Math.Cos(lat), 2) - (3.0 / 2.0) * e2cuadrada * Math.Sin(lat) * Math.Cos(lat) * (tao - lat)) * (tao - lat)) * (180.0 / Math.PI)) + diflat;
+        }
+
+
+        #region Build Tree
         public void PopulateGraphCached(NetworkModelTransfer networkModelTransfer)
         {
+            NetworkModelTreeClass = new List<NetworkModelTreeClass>();
+            NetworkModelTreeClass.Add(new NetworkModelTreeClass("Network Model", -1, DMSType.MASK_TYPE));
+
             if (networkModelTransfer.Insert.Count == 0)
             {
                 return;
@@ -280,6 +317,7 @@ namespace CalculationEngineService
             //PRVI RED
             foreach (IdentifiedObject idObj in networkModelTransfer.Insert[DMSType.GEOGRAPHICALREGION].Values.ToList())
             {
+                NetworkModelTreeClass[0].GeographicalRegions.Add(new GeographicalRegionTreeClass(idObj.Name, idObj.GlobalId, DMSType.GEOGRAPHICALREGION));
                 graphCached.AddChild(new NodeData(idObj, DMSType.GEOGRAPHICALREGION, false));
             }
 
@@ -291,7 +329,11 @@ namespace CalculationEngineService
                 foreach (long gid in geographicalRegion.Regions)
                 {
                     IdentifiedObject subRegion = networkModelTransfer.Insert[DMSType.SUBGEOGRAPHICALREGION].Values.ToList().Where(x => x.GlobalId == gid).First();
-                    found.AddChild(new NodeData(subRegion, DMSType.SUBGEOGRAPHICALREGION, false));
+
+                    NetworkModelTreeClass[0].GeographicalRegions.Where(x => x.GID == idOb.GlobalId).First()
+                                            .GeographicalSubRegions.Add(new GeographicalSubRegionTreeClass(subRegion.Name, subRegion.GlobalId, DMSType.SUBGEOGRAPHICALREGION));
+
+                   found.AddChild(new NodeData(subRegion, DMSType.SUBGEOGRAPHICALREGION, false));
                 }
             }
 
@@ -302,12 +344,18 @@ namespace CalculationEngineService
                 foreach (long gid in subRegion.Substations)
                 {
                     IdentifiedObject substation = networkModelTransfer.Insert[DMSType.SUBSTATION].Values.ToList().Where(x => x.GlobalId == gid).First();
+
+                    GeographicalSubRegionTreeClass subRegionTreeClass =  NetworkModelTreeClass[0].GeographicalRegions.SelectMany(x => x.GeographicalSubRegions.Where( y => y.GID == idOb.GlobalId )).FirstOrDefault();
+                    subRegionTreeClass.Substations.Add(new SubstationTreeClass(substation.Name, substation.GlobalId, DMSType.SUBSTATION));
+
                     found.AddChild(new NodeData(substation, DMSType.SUBSTATION, false));
                 }
             }
             // 1. 
             foreach (IdentifiedObject idOb in networkModelTransfer.Insert[DMSType.SUBSTATION].Values.ToList())
             {
+                SubstationTreeClass substationTreeClass = NetworkModelTreeClass[0].GeographicalRegions.SelectMany(x => x.GeographicalSubRegions.SelectMany(y => y.Substations.Where(z => z.GID == idOb.GlobalId))).FirstOrDefault();
+
                 TreeNode<NodeData> found = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == idOb.GlobalId);
                 Substation substation = (Substation)found.Data.IdentifiedObject;
 
@@ -317,7 +365,6 @@ namespace CalculationEngineService
 
                 if (energySourcesOfSubstation != null && energySourcesOfSubstation.Count != 0)
                 {
-
                     foreach (EnergySource es in energySourcesOfSubstation)
                     {
                         //Mozda bude problem jer sam umesto identified obj dala ceo energy source CHECK LATER 
@@ -337,7 +384,7 @@ namespace CalculationEngineService
                                 //energySrcConnectedToTerminalFound.AddChild(new NodeData(terminal, DMSType.TERMINAL, false));
 
                                 // U stvari funkcija 
-                                DoStartTerminal(terminal, networkModelTransfer);
+                                DoStartTerminal(terminal, networkModelTransfer, substationTreeClass);
                             }
                         }
 
@@ -370,8 +417,7 @@ namespace CalculationEngineService
 
             //OBAVESTI UI DA JE DOSLO DO PROMENE I POSALJI OVAJ GRAPH
         }
-
-        private void DoStartTerminal(Terminal terminal, NetworkModelTransfer networkModelTransfer)
+        private void DoStartTerminal(Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             // Get energy ESRC
             TreeNode<NodeData> energySrcConnectedToTerminalFound = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.CondEq);
@@ -381,10 +427,9 @@ namespace CalculationEngineService
             // Get CN
             ConnectivityNode connectivityNode = networkModelTransfer.Insert[DMSType.CONNECTIVITYNODE].Values.ToList().Cast<ConnectivityNode>().ToList().Where(x => x.GlobalId == terminal.ConnectivityNode).First();
             // OBRADI CNS 
-            DoNode(connectivityNode, networkModelTransfer);
+            DoNode(connectivityNode, networkModelTransfer, substationTreeClass);
         }
-
-        private void DoNode(ConnectivityNode connectivityNode, NetworkModelTransfer networkModelTransfer)
+        private void DoNode(ConnectivityNode connectivityNode, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             // Terminal za koji je node zakacen
             //List<TreeNode<NodeData>> terminalsOfNode = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == connectivityNode.);
@@ -406,12 +451,11 @@ namespace CalculationEngineService
 
                 //Ovo izdvojiti u novu funkciju DoEndTerminal
                 //foundConnectivityNode.AddChild(new NodeData(terminal,DMSType.TERMINAL,false));
-                DoEndTerminal(terminal, networkModelTransfer);
+                DoEndTerminal(terminal, networkModelTransfer, substationTreeClass);
 
             }
         }
-
-        private void DoEndTerminal(Terminal terminal, NetworkModelTransfer networkModelTransfer)
+        private void DoEndTerminal(Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             // Dodaj terminal na conn node 
             TreeNode<NodeData> foundConnectivityNode = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.ConnectivityNode);
@@ -424,27 +468,26 @@ namespace CalculationEngineService
 
             if (breakersOfTerminal != null && breakersOfTerminal.Count != 0)
             {
-                DealWithBreakers(breakersOfTerminal, terminal, networkModelTransfer);
+                DealWithBreakers(breakersOfTerminal, terminal, networkModelTransfer, substationTreeClass);
             }
 
             if (consumerSOfTerminal != null && consumerSOfTerminal.Count != 0)
             {
-                DealWithConsumers(consumerSOfTerminal, terminal, networkModelTransfer);
+                DealWithConsumers(consumerSOfTerminal, terminal, networkModelTransfer, substationTreeClass);
             }
 
             if (generatorsOfTerminal != null && generatorsOfTerminal.Count != 0)
             {
-                DealWithGenerators(generatorsOfTerminal, terminal, networkModelTransfer);
+                DealWithGenerators(generatorsOfTerminal, terminal, networkModelTransfer, substationTreeClass);
             }
 
             if (aclinesOfTerminal != null && aclinesOfTerminal.Count != 0)
             {
-                DealWithACLines(aclinesOfTerminal, terminal, networkModelTransfer);
+                DealWithACLines(aclinesOfTerminal, terminal, networkModelTransfer, substationTreeClass);
             }
 
         }
-
-        private void DealWithBreakers(List<Breaker> breakers, Terminal terminal, NetworkModelTransfer networkModelTransfer)
+        private void DealWithBreakers(List<Breaker> breakers, Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             //GEt terminal
             TreeNode<NodeData> foundTerminal = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId);
@@ -465,15 +508,14 @@ namespace CalculationEngineService
                     {
                         if (terminal.GlobalId == t.GlobalId)
                             continue;
-                        DoStartTerminal(t, networkModelTransfer);
+                        DoStartTerminal(t, networkModelTransfer, substationTreeClass);
                     }
                 }
 
             }
 
         }
-
-        private void DealWithConsumers(List<EnergyConsumer> consumers, Terminal terminal, NetworkModelTransfer networkModelTransfer)
+        private void DealWithConsumers(List<EnergyConsumer> consumers, Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             TreeNode<NodeData> foundTerminal = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId);
 
@@ -481,6 +523,7 @@ namespace CalculationEngineService
             {
                 if (foundTerminal != null)
                 {
+                    substationTreeClass.SubstationElements.Add(new SubstationElementTreeClass(consumer.Name, consumer.GlobalId, DMSType.ENERGYCONSUMER));
                     foundTerminal.AddChild(new NodeData(consumer, DMSType.ENERGYCONSUMER, false));
                 }
 
@@ -491,13 +534,12 @@ namespace CalculationEngineService
                     {
                         if (terminal.GlobalId == t.GlobalId)
                             continue;
-                        DoStartTerminal(t, networkModelTransfer);
+                        DoStartTerminal(t, networkModelTransfer, substationTreeClass);
                     }
                 }
             }
         }
-
-        private void DealWithGenerators(List<Generator> generators, Terminal terminal, NetworkModelTransfer networkModelTransfer)
+        private void DealWithGenerators(List<Generator> generators, Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             TreeNode<NodeData> foundTerminal = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId);
 
@@ -505,6 +547,7 @@ namespace CalculationEngineService
             {
                 if (foundTerminal != null)
                 {
+                    substationTreeClass.SubstationElements.Add(new SubstationElementTreeClass(generator.Name, generator.GlobalId, DMSType.GENERATOR));
                     foundTerminal.AddChild(new NodeData(generator, DMSType.GENERATOR, false));
                 }
 
@@ -515,13 +558,12 @@ namespace CalculationEngineService
                     {
                         if (terminal.GlobalId == t.GlobalId)
                             continue;
-                        DoStartTerminal(t, networkModelTransfer);
+                        DoStartTerminal(t, networkModelTransfer, substationTreeClass);
                     }
                 }
             }
         }
-
-        private void DealWithACLines(List<ACLineSegment> acLines, Terminal terminal, NetworkModelTransfer networkModelTransfer)
+        private void DealWithACLines(List<ACLineSegment> acLines, Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             TreeNode<NodeData> foundTerminal = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId);
 
@@ -539,12 +581,11 @@ namespace CalculationEngineService
                     {
                         if (terminal.GlobalId == t.GlobalId)
                             continue;
-                        DoStartTerminal(t, networkModelTransfer);
+                        DoStartTerminal(t, networkModelTransfer, substationTreeClass);
                     }
                 }
             }
         }
-
         private void ColorGraph()
         {
             TreeNode<NodeData> rootNode = graphCached.FindTreeNode(x => x.IsRoot);
@@ -559,7 +600,6 @@ namespace CalculationEngineService
             SecondColoringPass();
 
         }
-
         private void ColorFromNode(TreeNode<NodeData> node)
         {
             if (node.Data.Type == DMSType.SUBSTATION ||
@@ -580,10 +620,10 @@ namespace CalculationEngineService
             else if (node.Data.Type == DMSType.GENERATOR)
             {
                 //CAKI
-                TreeNode<NodeData> analog = graphCached.FindTreeNode(x=>x.Data.Type == DMSType.ANALOG && ((Analog)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
+                TreeNode<NodeData> analog = graphCached.FindTreeNode(x => x.Data.Type == DMSType.ANALOG && ((Analog)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
                 if (analog != null)
                 {
-                    if(analog.Data.Value > 0)
+                    if (analog.Data.Value > 0)
                         node.Data.Energized = Enums.Energized.FromIsland;
                     else
                         node.Data.Energized = Enums.Energized.NotEnergized;
@@ -640,7 +680,6 @@ namespace CalculationEngineService
             }
 
         }
-
         private void SecondColoringPass()
         {
             TreeNode<NodeData> rootNode = graphCached.FindTreeNode(x => x.IsRoot);
@@ -650,7 +689,6 @@ namespace CalculationEngineService
             }
 
         }
-
         private void ColorFromBottom(TreeNode<NodeData> node)
         {
             if (node.Data.Type == DMSType.GENERATOR)
@@ -691,7 +729,6 @@ namespace CalculationEngineService
 
             }
         }
-
         public void ColorChildrenSecondPass(TreeNode<NodeData> node)
         {
             if (node.Data.Energized != Enums.Energized.NotEnergized || node.Data.Type == DMSType.ANALOG || node.Data.Type == DMSType.DISCRETE)
@@ -728,7 +765,6 @@ namespace CalculationEngineService
                 }
             }
         }
-
         private void foundSinchronousMachine(TreeNode<NodeData> node)
         {
             if (node.Data.Type == DMSType.GENERATOR)
@@ -741,55 +777,15 @@ namespace CalculationEngineService
                 foundSinchronousMachine(child);
             }
         }
+        #endregion
 
-        public static void ToLatLon(double utmX, double utmY, int zoneUTM, out double latitude, out double longitude)
-        {
-            bool isNorthHemisphere = true;
-
-            var diflat = -0.00066286966871111111111111111111111111;
-            var diflon = -0.0003868060578;
-
-            var zone = zoneUTM;
-            var c_sa = 6378137.000000;
-            var c_sb = 6356752.314245;
-            var e2 = Math.Pow((Math.Pow(c_sa, 2) - Math.Pow(c_sb, 2)), 0.5) / c_sb;
-            var e2cuadrada = Math.Pow(e2, 2);
-            var c = Math.Pow(c_sa, 2) / c_sb;
-            var x = utmX - 500000;
-            var y = isNorthHemisphere ? utmY : utmY - 10000000;
-
-            var s = ((zone * 6.0) - 183.0);
-            var lat = y / (c_sa * 0.9996);
-            var v = (c / Math.Pow(1 + (e2cuadrada * Math.Pow(Math.Cos(lat), 2)), 0.5)) * 0.9996;
-            var a = x / v;
-            var a1 = Math.Sin(2 * lat);
-            var a2 = a1 * Math.Pow((Math.Cos(lat)), 2);
-            var j2 = lat + (a1 / 2.0);
-            var j4 = ((3 * j2) + a2) / 4.0;
-            var j6 = ((5 * j4) + Math.Pow(a2 * (Math.Cos(lat)), 2)) / 3.0;
-            var alfa = (3.0 / 4.0) * e2cuadrada;
-            var beta = (5.0 / 3.0) * Math.Pow(alfa, 2);
-            var gama = (35.0 / 27.0) * Math.Pow(alfa, 3);
-            var bm = 0.9996 * c * (lat - alfa * j2 + beta * j4 - gama * j6);
-            var b = (y - bm) / v;
-            var epsi = ((e2cuadrada * Math.Pow(a, 2)) / 2.0) * Math.Pow((Math.Cos(lat)), 2);
-            var eps = a * (1 - (epsi / 3.0));
-            var nab = (b * (1 - epsi)) + lat;
-            var senoheps = (Math.Exp(eps) - Math.Exp(-eps)) / 2.0;
-            var delt = Math.Atan(senoheps / (Math.Cos(nab)));
-            var tao = Math.Atan(Math.Cos(delt) * Math.Tan(nab));
-
-            longitude = ((delt * (180.0 / Math.PI)) + s) + diflon;
-            latitude = ((lat + (1 + e2cuadrada * Math.Pow(Math.Cos(lat), 2) - (3.0 / 2.0) * e2cuadrada * Math.Sin(lat) * Math.Cos(lat) * (tao - lat)) * (tao - lat)) * (180.0 / Math.PI)) + diflat;
-        }
-
-        //CAKI 2102
+        #region Update Tree From SCADA
         public void UpdateGraphWithScadaValues(List<DataPoint> data)
         {
             if (graphCached == null)
                 return;
 
-            foreach(DataPoint dp in data)
+            foreach (DataPoint dp in data)
             {
                 TreeNode<NodeData> node = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == dp.Gid);
                 if (node == null)
@@ -807,8 +803,6 @@ namespace CalculationEngineService
 
             ColorGraph();
         }
-
-
-
+        #endregion
     }
 }

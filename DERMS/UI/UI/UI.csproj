@@ -40,6 +40,9 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.2.2.920, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.2.2\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -52,6 +55,7 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.ServiceModel" />
@@ -78,11 +82,6 @@
     <Compile Include="Communication\CommunicationProxy.cs" />
     <Compile Include="Communication\SendNetworkModelToUI.cs" />
     <Compile Include="Model\NetworkModelViewClass.cs" />
-    <Compile Include="Model\ThreeViewModel\GeographicalRegionTreeClass.cs" />
-    <Compile Include="Model\ThreeViewModel\GeographicalSubRegionTreeClass.cs" />
-    <Compile Include="Model\ThreeViewModel\NetworkModelTreeClass.cs" />
-    <Compile Include="Model\ThreeViewModel\SubstationElementTreeClass.cs" />
-    <Compile Include="Model\ThreeViewModel\SubstationTreeClass.cs" />
     <Compile Include="Resources\MediatorPattern\EventArgs.cs" />
     <Compile Include="Resources\MediatorPattern\EventRaiser.cs" />
     <Compile Include="Resources\MediatorPattern\Mediator.cs" />
@@ -96,6 +95,9 @@
       <DependentUpon>GISUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\RelayCommand.cs" />
+    <Compile Include="View\LoadingWindow.xaml.cs">
+      <DependentUpon>LoadingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NetworkModelUserControl.xaml.cs">
       <DependentUpon>NetworkModelUserControl.xaml</DependentUpon>
     </Compile>
@@ -111,6 +113,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\LoadingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -119,7 +125,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Resources\BindableBase.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -168,6 +173,14 @@
     <ProjectReference Include="..\..\DERMSCommon\DERMSCommon.csproj">
       <Project>{776EB305-B428-4D01-B4A7-0B05FA59F9B9}</Project>
       <Name>DERMSCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DermsUI\DermsUI\DermsUI.csproj">
+      <Project>{39DC0591-4161-4EEE-B200-39A02EBCBCC2}</Project>
+      <Name>DermsUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ModelLabs\Common\Common.csproj">
+      <Project>{b1e36476-2a09-4271-b336-3158cbd9df2f}</Project>
+      <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

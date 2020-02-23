@@ -50,6 +50,9 @@ namespace DERMSCommon
             }
         }
 
+        public TreeNode()
+        {
+        }
 
         public TreeNode(T data)
         {

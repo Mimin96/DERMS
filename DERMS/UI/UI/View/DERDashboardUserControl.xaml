@@ -4,13 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ViewModel="clr-namespace:UI.ViewModel"
-             xmlns:TreeView="clr-namespace:UI.Model.ThreeViewModel"
+             xmlns:TreeView="clr-namespace:DERMSCommon.UIModel.ThreeViewModel;assembly=DERMSCommon"
              mc:Ignorable="d" 
              d:DesignHeight="533" d:DesignWidth="1024">
     <Grid>
-        <Grid.DataContext>
-            <ViewModel:DERDashboardUserControlViewModel/>
-        </Grid.DataContext>
 
     </Grid>
 </UserControl>

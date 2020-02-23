@@ -1,4 +1,9 @@
 ﻿using DERMSCommon;
+using DERMSCommon.UIModel;
+using DERMSCommon.UIModel.ThreeViewModel;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,6 +18,9 @@ namespace UI.ViewModel
     public class MenuViewModel : BindableBase
     {
         #region Variables
+        private LoadingWindow loadingWindow;
+        private TreeNode<NodeData> _tree;
+        private List<NetworkModelTreeClass> _networkModelTreeClass;
         private UserControl _userControlPresenter;
         private Button _selectedMenuItem;
         private RelayCommand<object> _menuSelectCommand;
@@ -33,7 +41,7 @@ namespace UI.ViewModel
             _proxy = new CommunicationProxy();
             _proxy.Open();
 
-            Logger.Log("UI is started.", DERMSCommon.Enums.Component.UI, DERMSCommon.Enums.LogLevel.Info);
+            Logger.Log("UI is started.", Enums.Component.UI, Enums.LogLevel.Info);
         }
 
         #region Properties
@@ -71,7 +79,18 @@ namespace UI.ViewModel
         #region Public Methods
         private void GetNetworkModelFromProxy(object parameter)
         {
-            //TO DO
+            if (loadingWindow != null)
+            {
+                loadingWindow.Close();
+                loadingWindow = null;
+            }
+
+            List<object> obj = (List<object>)parameter;
+            _tree = (TreeNode<NodeData>)obj[0];
+            _networkModelTreeClass = (List<NetworkModelTreeClass>)obj[1];
+
+            if (UserControlPresenter.GetType().Name == "GISUserControl")
+                SetUserContro("GIS");
         }
         public void ExecuteMenuSelectCommand(object sender)
         {
@@ -86,6 +105,14 @@ namespace UI.ViewModel
 
             _selectedMenuItem = button;
         }
+
+        public void LoadingWindow() 
+        {
+            Application.Current.Dispatcher.Invoke((Action)delegate {
+                loadingWindow = new LoadingWindow();
+                loadingWindow.ShowDialog();
+            });
+        }
         #endregion
 
         #region Private Methods
@@ -95,12 +122,17 @@ namespace UI.ViewModel
             {
                 case "GIS":
                     UserControlPresenter = new GISUserControl();
+                    ((GISUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
                     break;
                 case "DERDashboard":
                     UserControlPresenter = new DERDashboardUserControl();
+                    ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
+                   // ((DERDashboardUserControl)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;
                     break;
                 case "NetworkModel":
                     UserControlPresenter = new NetworkModelUserControl();
+                    ((NetworkModelUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
+                    ((NetworkModelUserControlViewModel)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;
                     break;
                 default:
                     MessageBox.Show("There was a problem while opening view. Try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using UI.Model;
-using UI.Model.ThreeViewModel;
 using UI.Resources;
 using MaterialDesignThemes.Wpf;
+using DERMSCommon.UIModel;
+using DERMSCommon.UIModel.ThreeViewModel;
+using DERMSCommon;
 
 namespace UI.ViewModel
 {
@@ -118,16 +120,10 @@ namespace UI.ViewModel
                                                                                     new NetworkModelViewClass(Brushes.Red, PackIconKind.About, "Potrosac", "Info"),
                                                                                     new NetworkModelViewClass(Brushes.Red, PackIconKind.About, "Potrosac", "Info"),
                                                                                     new NetworkModelViewClass(Brushes.Red, PackIconKind.About, "Potrosac", "Info")};
-
-            NetworkModel = new List<NetworkModelTreeClass>(1) { new NetworkModelTreeClass("Network Model", -1, "") };
-            NetworkModel[0].GeographicalRegions.Add(new GeographicalRegionTreeClass("Region 1", 1, ""));
-            NetworkModel[0].GeographicalRegions[0].GeographicalSubRegions.Add(new GeographicalSubRegionTreeClass("SubRegion", 2, ""));
-            NetworkModel[0].GeographicalRegions[0].GeographicalSubRegions[0].Substations.Add(new SubstationTreeClass("Sub", 3, ""));
-            NetworkModel[0].GeographicalRegions[0].GeographicalSubRegions[0].Substations[0].SubstationElements.Add(new SubstationElementTreeClass("Potrosac", 4, ""));
-            NetworkModel[0].GeographicalRegions[0].GeographicalSubRegions[0].Substations[0].SubstationElements.Add(new SubstationElementTreeClass("Proizvodjac", 5, ""));
         }
 
         #region Properties
+        public TreeNode<NodeData> Tree { get; set; }
         public ObservableCollection<NetworkModelViewClass> NetworkModelItems { get; set; }
         #endregion
 

@@ -92,6 +92,12 @@
     <Compile Include="TransactionManager\ITransactionCheck.cs" />
     <Compile Include="TransactionManager\ITransactionListing.cs" />
     <Compile Include="TreeNode.cs" />
+    <Compile Include="UIModel\BindableBase.cs" />
+    <Compile Include="UIModel\ThreeViewModel\GeographicalRegionTreeClass.cs" />
+    <Compile Include="UIModel\ThreeViewModel\GeographicalSubRegionTreeClass.cs" />
+    <Compile Include="UIModel\ThreeViewModel\NetworkModelTreeClass.cs" />
+    <Compile Include="UIModel\ThreeViewModel\SubstationElementTreeClass.cs" />
+    <Compile Include="UIModel\ThreeViewModel\SubstationTreeClass.cs" />
     <Compile Include="WeatherForecast\ConsumerCharacteristics.cs" />
     <Compile Include="WeatherForecast\DayAhead.cs" />
     <Compile Include="WeatherForecast\DerForecastDayAhead.cs" />

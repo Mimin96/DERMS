@@ -1,6 +1,7 @@
 ﻿using CalculationEngineServiceCommon;
 using DERMSCommon;
 using DERMSCommon.NMSCommuication;
+using DERMSCommon.UIModel.ThreeViewModel;
 using DermsUI.MediatorPattern;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace DermsUI.Communication
 {
     public class SendNetworkModelToUI : ISendNetworkModelToUI
     {
-        public void SendDataUI(TreeNode<NodeData> data)
+        public void SendDataUI(TreeNode<NodeData> data, List<NetworkModelTreeClass> NetworkModelTreeClass)
         {
             Mediator.NotifyColleagues("NMSNetworkModelData", data);
         }

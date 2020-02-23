@@ -8,6 +8,9 @@ using MaterialDesignThemes.Wpf;
 
 namespace UI.Model
 {
+    /// <summary>
+    /// Used in NetworkModel User Control
+    /// </summary>
     public class NetworkModelViewClass
     {
         public Brush BrushColor { get; set; }

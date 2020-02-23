@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="533" d:DesignWidth="1024">
     <Grid>
-        <Border Margin="2,2,2,100" BorderThickness="1" BorderBrush="#FF0398E2">
+        <Border Margin="5,2,5,100" BorderThickness="1" BorderBrush="#FF0398E2">
             <m:Map x:Name="Map" CredentialsProvider="ghV2tH3euIcFS6PJc15d~LzFfZi11UyYhzBE6DbxtgQ~AstUsgFCapPH3oNisYL2azqlLp0ImbaticuKzrTKjts-U-4q7Ii4OuGWx23lEBqI"
                Center="45.27143,19.7794009" ZoomLevel="12" Culture="en-au">
                 <i:Interaction.Triggers>
@@ -22,7 +22,7 @@
                 </i:Interaction.Triggers>
             </m:Map>
         </Border>
-        <Expander VerticalAlignment="Top" ExpandDirection="Down" Margin="0,3,3,0" Header="Legend" FontSize="14" FontWeight="Bold" Foreground="#FF007ACC" FontStyle="Italic" Background="#FF303030" HorizontalAlignment="Right" Width="260">
+        <Expander VerticalAlignment="Top" ExpandDirection="Down" Margin="0,3,7,0" Header="Legend" FontSize="14" FontWeight="Bold" Foreground="#FF007ACC" FontStyle="Italic" Background="#FF303030" HorizontalAlignment="Right" Width="260">
             <Border Height="320" Background="White">
                 <Grid>
                     <Image Source="../Resources/Images/EnergySource.png" Margin="3,6,230,289"/>

@@ -3,6 +3,7 @@ using DERMSCommon.DataModel.Core;
 using DERMSCommon.DataModel.Meas;
 using DERMSCommon.DataModel.Wires;
 using DERMSCommon.NMSCommuication;
+using DERMSCommon.UIModel.ThreeViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,6 @@ namespace CalculationEngineServiceCommon
         [ServiceKnownType(typeof(ConductingEquipment))]
         [ServiceKnownType(typeof(LinkedList<TreeNode<NodeData>>))]
         [OperationContract]
-        void SendDataUI(TreeNode<NodeData> data);
+        void SendDataUI(TreeNode<NodeData> data, List<NetworkModelTreeClass> NetworkModelTreeClass);
     }
 }

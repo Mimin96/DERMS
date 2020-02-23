@@ -1,20 +1,27 @@
-﻿using System;
+﻿using DERMSCommon.UIModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UI.Resources;
+using FTN.Common;
+using System.Runtime.Serialization;
 
-namespace UI.Model.ThreeViewModel
+namespace DERMSCommon.UIModel.ThreeViewModel
 {
+    [DataContract]
     public class NetworkModelTreeClass : BindableBase
     {
+        [DataMember]
         private List<GeographicalRegionTreeClass> _geographicalRegions;
+        [DataMember]
         private string _name;
+        [DataMember]
         private long _gID;
-        private string _type; // ovo promenuti u enum kada se spoji sa sotatkom koda
+        [DataMember]
+        private DMSType _type;
 
-        public NetworkModelTreeClass(string name, long gid, string type)
+        public NetworkModelTreeClass(string name, long gid, DMSType type)
         {
             _geographicalRegions = new List<GeographicalRegionTreeClass>();
             _name = name;
@@ -37,7 +44,7 @@ namespace UI.Model.ThreeViewModel
             get { return _gID; }
             set { _gID = value; OnPropertyChanged("GID"); }
         }
-        public string Type
+        public DMSType Type
         {
             get { return _type; }
             set { _type = value; OnPropertyChanged("Type"); }

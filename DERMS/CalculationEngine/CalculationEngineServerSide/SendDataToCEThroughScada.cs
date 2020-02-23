@@ -18,7 +18,7 @@ namespace CalculationEngineService
             smartCache.WriteToFile(data);
             //CAKI
             CalculationEngineCache.Instance.UpdateGraphWithScadaValues(data);
-            ClientSideCE.Instance.ProxyUI.SendScadaDataToUI(data);
+           // ClientSideCE.Instance.ProxyUI.SendScadaDataToUI(data);
         }
     }
 }

@@ -25,9 +25,13 @@ namespace UI.View
         {
             InitializeComponent();
 
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+
             GIS.Background = new SolidColorBrush(Color.FromRgb(72, 74, 72));
             ((MenuViewModel)Menu.DataContext).SelectedMenuItem = GIS;
             ((MenuViewModel)Menu.DataContext).UserControlPresenter = new GISUserControl();
+
+            ((MenuViewModel)Menu.DataContext).LoadingWindow();
         }
 
         #region Window Close, Resize, Minimize, Drag

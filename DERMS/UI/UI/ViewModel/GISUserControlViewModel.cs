@@ -11,6 +11,8 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows.Documents;
+using DERMSCommon.UIModel;
+using DERMSCommon;
 
 namespace UI.ViewModel
 {
@@ -26,6 +28,10 @@ namespace UI.ViewModel
             _map = map;
             _gisTextBlock = gisTextBlock;
         }
+
+        #region Properties
+        public TreeNode<NodeData> Tree { get; set; }
+        #endregion
 
         #region Public Methods
         public void GetCoordinatesOnMouseClick(object sender, MouseButtonEventArgs e)
