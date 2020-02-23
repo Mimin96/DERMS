@@ -127,7 +127,7 @@ namespace UI.ViewModel
                 case "DERDashboard":
                     UserControlPresenter = new DERDashboardUserControl();
                     ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
-                   // ((DERDashboardUserControl)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;
+                    ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;
                     break;
                 case "NetworkModel":
                     UserControlPresenter = new NetworkModelUserControl();

@@ -5,9 +5,135 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ViewModel="clr-namespace:UI.ViewModel"
              xmlns:TreeView="clr-namespace:DERMSCommon.UIModel.ThreeViewModel;assembly=DERMSCommon"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="533" d:DesignWidth="1024">
     <Grid>
+        <Border Background="Transparent" Width="250" HorizontalAlignment="Left">
+            <TreeView BorderThickness="1" BorderBrush="#FF0398E2" x:Name="MainTreeView" HorizontalAlignment="Stretch" Margin="10" ItemsSource="{Binding NetworkModel}">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding GeographicalRegions}" DataType="{x:Type TreeView:NetworkModelTreeClass}">
+                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.NetworkModelCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}">
+                            <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
+                        </Button>
+                        <HierarchicalDataTemplate.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding GeographicalSubRegions}" DataType="{x:Type TreeView:GeographicalRegionTreeClass}">
+                                <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalRegionCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                    <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
+                                </Button>
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding Substations}" DataType="{x:Type TreeView:GeographicalSubRegionTreeClass}">
+                                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalSubRegionCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                            <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
+                                        </Button>
+                                        <HierarchicalDataTemplate.ItemTemplate>
+                                            <HierarchicalDataTemplate ItemsSource="{Binding SubstationElements}" DataType="{x:Type TreeView:SubstationTreeClass}">
+                                                <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.SubstationCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                                    <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
+                                                </Button>
+                                                <HierarchicalDataTemplate.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type TreeView:SubstationElementTreeClass}">
+                                                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.SubstationElementCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                                            <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </HierarchicalDataTemplate.ItemTemplate>
+                                            </HierarchicalDataTemplate>
+                                        </HierarchicalDataTemplate.ItemTemplate>
+                                    </HierarchicalDataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Border>
+
+        <!--standard gauge1-->
+        <Grid Margin="250,0,2,274" HorizontalAlignment="Center" Width="767">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="30" Height="127" VerticalAlignment="Top">
+                <lvc:Gauge Grid.Column="0" Margin="10,10,0,25"
+                   From="0" To="100" Value="60" Foreground="ForestGreen" HorizontalAlignment="Left" Width="169">
+                    <lvc:Gauge.GaugeActiveFill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="ForestGreen" Offset="0.0" />
+                            <GradientStop Color="Green" Offset="0.5" />
+                            <GradientStop Color="Lime" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </lvc:Gauge.GaugeActiveFill>
+                </lvc:Gauge>
+                <TextBlock Text="Kw/h" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="ForestGreen" Margin="74,107,74,0"/>
+                <TextBlock Margin="0 -5 0 0" Text="Production from source" HorizontalAlignment="Center" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="ForestGreen" TextWrapping="Wrap" />
+            </Grid>
+            <Grid Grid.Column="1" Margin="30" Height="127" VerticalAlignment="Top">
+                <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from generators"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="#FF0CADFF" VerticalAlignment="Top" Width="185"/>
+                <lvc:Gauge Grid.Column="0" Margin="10,10,0,25"
+                   From="0" To="100" Value="40" Foreground="#FF0CADFF" HorizontalAlignment="Left" Width="169">
+                    <lvc:Gauge.GaugeActiveFill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="DodgerBlue" Offset="0.0" />
+                            <GradientStop Color="DeepSkyBlue" Offset="0.5" />
+                            <GradientStop Color="LightBlue" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </lvc:Gauge.GaugeActiveFill>
+                </lvc:Gauge>
+                <TextBlock Text="Kw/h" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="#FF0CADFF" Margin="74,107,74,0"/>
+            </Grid>
+            <Grid Grid.Column="2" Margin="30" HorizontalAlignment="Left" Width="197" Background="DarkViolet" Height="104" VerticalAlignment="Top">
+                <TextBlock Text="Current consumption" FontFamily="Champagne &amp; Limousines" Foreground="White" FontSize="15" Margin="34,10,10,75"/>
+                <Image Margin="4,4,0,0" Source="../Resources/Images/boltImg.png" Stretch="Fill" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="30"/>
+                <TextBlock Text="250 kw/h" Foreground="White" FontFamily="Champagne &amp; Limousines" FontSize="30" Margin="34,52,10,10" />
+            </Grid>
+        </Grid>
+
+        <Grid Margin="255,217,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Label HorizontalContentAlignment="Center" Margin="280,10,281,0"  Content="Consumption Curve"  FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="DarkViolet" Height="31" VerticalAlignment="Top"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <lvc:CartesianChart Background="#222E31" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,12">
+                    <lvc:CartesianChart.Series>
+                        <lvc:LineSeries Values="{Binding Values1}" StrokeThickness="2" 
+                                Stroke="DarkViolet" Fill="Transparent" LineSmoothness="1" PointGeometrySize="10"
+                                PointGeometry="{x:Static lvc:DefaultGeometries.Circle}" 
+                                PointForeground="#6BBA45"/>
+                    </lvc:CartesianChart.Series>
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis IsMerged="True">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator StrokeThickness="1" StrokeDashArray="2">
+                                    <lvc:Separator.Stroke>
+                                        <SolidColorBrush Color="#404F56" />
+                                    </lvc:Separator.Stroke>
+                                </lvc:Separator>
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis IsMerged="True">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator StrokeThickness="1.5" StrokeDashArray="4">
+                                    <lvc:Separator.Stroke>
+                                        <SolidColorBrush Color="#404F56" />
+                                    </lvc:Separator.Stroke>
+                                </lvc:Separator>
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+            </Grid>
+        </Grid>
+       
 
     </Grid>
 </UserControl>
