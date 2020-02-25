@@ -11,9 +11,48 @@ namespace DERMSCommon.WeatherForecast
         public ConsumerCharacteristics()
         {
             Hourly = new Dictionary<TimeSpan, double>();
-            TimeSpan timeSpan = new TimeSpan(3, 0, 0);
-            double typicalConsumption =24.3;
-            Hourly[timeSpan] = typicalConsumption;
+            for (int i = 0; i < 24; i++)
+            {
+                TimeSpan timeSpan = new TimeSpan(i, 0, 0);
+                double curve = 0.0;
+                if (i==0 || i == 15 || i == 6 || i ==10 || i == 13 || i == 23)
+                {
+                    curve = 0.4;
+                }
+                else if(i == 1 || i == 5 || i == 9 || i == 11)
+                {
+                    curve = 0.3;
+                }
+                else if (i > 1 && i <5)
+                {
+                    curve = 0.2;
+                }
+                else if (i == 7 || i == 19 || i == 15)
+                {
+                    curve = 0.7;
+                }
+                else if(i ==8 || i == 12 || i == 22 || i == 14)
+                {
+                    curve = 0.5;
+                }
+                else if ( i == 16 || i == 18 || i == 21)
+                {
+                    curve = 0.8;
+                }
+                else if(i == 20)
+                {
+                    curve = 0.9;
+                }
+                else if(i ==17)
+                {
+                    curve = 1;
+                }
+                
+                
+               
+                Hourly[timeSpan] = curve;
+            }
+            ;
         }
 
         public Dictionary<TimeSpan, double> Hourly
