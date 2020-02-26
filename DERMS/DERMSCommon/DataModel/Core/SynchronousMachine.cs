@@ -44,7 +44,7 @@ namespace DERMSCommon.DataModel.Core
 
             if (this.GeneratorType.Equals(GeneratorType.Wind))
             {
-                ConsiderP = (float)random.Next(500000, 1000000000);
+                
                 foreach (DarkSkyApi.Models.HourDataPoint dataPoint in forecast.Hourly.Hours.Take(24))
                 {
                     WeatherForecast.HourDataPoint hourDataPoint = new WeatherForecast.HourDataPoint();
@@ -56,7 +56,7 @@ namespace DERMSCommon.DataModel.Core
                     }
                     else if (dataPoint.WindSpeed >= 3.5 && dataPoint.WindSpeed < 14)
                     {
-                        P = (float)((dataPoint.WindSpeed - 3.5) * 0.035 * 1000);
+                        P = (float)((dataPoint.WindSpeed - 3.5) * 0.035 );
                     }
                     else if (dataPoint.WindSpeed >= 14 && dataPoint.WindSpeed < 25)
                     {
@@ -77,7 +77,7 @@ namespace DERMSCommon.DataModel.Core
             }
             else if (this.GeneratorType.Equals(GeneratorType.Solar))
             {
-                ConsiderP = (float)random.Next(100000, 500000);
+                
                 foreach (DarkSkyApi.Models.HourDataPoint dataPoint in forecast.Hourly.Hours.Take(24))
                 {
                     WeatherForecast.HourDataPoint hourDataPoint = new WeatherForecast.HourDataPoint();

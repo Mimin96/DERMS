@@ -203,3 +203,15 @@ C:\Users\milan.petrovic\Desktop\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherFor
 C:\Users\milan.petrovic\Desktop\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.csproj.CopyComplete
 C:\Users\milan.petrovic\Desktop\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.dll
 C:\Users\milan.petrovic\Desktop\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.pdb
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\WeatherForecast\bin\Debug\WeatherForecast.dll
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\WeatherForecast\bin\Debug\WeatherForecast.pdb
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\WeatherForecast\bin\Debug\DarkSkyApi.dll
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\WeatherForecast\bin\Debug\DERMSCommon.dll
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\WeatherForecast\bin\Debug\FTN.Common.dll
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\WeatherForecast\bin\Debug\DERMSCommon.pdb
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\WeatherForecast\bin\Debug\FTN.Common.pdb
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.csprojAssemblyReference.cache
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.csproj.CoreCompileInputs.cache
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.csproj.CopyComplete
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.dll
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.pdb

@@ -185,3 +185,13 @@ C:\Users\milan.petrovic\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.cs
 C:\Users\milan.petrovic\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
 C:\Users\milan.petrovic\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
 C:\Users\milan.petrovic\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\DERMSCommon\bin\Debug\DERMSCommon.dll
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\DERMSCommon\bin\Debug\DERMSCommon.pdb
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\DERMSCommon\bin\Debug\DarkSkyApi.dll
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\DERMSCommon\bin\Debug\FTN.Common.dll
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\DERMSCommon\bin\Debug\FTN.Common.pdb
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csprojAssemblyReference.cache
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CoreCompileInputs.cache
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
+C:\Users\Djole\Desktop\MASTERICA\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb

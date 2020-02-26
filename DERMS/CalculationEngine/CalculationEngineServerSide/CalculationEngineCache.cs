@@ -160,6 +160,25 @@ namespace CalculationEngineService
             consumptionCalculator.Calculate(productionCached);
             PubSubCalculatioEngine.Instance.Notify(productionCached, (int)Enums.Topics.Default);
         }
+        public void PopulateFlexibility(NetworkModelTransfer networkModel)
+        {
+            DERFlexibility flexibility = new DERFlexibility(networkModel);
+            foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
+            {
+                foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
+                {
+                    var type = kvpDic.Value.GetType();
+                    if (type.Name.Equals("Substation"))
+                    {
+                        var gr = (Substation)kvpDic.Value;
+                        if (flexibility.CheckFlexibility(gr.GlobalId))
+                        {
+                            flexibility.TurnOnFlexibility(10, productionCached, gr.GlobalId);
+                        }
+                    }
+                }
+            }
+        }
         public List<DataPoint> GetDataPoints(long gid)
         {
             if (!scadaPointsCached.ContainsKey(gid))
