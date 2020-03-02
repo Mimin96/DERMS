@@ -13,7 +13,8 @@ namespace CalculationEngineService
     public class DERFlexibility
     {
         private NetworkModelTransfer networkModel;
-        private List<Generator> generatorsForOverclock = new List<Generator>();
+        private List<long> generatorsForOverclock = new List<long>();
+        private Dictionary<long, bool> stateOfGenerator = new Dictionary<long, bool>();
 
         public DERFlexibility(NetworkModelTransfer networkModel)
         {
@@ -34,22 +35,24 @@ namespace CalculationEngineService
                     if (type.Name.Equals("Substation"))
                     {
                         var gr = (Substation)kvpDic.Value;
-                        foreach (Generator generator in allGenerators)
+                        foreach (KeyValuePair<long,bool> kvpGenerator in stateOfGenerator)
                         {
-                            if (gr.Equipments.Contains(generator.GlobalId) && flexibility)  // <- umesto flexibility treba generator.flexibility
+                            if (gr.Equipments.Contains(kvpGenerator.Key) && !kvpGenerator.Value)  // <- umesto flexibility treba generator.flexibility
                             {
-                                generatorsForOverclock.Add(generator);
-
+                                generatorsForOverclock.Add(kvpGenerator.Key);
+                                flexibility = true;
+                                break;
                             }
                         }
+                    }
+                    foreach (long gen in generatorsForOverclock)
+                    {
+                        stateOfGenerator[gen] = !stateOfGenerator[gen];
                     }
 
                 }
             }
-            if (generatorsForOverclock.Count != 0)
-            {
-                flexibility = true;
-            }
+          
             return flexibility;
         }
 
@@ -75,6 +78,9 @@ namespace CalculationEngineService
                     {
                         var generator = (Generator)kvpDic.Value;
                         generators.Add(generator);
+
+                        if(!stateOfGenerator.ContainsKey(generator.GlobalId))
+                            stateOfGenerator.Add(generator.GlobalId, false);
                     }
                 }
             }

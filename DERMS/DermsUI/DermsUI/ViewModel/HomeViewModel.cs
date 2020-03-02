@@ -186,7 +186,7 @@ namespace DermsUI.ViewModel
         {
             DERMSCommon.SCADACommon.SCADACommanding commanding = (DERMSCommon.SCADACommon.SCADACommanding)parameter;
 
-            proxy.sendToCE.UpdateThroughUI(commanding);
+            //proxy.sendToCE.UpdateThroughUI(commanding);
         }
 
         private void GetNetworkModelFromProxy(object parameter)

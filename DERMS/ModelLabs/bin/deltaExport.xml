@@ -64,7 +64,9 @@
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000500000001" type="GENERATOR" />
-          <Properties />
+          <Properties>
+            <Property id="CONDEQ_LONGITUDE" value="45.217144" />
+          </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000500000002" type="GENERATOR" />

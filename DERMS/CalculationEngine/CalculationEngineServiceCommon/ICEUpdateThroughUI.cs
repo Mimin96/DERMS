@@ -12,6 +12,6 @@ namespace CalculationEngineServiceCommon
     public interface ICEUpdateThroughUI
     {
         [OperationContract]
-        void UpdateThroughUI(SCADACommanding data);
+        void UpdateThroughUI(long data);
     }
 }

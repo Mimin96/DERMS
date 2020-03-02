@@ -10,9 +10,9 @@ namespace CalculationEngineService
 {
     public class CEUpdateThroughUI : ICEUpdateThroughUI
     {
-        public void UpdateThroughUI(SCADACommanding data)
+        public void UpdateThroughUI(long data)
         {
-           // ClientSideCE.Instance.ProxyScada.UpdateCommandScada(data);
+            long x = data;
         }
     }
 }

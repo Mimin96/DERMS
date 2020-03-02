@@ -38,8 +38,12 @@ namespace UI.Communication
         {
             //serviceHost_SCADAData.Open();
             serviceHost_NetworkModel.Open();
-            sendToCE = factory.CreateChannel();
+            //sendToCE = factory.CreateChannel();
 
+        }
+        public void Open2()
+        {
+            sendToCE = factory.CreateChannel();
         }
 
         public void Close()

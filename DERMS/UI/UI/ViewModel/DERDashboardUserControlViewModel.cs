@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using UI.Communication;
 using UI.Model;
 using UI.Resources;
 
@@ -18,6 +19,8 @@ namespace UI.ViewModel
 {
     public class DERDashboardUserControlViewModel : BindableBase
     {
+        CommunicationProxy proxy;
+
         #region Properties
         public TreeNode<NodeData> Tree { get; set; }
         #endregion
@@ -127,6 +130,9 @@ namespace UI.ViewModel
         }
         public void GeographicalRegionCommandExecute(long gid)
         {
+            proxy = new CommunicationProxy();
+            proxy.Open2();
+            proxy.sendToCE.UpdateThroughUI(gid);
             Console.Beep();
         }
         public void GeographicalSubRegionCommandExecute(long gid)

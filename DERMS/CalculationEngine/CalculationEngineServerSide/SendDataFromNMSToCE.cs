@@ -43,7 +43,7 @@ namespace CalculationEngineService
             CalculationEngineCache.Instance.PopulateProductionForecast(networkModel);
             CalculationEngineCache.Instance.PopulateConsumptionForecast(networkModel);
             // POZIV FLEXIBILITYA RADI TESTA
-            //CalculationEngineCache.Instance.PopulateFlexibility(networkModel); 
+            CalculationEngineCache.Instance.PopulateFlexibility(networkModel); 
 
             ClientSideCE.Instance.ProxyUI_NM.SendDataUI(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass);
             if (networkModel != null)

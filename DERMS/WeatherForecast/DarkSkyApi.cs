@@ -20,7 +20,7 @@ namespace WeatherForecast
 
         public async Task<Forecast> GetWeatherForecastAsync(double latitude, double longitude)
         {
-            Forecast result = await darkSkyProxy.GetTimeMachineWeatherAsync(latitude, longitude, DateTime.Now, Unit.Auto);
+            Forecast result = await darkSkyProxy.GetTimeMachineWeatherAsync(longitude, latitude, DateTime.Now, Unit.Auto);
             List<HourDataPoint> hourDataPoints =  result.Hourly.Hours.ToList();
 
             DERMSCommon.WeatherForecast.WeatherForecast weatherForecast = new DERMSCommon.WeatherForecast.WeatherForecast(1001,1, 1, 1, 1, DateTime.Now, "");
