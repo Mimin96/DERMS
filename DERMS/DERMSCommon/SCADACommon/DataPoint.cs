@@ -4,6 +4,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using MaterialDesignThemes.Wpf;
 
 namespace DERMSCommon.SCADACommon
 {
@@ -25,6 +27,10 @@ namespace DERMSCommon.SCADACommon
         private string _value;
         [DataMember]
         private ushort _rawValue;
+        [DataMember]
+        private PackIconKind _alarmImage;
+        [DataMember]
+        private SolidColorBrush _alarmImageColor;
         [DataMember]
         protected AlarmType _alarm;
 
@@ -110,6 +116,30 @@ namespace DERMSCommon.SCADACommon
             set
             {
                 _alarm = value;
+            }
+        }
+
+        public PackIconKind AlarmImage
+        {
+            get
+            {
+                return _alarmImage;
+            }
+            set
+            {
+                _alarmImage = value;
+            }
+        }
+
+        public SolidColorBrush AlarmImageColor
+        {
+            get
+            {
+                return _alarmImageColor;
+            }
+            set
+            {
+                _alarmImageColor = value;
             }
         }
 

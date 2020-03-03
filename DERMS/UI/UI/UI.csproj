@@ -87,16 +87,24 @@
     <Compile Include="Communication\ClientSideProxy.cs" />
     <Compile Include="Communication\CommunicationProxy.cs" />
     <Compile Include="Communication\SendNetworkModelToUI.cs" />
+    <Compile Include="Model\LoggesSummaryFilter.cs" />
     <Compile Include="Model\NetworkModelViewClass.cs" />
+    <Compile Include="Model\SignalsSummaryFilter.cs" />
     <Compile Include="Resources\MediatorPattern\EventArgs.cs" />
     <Compile Include="Resources\MediatorPattern\EventRaiser.cs" />
     <Compile Include="Resources\MediatorPattern\Mediator.cs" />
     <Compile Include="ViewModel\DERDashboardUserControlViewModel.cs" />
+    <Compile Include="ViewModel\EventSummaryUserControlViewModel.cs" />
     <Compile Include="ViewModel\GISUserControlViewModel.cs" />
+    <Compile Include="ViewModel\LoggesSummaryUserControlViewModel.cs" />
     <Compile Include="ViewModel\ManualCommandingViewModel.cs" />
     <Compile Include="ViewModel\NetworkModelUserControlViewModel.cs" />
+    <Compile Include="ViewModel\SignalsSummaryUserControlViewModel.cs" />
     <Compile Include="View\DERDashboardUserControl.xaml.cs">
       <DependentUpon>DERDashboardUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EventSummaryUserControl.xaml.cs">
+      <DependentUpon>EventSummaryUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\GISUserControl.xaml.cs">
       <DependentUpon>GISUserControl.xaml</DependentUpon>
@@ -105,11 +113,17 @@
     <Compile Include="View\LoadingWindow.xaml.cs">
       <DependentUpon>LoadingWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\LoggesSummaryUserControl.xaml.cs">
+      <DependentUpon>LoggesSummaryUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ManualCommandingWindow.xaml.cs">
       <DependentUpon>ManualCommandingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NetworkModelUserControl.xaml.cs">
       <DependentUpon>NetworkModelUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SignalsSummaryUserControl.xaml.cs">
+      <DependentUpon>SignalsSummaryUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\AppDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -119,11 +133,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EventSummaryUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\GISUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LoadingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoggesSummaryUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NetworkModelUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SignalsSummaryUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

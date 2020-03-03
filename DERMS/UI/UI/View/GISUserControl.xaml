@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="533" d:DesignWidth="1024">
     <Grid>
-        <Border Margin="5,2,5,100" BorderThickness="1" BorderBrush="#FF0398E2">
+        <Border Margin="5,2,5,131" BorderThickness="1" BorderBrush="#FF0398E2">
             <m:Map x:Name="Map" CredentialsProvider="ghV2tH3euIcFS6PJc15d~LzFfZi11UyYhzBE6DbxtgQ~AstUsgFCapPH3oNisYL2azqlLp0ImbaticuKzrTKjts-U-4q7Ii4OuGWx23lEBqI"
                Center="45.27143,19.7794009" ZoomLevel="12" Culture="en-au">
                 <i:Interaction.Triggers>
@@ -50,6 +50,8 @@
                 </Grid>
             </Border>
         </Expander>
-        <TextBlock x:Name="GISTextBlock" HorizontalAlignment="Left" Margin="10,0,0,10" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="85" Width="1004"/>
+        <Border Margin="5,0,5,10" BorderThickness="1" BorderBrush="#FF007ACC" Height="116" VerticalAlignment="Bottom">
+            <TextBox x:Name="GISTextBlock" IsReadOnly="True" TextWrapping="Wrap" Text="" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="14"/>
+        </Border>
     </Grid>
 </UserControl>

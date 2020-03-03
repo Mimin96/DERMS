@@ -105,7 +105,23 @@ namespace UI.ViewModel
 
             _selectedMenuItem = button;
         }
+        public void OnMouseClick(object sender, MouseButtonEventArgs e)
+        {
+            ((MenuItem)((FrameworkElement)sender).Parent).IsSubmenuOpen = false;
 
+            if (_selectedMenuItem != null)
+            {
+                _selectedMenuItem.Background = Brushes.Transparent;
+            }
+
+            if (sender == null) return;
+
+            Button button = (Button)sender;
+            button.Background = new SolidColorBrush(Color.FromRgb(72, 74, 72));
+            SetUserContro(button.Name.ToString());
+
+            _selectedMenuItem = button;
+        }
         public void LoadingWindow() 
         {
             Application.Current.Dispatcher.Invoke((Action)delegate {
@@ -134,10 +150,30 @@ namespace UI.ViewModel
                     ((NetworkModelUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
                     ((NetworkModelUserControlViewModel)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;
                     break;
+                case "SignalsSummary":
+                    UserControlPresenter = new SignalsSummaryUserControl();
+                    break;
+                case "EventSummary":
+                    UserControlPresenter = new EventSummaryUserControl();
+                    break;
+                case "LoggesSummary":
+                    UserControlPresenter = new LoggesSummaryUserControl();
+                    break;
                 default:
                     MessageBox.Show("There was a problem while opening view. Try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
             }
+        }
+        private string GetParents(Object element, int parentLevel)
+        {
+            string returnValue = String.Format("[{0}] {1}", parentLevel, element.GetType());
+            if (element is FrameworkElement)
+            {
+                if (((FrameworkElement)element).Parent != null)
+                    returnValue += String.Format("{0}{1}",
+                        Environment.NewLine, GetParents(((FrameworkElement)element).Parent, parentLevel + 1));
+            }
+            return returnValue;
         }
         #endregion
     }

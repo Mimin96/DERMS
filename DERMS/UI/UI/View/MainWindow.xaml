@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:ViewModel="clr-namespace:UI.ViewModel"
         x:Name="root" 
         mc:Ignorable="d" 
@@ -70,6 +71,46 @@
                             <TextBlock HorizontalAlignment="Center" Text="Network Model" FontFamily="Champagne &amp; Limousines"/>
                         </Grid>
                     </Button>
+                    <Menu Opacity="0.9" FontSize="14" VerticalAlignment="Center" Background="#FF303030" FontFamily="Champagne &amp; Limousines" Foreground="#FF0398E2" HorizontalAlignment="Center" Height="28" FontWeight="Bold">
+                        <MenuItem Background="#FF303030" Height="28" Width="Auto">
+                            <MenuItem.Header>
+                                <Grid Width="Auto">
+                                    <materialDesign:PackIcon Kind="ViewGrid" VerticalAlignment="Center"/>
+                                    <TextBlock Width="Auto" Text="Summaries" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,0,0"/>
+                                </Grid>
+                            </MenuItem.Header>
+                            <Button Cursor="Hand" x:Name="SignalsSummary" Width="Auto" Height="Auto" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Foreground="#FF0398E2">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                        <i:CallMethodAction MethodName="OnMouseClick" TargetObject="{Binding}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <Grid Width="145">
+                                    <TextBlock HorizontalAlignment="Center" Text="Signals Summary" FontFamily="Champagne &amp; Limousines"/>
+                                </Grid>
+                            </Button>
+                            <Button Cursor="Hand" x:Name="EventSummary" Width="Auto" Height="Auto" Background="Transparent"  BorderBrush="Transparent" Foreground="#FF0398E2">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                        <i:CallMethodAction MethodName="OnMouseClick" TargetObject="{Binding}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <Grid Width="145">
+                                    <TextBlock HorizontalAlignment="Center" Text="Event Summary" FontFamily="Champagne &amp; Limousines"/>
+                                </Grid>
+                            </Button>
+                            <Button Cursor="Hand" x:Name="LoggesSummary" Width="Auto" Height="Auto" Background="Transparent" BorderBrush="Transparent" Foreground="#FF0398E2">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                        <i:CallMethodAction MethodName="OnMouseClick" TargetObject="{Binding}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <Grid Width="145">
+                                    <TextBlock HorizontalAlignment="Center" Text="Logges Summary" FontFamily="Champagne &amp; Limousines"/>
+                                </Grid>
+                            </Button>
+                        </MenuItem>
+                    </Menu>
                 </StackPanel>
             </Border>
         </Grid>

@@ -27,7 +27,7 @@ namespace UI.Communication
             serviceHost_NetworkModel = new ServiceHost(typeof(SendNetworkModelToUI));
 
             serviceHost_NetworkModel.AddServiceEndpoint(typeof(ISendNetworkModelToUI), new NetTcpBinding(),
-                                            new Uri("net.tcp://localhost:20108/ISendNetworkModelToUI"));
+                                            new Uri("net.tcp://localhost:25108/ISendNetworkModelToUI"));
 
             // Send to CE
             factory = new ChannelFactory<ICEUpdateThroughUI>(new NetTcpBinding(),

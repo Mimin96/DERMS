@@ -62,9 +62,9 @@ namespace CalculationEngineService
 
             //Connect to UI
             NetTcpBinding binding3 = new NetTcpBinding();
-            factoryUI_NM = new ChannelFactory<ISendNetworkModelToUI>(binding3, new EndpointAddress("net.tcp://localhost:20108/ISendNetworkModelToUI"));
+            factoryUI_NM = new ChannelFactory<ISendNetworkModelToUI>(binding3, new EndpointAddress("net.tcp://localhost:25108/ISendNetworkModelToUI"));
             ProxyUI_NM = factoryUI_NM.CreateChannel();
-            Console.WriteLine("Connected: net.tcp://localhost:20108/ISendNetworkModelToUI");
+            Console.WriteLine("Connected: net.tcp://localhost:25108/ISendNetworkModelToUI");
 
             //Connect to Scada
             NetTcpBinding binding2 = new NetTcpBinding();

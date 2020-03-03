@@ -345,3 +345,32 @@ C:\Users\Djole\Desktop\NS\DERMS\DERMS\TransactionCoordinator\obj\Debug\Transacti
 C:\Users\Djole\Desktop\NS\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csproj.CopyComplete
 C:\Users\Djole\Desktop\NS\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.exe
 C:\Users\Djole\Desktop\NS\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.pdb
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinator.exe.config
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinator.exe
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinator.pdb
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineService.dll
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\DERMSCommon.dll
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Common.dll
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Services.NetworkModelService.dll
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinatorService.dll
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\DarkSkyApi.dll
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\WeatherForecast.dll
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineServiceCommon.dll
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.dll
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\MaterialDesignColors.dll
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineService.pdb
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\DERMSCommon.pdb
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinatorService.pdb
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Common.pdb
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Services.NetworkModelService.pdb
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\WeatherForecast.pdb
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.pdb
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\bin\Debug\MaterialDesignColors.pdb
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csprojAssemblyReference.cache
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csproj.CopyComplete
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.exe
+C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.pdb
