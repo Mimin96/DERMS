@@ -26,5 +26,10 @@ namespace UI.View
              InitializeComponent();
              DataContext = new NetworkModelUserControlViewModel();
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //((NetworkModelUserControlViewModel)DataContext).GidInput;
+        }
     }
 }

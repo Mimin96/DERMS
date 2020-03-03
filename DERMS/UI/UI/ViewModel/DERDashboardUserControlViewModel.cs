@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using UI.Communication;
 using UI.Model;
 using UI.Resources;
@@ -23,10 +24,108 @@ namespace UI.ViewModel
     {
         CommunicationProxy proxy;
         DERDashboardUserControl dERDashboardUserControl;
+        private SolidColorBrush color1;
+        private SolidColorBrush color2;
+        private bool showConsumption;
+        private bool showDerProduction;
+        private bool showGridDemands;
+        private Visibility visibilityConsumption;
+        private Visibility visibilityDERProduction;
+        private Visibility visibilityGridDemands;
+        private IChartValues chartValues1;
+        private IChartValues chartValues2;
+        private IChartValues chartValues3;
         #region Properties
         public TreeNode<NodeData> Tree { get; set; }
         private ClientSideProxy ClientSideProxy { get; set; }
         private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
+        public SolidColorBrush Color1 { get { return color1; } set { color1 = value; OnPropertyChanged("Color1"); } }
+        public SolidColorBrush Color2 { get { return color2; } set { color2 = value; OnPropertyChanged("Color2"); } }
+
+        public bool ShowConsumption
+        {
+            get
+            {
+                return showConsumption;
+            }
+            set
+            {
+                showConsumption = value;
+                if (showConsumption == true)
+                {
+                    VisibilityConsumption = Visibility.Visible;
+                }
+                else
+                {
+                    VisibilityConsumption = Visibility.Collapsed;
+                }
+                OnPropertyChanged("ShowConsumption");
+            }
+        }
+
+        public bool ShowDerProduction
+        {
+            get
+            {
+                return showDerProduction;
+            }
+            set
+            {
+                showDerProduction = value;
+                if (showDerProduction)
+                {
+                    VisibilityDERProduction = Visibility.Visible;
+                }
+                else
+                {
+                    VisibilityDERProduction = Visibility.Collapsed;
+                }
+                OnPropertyChanged("ShowDerProduction");
+            }
+        }
+        public bool ShowGridDemands
+        {
+            get
+            {
+                return showGridDemands;
+            }
+            set
+            {
+                showGridDemands = value;
+                if (showGridDemands)
+                {
+                    VisibilityGridDemands = Visibility.Visible;
+                }
+                else
+                {
+                    VisibilityGridDemands = Visibility.Collapsed;
+                }
+                OnPropertyChanged("ShowGridDemands");
+            }
+        }
+
+        public IChartValues ChartValues1
+        {
+            get { return chartValues1; }
+            set { chartValues1 = value; }
+        }
+
+        public IChartValues ChartValues2
+        {
+            get { return chartValues2; }
+            set { chartValues2 = value; }
+        }
+
+        public IChartValues ChartValues3
+        {
+            get { return chartValues3; }
+            set { chartValues3 = value; }
+        }
+
+        public Visibility VisibilityConsumption { get { return visibilityConsumption; } set { visibilityConsumption = value; OnPropertyChanged("VisibilityConsumption"); } }
+        public Visibility VisibilityDERProduction { get { return visibilityDERProduction; } set { visibilityDERProduction = value; OnPropertyChanged("VisibilityDERProduction"); } }
+        public Visibility VisibilityGridDemands { get { return visibilityGridDemands; } set { visibilityGridDemands = value; OnPropertyChanged("VisibilityGridDemands"); } }
+
         #endregion
 
         #region TreeView Data adn Commands
@@ -115,16 +214,39 @@ namespace UI.ViewModel
 
         public DERDashboardUserControlViewModel(DERDashboardUserControl dERDashboardUserControl)
         {
-           
-            Values1 = new ChartValues<ObservableValue>
-            {
-                new ObservableValue(3),
-                new ObservableValue(4),
-                new ObservableValue(6),
-                new ObservableValue(3),
-                new ObservableValue(2),
-                new ObservableValue(6)
-            };
+
+            ShowConsumption = true;
+            ShowDerProduction = true;
+            ShowGridDemands = true;
+
+            Color1 = new SolidColorBrush(Colors.Green);
+            Color2 = new SolidColorBrush(Colors.Purple);
+            ChartValues1 = new ChartValues<double>();
+            ChartValues1.Add(1.00);
+            ChartValues1.Add(3.00);
+            ChartValues1.Add(9.00);
+            ChartValues1.Add(6.00);
+            ChartValues1.Add(9.00);
+            ChartValues1.Add(7.00);
+            ChartValues1.Add(4.00);
+
+            ChartValues2 = new ChartValues<double>();
+            ChartValues2.Add(8.00);
+            ChartValues2.Add(4.00);
+            ChartValues2.Add(6.00);
+            ChartValues2.Add(2.00);
+            ChartValues2.Add(3.00);
+            ChartValues2.Add(1.00);
+            ChartValues2.Add(5.00);
+
+            ChartValues3 = new ChartValues<double>();
+            ChartValues3.Add(5.00);
+            ChartValues3.Add(8.00);
+            ChartValues3.Add(3.00);
+            ChartValues3.Add(6.00);
+            ChartValues3.Add(2.00);
+            ChartValues3.Add(1.00);
+            ChartValues3.Add(5.00);
 
             this.dERDashboardUserControl = dERDashboardUserControl;
 

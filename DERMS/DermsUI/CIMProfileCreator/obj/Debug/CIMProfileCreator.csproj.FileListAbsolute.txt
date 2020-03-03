@@ -122,3 +122,8 @@ C:\Users\Djole\Desktop\NS\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMPro
 C:\Users\Djole\Desktop\NS\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache
 C:\Users\Djole\Desktop\NS\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.dll
 C:\Users\Djole\Desktop\NS\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DermsUI\CIMProfileCreator\bin\Debug\CIMProfileCreator.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DermsUI\CIMProfileCreator\bin\Debug\CIMProfileCreator.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.pdb

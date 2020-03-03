@@ -87,6 +87,7 @@
     <Compile Include="Communication\ClientSideProxy.cs" />
     <Compile Include="Communication\CommunicationProxy.cs" />
     <Compile Include="Communication\SendNetworkModelToUI.cs" />
+    <Compile Include="Model\ComboData.cs" />
     <Compile Include="Model\LoggesSummaryFilter.cs" />
     <Compile Include="Model\NetworkModelViewClass.cs" />
     <Compile Include="Model\SignalsSummaryFilter.cs" />

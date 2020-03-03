@@ -218,3 +218,18 @@ C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csp
 C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
 C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
 C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\bin\Debug\DERMSCommon.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\bin\Debug\DERMSCommon.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\bin\Debug\DarkSkyApi.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\bin\Debug\FTN.Common.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignColors.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\bin\Debug\FTN.Common.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignColors.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb

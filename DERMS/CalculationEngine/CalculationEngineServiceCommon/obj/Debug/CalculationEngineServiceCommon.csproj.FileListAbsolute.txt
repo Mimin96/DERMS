@@ -292,3 +292,20 @@ C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\CalculationEngine\CalculationEngineSe
 C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csproj.CopyComplete
 C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.dll
 C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\CalculationEngineServiceCommon.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DERMSCommon.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.Common.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DarkSkyApi.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\MaterialDesignColors.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\DERMSCommon.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\FTN.Common.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\MaterialDesignColors.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csproj.CopyComplete
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.pdb

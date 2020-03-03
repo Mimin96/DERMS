@@ -10,6 +10,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="533" d:DesignWidth="1024">
     <Grid>
+        <!--<Grid.DataContext>
+            <ViewModel:NetworkModelUserControlViewModel/>
+        </Grid.DataContext>-->
         <Border Background="Transparent" Width="250" HorizontalAlignment="Left">
             <TreeView BorderThickness="1" BorderBrush="#FF0398E2" x:Name="MainTreeView" HorizontalAlignment="Stretch" Margin="10" ItemsSource="{Binding NetworkModel}">
                 <TreeView.ItemTemplate>
@@ -49,7 +52,7 @@
                 </TreeView.ItemTemplate>
             </TreeView>
         </Border>
-        <Border BorderBrush="#FF0398E2" BorderThickness="1" Margin="255,10,10,10">
+        <Border BorderBrush="#FF0398E2" BorderThickness="1" Margin="255,50,10,10">
             <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" >
                 <ItemsControl ItemsSource="{Binding NetworkModelItems}">
                     <ItemsControl.ItemsPanel>
@@ -85,5 +88,9 @@
                 </ItemsControl>
             </ScrollViewer>
         </Border>
+        <Label Content="Filter by" FontSize="16" FontWeight="Bold" FontStyle="Italic" Foreground="DeepSkyBlue" HorizontalAlignment="Left" Margin="255,10,0,0" VerticalAlignment="Top" Width="70" Height="35"/>
+        <ComboBox HorizontalAlignment="Left" BorderBrush="DeepSkyBlue" Foreground="DeepSkyBlue" FontSize="14" ItemsSource="{Binding SearchCriteria}" SelectedItem="{Binding SelectedCriteria}" Height="35" Margin="351,10,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="ComboBox_SelectionChanged"/>
+        <TextBox HorizontalAlignment="Left"  BorderBrush="DeepSkyBlue" Height="35" FontSize="14" Margin="497,10,0,0" TextWrapping="Wrap" Text="{Binding SearchParameter}" VerticalAlignment="Top" Width="182"/>
+        <Button Content="Search" Command="{Binding Path=FilterCommand}" Cursor="Hand" HorizontalAlignment="Left" Margin="899,10,0,0" VerticalAlignment="Top" Width="115" Height="35"/>
     </Grid>
 </UserControl>

@@ -95,43 +95,28 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <Label HorizontalContentAlignment="Center" Margin="280,10,281,0"  Content="Consumption Curve"  FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="DarkViolet" Height="31" VerticalAlignment="Top"/>
+                <Label HorizontalContentAlignment="Center" Margin="236,8,221,0"  Content="Consumption and production"  FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="DarkViolet" Height="31" VerticalAlignment="Top"/>
 				<Button Content="Manual Commanding" HorizontalAlignment="Left" Margin="58,10,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click_1"/>
 			</Grid>
 
             <Grid Grid.Row="1">
-                <lvc:CartesianChart Background="#222E31" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,12">
+                <lvc:CartesianChart Margin="0,0,0,24">
                     <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Values="{Binding Values1}" StrokeThickness="2" 
-                                Stroke="DarkViolet" Fill="Transparent" LineSmoothness="1" PointGeometrySize="10"
-                                PointGeometry="{x:Static lvc:DefaultGeometries.Circle}" 
-                                PointForeground="#6BBA45"/>
+                        <lvc:StepLineSeries Fill="{Binding Color1}"  Values="{Binding ChartValues2}" Visibility="{Binding VisibilityConsumption}"  />
+                        <lvc:StepLineSeries Fill="{Binding Color2}" Values="{Binding ChartValues3}" Visibility="{Binding VisibilityDERProduction}" />
+                        <lvc:StepLineSeries Fill="Aqua" Values="{Binding ChartValues1}" Visibility="{Binding VisibilityGridDemands}" />
                     </lvc:CartesianChart.Series>
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis IsMerged="True">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="1" StrokeDashArray="2">
-                                    <lvc:Separator.Stroke>
-                                        <SolidColorBrush Color="#404F56" />
-                                    </lvc:Separator.Stroke>
-                                </lvc:Separator>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis IsMerged="True">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="1.5" StrokeDashArray="4">
-                                    <lvc:Separator.Stroke>
-                                        <SolidColorBrush Color="#404F56" />
-                                    </lvc:Separator.Stroke>
-                                </lvc:Separator>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <CheckBox Content="Consumption" FontSize="14" BorderBrush="DeepSkyBlue" IsChecked="{Binding ShowConsumption}" Foreground="DeepSkyBlue" HorizontalAlignment="Left" Margin="67,0,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="DER Production" FontSize="14" BorderBrush="DeepSkyBlue" IsChecked="{Binding ShowDerProduction}" Foreground="DeepSkyBlue" HorizontalAlignment="Left" Height="20" Margin="227,0,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Demands from Grid" FontSize="14" BorderBrush="DeepSkyBlue" IsChecked="{Binding ShowGridDemands}" Foreground="DeepSkyBlue" HorizontalAlignment="Left" Height="20" Margin="386,0,0,0" VerticalAlignment="Top"/>
+
             </Grid>
         </Grid>
        

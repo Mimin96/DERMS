@@ -168,3 +168,11 @@ C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.cs
 C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\Filip\Desktop\TO PUSH\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
+C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
