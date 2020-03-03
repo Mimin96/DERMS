@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataFromScadaToCE.cs" />
+    <Compile Include="IFlexibilityFromUIToCE.cs" />
     <Compile Include="ICalculationEnginePubSub.cs" />
     <Compile Include="ICEUpdateThroughUI.cs" />
     <Compile Include="IPubSubCalculateEngine.cs" />

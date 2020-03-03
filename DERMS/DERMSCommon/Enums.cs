@@ -27,7 +27,8 @@ namespace DERMSCommon
 
         public enum Topics
         {
-            Default = 1
+            DerForecastDayAhead = 1,
+            Flexibility
             //TREBA VIDETI SA CAVICEM KO SE SVE PRETPLACUJE NA PUBSUB
         }
 

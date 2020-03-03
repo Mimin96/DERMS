@@ -1,4 +1,5 @@
-﻿using DERMSCommon.WeatherForecast;
+﻿using DERMSCommon;
+using DERMSCommon.WeatherForecast;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace CalculationEngineService
 {
     public interface INotify
     {
-        void Notify(Dictionary<long, DerForecastDayAhead> forcastDayAhead, int gidOfTopic);
+        void Notify(DataToUI data, int gidOfTopic);
     }
 }

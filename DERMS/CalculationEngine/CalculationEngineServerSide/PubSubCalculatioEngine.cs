@@ -1,8 +1,10 @@
 ﻿using CalculationEngineServiceCommon;
+using DERMSCommon;
 using DERMSCommon.WeatherForecast;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,13 +33,14 @@ namespace CalculationEngineService
             }
         }
 
-        public void Notify(Dictionary<long, DerForecastDayAhead> forcastDayAhead, int gidOfTopic)
+        public void Notify(DataToUI data, int gidOfTopic)
         {
-            if (forcastDayAhead == null || subscribers.Count == 0)
+            if (data == null || subscribers.Count == 0)
             {
                 return;
             }
 
+            data.Topic = gidOfTopic;
             Dictionary<string, ServerSideProxy> subscribersCopy;
             List<string> deadClients = new List<string>();
             lock (subscribersLock)
@@ -52,13 +55,20 @@ namespace CalculationEngineService
                 if (subscribersCopy.ContainsKey(subscriberAddress))
                 {
                     ServerSideProxy subscriber = subscribersCopy[subscriberAddress];
+
                     try
                     {
-                        subscriber.Proxy.SendScadaDataToUI(forcastDayAhead);
+                        subscriber.Proxy.SendScadaDataToUI(data);
                     }
-                    catch (Exception e)
+                    catch (CommunicationException)
                     {
-                        MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        subscriber.Abort();
+                        subscriber.Connect();
+                    }
+                    catch (TimeoutException)
+                    {
+                        subscriber.Abort();
+                        subscriber.Connect();
                     }
                 }
                 else

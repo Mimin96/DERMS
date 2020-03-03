@@ -71,6 +71,7 @@
     <Compile Include="DataModel\Wires\Conductor.cs" />
     <Compile Include="DataModel\Wires\ProtectedSwitch.cs" />
     <Compile Include="DataModel\Wires\Switch.cs" />
+    <Compile Include="DataToUI.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="NMSCommuication\ISendDataFromNMSToCE.cs" />

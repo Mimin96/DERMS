@@ -26,6 +26,7 @@ namespace CalculationEngineService
             binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
             factory = new ChannelFactory<ICalculationEnginePubSub>(binding, new EndpointAddress(ClientAddress));
             Proxy = factory.CreateChannel();
+            ((IContextChannel)Proxy).OperationTimeout = new TimeSpan(0, 0, 1);
         }
 
         public void Abort()

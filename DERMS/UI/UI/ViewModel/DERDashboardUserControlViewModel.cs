@@ -14,15 +14,19 @@ using System.Windows.Input;
 using UI.Communication;
 using UI.Model;
 using UI.Resources;
+using UI.Resources.MediatorPattern;
+using UI.View;
 
 namespace UI.ViewModel
 {
     public class DERDashboardUserControlViewModel : BindableBase
     {
         CommunicationProxy proxy;
-
+        DERDashboardUserControl dERDashboardUserControl;
         #region Properties
         public TreeNode<NodeData> Tree { get; set; }
+        private ClientSideProxy ClientSideProxy { get; set; }
+        private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
         #endregion
 
         #region TreeView Data adn Commands
@@ -109,7 +113,7 @@ namespace UI.ViewModel
 
         public ObservableCollection<NetworkModelViewClass> NetworkModelItems { get; set; }
 
-        public DERDashboardUserControlViewModel()
+        public DERDashboardUserControlViewModel(DERDashboardUserControl dERDashboardUserControl)
         {
            
             Values1 = new ChartValues<ObservableValue>
@@ -121,6 +125,16 @@ namespace UI.ViewModel
                 new ObservableValue(2),
                 new ObservableValue(6)
             };
+
+            this.dERDashboardUserControl = dERDashboardUserControl;
+
+            Mediator.Register("DerForecastDayAhead", DERDashboardDerForecastDayAhead);
+            Mediator.Register("Flexibility", DERDashboardFlexibility);
+
+            ClientSideProxy = new ClientSideProxy();
+            CalculationEnginePubSub = new CalculationEnginePubSub();
+            ClientSideProxy.StartServiceHost(CalculationEnginePubSub);
+            ClientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
         }
 
         #region TreeView Commands Execute
@@ -164,6 +178,16 @@ namespace UI.ViewModel
             {
                 value.Value = r.Next(0, 10);
             }
+        }
+        public void DERDashboardFlexibility(object parameter)
+        {
+            // TREBA IMPLEMENTIRATI
+            dERDashboardUserControl.ProductionFromGenerators.Value = ((DataToUI)parameter).Flexibility;
+        }
+
+        public void DERDashboardDerForecastDayAhead(object parameter)
+        {
+            // TREBA IMPLEMENTIRATI
         }
     }
 }

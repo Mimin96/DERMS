@@ -14,6 +14,7 @@ namespace CalculationEngineService
     public class ServiceManager
     {
         private ServiceHost serviceHostUI;
+        private ServiceHost serviceHostUIFlexibility;
         private ServiceHost serviceHostScada;
         private ServiceHost serviceHostForNMS;
         private ServiceHost serviceHostPubSubCE;
@@ -54,6 +55,22 @@ namespace CalculationEngineService
             serviceHostUI.AddServiceEndpoint(typeof(ICEUpdateThroughUI), binding2, address2);
             serviceHostUI.Open();
             Console.WriteLine("Open: net.tcp://localhost:19001/ICEUpdateThroughUI");
+
+            //Open service for UI for Flexibility
+            string address4 = String.Format("net.tcp://localhost:19011/IFlexibilityFromUIToCE");
+            NetTcpBinding binding4 = new NetTcpBinding();
+            binding4.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            binding4.CloseTimeout = System.TimeSpan.FromMinutes(20);
+            binding4.OpenTimeout = System.TimeSpan.FromMinutes(20);
+            binding4.ReceiveTimeout = System.TimeSpan.FromMinutes(20);
+            binding4.SendTimeout = System.TimeSpan.FromMinutes(20);
+            binding4.MaxBufferSize = 8000000;
+            binding4.MaxReceivedMessageSize = 8000000;
+            binding4.MaxBufferPoolSize = 8000000;
+            serviceHostUIFlexibility = new ServiceHost(typeof(FlexibilityFromUIToCE));
+            serviceHostUIFlexibility.AddServiceEndpoint(typeof(IFlexibilityFromUIToCE), binding4, address4);
+            serviceHostUIFlexibility.Open();
+            Console.WriteLine("Open: net.tcp://localhost:19011/IFlexibilityFromUIToCE");
 
             //Open service for NMS
             string address3 = String.Format("net.tcp://localhost:19002/ISendDataFromNMSToCE");

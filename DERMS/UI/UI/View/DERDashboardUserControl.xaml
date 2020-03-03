@@ -72,7 +72,7 @@
             </Grid>
             <Grid Grid.Column="1" Margin="30" Height="127" VerticalAlignment="Top">
                 <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from generators"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="#FF0CADFF" VerticalAlignment="Top" Width="185"/>
-                <lvc:Gauge Grid.Column="0" Margin="10,10,0,25"
+				<lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="ProductionFromGenerators"
                    From="0" To="100" Value="40" Foreground="#FF0CADFF" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
@@ -98,7 +98,8 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Label HorizontalContentAlignment="Center" Margin="280,10,281,0"  Content="Consumption Curve"  FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="DarkViolet" Height="31" VerticalAlignment="Top"/>
-            </Grid>
+				<Button Content="Manual Commanding" HorizontalAlignment="Left" Margin="58,10,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click_1"/>
+			</Grid>
 
             <Grid Grid.Row="1">
                 <lvc:CartesianChart Background="#222E31" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,12">

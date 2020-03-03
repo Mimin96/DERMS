@@ -54,6 +54,7 @@
     <Compile Include="ClientSideCE.cs" />
     <Compile Include="ConsumptionCalculator.cs" />
     <Compile Include="DERFlexibility.cs" />
+    <Compile Include="FlexibilityFromUIToCE.cs" />
     <Compile Include="INotify.cs" />
     <Compile Include="ProductionCalculator.cs" />
     <Compile Include="PubSubCalculatioEngine.cs" />

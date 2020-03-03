@@ -149,13 +149,13 @@ namespace CalculationEngineService
                     }
                 }
             }
-            PubSubCalculatioEngine.Instance.Notify(productionCached, (int)Enums.Topics.Default); // KAD SE POPUNI CACHE SALJE SVIMA Dictionary
+            PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead); // KAD SE POPUNI CACHE SALJE SVIMA Dictionary
         }
         public void PopulateConsumptionForecast(NetworkModelTransfer networkModel)
         {
             ConsumptionCalculator consumptionCalculator = new ConsumptionCalculator(networkModel);
             consumptionCalculator.Calculate(productionCached);
-            PubSubCalculatioEngine.Instance.Notify(productionCached, (int)Enums.Topics.Default);
+            PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
         }
         public void PopulateFlexibility(NetworkModelTransfer networkModel)
         {
@@ -176,6 +176,11 @@ namespace CalculationEngineService
                 }
             }
         }
+        public void CalculateNewFlexibility(DataToUI data)
+        {
+            PubSubCalculatioEngine.Instance.Notify(data, (int)Enums.Topics.Flexibility);
+        }
+
         public List<DataPoint> GetDataPoints(long gid)
         {
             if (!scadaPointsCached.ContainsKey(gid))
@@ -205,8 +210,15 @@ namespace CalculationEngineService
                 productionCached.Add(gid, derForecastDayAhead);
 
             if (!isInitState)
-                PubSubCalculatioEngine.Instance.Notify(productionCached, (int)Enums.Topics.Default);
+                PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
         }
+        public DataToUI CreateDataForUI()
+        {
+            DataToUI data = new DataToUI();
+            data.Data = productionCached;
+            return data;
+        }
+
         public void AddScadaPoints(List<DataPoint> dataPoints)
         {
             List<DataPoint> temp = new List<DataPoint>();

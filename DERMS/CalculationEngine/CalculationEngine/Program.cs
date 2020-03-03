@@ -1,5 +1,6 @@
 ﻿using CalculationEngineService;
 using CalculationEngineServiceCommon;
+using DERMSCommon;
 using DERMSCommon.SCADACommon;
 using DERMSCommon.WeatherForecast;
 using System;
@@ -19,22 +20,24 @@ namespace CalculationEngine
 
             PubSubCalculatioEngine pubSubCalculatioEngine = new PubSubCalculatioEngine();
 
-            ServiceManager serviceManager = new ServiceManager(pubSubCalculatioEngine);
+            ServiceManager serviceManager = new ServiceManager(PubSubCalculatioEngine.Instance);
 
             ClientSideCE n = ClientSideCE.Instance;
 
             n.Connect();
 
             n.ProxyTM.Enlist("net.tcp://localhost:19516/ITransactionCheck");
-            CalculationEngineCache.Instance.AddDerForecast(new DerForecastDayAhead(), 1, false);
+            /*CalculationEngineCache.Instance.AddDerForecast(new DerForecastDayAhead(), 1, false);
             CalculationEngineCache.Instance.AddDerForecast(new DerForecastDayAhead(), 2, false);
             CalculationEngineCache.Instance.AddDerForecast(new DerForecastDayAhead(), 3, false);
-            CalculationEngineCache.Instance.AddDerForecast(new DerForecastDayAhead(), 4, false);
+            CalculationEngineCache.Instance.AddDerForecast(new DerForecastDayAhead(), 4, false);*/
                        
             Console.WriteLine("Press enter to send data.");
             Console.ReadLine();
 
-            pubSubCalculatioEngine.Notify(CalculationEngineCache.Instance.GetAllDerForecastDayAhead(),1);
+            DataToUI data = new DataToUI();
+            data.Data = CalculationEngineCache.Instance.GetAllDerForecastDayAhead();
+            PubSubCalculatioEngine.Instance.Notify(data, (int)Enums.Topics.Flexibility);
 
             Console.WriteLine("Press enter to exit.");
 

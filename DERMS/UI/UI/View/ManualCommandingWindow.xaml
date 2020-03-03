@@ -1,0 +1,20 @@
+﻿<Window x:Class="UI.View.ManualCommandingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI.View"
+        mc:Ignorable="d"
+        Title="ManualCommandingWindow" Height="420" Width="400">
+	<Grid>
+		<Grid Grid.Row="1" Background="#FF303030">
+			<TextBlock Text="Default1" FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="ForestGreen" Margin="152,20,150,342"/>
+			<TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="30" Margin="108,63,0,0" TextWrapping="Wrap" Foreground="ForestGreen" Text="TextBox" VerticalAlignment="Top" Width="171"/>
+			<TextBlock Text="Default2" FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="ForestGreen" Margin="152,124,150,238"/>
+			<TextBox HorizontalAlignment="Left" Name="ValueKW" Height="30" Margin="108,179,0,0" TextWrapping="Wrap" Foreground="ForestGreen" Text="22" VerticalAlignment="Top" Width="171"/>
+			<RadioButton Content="Increase" Name="Increase" IsChecked="True" HorizontalAlignment="Left" Height="20" Margin="96,252,0,0" Foreground="ForestGreen" VerticalAlignment="Top" Width="183"/>
+			<RadioButton Content="Decrease" Name="Decrease" HorizontalAlignment="Left" Height="20" Margin="96,289,0,0" Foreground="ForestGreen" VerticalAlignment="Top" Width="183"/>
+			<Button Content="Manual Commanding" HorizontalAlignment="Left" Margin="120,340,0,0" VerticalAlignment="Top" Width="150" Command="{Binding Command}" Click="Button_Click"/>
+		</Grid>
+	</Grid>
+</Window>

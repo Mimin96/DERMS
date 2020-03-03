@@ -93,6 +93,7 @@
     <Compile Include="Resources\MediatorPattern\Mediator.cs" />
     <Compile Include="ViewModel\DERDashboardUserControlViewModel.cs" />
     <Compile Include="ViewModel\GISUserControlViewModel.cs" />
+    <Compile Include="ViewModel\ManualCommandingViewModel.cs" />
     <Compile Include="ViewModel\NetworkModelUserControlViewModel.cs" />
     <Compile Include="View\DERDashboardUserControl.xaml.cs">
       <DependentUpon>DERDashboardUserControl.xaml</DependentUpon>
@@ -103,6 +104,9 @@
     <Compile Include="Resources\RelayCommand.cs" />
     <Compile Include="View\LoadingWindow.xaml.cs">
       <DependentUpon>LoadingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ManualCommandingWindow.xaml.cs">
+      <DependentUpon>ManualCommandingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NetworkModelUserControl.xaml.cs">
       <DependentUpon>NetworkModelUserControl.xaml</DependentUpon>
@@ -135,6 +139,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ManualCommandingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\NetworkModelUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

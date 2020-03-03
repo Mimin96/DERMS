@@ -25,7 +25,13 @@ namespace UI.View
         {
             InitializeComponent();
 
-            DataContext = new DERDashboardUserControlViewModel();
+            DataContext = new DERDashboardUserControlViewModel(this);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Window w = new ManualCommandingWindow();
+            w.Show();
         }
     }
 }
