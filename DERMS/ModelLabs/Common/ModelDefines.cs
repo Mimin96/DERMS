@@ -8,20 +8,35 @@ namespace FTN.Common
     [DataContract]
     public enum DMSType : short
     {
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         MASK_TYPE = unchecked((short)0xFFFF),
 
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         GEOGRAPHICALREGION = 0x0001,
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         SUBGEOGRAPHICALREGION = 0x000b,
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         ENEGRYSOURCE = 0x0009,
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         SUBSTATION = 0x000a,
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         BREAKER = 0x0002,
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         CONNECTIVITYNODE = 0x0003,
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         ENERGYCONSUMER = 0x0004,
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         GENERATOR = 0x0005,
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         TERMINAL = 0x0006,
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         ANALOG = 0x0007,
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         DISCRETE = 0x0008,
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         ACLINESEGMENT = 0x000c,
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        POINT = 0x000d,
     }
 
     [Flags]
@@ -97,6 +112,9 @@ namespace FTN.Common
         GENERATOR_MINQ = 0x1411210000050305,
         GENERATOR_CONSIDERP = 0x1411210000050405,
         GENERATOR_GENERATORTYPE = 0x141121000005050a,
+        GENERATOR_FLEXIBILITY = 0x1411210000050601,
+        GENERATOR_MAXFLEX = 0x1411210000050705,
+        GENERATOR_MINFLEX = 0x1411210000050805,
 
         SWITCH = 0x1411300000000000,
         SWITCH_NORMAL_OPEN = 0x1411300000000101,
@@ -119,6 +137,12 @@ namespace FTN.Common
         ACLINESEGMENT = 0x14115100000c0000,
         ACLINESEGMENT_FEEDERCABLE = 0x14115100000c0101,
         ACLINESEGMENT_CURRENTFLOW = 0x14115100000c0205,
+        ACLINESEGMENT_POINTS = 0x14115100000c0319,
+
+        POINT = 0x14115110000d0000,
+        POINT_LONGITUDE = 0x14115110000d0105,
+        POINT_LATITUDE = 0x14115110000d0205,
+        POINT_LINE = 0x14115110000d0309,
 
         TERMINAL = 0x1500000000060000,
         TERMINAL_CONNECTIVITY_NODE = 0x1500000000060109,

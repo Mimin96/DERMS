@@ -80,6 +80,21 @@
                     rd.AddProperty(new Property(ModelCode.GENERATOR_GENERATORTYPE, (short)GetDMSGeneratorType(cimGenerator.GeneratorType)));
                 }
 
+                if (cimGenerator.MaxFlexibilityHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.GENERATOR_MAXFLEX, cimGenerator.MaxFlexibility));
+                }
+
+                if (cimGenerator.MinFlexibilityHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.GENERATOR_MINFLEX, cimGenerator.MinFlexibility));
+                }
+
+                if (cimGenerator.FlexibilityHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.GENERATOR_FLEXIBILITY, cimGenerator.Flexibility));
+                }
+
                 if (cimGenerator.MaxQHasValue)
                 {
                     rd.AddProperty(new Property(ModelCode.GENERATOR_MAXQ, cimGenerator.MaxQ));
@@ -249,6 +264,35 @@
             if ((cimRegulatingCondEq != null) && (rd != null))
             {
                 PowerTransformerConverter.PopulateConductingEquipmentProperties(cimRegulatingCondEq, rd, importHelper, report);
+            }
+        }
+
+        public static void PopulatePointProperties(FTN.Point cimPoint, ResourceDescription rd, ImportHelper importHelper, TransformAndLoadReport report)
+        {
+            if ((cimPoint != null) && (rd != null))
+            {
+                PowerTransformerConverter.PopulateIdentifiedObjectProperties(cimPoint, rd);
+
+                if (cimPoint.LongitudeHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.POINT_LONGITUDE, cimPoint.Longitude));
+                }
+
+                if (cimPoint.LatitudeHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.POINT_LATITUDE, cimPoint.Latitude));
+                }
+
+                if (cimPoint.LineHasValue)
+                {
+                    long gid = importHelper.GetMappedGID(cimPoint.Line.ID);
+                    if (gid < 0)
+                    {
+                        report.Report.Append("WARNING: Convert ").Append(cimPoint.GetType().ToString()).Append(" rdfID = \"").Append(cimPoint.ID);
+                        report.Report.Append("\" - Failed to set reference to ACLINESEGMENT: rdfID \"").Append(cimPoint.Line.ID).AppendLine(" \" is not mapped to GID!");
+                    }
+                    rd.AddProperty(new Property(ModelCode.POINT_LINE, gid));
+                }
             }
         }
 
@@ -480,6 +524,17 @@
                 if (cimACLineSegment.FeederCableHasValue)
                 {
                     rd.AddProperty(new Property(ModelCode.ACLINESEGMENT_FEEDERCABLE, cimACLineSegment.FeederCable));
+                }
+
+                if (cimACLineSegment.EquipmentContainerHasValue)
+                {
+                    long gid = importHelper.GetMappedGID(cimACLineSegment.EquipmentContainer.ID);
+                    if (gid < 0)
+                    {
+                        report.Report.Append("WARNING: Convert ").Append(cimACLineSegment.GetType().ToString()).Append(" rdfID = \"").Append(cimACLineSegment.ID);
+                        report.Report.Append("\" - Failed to set reference to EquipmentContainer: rdfID \"").Append(cimACLineSegment.EquipmentContainer.ID).AppendLine(" \" is not mapped to GID!");
+                    }
+                    rd.AddProperty(new Property(ModelCode.EQUIPMENT_CONTAINER, gid));
                 }
             }
         }

@@ -157,6 +157,9 @@ namespace FTN.Services.NetworkModelService
                 case DMSType.ENEGRYSOURCE:
                     io = new EnergySource(globalId);
                     break;
+                case DMSType.POINT:
+                    io = new Point(globalId);
+                    break;
 
                 default:					
 					string message = String.Format("Failed to create entity because specified type ({0}) is not supported.", type);

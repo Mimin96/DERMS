@@ -15,9 +15,11 @@ namespace DERMSCommon.DataModel.Wires
         private float currentFlow;
         [DataMember]
         private bool feederCable;
-
+        [DataMember]
+        private List<long> points = new List<long>();
         public float CurrentFlow { get => currentFlow; set => currentFlow = value; }
         public bool FeederCable { get => feederCable; set => feederCable = value; }
+        public List<long> Points { get => points; set => points = value; }
 
         public ACLineSegment(long globalId) : base(globalId)
         {
@@ -28,7 +30,7 @@ namespace DERMSCommon.DataModel.Wires
             if (base.Equals(obj))
             {
                 ACLineSegment x = (ACLineSegment)obj;
-                return (x.currentFlow == this.currentFlow && x.feederCable == this.feederCable);
+                return (x.currentFlow == this.currentFlow && x.feederCable == this.feederCable && CompareHelper.CompareLists(x.Points, this.Points, true));
             }
             else
             {
@@ -49,6 +51,7 @@ namespace DERMSCommon.DataModel.Wires
             {
                 case ModelCode.ACLINESEGMENT_CURRENTFLOW:
                 case ModelCode.ACLINESEGMENT_FEEDERCABLE:
+                case ModelCode.ACLINESEGMENT_POINTS:
                 //case ModelCode.SWITCH_RETAINED:
                 //case ModelCode.SWITCH_SWITCH_ON_COUNT:
                 //case ModelCode.SWITCH_SWITCH_ON_DATE:
@@ -71,9 +74,9 @@ namespace DERMSCommon.DataModel.Wires
                     prop.SetValue(feederCable);
                     break;
 
-                //case ModelCode.SWITCH_RETAINED:
-                //    prop.SetValue(retained);
-                //    break;
+                case ModelCode.ACLINESEGMENT_POINTS:
+                    prop.SetValue(points);
+                    break;
                 //case ModelCode.SWITCH_SWITCH_ON_COUNT:
                 //    prop.SetValue(switchOnCount);
                 //    break;
@@ -99,9 +102,9 @@ namespace DERMSCommon.DataModel.Wires
                     currentFlow = property.AsFloat();
                     break;
 
-                //case ModelCode.SWITCH_RETAINED:
-                //    retained = property.AsBool();
-                //    break;
+                case ModelCode.ACLINESEGMENT_POINTS:
+                    points = property.AsReferences();
+                    break;
                 //case ModelCode.SWITCH_SWITCH_ON_COUNT:
                 //    switchOnCount = property.AsInt();
                 //    break;
@@ -119,15 +122,58 @@ namespace DERMSCommon.DataModel.Wires
 
         #region IReference implementation
 
-        public override void GetReferences(Dictionary<ModelCode, List<long>> references, TypeOfReference refType)
+        public override bool IsReferenced
         {
-            //if (baseVoltage != 0 && (refType == TypeOfReference.Reference || refType == TypeOfReference.Both))
-            //{
-            //	references[ModelCode.CONDEQ_BASVOLTAGE] = new List<long>();
-            //	references[ModelCode.CONDEQ_BASVOLTAGE].Add(baseVoltage);
-            //}
+            get
+            {
+                return (points.Count > 0) || base.IsReferenced;
+            }
+        }
+
+        public override void GetReferences(Dictionary<ModelCode, List<long>> references, TypeOfReference refType)
+        {       
+            if (points != null && points.Count > 0 && (refType == TypeOfReference.Target || refType == TypeOfReference.Both))
+            {
+                references[ModelCode.ACLINESEGMENT_POINTS] = points.GetRange(0, points.Count);
+            }
 
             base.GetReferences(references, refType);
+        }
+
+        public override void AddReference(ModelCode referenceId, long globalId)
+        {
+            switch (referenceId)
+            {
+                case ModelCode.POINT_LINE:
+                    points.Add(globalId);
+                    break;
+
+                default:
+                    base.AddReference(referenceId, globalId);
+                    break;
+            }
+        }
+
+        public override void RemoveReference(ModelCode referenceId, long globalId)
+        {
+            switch (referenceId)
+            {
+                case ModelCode.POINT_LINE:
+
+                    if (points.Contains(globalId))
+                    {
+                        points.Remove(globalId);
+                    }
+                    else
+                    {
+                        CommonTrace.WriteTrace(CommonTrace.TraceWarning, "Entity (GID = 0x{0:x16}) doesn't contain reference 0x{1:x16}.", this.GlobalId, globalId);
+                    }
+
+                    break;
+                default:
+                    base.RemoveReference(referenceId, globalId);
+                    break;
+            }
         }
 
         #endregion IReference implementation

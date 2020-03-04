@@ -20,11 +20,20 @@ namespace DERMSCommon.DataModel.Core
         private float considerP;
         [DataMember]
         private GeneratorType generatorType;
+        [DataMember]
+        private bool flexibility;
+        [DataMember]
+        private float maxFlexibility;
+        [DataMember]
+        private float minFlexibility;
 
         public float MaxQ { get => maxQ; set => maxQ = value; }
         public float MinQ { get => minQ; set => minQ = value; }
         public float ConsiderP { get => considerP; set => considerP = value; }
         public GeneratorType GeneratorType { get => generatorType; set => generatorType = value; }
+        public bool Flexibility { get => flexibility; set => flexibility = value; }
+        public float MaxFlexibility { get => maxFlexibility; set => maxFlexibility = value; }
+        public float MinFlexibility { get => minFlexibility; set => minFlexibility = value; }
 
         public Generator(long globalId) : base(globalId)
         {
@@ -117,7 +126,7 @@ namespace DERMSCommon.DataModel.Core
             if (base.Equals(obj))
             {
                 Generator x = (Generator)obj;
-                return (x.maxQ == this.maxQ && x.minQ == this.minQ && x.considerP == this.considerP && x.generatorType == this.generatorType);
+                return (x.maxQ == this.maxQ && x.minQ == this.minQ && x.considerP == this.considerP && x.generatorType == this.generatorType && x.flexibility == this.flexibility && x.minFlexibility == this.minFlexibility && x.maxFlexibility == this.maxFlexibility);
             }
             else
             {
@@ -140,6 +149,9 @@ namespace DERMSCommon.DataModel.Core
                 case ModelCode.GENERATOR_MAXQ:
                 case ModelCode.GENERATOR_MINQ:
                 case ModelCode.GENERATOR_CONSIDERP:
+                case ModelCode.GENERATOR_FLEXIBILITY:
+                case ModelCode.GENERATOR_MAXFLEX:
+                case ModelCode.GENERATOR_MINFLEX:
                     return true;
 
                 default:
@@ -157,6 +169,18 @@ namespace DERMSCommon.DataModel.Core
 
                 case ModelCode.GENERATOR_MAXQ:
                     prop.SetValue(maxQ);
+                    break;
+
+                case ModelCode.GENERATOR_MAXFLEX:
+                    prop.SetValue(maxFlexibility);
+                    break;
+
+                case ModelCode.GENERATOR_MINFLEX:
+                    prop.SetValue(minFlexibility);
+                    break;
+
+                case ModelCode.GENERATOR_FLEXIBILITY:
+                    prop.SetValue(flexibility);
                     break;
 
                 case ModelCode.GENERATOR_MINQ:
@@ -183,6 +207,18 @@ namespace DERMSCommon.DataModel.Core
                     break;
                 case ModelCode.GENERATOR_MAXQ:
                     maxQ = property.AsFloat();
+                    break;
+
+                case ModelCode.GENERATOR_MAXFLEX:
+                    maxFlexibility = property.AsFloat();
+                    break;
+
+                case ModelCode.GENERATOR_MINFLEX:
+                    minFlexibility = property.AsFloat();
+                    break;
+
+                case ModelCode.GENERATOR_FLEXIBILITY:
+                    flexibility = property.AsBool();
                     break;
 
                 case ModelCode.GENERATOR_MINQ:

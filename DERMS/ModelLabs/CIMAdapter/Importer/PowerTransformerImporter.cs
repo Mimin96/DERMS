@@ -106,7 +106,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
             ImportEnergyConsumers();
             ImportEnergySources();
             ImportACLineSegments();
-
+            ImportPoints();
             ImportConnectivityNodes();
             ImportTerminals();
             ImportAnalogs();
@@ -116,6 +116,94 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 		}
 
         #region Import
+
+        private void ImportPoints()
+        {
+            bool isUpdated = false;
+            SortedDictionary<string, ResourceDescription> mrids = test.GetAllMrids(ModelCode.IDOBJ_MRID, ModelCode.POINT);
+            SortedDictionary<string, object> cimPoints = concreteModel.GetAllObjectsOfType("FTN.Point");
+            if (cimPoints != null)
+            {
+                foreach (KeyValuePair<string, object> cimPointPair in cimPoints)
+                {
+                    FTN.Point cimPoint = cimPointPair.Value as FTN.Point;
+
+                    ResourceDescription rd = new ResourceDescription();
+                    PowerTransformerConverter.PopulatePointProperties(cimPoint, rd, importHelper, report);
+                    ResourceDescription rdResult = null;
+                    if (mrids.ContainsKey(cimPoint.MRID))
+                    {
+                        rd.Id = mrids[cimPoint.MRID].Id;
+                        rdResult = new ResourceDescription(mrids[cimPoint.MRID].Id);
+                        importHelper.DefineIDMapping(cimPoint.ID, rdResult.Id);
+                        for (int i = 0; i < mrids[cimPoint.MRID].Properties.Count; i++)
+                        {
+                            if (mrids[cimPoint.MRID].Properties[i].Id == ModelCode.IDOBJ_GID && mrids[cimPoint.MRID].Properties[i].Type != PropertyType.Reference)
+                                continue;
+                            for (int j = 0; j < rd.Properties.Count; j++)
+                                if (mrids[cimPoint.MRID].Properties[i].Id == rd.Properties[j].Id)
+                                {
+                                    if (!rd.Properties[j].PropertyValue.StringValue.Equals(mrids[cimPoint.MRID].Properties[i].PropertyValue.StringValue))
+                                    {
+                                        rdResult.Properties.Add(rd.Properties[j]);
+                                        isUpdated = true;
+                                        break;
+                                    }
+                                    if (!rd.Properties[j].PropertyValue.LongValue.Equals(mrids[cimPoint.MRID].Properties[i].PropertyValue.LongValue))
+                                    {
+                                        rdResult.Properties.Add(rd.Properties[j]);
+                                        isUpdated = true;
+                                        break;
+                                    }
+                                    if (!rd.Properties[j].PropertyValue.FloatValue.Equals(mrids[cimPoint.MRID].Properties[i].PropertyValue.FloatValue))
+                                    {
+                                        rdResult.Properties.Add(rd.Properties[j]);
+                                        isUpdated = true;
+                                        break;
+                                    }
+                                }
+                        }
+
+                        if (isUpdated)
+                        {
+                            report.Report.Append("Point ID = ").Append(cimPoint.ID).Append(" SUCCESSFULLY updated GID = ").AppendLine(mrids[cimPoint.MRID].Id.ToString());
+                            isUpdated = false;
+                        }
+
+                        delta.AddDeltaOperation(DeltaOpType.Update, rdResult, true);
+                    }
+                    else
+                    {
+                        rd = CreatePointResourceDescription(cimPoint);
+                        if (rd != null)
+                        {
+                            delta.AddDeltaOperation(DeltaOpType.Insert, rd, true);
+                            report.Report.Append("Point ID = ").Append(cimPoint.ID).Append(" SUCCESSFULLY converted to GID = ").AppendLine(rd.Id.ToString());
+                        }
+                        else
+                        {
+                            report.Report.Append("Point ID = ").Append(cimPoint.ID).AppendLine(" FAILED to be converted");
+                        }
+                    }
+                }
+                report.Report.AppendLine();
+            }
+        }
+
+        private ResourceDescription CreatePointResourceDescription(FTN.Point cimPoint)
+        {
+            ResourceDescription rd = null;
+            if (cimPoint != null)
+            {
+                long gid = ModelCodeHelper.CreateGlobalId(0, (short)DMSType.POINT, importHelper.CheckOutIndexForDMSType(DMSType.POINT));
+                rd = new ResourceDescription(gid);
+                importHelper.DefineIDMapping(cimPoint.ID, gid);
+
+                ////populate ResourceDescription
+                PowerTransformerConverter.PopulatePointProperties(cimPoint, rd, importHelper, report);
+            }
+            return rd;
+        }
 
         private void ImportBreakers()
         {

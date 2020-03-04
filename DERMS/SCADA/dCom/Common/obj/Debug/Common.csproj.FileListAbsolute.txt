@@ -176,3 +176,11 @@ C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Co
 C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.dll
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb

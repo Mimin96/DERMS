@@ -31,7 +31,6 @@ namespace FTN.Services.NetworkModelService
             proxyFromNMSToTM = new CommunicationWithTM();
             proxyFromNMSToCE = new CommunicationWithCE();
             proxyFromNMSToScada = new CommunicationWithScada();
-            networkModel = new NetworkModel();
             bool result;
             bool result1;            
 
@@ -42,6 +41,7 @@ namespace FTN.Services.NetworkModelService
 
             DataForSendingToCEandSCADA();
             networkModelTransfer.InitState = true;
+
 
             result1 = proxyFromNMSToCE.sendToCE.CheckForTM(networkModelTransfer);
 

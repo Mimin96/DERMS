@@ -17,6 +17,7 @@ namespace CalculationEngineServiceCommon
     public interface ISendNetworkModelToUI
     {
         [ServiceKnownType(typeof(Switch))]
+        [ServiceKnownType(typeof(Point))]
         [ServiceKnownType(typeof(PROTECTED_SWITCH))]
         [ServiceKnownType(typeof(Conductor))]
         [ServiceKnownType(typeof(Breaker))]

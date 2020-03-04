@@ -93,10 +93,28 @@
 		<cim:Conductor.conductorType>Overhead</cim:Conductor.conductorType>	
 		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
 		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
-		<cim:ConductingEquipment.longitude>45.240067</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>19.837141</cim:ConductingEquipment.latitude>
+		<!-- <cim:ConductingEquipment.longitude>45.240067</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.837141</cim:ConductingEquipment.latitude> -->
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>
 	</cim:ACLineSegment>
+	
+	<cim:Point rdf:ID="p_1">
+		<cim:IdentifiedObject.description>p1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_1</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P1</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.240067</cim:Point.longitude>
+		<cim:Point.latitude>19.837141</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_2"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_2">
+		<cim:IdentifiedObject.description>p2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_2</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P2</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.242265</cim:Point.longitude>
+		<cim:Point.latitude>19.842720</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_2"/>
+	</cim:Point>
 	
 	<cim:Terminal rdf:id="t_6">
 		<cim:IdentifiedObject.description>t6</cim:IdentifiedObject.description>
@@ -193,6 +211,9 @@
 		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
 		<cim:Generator.minQ>0</cim:Generator.minQ>			
 		<cim:Generator.condenserP>350</cim:Generator.condenserP>
+		<cim:Generator.flexibility>true</cim:Generator.flexibility>
+		<cim:Generator.maxFlexibility>500</cim:Generator.maxFlexibility>
+		<cim:Generator.minFlexibility>200</cim:Generator.minFlexibility>
 		<cim:ConductingEquipment.longitude>45.217144</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.811110</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Solar</cim:Generator.generatorType>
@@ -233,10 +254,28 @@
 		<cim:Conductor.conductorType>Overhead</cim:Conductor.conductorType>	
 		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
 		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
-		<cim:ConductingEquipment.longitude>45.258502</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>19.823011</cim:ConductingEquipment.latitude>
+		<!-- <cim:ConductingEquipment.longitude>45.258502</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.823011</cim:ConductingEquipment.latitude> -->
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>
 	</cim:ACLineSegment>
+	
+	<cim:Point rdf:ID="p_12">
+		<cim:IdentifiedObject.description>p12</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_12</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P12</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.258502</cim:Point.longitude>
+		<cim:Point.latitude>19.823011</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_22"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_22">
+		<cim:IdentifiedObject.description>p22</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_22</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P22</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.171206</cim:Point.longitude>
+		<cim:Point.latitude>19.871206</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_22"/>
+	</cim:Point>
 	
 	<cim:Terminal rdf:id="t_62">
 		<cim:IdentifiedObject.description>t62</cim:IdentifiedObject.description>
@@ -267,8 +306,9 @@
 		<cim:IdentifiedObject.name>EC22</cim:IdentifiedObject.name>
 		<cim:EnergyConsumer.pfixed>2</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
-		<cim:ConductingEquipment.longitude>45.257898</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>19.824481</cim:ConductingEquipment.latitude>
+		<cim:ConductingEquipment.longitude>45.171206</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.871206</cim:ConductingEquipment.latitude>
+		<!-- 45.257898 19.824481 -->
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>		
 	</cim:EnergyConsumer>
 	
@@ -333,6 +373,9 @@
 		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
 		<cim:Generator.minQ>0</cim:Generator.minQ>			
 		<cim:Generator.condenserP>700</cim:Generator.condenserP>
+		<cim:Generator.flexibility>true</cim:Generator.flexibility>
+		<cim:Generator.maxFlexibility>500</cim:Generator.maxFlexibility>
+		<cim:Generator.minFlexibility>100</cim:Generator.minFlexibility>
 		<cim:ConductingEquipment.longitude>45.223031</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.811475</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Wind</cim:Generator.generatorType>
@@ -398,10 +441,28 @@
 		<cim:Conductor.conductorType>Overhead</cim:Conductor.conductorType>	
 		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
 		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
-		<cim:ConductingEquipment.longitude>45.241493</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>19.830214</cim:ConductingEquipment.latitude>
+		<!-- <cim:ConductingEquipment.longitude>45.241493</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.830214</cim:ConductingEquipment.latitude> -->
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_2"/>
 	</cim:ACLineSegment>
+	
+	<cim:Point rdf:ID="p_19">
+		<cim:IdentifiedObject.description>p19</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_19</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P19</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.241493</cim:Point.longitude>
+		<cim:Point.latitude>19.830214</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_29"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_29">
+		<cim:IdentifiedObject.description>p29</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_29</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P29</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.243397</cim:Point.longitude>
+		<cim:Point.latitude>19.830557</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_29"/>
+	</cim:Point>
 	
 	<cim:Terminal rdf:id="t_69">
 		<cim:IdentifiedObject.description>t69</cim:IdentifiedObject.description>
@@ -498,6 +559,9 @@
 		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
 		<cim:Generator.minQ>0</cim:Generator.minQ>			
 		<cim:Generator.condenserP>270</cim:Generator.condenserP>
+		<cim:Generator.flexibility>true</cim:Generator.flexibility>
+		<cim:Generator.maxFlexibility>600</cim:Generator.maxFlexibility>
+		<cim:Generator.minFlexibility>200</cim:Generator.minFlexibility>
 		<cim:ConductingEquipment.longitude>45.255675</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.887274</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Solar</cim:Generator.generatorType>
@@ -599,10 +663,28 @@
 		<cim:Conductor.conductorType>Overhead</cim:Conductor.conductorType>	
 		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
 		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
-		<cim:ConductingEquipment.longitude>45.249606</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>19.843979</cim:ConductingEquipment.latitude>
+		<!-- <cim:ConductingEquipment.longitude>45.249606</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.843979</cim:ConductingEquipment.latitude> -->
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_2"/>
 	</cim:ACLineSegment>
+	
+	<cim:Point rdf:ID="p_18">
+		<cim:IdentifiedObject.description>p18</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_18</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P18</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.249606</cim:Point.longitude>
+		<cim:Point.latitude>19.843979</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_28"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_28">
+		<cim:IdentifiedObject.description>p28</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_28</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P28</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.277027</cim:Point.longitude>
+		<cim:Point.latitude>19.832826</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_28"/>
+	</cim:Point>
 	
 	<cim:Terminal rdf:id="t_98">
 		<cim:IdentifiedObject.description>t98</cim:IdentifiedObject.description>
@@ -638,6 +720,9 @@
 		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
 		<cim:Generator.minQ>0</cim:Generator.minQ>			
 		<cim:Generator.condenserP>750</cim:Generator.condenserP>
+		<cim:Generator.flexibility>true</cim:Generator.flexibility>
+		<cim:Generator.maxFlexibility>400</cim:Generator.maxFlexibility>
+		<cim:Generator.minFlexibility>200</cim:Generator.minFlexibility>
 		<cim:ConductingEquipment.longitude>45.277027</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.832826</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Wind</cim:Generator.generatorType>
@@ -704,10 +789,28 @@
 		<cim:Conductor.conductorType>Overhead</cim:Conductor.conductorType>	
 		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
 		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
-		<cim:ConductingEquipment.longitude>45.243256</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>19.848881</cim:ConductingEquipment.latitude>
+		<!-- <cim:ConductingEquipment.longitude>45.243256</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.848881</cim:ConductingEquipment.latitude> -->
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_3"/>
 	</cim:ACLineSegment>
+	
+	<cim:Point rdf:ID="p_17">
+		<cim:IdentifiedObject.description>p17</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_17</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P17</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.243256</cim:Point.longitude>
+		<cim:Point.latitude>19.848881</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_27"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_27">
+		<cim:IdentifiedObject.description>p27</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_27</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P27</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.243596</cim:Point.longitude>
+		<cim:Point.latitude>19.851402</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_27"/>
+	</cim:Point>
 	
 	<cim:Terminal rdf:id="t_67">
 		<cim:IdentifiedObject.description>t67</cim:IdentifiedObject.description>
@@ -804,6 +907,9 @@
 		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
 		<cim:Generator.minQ>0</cim:Generator.minQ>			
 		<cim:Generator.condenserP>650</cim:Generator.condenserP>
+		<cim:Generator.flexibility>true</cim:Generator.flexibility>
+		<cim:Generator.maxFlexibility>500</cim:Generator.maxFlexibility>
+		<cim:Generator.minFlexibility>220</cim:Generator.minFlexibility>
 		<cim:ConductingEquipment.longitude>45.186548</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.798765</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Solar</cim:Generator.generatorType>
@@ -878,8 +984,9 @@
 		<cim:IdentifiedObject.name>EC26</cim:IdentifiedObject.name>
 		<cim:EnergyConsumer.pfixed>2</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
-		<cim:ConductingEquipment.longitude>45.171206</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>19.871206</cim:ConductingEquipment.latitude>
+		<cim:ConductingEquipment.longitude>45.257898</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.824481</cim:ConductingEquipment.latitude>
+		<!-- 45.171206 19.871206 -->
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_3"/>		
 	</cim:EnergyConsumer>
 	
@@ -905,10 +1012,28 @@
 		<cim:Conductor.conductorType>Overhead</cim:Conductor.conductorType>	
 		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
 		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
-		<cim:ConductingEquipment.longitude>45.277744</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>19.833206</cim:ConductingEquipment.latitude>
+		<!-- <cim:ConductingEquipment.longitude>45.277744</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.833206</cim:ConductingEquipment.latitude> -->
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_3"/>
 	</cim:ACLineSegment>
+	
+	<cim:Point rdf:ID="p_16">
+		<cim:IdentifiedObject.description>p16</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_16</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P16</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.277744</cim:Point.longitude>
+		<cim:Point.latitude>19.831206</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_26"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_26">
+		<cim:IdentifiedObject.description>p26</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_26</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P26</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.277744</cim:Point.longitude>
+		<cim:Point.latitude>19.837141</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_26"/>
+	</cim:Point>
 	
 	<cim:Terminal rdf:id="t_96">
 		<cim:IdentifiedObject.description>t96</cim:IdentifiedObject.description>
@@ -944,6 +1069,9 @@
 		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
 		<cim:Generator.minQ>0</cim:Generator.minQ>			
 		<cim:Generator.condenserP>950</cim:Generator.condenserP>
+		<cim:Generator.flexibility>true</cim:Generator.flexibility>
+		<cim:Generator.maxFlexibility>500</cim:Generator.maxFlexibility>
+		<cim:Generator.minFlexibility>205</cim:Generator.minFlexibility>
 		<cim:ConductingEquipment.longitude>45.277744</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.831206</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Wind</cim:Generator.generatorType>

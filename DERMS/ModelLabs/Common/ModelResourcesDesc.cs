@@ -874,6 +874,7 @@ namespace FTN.Common
             typeIdsInInsertOrder.Add(ModelCode.GENERATOR);
             typeIdsInInsertOrder.Add(ModelCode.ENERGYSOURCE);
             typeIdsInInsertOrder.Add(ModelCode.ACLINESEGMENT);
+            typeIdsInInsertOrder.Add(ModelCode.POINT);
             typeIdsInInsertOrder.Add(ModelCode.CONNECTIVITYNODE);
             typeIdsInInsertOrder.Add(ModelCode.TERMINAL);
             typeIdsInInsertOrder.Add(ModelCode.ANALOG);
@@ -890,6 +891,7 @@ namespace FTN.Common
             notSettablePropertyIds.Add(ModelCode.EQUIPMENTCONTAINER_EQUIPMENTS);
             notSettablePropertyIds.Add(ModelCode.GEOGRAPHICALREGION_SUBGEOREGS);
             notSettablePropertyIds.Add(ModelCode.SUBGEOGRAPHICALREGION_SUBSTATIONS);
+            notSettablePropertyIds.Add(ModelCode.ACLINESEGMENT_POINTS);
         }
 	
 		# endregion Initialization of metadata

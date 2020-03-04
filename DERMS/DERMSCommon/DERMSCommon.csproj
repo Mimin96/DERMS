@@ -66,6 +66,7 @@
     <Compile Include="DataModel\Core\FeederObject.cs" />
     <Compile Include="DataModel\Core\GeographicalRegion.cs" />
     <Compile Include="DataModel\Core\IdentifiedObject.cs" />
+    <Compile Include="DataModel\Core\Point.cs" />
     <Compile Include="DataModel\Core\PowerSystemResource.cs" />
     <Compile Include="DataModel\Core\RegulatingCondEq.cs" />
     <Compile Include="DataModel\Core\SubGeographicalRegion.cs" />
