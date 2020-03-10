@@ -12,6 +12,6 @@ namespace CalculationEngineServiceCommon
     public interface ICEUpdateThroughUI
     {
         [OperationContract]
-        void UpdateThroughUI(long data);
+        float UpdateThroughUI(long data);
     }
 }

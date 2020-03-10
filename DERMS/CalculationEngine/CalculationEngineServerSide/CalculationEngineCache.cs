@@ -181,6 +181,17 @@ namespace CalculationEngineService
             PubSubCalculatioEngine.Instance.Notify(data, (int)Enums.Topics.Flexibility);
         }
 
+        public Dictionary<long, IdentifiedObject> GetNMSModel()
+        {
+            return nmsCache;
+        }
+        public float PopulateBalance(long gid)
+        {
+            CEUpdateThroughUI ce = new CEUpdateThroughUI();
+            float energyFromSource = ce.Balance(productionCached, gid);
+            return energyFromSource;
+        }
+
         public List<DataPoint> GetDataPoints(long gid)
         {
             if (!scadaPointsCached.ContainsKey(gid))

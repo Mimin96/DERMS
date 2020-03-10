@@ -40,7 +40,7 @@ namespace UI.View
 
 			((ManualCommandingViewModel)DataContext).CloseConnection();
 
-			Close();
+            Close();
 		}
 	}
 }

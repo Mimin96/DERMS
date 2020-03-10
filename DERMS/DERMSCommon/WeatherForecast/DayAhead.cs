@@ -8,11 +8,19 @@ using System.Threading.Tasks;
 namespace DERMSCommon.WeatherForecast
 {
     [DataContract]
-    public class DayAhead
+    public class DayAhead : ICloneable
     {
         public DayAhead()
         {
             Hourly = new List<HourDataPoint>(24);
+        }
+        object ICloneable.Clone()
+        {
+            return this.Clone();
+        }
+        public DayAhead Clone()
+        {
+            return (DayAhead)this.MemberwiseClone();
         }
 
         [DataMember]
@@ -44,4 +52,3 @@ namespace DERMSCommon.WeatherForecast
         }
     }
 }
-

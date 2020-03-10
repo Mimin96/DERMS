@@ -38,11 +38,13 @@ namespace CalculationEngineService
             List<EnergyConsumer> energyConsumers = new List<EnergyConsumer>();
             energyConsumers = GetEnergyConsumers();
             substationDayAhead = new Dictionary<long, DayAhead>();
-            DayAhead consumerDayAhead = consumerCharacteristics.GetDayAhead();
+
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
                 foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
                 {
+                    DayAhead consumerDayAhead = consumerCharacteristics.GetDayAhead();
+
                     var type = kvpDic.Value.GetType();
                     if (type.Name.Equals("Substation"))
                     {
@@ -65,7 +67,7 @@ namespace CalculationEngineService
                             }
                             
                         }
-                        substationDayAhead.Add(kvpDic.Key, consumerDayAhead);
+                        substationDayAhead.Add(kvpDic.Key, consumerDayAhead.Clone());
                     }
                     
                 }

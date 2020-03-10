@@ -58,7 +58,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Margin="30" Height="127" VerticalAlignment="Top">
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25"
-                   From="0" To="100" Value="60" Foreground="ForestGreen" HorizontalAlignment="Left" Width="169">
+                   From="0" To="1000" Value="0" Name="EnergySource" Foreground="ForestGreen" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
                             <GradientStop Color="ForestGreen" Offset="0.0" />
@@ -73,7 +73,7 @@
             <Grid Grid.Column="1" Margin="30" Height="127" VerticalAlignment="Top">
                 <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from generators"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="#FF0CADFF" VerticalAlignment="Top" Width="185"/>
 				<lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="ProductionFromGenerators"
-                   From="0" To="100" Value="40" Foreground="#FF0CADFF" HorizontalAlignment="Left" Width="169">
+                   From="0" To="100" Value="0" Foreground="#FF0CADFF" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
                             <GradientStop Color="DodgerBlue" Offset="0.0" />
@@ -87,7 +87,7 @@
             <Grid Grid.Column="2" Margin="30" HorizontalAlignment="Left" Width="197" Background="DarkViolet" Height="104" VerticalAlignment="Top">
                 <TextBlock Text="Current consumption" FontFamily="Champagne &amp; Limousines" Foreground="White" FontSize="15" Margin="34,10,10,75"/>
                 <Image Margin="4,4,0,0" Source="../Resources/Images/boltImg.png" Stretch="Fill" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="30"/>
-                <TextBlock Text="250 kw/h" Foreground="White" FontFamily="Champagne &amp; Limousines" FontSize="30" Margin="34,52,10,10" />
+                <TextBlock Text="0 kw/h" Name="CurrentConsumption" Foreground="White" FontFamily="Champagne &amp; Limousines" FontSize="30" Margin="34,52,34,10" TextAlignment="Center" />
             </Grid>
         </Grid>
 
@@ -99,7 +99,8 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Label HorizontalContentAlignment="Center" Margin="236,8,221,0"  Content="Consumption and production"  FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="DarkViolet" Height="31" VerticalAlignment="Top"/>
-				<Button Content="Manual Commanding" HorizontalAlignment="Left" Margin="58,10,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click_1"/>
+				<Button Content="Manual Commanding" HorizontalAlignment="Left" Margin="36,10,0,0" VerticalAlignment="Top" Width="195" Click="Button_Click_1"/>
+                <Button Content="Automatic Optimization" HorizontalAlignment="Left" Margin="543,10,0,0" VerticalAlignment="Top" Width="195" Click="Button_Click"/>
 			</Grid>
 
             <Grid Grid.Row="1">

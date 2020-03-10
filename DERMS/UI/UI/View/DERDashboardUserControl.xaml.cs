@@ -32,6 +32,16 @@ namespace UI.View
         {
             Window w = new ManualCommandingWindow();
             w.Show();
+            CurrentConsumption.Text = (EnergySource.Value - ProductionFromGenerators.Value).ToString() + "kw/h";
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DERDashboardUserControlViewModel d = new DERDashboardUserControlViewModel(this);
+            var energySourceValue = d.Optimization();
+            EnergySource.Value = (int)energySourceValue;
+            CurrentConsumption.Text = (EnergySource.Value - ProductionFromGenerators.Value).ToString() + "kw/h";
         }
     }
 }

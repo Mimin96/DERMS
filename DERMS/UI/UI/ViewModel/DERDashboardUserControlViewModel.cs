@@ -29,6 +29,8 @@ namespace UI.ViewModel
         private bool showConsumption;
         private bool showDerProduction;
         private bool showGridDemands;
+        private static long gidForOptimization;
+        private static float energySourceOptimizedValue;
         private Visibility visibilityConsumption;
         private Visibility visibilityDERProduction;
         private Visibility visibilityGridDemands;
@@ -83,6 +85,20 @@ namespace UI.ViewModel
                 OnPropertyChanged("ShowDerProduction");
             }
         }
+
+        public long GidForOptimization
+        {
+            get
+            {
+                return gidForOptimization;
+            }
+            set
+            {
+                gidForOptimization = value;
+                OnPropertyChanged("GidForOptimization");
+            }
+        }
+
         public bool ShowGridDemands
         {
             get
@@ -262,26 +278,43 @@ namespace UI.ViewModel
         #region TreeView Commands Execute
         public void NetworkModelCommandExecute(long gid)
         {
+            //GidForOptimization = 0;
+            //GidForOptimization = gid;
             Console.Beep();
         }
         public void GeographicalRegionCommandExecute(long gid)
         {
-            proxy = new CommunicationProxy();
-            proxy.Open2();
-            proxy.sendToCE.UpdateThroughUI(gid);
+            GidForOptimization = 0;
+            GidForOptimization = gid;
             Console.Beep();
         }
         public void GeographicalSubRegionCommandExecute(long gid)
         {
+            GidForOptimization = 0;
+            GidForOptimization = gid;
             Console.Beep();
         }
         public void SubstationCommandExecute(long gid)
         {
+            GidForOptimization = 0;
+            GidForOptimization = gid;
             Console.Beep();
         }
         public void SubstationElementCommandExecute(long gid)
         {
             Console.Beep();
+        }
+
+        public float Optimization() {
+            if (GidForOptimization != 0) {
+                if (proxy == null)
+                    proxy = new CommunicationProxy();
+
+                proxy.Open2();
+                energySourceOptimizedValue = 0;
+                energySourceOptimizedValue = proxy.sendToCE.UpdateThroughUI(GidForOptimization);
+            }
+            return energySourceOptimizedValue;
         }
         #endregion
 
