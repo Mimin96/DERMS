@@ -16,6 +16,7 @@ using DERMSCommon;
 using DERMSCommon.DataModel.Core;
 using DERMSCommon.DataModel.Meas;
 using DERMSCommon.DataModel.Wires;
+using FTN.Common;
 
 namespace UI.ViewModel
 {
@@ -25,10 +26,14 @@ namespace UI.ViewModel
         private TreeNode<NodeData> _tree;
         private TextBox _gisTextBlock;
         private Map _map;
+        private Dictionary<string, bool> _visibilityOfElements;
         #endregion
 
         public GISUserControlViewModel(Map map, TextBox gisTextBlock)
         {
+            VisibilityOfElements = new Dictionary<string, bool>();
+            VisibilityOfElementPopulate();
+
             _map = map;
             _gisTextBlock = gisTextBlock;
         }
@@ -44,6 +49,18 @@ namespace UI.ViewModel
             {
                 _tree = value;
                 SetTreeOnMap();
+            }
+        }
+
+        public Dictionary<string, bool> VisibilityOfElements
+        {
+            get
+            {
+                return _visibilityOfElements;
+            }
+            set
+            {
+                _visibilityOfElements = value;
             }
         }
         #endregion
@@ -93,9 +110,32 @@ namespace UI.ViewModel
             _gisTextBlock.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0398E2"));
             _gisTextBlock.AppendText(BuildToolTipOnClick(selected));
         }
+        public void ExecuteVisibilityOfElements(object sender, MouseButtonEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+
+            VisibilityOfElements[checkBox.Name] = ((bool)checkBox.IsChecked) ? false : true;
+
+            SetTreeOnMap();
+        }
         #endregion
 
         #region Private Methods
+        private void VisibilityOfElementPopulate()
+        {
+            VisibilityOfElements["EnergySource"] = true;
+            VisibilityOfElements["SolarPanel"] = true;
+            VisibilityOfElements["WindTurbine"] = true;
+            VisibilityOfElements["EnergyConsumer"] = true;
+            VisibilityOfElements["DERBlue"] = true;
+            VisibilityOfElements["DERGreen"] = true;
+            VisibilityOfElements["DERRed"] = true;
+            VisibilityOfElements["LineBlue"] = true;
+            VisibilityOfElements["LineGreen"] = true;
+            VisibilityOfElements["LineRed"] = true;
+
+            OnPropertyChanged("VisibilityOfElements");
+        }
         private string BuildToolTipOnClick(TreeNode<NodeData> selected)
         {
             StringBuilder stringBuilderFinal = new StringBuilder();
@@ -200,6 +240,11 @@ namespace UI.ViewModel
         }
         private void SetTreeOnMap()
         {
+            if (_tree == null)
+                return;
+
+            _map.Children.Clear();
+
             List<TreeNode<NodeData>> energySources = _tree.Where(x => x.Data.Type == FTN.Common.DMSType.ENEGRYSOURCE).ToList();
 
             foreach (TreeNode<NodeData> node in energySources)
@@ -232,7 +277,8 @@ namespace UI.ViewModel
                 pushpin.Cursor = Cursors.Hand;
                 pushpin.Template = (ControlTemplate)Application.Current.Resources["EnergySourceTemplate"];
 
-                _map.Children.Add(pushpin);
+                if (VisibilityOfElements["EnergySource"])
+                    _map.Children.Add(pushpin);
 
                 StartDrowingOnMap(node.Children.ToList(), stringBuilderUniversal.ToString());
             }
@@ -244,16 +290,20 @@ namespace UI.ViewModel
                 switch (node.Data.Type)
                 {
                     case FTN.Common.DMSType.ACLINESEGMENT:
-                        DrowOnMapAcLineSegment(node, stringBuilderUniversal);
+                        if (CanDrowAcLine(node.Data.Energized))
+                            DrowOnMapAcLineSegment(node, stringBuilderUniversal);
                         break;
                     case FTN.Common.DMSType.BREAKER:
-                        DrowOnMapBreaker(node, stringBuilderUniversal);
+                        if (CanDrowBreaker(node.Data.Energized))
+                            DrowOnMapBreaker(node, stringBuilderUniversal);
                         break;
                     case FTN.Common.DMSType.ENERGYCONSUMER:
-                        DrowOnMapEnergyConsumer(node, stringBuilderUniversal);
+                        if (VisibilityOfElements["EnergyConsumer"])
+                            DrowOnMapEnergyConsumer(node, stringBuilderUniversal);
                         break;
                     case FTN.Common.DMSType.GENERATOR:
-                        DrowOnMapDER(node, stringBuilderUniversal);
+                        if (CanDrowGenerator(((Generator)node.Data.IdentifiedObject).GeneratorType))
+                            DrowOnMapDER(node, stringBuilderUniversal);
                         break;
                     case FTN.Common.DMSType.DISCRETE:
                         DrowOnMapDiscrete(node, stringBuilderUniversal);
@@ -380,6 +430,9 @@ namespace UI.ViewModel
 
             Pushpin pushpin = (Pushpin)_map.Children.OfType<UIElement>().ToList().Where(x => x.Uid == disc.PowerSystemResource.ToString()).FirstOrDefault();
 
+            if (pushpin == null)
+                return;
+
             stringBuilder.Append(Environment.NewLine);
             stringBuilder.AppendFormat("----------------------------------------{0}", Environment.NewLine);
             stringBuilder.AppendFormat("Min Value: {0}{1}", disc.MinValue, Environment.NewLine);
@@ -394,12 +447,51 @@ namespace UI.ViewModel
 
             Pushpin pushpin = (Pushpin)_map.Children.OfType<UIElement>().ToList().Where(x => x.Uid == analog1.PowerSystemResource.ToString()).FirstOrDefault();
 
+            if (pushpin == null)
+                return;
+
             stringBuilder.Append(Environment.NewLine);
             stringBuilder.AppendFormat("----------------------------------------{0}", Environment.NewLine);
             stringBuilder.AppendFormat("Min Value: {0} kW{1}", analog1.MinValue, Environment.NewLine);
             stringBuilder.AppendFormat("Max Value: {0} kW{1}", analog1.MaxValue, Environment.NewLine);
             stringBuilder.AppendFormat("Current Value: {0} kW", analog1.NormalValue);
             pushpin.ToolTip += stringBuilder.ToString();
+        }
+        private bool CanDrowAcLine(Enums.Energized energized)
+        {
+            if (energized == Enums.Energized.NotEnergized && VisibilityOfElements["LineRed"])
+                return true;
+
+            if (energized == Enums.Energized.FromIsland && VisibilityOfElements["LineBlue"])
+                return true;
+
+            if (energized == Enums.Energized.FromEnergySRC && VisibilityOfElements["LineGreen"])
+                return true;
+
+            return false;
+        }
+        private bool CanDrowBreaker(Enums.Energized energized)
+        {
+            if (energized == Enums.Energized.NotEnergized && VisibilityOfElements["DERRed"])
+                return true;
+
+            if (energized == Enums.Energized.FromIsland && VisibilityOfElements["DERBlue"])
+                return true;
+
+            if (energized == Enums.Energized.FromEnergySRC && VisibilityOfElements["DERGreen"])
+                return true;
+
+            return false;
+        }
+        private bool CanDrowGenerator(GeneratorType generatorType)
+        {
+            if (generatorType == GeneratorType.Solar && VisibilityOfElements["SolarPanel"])
+                return true;
+
+            if (generatorType == GeneratorType.Wind && VisibilityOfElements["WindTurbine"])
+                return true;
+
+            return false;
         }
         #endregion
     }

@@ -240,3 +240,11 @@ C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCAD
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.dll
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.pdb
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\ProcessingModule\bin\Debug\Common.dll
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\ProcessingModule\bin\Debug\Common.pdb
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csprojAssemblyReference.cache
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb

@@ -191,3 +191,10 @@ C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCAD
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.dll
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb

@@ -59010,3 +59010,266 @@ Exception rethrown at [0]:
 3/10/2020 12:30:47 PM : Trace level: Info
 3/10/2020 12:30:47 PM : The Network Model Service is started.
 3/10/2020 12:30:55 PM : Press <Enter> to stop the service.
+3/10/2020 3:13:07 PM : Starting Network Model Serivice...
+3/10/2020 3:13:07 PM : Inserting entity with GID (0000000100000001).
+3/10/2020 3:13:07 PM : Inserting entity with GID (0000000b00000001).
+3/10/2020 3:13:07 PM : Inserting entity with GID (0000000b00000002).
+3/10/2020 3:13:07 PM : Inserting entity with GID (0000000a00000001).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000a00000002).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000a00000003).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000a00000004).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000200000001).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000200000002).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000200000003).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000200000004).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000200000005).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000200000006).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000400000001).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000400000002).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000400000003).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000400000004).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000400000005).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000400000006).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000500000001).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000500000002).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000500000003).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000500000004).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000500000005).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000500000006).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000500000007).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000900000001).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000900000002).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000900000003).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000c00000001).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000c00000002).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000c00000003).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000c00000004).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000c00000005).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000c00000006).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000d00000001).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000d00000002).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000d00000003).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000d00000004).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000d00000005).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000d00000006).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000d00000007).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000d00000008).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000d00000009).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000d0000000a).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000d0000000b).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000d0000000c).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000300000001).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000300000002).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000300000003).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000300000004).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000300000005).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000300000006).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000300000007).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000300000008).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000300000009).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000030000000a).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000030000000b).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000030000000c).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000030000000d).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000030000000e).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000030000000f).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000001).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000002).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000003).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000004).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000005).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000006).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000007).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000008).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000009).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000060000000a).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000060000000b).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000060000000c).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000060000000d).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000060000000e).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000060000000f).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000010).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000011).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000012).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000013).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000014).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000015).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000016).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000017).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000018).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000019).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000060000001a).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000060000001b).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000060000001c).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000060000001d).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000060000001e).
+3/10/2020 3:13:08 PM : Inserting entity with GID (000000060000001f).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000020).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000021).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000022).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000023).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000024).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000025).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000026).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000600000027).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000700000001).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000700000002).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000700000003).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000700000004).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000700000005).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000700000006).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000800000001).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000800000002).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000800000003).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000800000004).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000800000005).
+3/10/2020 3:13:08 PM : Inserting entity with GID (0000000800000006).
+3/10/2020 3:13:08 PM : The WCF service GenericDataAccess is ready.
+3/10/2020 3:13:08 PM : Endpoints:
+3/10/2020 3:13:08 PM : net.tcp://localhost:10000/NetworkModelService/GDA/
+3/10/2020 3:13:08 PM : The WCF service NMSTransaction is ready.
+3/10/2020 3:13:08 PM : Endpoints:
+3/10/2020 3:13:08 PM : Connection string: ../NetworkModelData.data
+3/10/2020 3:13:08 PM : Trace level: Info
+3/10/2020 3:13:08 PM : The Network Model Service is started.
+3/10/2020 3:13:41 PM : The Network Model Service is closed.
+3/10/2020 3:13:41 PM : The server was unable to process the request due to an internal error.  For more information about the error, either turn on IncludeExceptionDetailInFaults (either from ServiceBehaviorAttribute or from the <serviceDebug> configuration behavior) on the server in order to send the exception information back to the client, or turn on tracing as per the Microsoft .NET Framework SDK documentation and inspect the server trace logs.
+3/10/2020 3:13:41 PM : NetworkModelService failed.
+3/10/2020 3:13:41 PM : 
+Server stack trace: 
+   at System.ServiceModel.Channels.ServiceChannel.ThrowIfFaultUnderstood(Message reply, MessageFault fault, String action, MessageVersion version, FaultConverter faultConverter)
+   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   at DERMSCommon.TransactionManager.ITransactionListing.FinishList(Boolean IsSuccessfull)
+   at FTN.Services.NetworkModelService.NetworkModelDeepCopy.StartService() in C:\Users\Filip\Desktop\New\DERMS\DERMS\ModelLabs\NetworkModelService\NetworkModelDeepCopy.cs:line 51
+   at FTN.Services.NetworkModelService.NetworkModelService.Start() in C:\Users\Filip\Desktop\New\DERMS\DERMS\ModelLabs\NetworkModelService\NetworkModelService.cs:line 31
+   at FTN.Services.NetworkModelService.Program.Main(String[] args) in C:\Users\Filip\Desktop\New\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\Program.cs:line 24
+3/10/2020 3:14:50 PM : Starting Network Model Serivice...
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000100000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000b00000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000b00000002).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000a00000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000a00000002).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000a00000003).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000a00000004).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000200000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000200000002).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000200000003).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000200000004).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000200000005).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000200000006).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000400000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000400000002).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000400000003).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000400000004).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000400000005).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000400000006).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000500000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000500000002).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000500000003).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000500000004).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000500000005).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000500000006).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000500000007).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000900000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000900000002).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000900000003).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000c00000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000c00000002).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000c00000003).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000c00000004).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000c00000005).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000c00000006).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000d00000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000d00000002).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000d00000003).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000d00000004).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000d00000005).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000d00000006).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000d00000007).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000d00000008).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000d00000009).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000d0000000a).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000d0000000b).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000d0000000c).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000300000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000300000002).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000300000003).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000300000004).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000300000005).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000300000006).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000300000007).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000300000008).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000300000009).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000030000000a).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000030000000b).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000030000000c).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000030000000d).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000030000000e).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000030000000f).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000002).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000003).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000004).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000005).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000006).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000007).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000008).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000009).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000060000000a).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000060000000b).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000060000000c).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000060000000d).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000060000000e).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000060000000f).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000010).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000011).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000012).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000013).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000014).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000015).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000016).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000017).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000018).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000019).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000060000001a).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000060000001b).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000060000001c).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000060000001d).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000060000001e).
+3/10/2020 3:14:50 PM : Inserting entity with GID (000000060000001f).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000020).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000021).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000022).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000023).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000024).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000025).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000026).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000600000027).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000700000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000700000002).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000700000003).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000700000004).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000700000005).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000700000006).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000800000001).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000800000002).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000800000003).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000800000004).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000800000005).
+3/10/2020 3:14:50 PM : Inserting entity with GID (0000000800000006).
+3/10/2020 3:14:50 PM : The WCF service GenericDataAccess is ready.
+3/10/2020 3:14:50 PM : Endpoints:
+3/10/2020 3:14:50 PM : net.tcp://localhost:10000/NetworkModelService/GDA/
+3/10/2020 3:14:50 PM : The WCF service NMSTransaction is ready.
+3/10/2020 3:14:50 PM : Endpoints:
+3/10/2020 3:14:50 PM : Connection string: ../NetworkModelData.data
+3/10/2020 3:14:50 PM : Trace level: Info
+3/10/2020 3:14:50 PM : The Network Model Service is started.
+3/10/2020 3:15:02 PM : Press <Enter> to stop the service.

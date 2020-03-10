@@ -15,7 +15,9 @@ namespace WeatherForecast
 
         public DarkSkyApi()
         {
-            darkSkyProxy = new DarkSkyService("e67254e31e12e23461c61e0fb0489142");
+            // fa6d00664c0c9abf42654341ff91db31
+            // e67254e31e12e23461c61e0fb0489142
+            darkSkyProxy = new DarkSkyService("fa6d00664c0c9abf42654341ff91db31");
         }
 
         public async Task<Forecast> GetWeatherForecastAsync(double latitude, double longitude)
