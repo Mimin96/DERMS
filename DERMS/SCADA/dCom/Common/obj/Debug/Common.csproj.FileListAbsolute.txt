@@ -191,4 +191,3 @@ C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCAD
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
-C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache

@@ -229,3 +229,4 @@ C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\Tran
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CopyComplete
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
 C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb
+C:\Users\miroslav.tanasic\Desktop\DERMS-MasterProjekat\6.3.2020\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csprojAssemblyReference.cache

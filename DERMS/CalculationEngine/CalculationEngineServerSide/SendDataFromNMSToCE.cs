@@ -40,7 +40,7 @@ namespace CalculationEngineService
             //Dictionary<long, DerForecastDayAhead> substationsForecast = new Dictionary<long, DerForecastDayAhead>();
 
             //substationsForecast = productionCalculator.CalculateSubstations(CalculationEngineCache.Instance.GetForecast(4294967297));
-            CalculationEngineCache.Instance.PopulateProductionForecast(networkModel);
+            CalculationEngineCache.Instance.PopulateProductionForecast(networkModel);////////////////////
             CalculationEngineCache.Instance.PopulateConsumptionForecast(networkModel);
             // POZIV FLEXIBILITYA RADI TESTA
             //CalculationEngineCache.Instance.PopulateFlexibility(networkModel); 

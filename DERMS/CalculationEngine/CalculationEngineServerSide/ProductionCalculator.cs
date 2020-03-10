@@ -60,6 +60,7 @@ namespace CalculationEngineService
         public DerForecastDayAhead CalculateSubRegion(SubGeographicalRegion subGeographicalRegion)
         {
             List<Substation> substations = new List<Substation>();
+
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
                 foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
@@ -72,6 +73,7 @@ namespace CalculationEngineService
                     }
                 }
             }
+
             DerForecastDayAhead subGeographicalRegionForecast = new DerForecastDayAhead(subGeographicalRegion.GlobalId);
             foreach (Substation substation in substations)
             {

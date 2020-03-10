@@ -22,6 +22,16 @@
 		<cim:SubGeographicalRegion.Region rdf:resource="#gr_1"/>
 	</cim:SubGeographicalRegion>		
 	
+	
+	<cim:SubGeographicalRegion rdf:ID="sgr_2">
+		<cim:IdentifiedObject.description>sgr2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>sgr_2</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>SGR2</cim:IdentifiedObject.name>
+		<cim:SubGeographicalRegion.longitude>45.2517700</cim:SubGeographicalRegion.longitude>
+		<cim:SubGeographicalRegion.latitude>19.8367400</cim:SubGeographicalRegion.latitude>
+		<cim:SubGeographicalRegion.Region rdf:resource="#gr_1"/>
+	</cim:SubGeographicalRegion>		
+	
 	<!-- <cim:FeederObject rdf:ID="f_1">
 		<cim:IdentifiedObject.description>f1</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>f_1</cim:IdentifiedObject.mRID>
@@ -54,6 +64,15 @@
 		<cim:IdentifiedObject.name>S3</cim:IdentifiedObject.name>	
 		<cim:ConductingEquipment.longitude>45.261008</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.855462</cim:ConductingEquipment.latitude>		
+	</cim:Substation>
+
+	<cim:Substation rdf:ID="s_4">
+		<cim:IdentifiedObject.description>s4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>s_4</cim:IdentifiedObject.mRID>
+		<cim:Substation.Region rdf:resource="#sgr_2"/>
+		<cim:IdentifiedObject.name>S4</cim:IdentifiedObject.name>	
+		<cim:ConductingEquipment.longitude>45.242108</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.765462</cim:ConductingEquipment.latitude>		
 	</cim:Substation>
 		
 	<!-- substation1 -->	
@@ -1076,6 +1095,22 @@
 		<cim:ConductingEquipment.latitude>19.831206</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Wind</cim:Generator.generatorType>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_3"/>		
+	</cim:Generator>	
+	
+	<cim:Generator rdf:id="g_266">
+		<cim:IdentifiedObject.description>g266</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>g_266</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>g266</cim:IdentifiedObject.name>
+		<cim:Generator.maxQ>12</cim:Generator.maxQ>			
+		<cim:Generator.minQ>0</cim:Generator.minQ>			
+		<cim:Generator.condenserP>666</cim:Generator.condenserP>
+		<cim:Generator.flexibility>true</cim:Generator.flexibility>
+		<cim:Generator.maxFlexibility>666</cim:Generator.maxFlexibility>
+		<cim:Generator.minFlexibility>66</cim:Generator.minFlexibility>
+		<cim:ConductingEquipment.longitude>45.667744</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.661206</cim:ConductingEquipment.latitude>
+		<cim:Generator.generatorType>Wind</cim:Generator.generatorType>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
 	</cim:Generator>
 	
 	<cim:Analog rdf:id="a_26">

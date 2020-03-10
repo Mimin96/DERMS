@@ -411,7 +411,6 @@ namespace CalculationEngineService
                 }
             }
 
-
             ColorGraph();
 
             //OBAVESTI UI DA JE DOSLO DO PROMENE I POSALJI OVAJ GRAPH
@@ -422,6 +421,12 @@ namespace CalculationEngineService
             TreeNode<NodeData> energySrcConnectedToTerminalFound = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.CondEq);
             // Add child to ESRC
             energySrcConnectedToTerminalFound.AddChild(new NodeData(terminal, DMSType.TERMINAL, false));
+
+            List<EnergySource> energySourcesOfTerminal = networkModelTransfer.Insert[DMSType.ENEGRYSOURCE].Values.ToList().Cast<EnergySource>().ToList().Where(x => x.Terminals.Contains(terminal.GlobalId)).ToList();
+            if (energySourcesOfTerminal != null && energySourcesOfTerminal.Count != 0)
+            {
+                DealWithSources(energySourcesOfTerminal, terminal, networkModelTransfer, substationTreeClass);
+            }
             // TERMINAL ZNA za conn node 
             // Get CN
             ConnectivityNode connectivityNode = networkModelTransfer.Insert[DMSType.CONNECTIVITYNODE].Values.ToList().Cast<ConnectivityNode>().ToList().Where(x => x.GlobalId == terminal.ConnectivityNode).First();
@@ -484,8 +489,8 @@ namespace CalculationEngineService
             {
                 DealWithACLines(aclinesOfTerminal, terminal, networkModelTransfer, substationTreeClass);
             }
-
         }
+
         private void DealWithBreakers(List<Breaker> breakers, Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             //GEt terminal
@@ -522,7 +527,7 @@ namespace CalculationEngineService
             {
                 if (foundTerminal != null)
                 {
-                    substationTreeClass.SubstationElements.Add(new SubstationElementTreeClass(consumer.Name, consumer.GlobalId, DMSType.ENERGYCONSUMER));
+                    substationTreeClass.SubstationElements.Add(new SubstationElementTreeClass(consumer.Name, consumer.GlobalId, DMSType.ENERGYCONSUMER, consumer.PFixed));
                     foundTerminal.AddChild(new NodeData(consumer, DMSType.ENERGYCONSUMER, false));
                 }
 
@@ -546,7 +551,7 @@ namespace CalculationEngineService
             {
                 if (foundTerminal != null)
                 {
-                    substationTreeClass.SubstationElements.Add(new SubstationElementTreeClass(generator.Name, generator.GlobalId, DMSType.GENERATOR));
+                    substationTreeClass.SubstationElements.Add(new SubstationElementTreeClass(generator.Name, generator.GlobalId, DMSType.GENERATOR, generator.ConsiderP));
                     foundTerminal.AddChild(new NodeData(generator, DMSType.GENERATOR, false));
                 }
 
@@ -584,6 +589,32 @@ namespace CalculationEngineService
                     }
                 }
             }
+        }
+
+        private void DealWithSources(List<EnergySource> sources, Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
+        {
+            TreeNode<NodeData> foundTerminal = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId);
+
+            foreach (EnergySource source in sources)
+            {
+                if (foundTerminal != null)
+                {
+                    substationTreeClass.SubstationElements.Add(new SubstationElementTreeClass(source.Name, source.GlobalId, DMSType.ENEGRYSOURCE, source.ActivePower)); //dodali P
+                    foundTerminal.AddChild(new NodeData(source, DMSType.ENEGRYSOURCE, false));
+                }
+
+                List<Terminal> terminals = networkModelTransfer.Insert[DMSType.TERMINAL].Values.ToList().Cast<Terminal>().ToList().Where(x => x.CondEq.Equals(source.GlobalId)).ToList();
+                if (terminals != null && terminals.Count != 0)
+                {
+                    foreach (Terminal t in terminals)
+                    {
+                        if (terminal.GlobalId == t.GlobalId)
+                            continue;
+                        DoStartTerminal(t, networkModelTransfer, substationTreeClass);
+                    }
+                }
+            }
+
         }
         private void ColorGraph()
         {

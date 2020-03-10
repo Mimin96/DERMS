@@ -18,12 +18,15 @@ namespace DERMSCommon.UIModel.ThreeViewModel
         private long _gID;
         [DataMember]
         private DMSType _type;
+        [DataMember]
+        private float _p;
 
-        public SubstationElementTreeClass(string name, long gid, DMSType type)
+        public SubstationElementTreeClass(string name, long gid, DMSType type, float p)
         {
             _name = name;
             _gID = gid;
             _type = type;
+            _p = p;
         }
 
         public string Name
@@ -40,6 +43,11 @@ namespace DERMSCommon.UIModel.ThreeViewModel
         {
             get { return _type; }
             set { _type = value; OnPropertyChanged("Type"); }
+        }
+        public float P
+        {
+            get { return _p; }
+            set { _p = value; OnPropertyChanged("P"); }
         }
     }
 }

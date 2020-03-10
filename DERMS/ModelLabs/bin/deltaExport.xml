@@ -1,7 +1,7 @@
 ﻿<delta id="0">
   <operations>
     <operation type="insert">
-      <ResourceDescriptions count="110">
+      <ResourceDescriptions count="113">
         <ResourceDescription>
           <id gid="0x00000001ffffffff" type="GEOGRAPHICALREGION" />
           <Properties>
@@ -20,6 +20,17 @@
             <Property id="IDOBJ_NAME" value="SGR1" />
             <Property id="SUBGEOGRAPHICALREGION_LONGITUDE" value="45.25167" />
             <Property id="SUBGEOGRAPHICALREGION_LATITUDE" value="19.83694" />
+            <Property id="SUBGEOGRAPHICALREGION_GEOREG" value="0x00000001ffffffff" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x0000000bfffffffe" type="SUBGEOGRAPHICALREGION" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="sgr_2" />
+            <Property id="IDOBJ_DESCRIPTION" value="sgr2" />
+            <Property id="IDOBJ_NAME" value="SGR2" />
+            <Property id="SUBGEOGRAPHICALREGION_LONGITUDE" value="45.25177" />
+            <Property id="SUBGEOGRAPHICALREGION_LATITUDE" value="19.83674" />
             <Property id="SUBGEOGRAPHICALREGION_GEOREG" value="0x00000001ffffffff" />
           </Properties>
         </ResourceDescription>
@@ -54,6 +65,17 @@
             <Property id="EQUIPMENTCONTAINER_LONGITUDE" value="45.26101" />
             <Property id="EQUIPMENTCONTAINER_LATITUDE" value="19.8554611" />
             <Property id="SUBSTATION_SUBGEOREG" value="0x0000000bffffffff" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x0000000afffffffc" type="SUBSTATION" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="s_4" />
+            <Property id="IDOBJ_DESCRIPTION" value="s4" />
+            <Property id="IDOBJ_NAME" value="S4" />
+            <Property id="EQUIPMENTCONTAINER_LONGITUDE" value="45.2421074" />
+            <Property id="EQUIPMENTCONTAINER_LATITUDE" value="19.7654629" />
+            <Property id="SUBSTATION_SUBGEOREG" value="0x0000000bfffffffe" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -197,6 +219,24 @@
         <ResourceDescription>
           <id gid="0x00000005fffffffc" type="GENERATOR" />
           <Properties>
+            <Property id="IDOBJ_MRID" value="g_266" />
+            <Property id="IDOBJ_DESCRIPTION" value="g266" />
+            <Property id="IDOBJ_NAME" value="g266" />
+            <Property id="CONDEQ_LONGITUDE" value="45.6677437" />
+            <Property id="CONDEQ_LATITUDE" value="19.6612053" />
+            <Property id="GENERATOR_GENERATORTYPE" value="Wind" />
+            <Property id="GENERATOR_MAXFLEX" value="666" />
+            <Property id="GENERATOR_MINFLEX" value="66" />
+            <Property id="GENERATOR_FLEXIBILITY" value="1" />
+            <Property id="GENERATOR_MAXQ" value="12" />
+            <Property id="GENERATOR_MINQ" value="0" />
+            <Property id="GENERATOR_CONSIDERP" value="666" />
+            <Property id="EQUIPMENT_CONTAINER" value="0x0000000afffffffc" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000005fffffffb" type="GENERATOR" />
+          <Properties>
             <Property id="IDOBJ_MRID" value="g_7" />
             <Property id="IDOBJ_DESCRIPTION" value="g7" />
             <Property id="IDOBJ_NAME" value="g7" />
@@ -213,7 +253,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000005fffffffb" type="GENERATOR" />
+          <id gid="0x00000005fffffffa" type="GENERATOR" />
           <Properties>
             <Property id="IDOBJ_MRID" value="sm_2" />
             <Property id="IDOBJ_DESCRIPTION" value="sm2" />
@@ -231,7 +271,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000005fffffffa" type="GENERATOR" />
+          <id gid="0x00000005fffffff9" type="GENERATOR" />
           <Properties>
             <Property id="IDOBJ_MRID" value="sm_22" />
             <Property id="IDOBJ_DESCRIPTION" value="sm22" />
@@ -776,7 +816,7 @@
             <Property id="IDOBJ_MRID" value="t_12" />
             <Property id="IDOBJ_DESCRIPTION" value="t12" />
             <Property id="IDOBJ_NAME" value="T12" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000005fffffffb" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000005fffffffa" />
             <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff6" />
           </Properties>
         </ResourceDescription>
@@ -786,7 +826,7 @@
             <Property id="IDOBJ_MRID" value="t_122" />
             <Property id="IDOBJ_DESCRIPTION" value="t122" />
             <Property id="IDOBJ_NAME" value="T122" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000005fffffffa" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000005fffffff9" />
             <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff5" />
           </Properties>
         </ResourceDescription>
@@ -806,7 +846,7 @@
             <Property id="IDOBJ_MRID" value="t_127" />
             <Property id="IDOBJ_DESCRIPTION" value="t127" />
             <Property id="IDOBJ_NAME" value="T127" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000005fffffffc" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000005fffffffb" />
             <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff3" />
           </Properties>
         </ResourceDescription>
@@ -1110,7 +1150,7 @@
             <Property id="ANALOG_MAX_VALUE" value="4" />
             <Property id="ANALOG_MIN_VALUE" value="2" />
             <Property id="ANALOG_NORMAL_VALUE" value="3" />
-            <Property id="MEASUREMENT_PSR" value="0x00000005fffffffb" />
+            <Property id="MEASUREMENT_PSR" value="0x00000005fffffffa" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -1123,7 +1163,7 @@
             <Property id="ANALOG_MAX_VALUE" value="4" />
             <Property id="ANALOG_MIN_VALUE" value="2" />
             <Property id="ANALOG_NORMAL_VALUE" value="3" />
-            <Property id="MEASUREMENT_PSR" value="0x00000005fffffffa" />
+            <Property id="MEASUREMENT_PSR" value="0x00000005fffffff9" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -1149,7 +1189,7 @@
             <Property id="ANALOG_MAX_VALUE" value="4" />
             <Property id="ANALOG_MIN_VALUE" value="2" />
             <Property id="ANALOG_NORMAL_VALUE" value="3" />
-            <Property id="MEASUREMENT_PSR" value="0x00000005fffffffc" />
+            <Property id="MEASUREMENT_PSR" value="0x00000005fffffffb" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
