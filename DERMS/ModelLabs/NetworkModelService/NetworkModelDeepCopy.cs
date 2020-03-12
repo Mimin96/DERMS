@@ -126,9 +126,9 @@ namespace FTN.Services.NetworkModelService
             Dictionary<DMSType, Dictionary<long, IdentifiedObject>> insertCE = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
             Dictionary<DMSType, Dictionary<long, IdentifiedObject>> updateCE = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
             Dictionary<DMSType, Dictionary<long, IdentifiedObject>> deleteCE = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
-            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> insertSCADA = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
-            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> updateSCADA = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
-            Dictionary<DMSType, Dictionary<long, IdentifiedObject>> deleteSCADA = new Dictionary<DMSType, Dictionary<long, IdentifiedObject>>();
+            Dictionary<int, Dictionary<long, IdentifiedObject>> insertSCADA = new Dictionary<int, Dictionary<long, IdentifiedObject>>();
+            Dictionary<int, Dictionary<long, IdentifiedObject>> updateSCADA = new Dictionary<int, Dictionary<long, IdentifiedObject>>();
+            Dictionary<int, Dictionary<long, IdentifiedObject>> deleteSCADA = new Dictionary<int, Dictionary<long, IdentifiedObject>>();
 
             foreach (DMSType dmst in networkModel.networkDataModel.Keys)
             {
@@ -144,8 +144,11 @@ namespace FTN.Services.NetworkModelService
                             Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
                             helper.Add(key, container.Entities[key]);
                             insertCE[dmst] = helper;
-                            if (dmst == DMSType.ANALOG || dmst == DMSType.DISCRETE)
-                                insertSCADA[dmst] = helper;
+                            //if (dmst == DMSType.ANALOG || dmst == DMSType.DISCRETE)
+                            if (dmst == DMSType.ANALOG)
+                                insertSCADA[1] = helper;
+                            else if (dmst == DMSType.DISCRETE)
+                                insertSCADA[0] = helper;
                         }
                         else
                         {
@@ -161,8 +164,10 @@ namespace FTN.Services.NetworkModelService
                             Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
                             helper.Add(key, container.Entities[key]);
                             updateCE[dmst] = helper;
-                            if (dmst == DMSType.ANALOG || dmst == DMSType.DISCRETE)
-                                updateSCADA[dmst] = helper;
+                            if (dmst == DMSType.ANALOG)
+                                updateSCADA[1] = helper;
+                            else if (dmst == DMSType.DISCRETE)
+                                updateSCADA[0] = helper;
                         }
                         else
                         {
@@ -178,8 +183,10 @@ namespace FTN.Services.NetworkModelService
                             Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
                             helper.Add(key, container.Entities[key]);
                             deleteCE[dmst] = helper;
-                            if (dmst == DMSType.ANALOG || dmst == DMSType.DISCRETE)
-                                deleteSCADA[dmst] = helper;
+                            if (dmst == DMSType.ANALOG)
+                                deleteSCADA[1] = helper;
+                            else if (dmst == DMSType.DISCRETE)
+                                deleteSCADA[0] = helper;
                         }
                         else
                         {

@@ -14,7 +14,7 @@ namespace dCom.Configuration
 
         public bool CheckForTM (SignalsTransfer signals)
         {
-            SignalsTransfer = signals;
+            SignalsTransfer = signals;            
             if (signals != null)
                 return true;
             else

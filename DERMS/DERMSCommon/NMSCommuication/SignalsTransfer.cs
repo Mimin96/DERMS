@@ -13,36 +13,36 @@ namespace DERMSCommon.NMSCommuication
     public class SignalsTransfer
     {
         [DataMember]
-        private Dictionary<DMSType, Dictionary<long, IdentifiedObject>> _insert;
+        private Dictionary<int, Dictionary<long, IdentifiedObject>> _insert;
         [DataMember]
-        private Dictionary<DMSType, Dictionary<long, IdentifiedObject>> _update;
+        private Dictionary<int, Dictionary<long, IdentifiedObject>> _update;
         [DataMember]
-        private Dictionary<DMSType, Dictionary<long, IdentifiedObject>> _delete;
+        private Dictionary<int, Dictionary<long, IdentifiedObject>> _delete;
 
-        public SignalsTransfer(Dictionary<DMSType, Dictionary<long, IdentifiedObject>> insert,
-                                    Dictionary<DMSType, Dictionary<long, IdentifiedObject>> update,
-                                    Dictionary<DMSType, Dictionary<long, IdentifiedObject>> delete)
+        public SignalsTransfer(Dictionary<int, Dictionary<long, IdentifiedObject>> insert,
+                                    Dictionary<int, Dictionary<long, IdentifiedObject>> update,
+                                    Dictionary<int, Dictionary<long, IdentifiedObject>> delete)
         {
             _insert = insert;
             _update = update;
             _delete = delete;
         }
 
-        public Dictionary<DMSType, Dictionary<long, IdentifiedObject>> Insert
+        public Dictionary<int, Dictionary<long, IdentifiedObject>> Insert
         {
             get
             {
                 return _insert;
             }
         }
-        public Dictionary<DMSType, Dictionary<long, IdentifiedObject>> Update
+        public Dictionary<int, Dictionary<long, IdentifiedObject>> Update
         {
             get
             {
                 return _update;
             }
         }
-        public Dictionary<DMSType, Dictionary<long, IdentifiedObject>> Delete
+        public Dictionary<int, Dictionary<long, IdentifiedObject>> Delete
         {
             get
             {

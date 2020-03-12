@@ -63,7 +63,8 @@ namespace FTN.Common
         ActivePower = 0,
         ReactivePower = 1,
         Voltage = 2,
-        None = 3
+        Discrete = 3,
+        None = 4
     }
 
     public enum ConductorType : short

@@ -13,6 +13,7 @@
         #region Populate ResourceDescription
         public static void PopulateIdentifiedObjectProperties(FTN.IdentifiedObject cimIdentifiedObject, ResourceDescription rd)
         {
+
             if ((cimIdentifiedObject != null) && (rd != null))
             {
                 if (cimIdentifiedObject.MRIDHasValue)
@@ -187,11 +188,22 @@
                     rd.AddProperty(new Property(ModelCode.ANALOG_MIN_VALUE, cimAnalog.MinValue));
                 }
 
-                if (cimAnalog.NormalValueHasValue)
+                if (((FTN.Generator)cimAnalog.PowerSystemResource).CondenserPHasValue)
                 {
-                    rd.AddProperty(new Property(ModelCode.ANALOG_NORMAL_VALUE, cimAnalog.NormalValue));
+                    rd.AddProperty(new Property(ModelCode.ANALOG_NORMAL_VALUE, ((FTN.Generator)cimAnalog.PowerSystemResource).CondenserP));
                 }
 
+                if (((FTN.Generator)cimAnalog.PowerSystemResource).LatitudeHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENT_LATITUDE, ((FTN.Generator)cimAnalog.PowerSystemResource).Latitude));
+                }
+
+                if (((FTN.Generator)cimAnalog.PowerSystemResource).LongitudeHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENT_LONGITUDE, ((FTN.Generator)cimAnalog.PowerSystemResource).Longitude));
+                }
+
+                ////((FTN.Generator)cimAnalog.PowerSystemResource).Latitude////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 if (cimAnalog.PowerSystemResourceHasValue)
                 {
                     long gid = importHelper.GetMappedGID(cimAnalog.PowerSystemResource.ID);
@@ -224,6 +236,16 @@
                 if (cimDiscrete.NormalValueHasValue)
                 {
                     rd.AddProperty(new Property(ModelCode.DISCRETE_NORMAL_VALUE, cimDiscrete.NormalValue));
+                }
+
+                if (((FTN.Breaker)cimDiscrete.PowerSystemResource).LatitudeHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENT_LATITUDE, ((FTN.Breaker)cimDiscrete.PowerSystemResource).Latitude));
+                }
+
+                if (((FTN.Breaker)cimDiscrete.PowerSystemResource).LongitudeHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENT_LONGITUDE, ((FTN.Breaker)cimDiscrete.PowerSystemResource).Longitude));
                 }
 
                 if (cimDiscrete.PowerSystemResourceHasValue)
@@ -553,6 +575,8 @@
                     return MeasurementType.ReactivePower;
                 case FTN.MeasurementType.Voltage:
                     return MeasurementType.Voltage;
+                case FTN.MeasurementType.Discrete:
+                    return MeasurementType.Discrete;
                 default:
                     return MeasurementType.None;
             }

@@ -227,3 +227,10 @@ C:\Users\Filip\Desktop\New\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Deb
 C:\Users\Filip\Desktop\New\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CopyComplete
 C:\Users\Filip\Desktop\New\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.dll
 C:\Users\Filip\Desktop\New\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.pdb
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\bin\FTN.Services.NetworkModelService.dll
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\bin\FTN.Services.NetworkModelService.pdb
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csprojAssemblyReference.cache
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CoreCompileInputs.cache
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CopyComplete
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.dll
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.pdb

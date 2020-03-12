@@ -15,6 +15,12 @@ namespace DERMSCommon.DataModel.Meas
         private MeasurementType measurementType;
         [DataMember]
         private long powerSystemResource = 0;
+        [DataMember]
+        private float longitude;
+        [DataMember]
+        private float latitude;
+        public float Longitude { get => longitude; set => longitude = value; }
+        public float Latitude { get => latitude; set => latitude = value; }
 
         public MeasurementType MeasurementType { get => measurementType; set => measurementType = value; }
         public long PowerSystemResource { get => powerSystemResource; set => powerSystemResource = value; }
@@ -29,7 +35,7 @@ namespace DERMSCommon.DataModel.Meas
             if (base.Equals(obj))
             {
                 Measurement x = (Measurement)obj;
-                return (x.measurementType == this.measurementType && x.powerSystemResource == this.powerSystemResource);
+                return (x.measurementType == this.measurementType && x.powerSystemResource == this.powerSystemResource && x.latitude == this.latitude && x.longitude == this.longitude);
             }
             else
             {
@@ -48,9 +54,8 @@ namespace DERMSCommon.DataModel.Meas
         {
             switch (property)
             {
-                //case ModelCode.SWITCH_NORMAL_OPEN:
-                //case ModelCode.SWITCH_RATED_CURRENT:
-                
+                case ModelCode.MEASUREMENT_LATITUDE:
+                case ModelCode.MEASUREMENT_LONGITUDE:
                 case ModelCode.MEASUREMENT_MEAS_TYPE:
                 case ModelCode.ENERGYCONSUMER_QFIXED:
                     return true;
@@ -64,14 +69,14 @@ namespace DERMSCommon.DataModel.Meas
         {
             switch (prop.Id)
             {
-                //case ModelCode.ENERGYCONSUMER_CONSUMER_COUNT:
-                //    prop.SetValue(normalOpen);
-                //    break;
+                case ModelCode.MEASUREMENT_LATITUDE:
+                    prop.SetValue(latitude);
+                    break;
 
-                //case ModelCode.SWITCH_RATED_CURRENT:
-                //    prop.SetValue((short)ratedCurrent);
-                //    break;
-               
+                case ModelCode.MEASUREMENT_LONGITUDE:
+                    prop.SetValue(longitude);
+                    break;
+
                 case ModelCode.MEASUREMENT_MEAS_TYPE:
                     prop.SetValue((short)measurementType);
                     break;
@@ -89,14 +94,14 @@ namespace DERMSCommon.DataModel.Meas
         {
             switch (property.Id)
             {
-                //case ModelCode.SWITCH_NORMAL_OPEN:
-                //    normalOpen = property.AsBool();
-                //    break;
+                case ModelCode.MEASUREMENT_LATITUDE:
+                    latitude = property.AsFloat();
+                    break;
 
-                //case ModelCode.SWITCH_RATED_CURRENT:
-                //    ratedCurrent = (CurrentFlow)property.AsEnum();
-                //    break;
-                
+                case ModelCode.MEASUREMENT_LONGITUDE:
+                    longitude = property.AsFloat();
+                    break;
+
                 case ModelCode.MEASUREMENT_MEAS_TYPE:
                     measurementType = (MeasurementType)property.AsEnum();
                     break;
