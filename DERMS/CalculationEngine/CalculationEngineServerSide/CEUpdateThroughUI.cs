@@ -27,6 +27,7 @@ namespace CalculationEngineService
             networkModel = CalculationEngineCache.Instance.GetNMSModel();
             Dictionary<long, double> battery = new Dictionary<long, double>();
             Dictionary<long, List<long>> energySources = new Dictionary<long, List<long>>();
+            DerForecastDayAhead tempForecast = new DerForecastDayAhead();
 
             IdentifiedObject io = networkModel[GidUi];
             var type = io.GetType();
@@ -117,10 +118,13 @@ namespace CalculationEngineService
             {
                 DerForecastDayAhead derForecastDayAhead = prod[kvp.Key];
 
+
+
                 foreach (HourDataPoint hdpProduction in derForecastDayAhead.Production.Hourly)
                 {
                     foreach (HourDataPoint hdpConsumption in derForecastDayAhead.Consumption.Hourly)
                     {
+
                         if (hdpConsumption.Time.Equals(hdpProduction.Time))
                         {
                             if (hdpProduction.ActivePower > hdpConsumption.ActivePower)
@@ -132,13 +136,20 @@ namespace CalculationEngineService
                                     foreach (long es in energySources[kvp.Key])
                                     {
                                         EnergySource energySource = (EnergySource)networkModel[es];
-                                        energySource.ActivePower -= (hdpConsumption.ActivePower - hdpProduction.ActivePower) / distributionFactor;
+                                        energySource.ActivePower -= (hdpProduction.ActivePower - hdpConsumption.ActivePower) / distributionFactor;
                                     }
 
-                                    hdpProduction.ActivePower = hdpConsumption.ActivePower;
+                                    // hdpProduction.ActivePower = hdpConsumption.ActivePower;
                                 }
+
+                                HourDataPoint tempProduction = new HourDataPoint();
+                                tempProduction.Time = hdpProduction.Time;
+                                tempProduction.ActivePower = hdpProduction.ActivePower - hdpConsumption.ActivePower;
+                                tempForecast.Production.Hourly.Add(tempProduction);
+                                hdpProduction.ActivePower = hdpConsumption.ActivePower;
+
                             }
-                            else if (hdpProduction.ActivePower < hdpConsumption.ActivePower)
+                            else if (hdpProduction.ActivePower <= hdpConsumption.ActivePower)
                             {
 
                                 if (energySources.ContainsKey(kvp.Key))
@@ -153,41 +164,45 @@ namespace CalculationEngineService
                                             energyFromSource += (hdpConsumption.ActivePower - hdpProduction.ActivePower) / distributionFactor;
                                         }
                                     }
-                                    hdpProduction.ActivePower = hdpConsumption.ActivePower;
+
                                 }
                                 else
                                 {
                                     //Turn off consumers...
                                 }
 
+                                HourDataPoint tempProduction = new HourDataPoint();
+                                tempProduction.Time = hdpProduction.Time;
+                                tempProduction.ActivePower = hdpProduction.ActivePower - hdpConsumption.ActivePower;
+                                tempForecast.Production.Hourly.Add(tempProduction);
+                                hdpProduction.ActivePower = hdpConsumption.ActivePower;
 
-                                //}
-                                //else
-                                //{
-                                //    if (energySources.ContainsKey(kvp.Key))
-                                //    {
-                                //        int distributionFactor = energySources[kvp.Key].Count;
-                                //        foreach (long es in energySources[kvp.Key])
-                                //        {
-                                //            EnergySource energySource = (EnergySource)networkModel[es];
-                                //            if (energySource.ActivePower >= (hdpConsumption.ActivePower - hdpProduction.ActivePower) / distributionFactor)
-                                //            {
-                                //                energySource.ActivePower -= (hdpConsumption.ActivePower - hdpProduction.ActivePower) / distributionFactor;
-                                //                energyFromSource += (hdpConsumption.ActivePower - hdpProduction.ActivePower) / distributionFactor;
-                                //            }
-                                //        }
-                                //        hdpProduction.ActivePower = hdpConsumption.ActivePower;
-                                //    }
-                                //    else
-                                //    {
-                                //        //Turn off consumers...
-                                //    }
-                                //}
+                            }
+                            else
+                            {
+
                             }
                         }
+
                     }
                 }
             }
+            if (type.Name.Equals("Substation"))
+            {
+
+                Substation substation = (Substation)networkModel[GidUi];
+                SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)networkModel[substation.SubGeoReg];
+                GeographicalRegion geographicalRegion = (GeographicalRegion)networkModel[subGeographicalRegion.GeoReg];
+                prod[subGeographicalRegion.GlobalId].Production -= tempForecast.Production;
+                prod[geographicalRegion.GlobalId].Production -= tempForecast.Production;
+            }
+            if (type.Name.Equals("SubGeographicalRegion"))
+            {
+                SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)networkModel[GidUi];
+                GeographicalRegion geographicalRegion = (GeographicalRegion)networkModel[subGeographicalRegion.GeoReg];
+                prod[geographicalRegion.GlobalId].Production -= tempForecast.Production;
+            }
+
 
             return energyFromSource;
         }

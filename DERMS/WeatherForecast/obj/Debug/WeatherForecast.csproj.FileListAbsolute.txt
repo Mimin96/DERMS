@@ -327,3 +327,10 @@ C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\WeatherForecast\obj\Debug\We
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.csproj.CopyComplete
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.dll
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\WeatherForecast\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\WeatherForecast\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\WeatherForecast\bin\Debug\Innovative.Geometry.Angle.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\WeatherForecast\bin\Debug\MaterialDesignColors.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\WeatherForecast\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\WeatherForecast\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\WeatherForecast\bin\Debug\MaterialDesignColors.pdb

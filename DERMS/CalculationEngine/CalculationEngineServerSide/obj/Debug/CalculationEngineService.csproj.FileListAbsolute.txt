@@ -460,3 +460,10 @@ C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\CalculationEngine\Calculatio
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\obj\Debug\CalculationEngineService.csproj.CopyComplete
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\obj\Debug\CalculationEngineService.dll
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\obj\Debug\CalculationEngineService.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\Innovative.Geometry.Angle.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\MaterialDesignColors.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\bin\Debug\MaterialDesignColors.pdb

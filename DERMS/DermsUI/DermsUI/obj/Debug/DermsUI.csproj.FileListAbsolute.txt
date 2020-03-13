@@ -2693,3 +2693,10 @@ C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\De
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.csproj.CopyComplete
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.exe
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\DermsUI.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\Innovative.Geometry.Angle.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\MaterialDesignColors.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DermsUI\DermsUI\bin\Debug\MaterialDesignColors.pdb

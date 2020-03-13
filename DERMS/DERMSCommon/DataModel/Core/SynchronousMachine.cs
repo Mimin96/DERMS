@@ -1,6 +1,7 @@
 ﻿using DarkSkyApi.Models;
 using DERMSCommon.WeatherForecast;
 using FTN.Common;
+using Innovative.SolarCalculator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,12 +45,12 @@ namespace DERMSCommon.DataModel.Core
 
             //Substation substation = new Substation(gid);
             SubGeographicalRegion subGeoRegion = new SubGeographicalRegion(substation.SubGeoReg);
-            
+
             float P = 0;
 
             if (this.GeneratorType.Equals(GeneratorType.Wind))
             {
-                
+
                 foreach (DarkSkyApi.Models.HourDataPoint dataPoint in forecast.Hourly.Hours.Take(24))
                 {
                     WeatherForecast.HourDataPoint hourDataPoint = new WeatherForecast.HourDataPoint();
@@ -61,7 +62,7 @@ namespace DERMSCommon.DataModel.Core
                     }
                     else if (dataPoint.WindSpeed >= 3.5 && dataPoint.WindSpeed < 14)
                     {
-                        P = (float)((dataPoint.WindSpeed - 3.5) * 0.035 *1000);
+                        P = (float)((dataPoint.WindSpeed - 3.5) * 0.035 * 1000);
                     }
                     else if (dataPoint.WindSpeed >= 14 && dataPoint.WindSpeed < 25)
                     {
@@ -82,21 +83,13 @@ namespace DERMSCommon.DataModel.Core
             }
             else if (this.GeneratorType.Equals(GeneratorType.Solar))
             {
-                
+
                 foreach (DarkSkyApi.Models.HourDataPoint dataPoint in forecast.Hourly.Hours.Take(24))
                 {
                     WeatherForecast.HourDataPoint hourDataPoint = new WeatherForecast.HourDataPoint();
                     hourDataPoint.Time = dataPoint.Time.DateTime;
-                    hourDataPoint.Time = hourDataPoint.Time.AddHours(forecast.TimeZoneOffset);
 
-                    SPACalculator.SPAData spa = new SPACalculator.SPAData();
-                    spa.SetUpData(substation.Latitude, substation.Longitude, hourDataPoint);
-
-                    var result = SPACalculator.SPACalculate(ref spa);
-                    double zenit = spa.Zenith;
-                    double s = ConsiderP * (1 - dataPoint.CloudCover);
-                    double test1 = Math.Cos((Math.PI / 100) * zenit);
-                    double insolation = s * Math.Cos((Math.PI / 100) * zenit);
+                    double insolation = 0;
 
                     insolation = 990 * (1 - dataPoint.CloudCover * dataPoint.CloudCover * dataPoint.CloudCover);
                     double TCell = dataPoint.Temperature + 0.025 * insolation;
@@ -105,9 +98,14 @@ namespace DERMSCommon.DataModel.Core
                         TCell = 25;
                     }
 
-                    
+
                     P = (float)(ConsiderP * insolation * 0.00095 * (1 - 0.005 * (TCell - 25)));
-                    
+                    SolarTimes solarTimes = new SolarTimes(DateTime.Now, substation.Latitude, substation.Longitude);
+                    DateTime sunrise = solarTimes.Sunrise;
+                    DateTime sunset = solarTimes.Sunset;
+                    if (dataPoint.Time > sunset || dataPoint.Time < sunrise)
+                        P = 0;
+
                     hourDataPoint.ActivePower = P;
                     hourDataPoint.ReactivePower = 0;
 

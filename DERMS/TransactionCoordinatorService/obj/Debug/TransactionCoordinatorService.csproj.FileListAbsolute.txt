@@ -263,3 +263,10 @@ C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\TransactionCoordinatorServic
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CopyComplete
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\Innovative.Geometry.Angle.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\MaterialDesignColors.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\MaterialDesignColors.pdb

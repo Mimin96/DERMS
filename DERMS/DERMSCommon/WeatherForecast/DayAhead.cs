@@ -50,5 +50,26 @@ namespace DERMSCommon.WeatherForecast
             }
             return result;
         }
+
+        public static DayAhead operator -(DayAhead c1, DayAhead c2)
+        {
+            DayAhead result = new DayAhead();
+            if (c1.Hourly.Count == 0)
+            {
+                return c2;
+            }
+            else
+            {
+                for (int i = 0; i < 24; i++)
+                {
+                    HourDataPoint dataPoint = new HourDataPoint();
+                    dataPoint.ActivePower = c1.Hourly[i].ActivePower - c2.Hourly[i].ActivePower;
+                    dataPoint.ReactivePower = c1.Hourly[i].ReactivePower - c2.Hourly[i].ReactivePower;
+                    dataPoint.Time = c1.Hourly[i].Time;
+                    result.Hourly.Add(dataPoint);
+                }
+            }
+            return result;
+        }
     }
 }

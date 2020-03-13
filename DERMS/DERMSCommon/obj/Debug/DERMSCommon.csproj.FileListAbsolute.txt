@@ -292,3 +292,10 @@ C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSC
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\bin\Debug\Innovative.Geometry.Angle.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignColors.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignColors.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignThemes.Wpf.xml
