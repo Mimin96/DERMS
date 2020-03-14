@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,10 @@ namespace UI.View
         public DERDashboardUserControl()
         {
             InitializeComponent();
+            var yAxis = new Axis { Separator = new LiveCharts.Wpf.Separator { StrokeThickness = 0.12 } };
+            var sAxis = new Axis { Separator = new LiveCharts.Wpf.Separator { StrokeThickness = 0.1 } };
+            cartesianChart.AxisY.Add(yAxis);
+            cartesianChart.AxisX.Add(sAxis);
 
             DataContext = new DERDashboardUserControlViewModel(this);
         }

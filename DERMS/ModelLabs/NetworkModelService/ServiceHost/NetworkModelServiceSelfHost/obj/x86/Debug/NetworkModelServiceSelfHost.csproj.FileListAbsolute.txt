@@ -303,3 +303,11 @@ C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\NetworkModelServic
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csproj.CopyComplete
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.exe
 C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.pdb
+C:\Users\Caki\Desktop\1403\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.exe.config
+C:\Users\Caki\Desktop\1403\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.exe
+C:\Users\Caki\Desktop\1403\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.pdb
+C:\Users\Caki\Desktop\1403\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\1403\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\1403\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csproj.CopyComplete
+C:\Users\Caki\Desktop\1403\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.exe
+C:\Users\Caki\Desktop\1403\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.pdb

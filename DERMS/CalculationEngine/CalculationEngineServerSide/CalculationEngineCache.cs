@@ -411,6 +411,26 @@ namespace CalculationEngineService
                 }
             }
 
+            //CAKI 0314
+            foreach (ACLineSegment line in networkModelTransfer.Insert[DMSType.ACLINESEGMENT].Values.ToList())
+            {
+                TreeNode<NodeData> found = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == line.GlobalId);
+
+                if (found != null)
+                {
+                    foreach (long pointGid in ((ACLineSegment)found.Data.IdentifiedObject).Points)
+                    {
+                        Point point = (Point)networkModelTransfer.Insert[DMSType.POINT].Values.ToList().Where(x => x.GlobalId == pointGid).First();
+
+                        if (point != null)
+                        {
+                            found.AddChild(new NodeData(point, DMSType.POINT, false));
+                        }
+                    }
+                }
+            }
+            //
+
             ColorGraph();
 
             //OBAVESTI UI DA JE DOSLO DO PROMENE I POSALJI OVAJ GRAPH

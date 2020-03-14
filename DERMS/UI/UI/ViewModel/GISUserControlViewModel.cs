@@ -346,10 +346,14 @@ namespace UI.ViewModel
             polygon.StrokeThickness = 2;
             polygon.Opacity = 0.9;
             polygon.Cursor = Cursors.Hand;
-            polygon.Locations = new LocationCollection() {
-                new Location(pinLocation.Latitude, pinLocation.Longitude),
-                new Location(pinLocation.Latitude - 0.003, pinLocation.Longitude + 0.004)
-            };
+            polygon.Locations = new LocationCollection();
+
+            foreach (long item in acLineSegment.Points)
+            {
+                TreeNode<NodeData> data = acLine.Children.Where(X => X.Data.IdentifiedObject.GlobalId == item).First();
+                DERMSCommon.DataModel.Core.Point point1 = (DERMSCommon.DataModel.Core.Point)(data.Data.IdentifiedObject);
+                polygon.Locations.Add(new Location(point1.Longitude, point1.Latitude));
+            }
 
             _map.Children.Add(polygon);
         }

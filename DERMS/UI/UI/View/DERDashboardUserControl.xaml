@@ -72,7 +72,7 @@
             </Grid>
             <Grid Grid.Column="1" Margin="30" Height="127" VerticalAlignment="Top">
                 <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from generators"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="#FF0CADFF" VerticalAlignment="Top" Width="185"/>
-				<lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="ProductionFromGenerators"
+                <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="ProductionFromGenerators"
                    From="0" To="100" Value="0" Foreground="#FF0CADFF" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
@@ -99,12 +99,12 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Label HorizontalContentAlignment="Center" Margin="236,8,221,0"  Content="Consumption and production"  FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="DarkViolet" Height="31" VerticalAlignment="Top"/>
-				<Button Content="Manual Commanding" HorizontalAlignment="Left" Margin="36,10,0,0" VerticalAlignment="Top" Width="195" Click="Button_Click_1"/>
-                <Button Content="Automatic Optimization" HorizontalAlignment="Left" Margin="543,10,0,0" VerticalAlignment="Top" Width="195" Click="Button_Click"/>
-			</Grid>
+                <Button Content="Manual Commanding" Margin="36,10,0,8" Click="Button_Click_1" Height="Auto" HorizontalAlignment="Left" Width="195"/>
+                <Button Content="Automatic Optimization" Margin="0,10,21,8" Click="Button_Click" Height="Auto" HorizontalAlignment="Right" Width="195"/>
+            </Grid>
 
             <Grid Grid.Row="1">
-                <lvc:CartesianChart Margin="0,0,0,24">
+                <lvc:CartesianChart x:Name="cartesianChart" Margin="0,0,0,24">
                     <lvc:CartesianChart.Series>
                         <lvc:StepLineSeries Fill="{Binding Color1}"  Values="{Binding ChartValues2}" Visibility="{Binding VisibilityConsumption}"  />
                         <lvc:StepLineSeries Fill="{Binding Color2}" Values="{Binding ChartValues3}" Visibility="{Binding VisibilityDERProduction}" />
@@ -114,13 +114,12 @@
             </Grid>
 
             <Grid Grid.Row="2">
-                <CheckBox Content="Consumption" FontSize="14" BorderBrush="DeepSkyBlue" IsChecked="{Binding ShowConsumption}" Foreground="DeepSkyBlue" HorizontalAlignment="Left" Margin="67,0,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="DER Production" FontSize="14" BorderBrush="DeepSkyBlue" IsChecked="{Binding ShowDerProduction}" Foreground="DeepSkyBlue" HorizontalAlignment="Left" Height="20" Margin="227,0,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Demands from Grid" FontSize="14" BorderBrush="DeepSkyBlue" IsChecked="{Binding ShowGridDemands}" Foreground="DeepSkyBlue" HorizontalAlignment="Left" Height="20" Margin="386,0,0,0" VerticalAlignment="Top"/>
-
+                <CheckBox Background="DeepSkyBlue" Content="Consumption" FontSize="14" Foreground="DeepSkyBlue" IsChecked="{Binding ShowConsumption}" HorizontalAlignment="Left" Margin="67,0,0,0" VerticalAlignment="Top"/>
+                <CheckBox Background="Tomato" Content="DER Production" FontSize="14" Foreground="Tomato" IsChecked="{Binding ShowDerProduction}" HorizontalAlignment="Left" Height="20" Margin="227,0,0,0" VerticalAlignment="Top"/>
+                <CheckBox Background="Yellow" Content="Demands from Grid" FontSize="14" Foreground="Yellow" IsChecked="{Binding ShowGridDemands}" HorizontalAlignment="Left" Height="20" Margin="386,0,0,0" VerticalAlignment="Top"/>
             </Grid>
         </Grid>
-       
+
 
     </Grid>
 </UserControl>

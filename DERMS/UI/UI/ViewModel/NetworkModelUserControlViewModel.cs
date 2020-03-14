@@ -27,6 +27,7 @@ namespace UI.ViewModel
         private RelayCommand<long> _substationElementCommand;
         private RelayCommand<object> _filterCommand;
         public List<NetworkModelTreeClass> _networkModel;
+        private bool _onlyEnergySrc = true; 
 
         public List<NetworkModelTreeClass> NetworkModel
         {
@@ -152,6 +153,7 @@ namespace UI.ViewModel
 
             TreeNode<NodeData> root = Tree.Where(x => x.Data.IdentifiedObject.GlobalId == gid).First();
 
+            _onlyEnergySrc = false;
             foreach (TreeNode<NodeData> node in root.Children)
             {
                 DealWithChildren(node);
@@ -163,7 +165,7 @@ namespace UI.ViewModel
             NetworkModelItems = new ObservableCollection<NetworkModelViewClass>();
 
             TreeNode<NodeData> root = Tree.Where(x => x.Data.IdentifiedObject.GlobalId == gid).First();
-
+            _onlyEnergySrc = false;
             foreach (TreeNode<NodeData> node in root.Children)
             {
                 DealWithChildren(node);
@@ -176,6 +178,7 @@ namespace UI.ViewModel
 
             TreeNode<NodeData> root = Tree.Where(x => x.Data.IdentifiedObject.GlobalId == gid).First();
 
+            _onlyEnergySrc = false;
             foreach (TreeNode<NodeData> node in root.Children)
             {
                 DealWithChildren(node);
@@ -184,6 +187,7 @@ namespace UI.ViewModel
         }
         public void SubstationElementCommandExecute(long gid)
         {
+            _onlyEnergySrc = true;
             NetworkModelItems = new ObservableCollection<NetworkModelViewClass>();
             TreeNode<NodeData> node = Tree.Where(x => x.Data.IdentifiedObject.GlobalId == gid).First();
             DealWithChildren(node);
@@ -270,6 +274,7 @@ namespace UI.ViewModel
 
             TreeNode<NodeData> root = Tree.Where(x => x.IsRoot == true).First();
 
+            _onlyEnergySrc = false;
             foreach (TreeNode<NodeData> node in root.Children)
             {
                 DealWithChildren(node);
@@ -282,7 +287,10 @@ namespace UI.ViewModel
             if (node.Data.Type != FTN.Common.DMSType.ENEGRYSOURCE && node.Data.Type != FTN.Common.DMSType.ENERGYCONSUMER && node.Data.Type != FTN.Common.DMSType.GENERATOR)
             {
                 foreach (TreeNode<NodeData> child in node.Children)
-                    DealWithChildren(child);
+                {
+                    if (NetworkModelItems.Where(x=>x.Info.Contains(child.Data.IdentifiedObject.GlobalId.ToString())).FirstOrDefault() == null)
+                        DealWithChildren(child);
+                }
                 return;
             }
 
@@ -290,6 +298,10 @@ namespace UI.ViewModel
             {
                 string infoString = dataString(node);
                 NetworkModelItems.Add(new NetworkModelViewClass(Brushes.LightGreen, PackIconKind.TransmissionTower, "Energy source " + node.Data.IdentifiedObject.Name, infoString));
+                if (_onlyEnergySrc)
+                {
+                    return;
+                }
             }
             else if (node.Data.Type == FTN.Common.DMSType.ENERGYCONSUMER)
             {
