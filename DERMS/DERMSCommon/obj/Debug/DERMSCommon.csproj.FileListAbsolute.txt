@@ -316,3 +316,5 @@ C:\Users\Caki\Desktop\1403\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb
+C:\Users\Filip\Desktop\New\DERMS\DERMS\DERMSCommon\bin\Debug\Innovative.Geometry.Angle.dll
+C:\Users\Filip\Desktop\New\DERMS\DERMS\DERMSCommon\bin\Debug\Innovative.SolarCalculator.dll

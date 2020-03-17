@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\UI\UI\obj\Debug\
+C:\Users\Filip\Desktop\New\DERMS\DERMS\UI\UI\obj\Debug\
 UI
 none
 false
 DEBUG;TRACE
-C:\Users\Caki\Desktop\CodeTOMergeWith\DERMS\DERMS\UI\UI\App.xaml
-10-1794426854
+C:\Users\Filip\Desktop\New\DERMS\DERMS\UI\UI\App.xaml
+11-1688616913
 
-37277915787
-26-1502508833
-Resources\AppDictionary.xaml;View\DERDashboardUserControl.xaml;View\EventSummaryUserControl.xaml;View\GISUserControl.xaml;View\LoadingWindow.xaml;View\LoggesSummaryUserControl.xaml;View\MainWindow.xaml;View\ManualCommandingWindow.xaml;View\NetworkModelUserControl.xaml;View\SignalsSummaryUserControl.xaml;
+361872857853
+26525468344
+Resources\AppDictionary.xaml;View\DERDashboardUserControl.xaml;View\EventSummaryUserControl.xaml;View\GISUserControl.xaml;View\HistoryUserControl.xaml;View\LoadingWindow.xaml;View\LoggesSummaryUserControl.xaml;View\MainWindow.xaml;View\ManualCommandingWindow.xaml;View\NetworkModelUserControl.xaml;View\SignalsSummaryUserControl.xaml;
 
 True
 

@@ -97,6 +97,7 @@
     <Compile Include="ViewModel\DERDashboardUserControlViewModel.cs" />
     <Compile Include="ViewModel\EventSummaryUserControlViewModel.cs" />
     <Compile Include="ViewModel\GISUserControlViewModel.cs" />
+    <Compile Include="ViewModel\HistoryUserControlViewModel.cs" />
     <Compile Include="ViewModel\LoggesSummaryUserControlViewModel.cs" />
     <Compile Include="ViewModel\ManualCommandingViewModel.cs" />
     <Compile Include="ViewModel\NetworkModelUserControlViewModel.cs" />
@@ -111,6 +112,9 @@
       <DependentUpon>GISUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\RelayCommand.cs" />
+    <Compile Include="View\HistoryUserControl.xaml.cs">
+      <DependentUpon>HistoryUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LoadingWindow.xaml.cs">
       <DependentUpon>LoadingWindow.xaml</DependentUpon>
     </Compile>
@@ -139,6 +143,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\GISUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HistoryUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

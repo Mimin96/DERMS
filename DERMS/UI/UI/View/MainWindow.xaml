@@ -71,7 +71,14 @@
                             <TextBlock HorizontalAlignment="Center" Text="Network Model" FontFamily="Champagne &amp; Limousines"/>
                         </Grid>
                     </Button>
-                    <Menu Opacity="0.9" FontSize="14" VerticalAlignment="Center" Background="#FF303030" FontFamily="Champagne &amp; Limousines" Foreground="#FF0398E2" HorizontalAlignment="Center" Height="28" FontWeight="Bold">
+                    <Button Cursor="Hand" x:Name="History" Width="Auto" Height="Auto" Background="Transparent" BorderBrush="Transparent" Foreground="#FF0398E2"
+                            Command="{Binding Path=MenuSelectCommand}" CommandParameter="{Binding ElementName=root, Path=(FocusManager.FocusedElement)}">
+                        <Grid Width="145">
+                            <materialDesign:PackIcon Kind="History" VerticalAlignment="Center"/>
+                            <TextBlock HorizontalAlignment="Center" Text="History" FontFamily="Champagne &amp; Limousines"/>
+                        </Grid>
+                    </Button>
+                    <Menu Cursor="Hand" Opacity="0.9" FontSize="14" VerticalAlignment="Center" Background="#FF303030" FontFamily="Champagne &amp; Limousines" Foreground="#FF0398E2" HorizontalAlignment="Center" Height="28" FontWeight="Bold">
                         <MenuItem Background="#FF303030" Height="28" Width="Auto">
                             <MenuItem.Header>
                                 <Grid Width="Auto">

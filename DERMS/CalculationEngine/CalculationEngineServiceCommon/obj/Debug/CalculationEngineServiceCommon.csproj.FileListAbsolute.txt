@@ -402,3 +402,5 @@ C:\Users\Caki\Desktop\1403\DERMS\DERMS\CalculationEngine\CalculationEngineServic
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.csproj.CopyComplete
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.dll
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\obj\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\Filip\Desktop\New\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Filip\Desktop\New\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\Innovative.Geometry.Angle.dll

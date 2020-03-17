@@ -289,3 +289,5 @@ C:\Users\Caki\Desktop\1403\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\T
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CopyComplete
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb
+C:\Users\Filip\Desktop\New\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Filip\Desktop\New\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\Innovative.Geometry.Angle.dll

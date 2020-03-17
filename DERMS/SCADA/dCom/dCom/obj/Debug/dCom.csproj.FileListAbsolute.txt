@@ -1036,3 +1036,5 @@ C:\Users\Caki\Desktop\1403\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.Cor
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CopyComplete
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.exe
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.pdb
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Filip\Desktop\New\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Innovative.Geometry.Angle.dll

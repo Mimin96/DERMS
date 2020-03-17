@@ -159,6 +159,10 @@ namespace UI.ViewModel
                 case "LoggesSummary":
                     UserControlPresenter = new LoggesSummaryUserControl();
                     break;
+                case "History":
+                    UserControlPresenter = new HistoryUserControl();
+                    ((HistoryUserControlViewModel)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;
+                    break;
                 default:
                     MessageBox.Show("There was a problem while opening view. Try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;

@@ -1079,3 +1079,7 @@ C:\Users\Caki\Desktop\1403\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CoreCompileInpu
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CopyComplete
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\UI\UI\obj\Debug\UI.exe
 C:\Users\Caki\Desktop\1403\DERMS\DERMS\UI\UI\obj\Debug\UI.pdb
+C:\Users\Filip\Desktop\New\DERMS\DERMS\UI\UI\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Filip\Desktop\New\DERMS\DERMS\UI\UI\bin\Debug\Innovative.Geometry.Angle.dll
+C:\Users\Filip\Desktop\New\DERMS\DERMS\UI\UI\obj\Debug\View\HistoryUserControl.g.cs
+C:\Users\Filip\Desktop\New\DERMS\DERMS\UI\UI\obj\Debug\View\HistoryUserControl.baml
