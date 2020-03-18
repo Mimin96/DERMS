@@ -32,12 +32,19 @@ namespace DERMSCommon.WeatherForecast
 
         public static DayAhead operator +(DayAhead c1, DayAhead c2)
         {
-            DayAhead result = new DayAhead();
-            if (c1.Hourly.Count == 0)
-            {
-                return c2;
-            }
-            else
+			DayAhead result = new DayAhead();
+			if (c1.Hourly.Count == 0 && c2.Hourly.Count != 0)
+			{
+				for (int i = 0; i < 24; i++)
+				{
+					HourDataPoint dataPoint = new HourDataPoint();
+					dataPoint.ActivePower = c2.Hourly[i].ActivePower;
+					dataPoint.ReactivePower = c2.Hourly[i].ReactivePower;
+					dataPoint.Time = c2.Hourly[i].Time;
+					result.Hourly.Add(dataPoint);
+				}
+			}
+			else
             {
                 for (int i = 0; i < 24; i++)
                 {
@@ -53,12 +60,19 @@ namespace DERMSCommon.WeatherForecast
 
         public static DayAhead operator -(DayAhead c1, DayAhead c2)
         {
-            DayAhead result = new DayAhead();
-            if (c1.Hourly.Count == 0)
-            {
-                return c2;
-            }
-            else
+			DayAhead result = new DayAhead();
+			if (c1.Hourly.Count == 0 && c2.Hourly.Count != 0)
+			{
+				for (int i = 0; i < 24; i++)
+				{
+					HourDataPoint dataPoint = new HourDataPoint();
+					dataPoint.ActivePower = c2.Hourly[i].ActivePower;
+					dataPoint.ReactivePower = c2.Hourly[i].ReactivePower;
+					dataPoint.Time = c2.Hourly[i].Time;
+					result.Hourly.Add(dataPoint);
+				}
+			}
+			else
             {
                 for (int i = 0; i < 24; i++)
                 {

@@ -16,13 +16,15 @@ namespace CalculationEngineService
         public ChannelFactory<ISendSCADADataToUI> factoryUI;
         public ChannelFactory<ISendNetworkModelToUI> factoryUI_NM;
         public ChannelFactory<IUpdateCommand> factoryScada;
+        public ChannelFactory<ISendListOfGeneratorsToScada> factoryScadaListOfGenerators;
         public ChannelFactory<ITransactionListing> factoryTM;
 
-        public ISendSCADADataToUI ProxyUI { get; set; }
+		public ISendSCADADataToUI ProxyUI { get; set; }
         public ISendNetworkModelToUI ProxyUI_NM { get; set; }
         public IUpdateCommand ProxyScada { get; set; }
+		public ISendListOfGeneratorsToScada ProxyScadaListOfGenerators { get; set; }
 
-        public ITransactionListing ProxyTM { get; set; }
+		public ITransactionListing ProxyTM { get; set; }
 
         private static ClientSideCE instance = null;
         public static ClientSideCE Instance
@@ -72,8 +74,15 @@ namespace CalculationEngineService
             ProxyScada = factoryScada.CreateChannel();
             Console.WriteLine("Connected: net.tcp://localhost:18500/IUpdateCommand");
 
-            //Connect to TM
-            NetTcpBinding binding4 = new NetTcpBinding();
+			//Connect to Scada for list of generators
+			NetTcpBinding binding5 = new NetTcpBinding();
+			//binding5.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+			factoryScadaListOfGenerators = new ChannelFactory<ISendListOfGeneratorsToScada>(binding5, new EndpointAddress("net.tcp://localhost:18503/ISendListOfGeneratorsToScada"));
+			ProxyScadaListOfGenerators = factoryScadaListOfGenerators.CreateChannel();
+			Console.WriteLine("Connected: net.tcp://localhost:18503/ISendListOfGeneratorsToScada");
+
+			//Connect to TM
+			NetTcpBinding binding4 = new NetTcpBinding();
             factoryTM = new ChannelFactory<ITransactionListing>(binding4, new EndpointAddress("net.tcp://localhost:20505/ITransactionListing"));
             ProxyTM = factoryTM.CreateChannel();
 
@@ -85,12 +94,14 @@ namespace CalculationEngineService
         {
             factoryUI.Abort();
             factoryScada.Abort();
-        }
+			factoryScadaListOfGenerators.Abort();
+		}
 
-        public void Close()
+		public void Close()
         {
             factoryUI.Close();
             factoryScada.Close();
-        }
-    }
+			factoryScadaListOfGenerators.Close();
+		}
+	}
 }

@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using CalculationEngineServiceCommon;
+using Common;
 using dCom.Exceptions;
 using DERMSCommon.NMSCommuication;
 using DERMSCommon.TransactionManager;
@@ -14,8 +15,9 @@ namespace dCom.Configuration
 	internal class ConfigReader : IConfiguration
 	{
 
-        private ServiceHost serviceHostForNMS;
-        private ushort transactionId = 0;
+        private ServiceHost serviceHostForNMS; 
+        private ServiceHost serviceHostForCE; 
+		private ushort transactionId = 0;
 
 		private byte unitAddress;
 		private int tcpPort;
@@ -159,7 +161,16 @@ namespace dCom.Configuration
             serviceHostForTM.AddServiceEndpoint(typeof(ITransactionCheck), binding4, address4);
             serviceHostForTM.Open();
             Console.WriteLine("Open: net.tcp://localhost:19518/ITransactionCheck");
-        }
+
+			//Open service for CE
+			string address2 = String.Format("net.tcp://localhost:18503/ISendListOfGeneratorsToScada");
+			NetTcpBinding binding2 = new NetTcpBinding();
+			binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+			serviceHostForCE = new ServiceHost(typeof(SendListOfGeneratorsToScada));
+			serviceHostForCE.AddServiceEndpoint(typeof(ISendListOfGeneratorsToScada), binding2, address2);
+			serviceHostForCE.Open();
+			Console.WriteLine("Open: net.tcp://localhost:18503/ISendListOfGeneratorsToScada");
+		}
 
 		public ushort GetTransactionId()
 		{

@@ -4,17 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI.View"
+		xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="ManualCommandingWindow" Height="420" Width="400">
-	<Grid>
-		<Grid Grid.Row="1" Background="#FF303030">
-			<TextBlock Text="Default1" FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="ForestGreen" Margin="152,20,150,342"/>
-			<TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="30" Margin="108,63,0,0" TextWrapping="Wrap" Foreground="ForestGreen" Text="TextBox" VerticalAlignment="Top" Width="171"/>
-			<TextBlock Text="Default2" FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="ForestGreen" Margin="152,124,150,238"/>
-			<TextBox HorizontalAlignment="Left" Name="ValueKW" Height="30" Margin="108,179,0,0" TextWrapping="Wrap" Foreground="ForestGreen" Text="22" VerticalAlignment="Top" Width="171"/>
-			<RadioButton Content="Increase" Name="Increase" IsChecked="True" HorizontalAlignment="Left" Height="20" Margin="96,252,0,0" Foreground="ForestGreen" VerticalAlignment="Top" Width="183"/>
-			<RadioButton Content="Decrease" Name="Decrease" HorizontalAlignment="Left" Height="20" Margin="96,289,0,0" Foreground="ForestGreen" VerticalAlignment="Top" Width="183"/>
-			<Button Content="Manual Commanding" HorizontalAlignment="Left" Margin="120,340,0,0" VerticalAlignment="Top" Width="150" Command="{Binding Command}" Click="Button_Click"/>
+        Title="ManualCommandingWindow" Height="460" Width="400">
+	<Grid Grid.Row="1" Background="#FF303030">
+		<TextBlock Text="Flexibility" FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="ForestGreen" Margin="149,192,117,204"/>
+		<TextBox HorizontalAlignment="Left" Name="ValueKW" TextAlignment="Center" FontSize="18" Height="30" Margin="106,230,106,0" Text="20" TextWrapping="Wrap" Foreground="ForestGreen" VerticalAlignment="Top" Width="182"/>
+		<RadioButton Content="Increase" Name="Increase" IsChecked="True" HorizontalAlignment="Left" Height="20" Margin="159,288,0,0" Foreground="ForestGreen" VerticalAlignment="Top" Width="120"/>
+		<RadioButton Content="Decrease" Name="Decrease" HorizontalAlignment="Left" Height="20" Margin="159,324,0,0" Foreground="ForestGreen" VerticalAlignment="Top" Width="120"/>
+		<Button Content="Manual Commanding" HorizontalAlignment="Left" Margin="120,375,0,0" VerticalAlignment="Top" Width="150" Command="{Binding Command}" Click="Button_Click"/>
+		<Grid Grid.Column="0" Margin="37,15,199,0" Height="172" VerticalAlignment="Top">
+			<lvc:Gauge Uses360Mode="True" Grid.Column="0" Margin="0,0,0,42" From="0" To="200" Name="IncreaseGauge" Foreground="Gold" HorizontalAlignment="Left" Width="135">
+				<lvc:Gauge.GaugeActiveFill>
+					<LinearGradientBrush>
+						<GradientStop Color="Green" Offset="0.0" />
+						<GradientStop Color="Green" Offset="0.5" />
+						<GradientStop Color="GreenYellow" Offset="1.0" />
+					</LinearGradientBrush>
+				</lvc:Gauge.GaugeActiveFill>
+			</lvc:Gauge>
+			<TextBlock Margin="2,135,20,0" Text="Maximum Increase Flexibility" TextAlignment="Center"  HorizontalAlignment="Center" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="ForestGreen" TextWrapping="Wrap" Width="134" />
+		</Grid>
+		<Grid Grid.Column="0" Margin="228,15,10,0" Height="172" VerticalAlignment="Top">
+			<lvc:Gauge Uses360Mode="True" Grid.Column="0" Margin="0,0,0,42" From="0" To="200" Name="DecreaseGauge" Foreground="Gold" HorizontalAlignment="Left" Width="133">
+				<lvc:Gauge.GaugeActiveFill>
+					<LinearGradientBrush>
+						<GradientStop Color="Green" Offset="0.0" />
+						<GradientStop Color="Green" Offset="0.5" />
+						<GradientStop Color="GreenYellow" Offset="1.0" />
+					</LinearGradientBrush>
+				</lvc:Gauge.GaugeActiveFill>
+			</lvc:Gauge>
+			<TextBlock Margin="0,135,21,0" Text="Maximum Decrease Flexibility" TextAlignment="Center"  HorizontalAlignment="Center" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="ForestGreen" TextWrapping="Wrap" Width="133" />
 		</Grid>
 	</Grid>
 </Window>

@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static DERMSCommon.Enums;
 
 namespace UI.ViewModel
 {
@@ -22,12 +23,12 @@ namespace UI.ViewModel
 			Connect();
 		}
 
-		public void Command(double valueKW, string incOrDec)
+		public void Command(double valueKW, FlexibilityIncDec incdec, long gid)
 		{
 			//ProxyCE.UpdateThroughUI(valueKW, incOrDec);
 			try
 			{
-				ProxyCE.UpdateFlexibilityFromUIToCE(valueKW, incOrDec);
+				ProxyCE.UpdateFlexibilityFromUIToCE(valueKW, incdec, gid);
 			}
 			catch (Exception e)
 			{

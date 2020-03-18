@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Filip\Desktop\New\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\DermsUI\DermsUI\obj\Debug\
 DermsUI
 none
 false
 DEBUG;TRACE
-C:\Users\Filip\Desktop\New\DERMS\DERMS\DermsUI\DermsUI\App.xaml
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\DermsUI\DermsUI\App.xaml
 24-714756271
 
 72460737546
-81-992046934
+81-1974491651
 Resources\AppDictionary.xaml;View\AddNewAnalogSignal.xaml;View\AddNewBreaker.xaml;View\AddNewConnectivityNode.xaml;View\AddNewDigitalSignal.xaml;View\AddNewEnergyConsumer.xaml;View\AddNewFeederObject.xaml;View\AddNewGeoRegion.xaml;View\AddNewSubstation.xaml;View\AddNewSynchronousMachine.xaml;View\AddNewTerminal.xaml;View\Alarms.xaml;View\CELoggs.xaml;View\CimProfileCreator.xaml;View\CommandingWindow.xaml;View\CreateApplyDelta.xaml;View\CreateNewSignal.xaml;View\HomeWindow.xaml;View\LoadSignals.xaml;View\NMSLoggs.xaml;View\SCADALoggs.xaml;View\SCADAView.xaml;View\TMLoggs.xaml;View\UILoggs.xaml;
 
 False

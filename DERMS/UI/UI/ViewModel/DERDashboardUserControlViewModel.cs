@@ -43,8 +43,9 @@ namespace UI.ViewModel
         private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
         public SolidColorBrush Color1 { get { return color1; } set { color1 = value; OnPropertyChanged("Color1"); } }
         public SolidColorBrush Color2 { get { return color2; } set { color2 = value; OnPropertyChanged("Color2"); } }
+		public long CurrentSelectedGid { get; set; }
 
-        public bool ShowConsumption
+		public bool ShowConsumption
         {
             get
             {
@@ -269,7 +270,9 @@ namespace UI.ViewModel
             Mediator.Register("DerForecastDayAhead", DERDashboardDerForecastDayAhead);
             Mediator.Register("Flexibility", DERDashboardFlexibility);
 
-            ClientSideProxy = new ClientSideProxy();
+			CurrentSelectedGid = 0;
+
+			ClientSideProxy = new ClientSideProxy();
             CalculationEnginePubSub = new CalculationEnginePubSub();
             ClientSideProxy.StartServiceHost(CalculationEnginePubSub);
             ClientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
@@ -278,32 +281,37 @@ namespace UI.ViewModel
         #region TreeView Commands Execute
         public void NetworkModelCommandExecute(long gid)
         {
-            //GidForOptimization = 0;
-            //GidForOptimization = gid;
-            Console.Beep();
+			//GidForOptimization = 0;
+			//GidForOptimization = gid;
+			CurrentSelectedGid = gid;
+			Console.Beep();
         }
         public void GeographicalRegionCommandExecute(long gid)
         {
             GidForOptimization = 0;
             GidForOptimization = gid;
-            Console.Beep();
+			CurrentSelectedGid = gid;
+			Console.Beep();
         }
         public void GeographicalSubRegionCommandExecute(long gid)
         {
             GidForOptimization = 0;
             GidForOptimization = gid;
+            CurrentSelectedGid = gid;
             Console.Beep();
-        }
+		}
         public void SubstationCommandExecute(long gid)
         {
             GidForOptimization = 0;
             GidForOptimization = gid;
+            CurrentSelectedGid = gid;
             Console.Beep();
-        }
+		}
         public void SubstationElementCommandExecute(long gid)
         {
+            CurrentSelectedGid = gid;
             Console.Beep();
-        }
+		}
 
         public float Optimization() {
             if (GidForOptimization != 0) {
@@ -344,5 +352,17 @@ namespace UI.ViewModel
         {
             // TREBA IMPLEMENTIRATI
         }
-    }
+
+		public Double GetIncreaseFlexibility()
+		{
+			// TREBA IZ MODELA ILI IZVUCI MAX FLEXIBILITY
+			return 139.5;
+		}
+
+		public Double GetDecreaseFlexibility()
+		{
+			// TREBA IZ MODELA ILI IZVUCI MIN FLEXIBILITY
+			return 59.5;
+		}
+	}
 }

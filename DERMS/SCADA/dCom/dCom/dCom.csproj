@@ -74,6 +74,7 @@
     <Compile Include="Configuration\ConfigItemEqualityComparer.cs" />
     <Compile Include="Configuration\SCADATranscation.cs" />
     <Compile Include="Configuration\SendDataFromNmsToScada.cs" />
+    <Compile Include="Configuration\SendListOfGeneratorsToScada.cs" />
     <Compile Include="Converters\AlarmToBackgroundColorConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Exceptions\ConfigurationException.cs" />

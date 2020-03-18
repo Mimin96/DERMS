@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using UI.ViewModel;
+using static DERMSCommon.Enums;
 
 namespace UI.View
 {
@@ -20,27 +21,32 @@ namespace UI.View
 	/// </summary>
 	public partial class ManualCommandingWindow : Window
 	{
-		public ManualCommandingWindow()
+		private long Gid { get; set; }
+		public ManualCommandingWindow(Double inc, Double dec, long gid)
 		{
 			InitializeComponent();
 			DataContext = new ManualCommandingViewModel();
-
+			IncreaseGauge.Value = inc;
+			DecreaseGauge.Value = dec;
+			Gid = gid;
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
 			if (Increase.IsChecked == true)
 			{
-				((ManualCommandingViewModel)DataContext).Command(Double.Parse(ValueKW.Text), "Increase");
+				((ManualCommandingViewModel)DataContext).Command(Double.Parse(ValueKW.Text), FlexibilityIncDec.Increase, Gid);
 			}
 			else
 			{
-				((ManualCommandingViewModel)DataContext).Command(Double.Parse(ValueKW.Text), "Decrease");
+				((ManualCommandingViewModel)DataContext).Command((-1) * Double.Parse(ValueKW.Text), FlexibilityIncDec.Decrease, Gid);
 			}
 
 			((ManualCommandingViewModel)DataContext).CloseConnection();
 
-            Close();
+			Gid = 0;
+
+			Close();
 		}
 	}
 }

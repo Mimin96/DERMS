@@ -6,18 +6,21 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using static DERMSCommon.Enums;
 
 namespace CalculationEngineService
 {
     [DataContract]
     public class FlexibilityFromUIToCE : IFlexibilityFromUIToCE
     {
-        public void UpdateFlexibilityFromUIToCE(double valueKW, string incOrDec)
-        {
-            // POZOVI METODU ZA RACUNANJE FLEXIBILITY
-            DataToUI data = new DataToUI();
-            data.Flexibility = valueKW;
-            CalculationEngineCache.Instance.CalculateNewFlexibility(data);
-        }
-    }
+		public void UpdateFlexibilityFromUIToCE(double valueKW, FlexibilityIncDec incOrDec, long gid)
+		{
+			// POZOVI METODU ZA RACUNANJE FLEXIBILITY
+			DataToUI data = new DataToUI();
+			data.Flexibility = valueKW;
+			data.Gid = gid;
+			data.FlexibilityIncDec = incOrDec;
+			CalculationEngineCache.Instance.CalculateNewFlexibility(data);
+		}
+	}
 }

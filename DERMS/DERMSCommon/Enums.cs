@@ -32,7 +32,14 @@ namespace DERMSCommon
             //TREBA VIDETI SA CAVICEM KO SE SVE PRETPLACUJE NA PUBSUB
         }
 
-        public enum Energized
+		public enum FlexibilityIncDec
+		{
+			Default = 0,
+			Increase,
+			Decrease,
+		}
+
+		public enum Energized
         {
             NotEnergized = 0,
             FromEnergySRC,

@@ -50,6 +50,7 @@
     <Compile Include="ICEUpdateThroughUI.cs" />
     <Compile Include="IPubSubCalculateEngine.cs" />
     <Compile Include="ISendDataToCEThroughScada.cs" />
+    <Compile Include="ISendListOfGeneratorsToScada.cs" />
     <Compile Include="ISendNetworkModelToUI.cs" />
     <Compile Include="ISendSCADADataToUI.cs" />
     <Compile Include="IUpdateCommand.cs" />

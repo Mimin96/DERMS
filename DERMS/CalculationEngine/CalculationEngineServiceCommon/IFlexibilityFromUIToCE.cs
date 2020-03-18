@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using static DERMSCommon.Enums;
 
 namespace CalculationEngineServiceCommon
 {
@@ -11,6 +12,6 @@ namespace CalculationEngineServiceCommon
     public interface IFlexibilityFromUIToCE
     {
         [OperationContract]
-        void UpdateFlexibilityFromUIToCE(double valueKW, string incOrDec);
-    }
+		void UpdateFlexibilityFromUIToCE(double valueKW, FlexibilityIncDec incOrDec, long gid);
+	}
 }
