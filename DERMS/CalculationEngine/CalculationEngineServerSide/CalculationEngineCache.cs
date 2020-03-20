@@ -27,7 +27,9 @@ namespace CalculationEngineService
         private Dictionary<long, DerForecastDayAhead> productionCached = new Dictionary<long, DerForecastDayAhead>();
         private TreeNode<NodeData> graphCached;
 
-        private static CalculationEngineCache instance = null;   
+		private Dictionary<long, DerForecastDayAhead> copyOfProductionCached = new Dictionary<long, DerForecastDayAhead>();
+
+		private static CalculationEngineCache instance = null;   
         public static CalculationEngineCache Instance
         {
             get
@@ -198,12 +200,12 @@ namespace CalculationEngineService
 			Dictionary<long, double> listOfGeneratorsForScada = new Dictionary<long, double>();
 			DataToUI dataForScada = new DataToUI();
 
-			Dictionary<long, DerForecastDayAhead> currentProduction = new Dictionary<long, DerForecastDayAhead>(productionCached.Count); // TRENUTNA PROIZVODNJA 24 CASA UNAPRED
+			copyOfProductionCached = new Dictionary<long, DerForecastDayAhead>(productionCached.Count); // TRENUTNA PROIZVODNJA 24 CASA UNAPRED
 
 			foreach (DerForecastDayAhead der in productionCached.Values)
 			{
-				currentProduction.Add(der.entityGid, new DerForecastDayAhead(der));
-			}
+				copyOfProductionCached.Add(der.entityGid, new DerForecastDayAhead(der));
+			}	
 
 			if (flexibility.CheckFlexibilityForManualCommanding(data.Gid, nmsCache))
 			{
@@ -246,7 +248,7 @@ namespace CalculationEngineService
 						}
 					}
 
-					flexibility.TurnOnFlexibilityForGenerator(data.Flexibility, currentProduction, data.Gid, affectedEntities);
+					flexibility.TurnOnFlexibilityForGenerator(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
 				}
 				else if (type.Equals("Substation"))
 				{
@@ -289,7 +291,7 @@ namespace CalculationEngineService
 						}
 					}
 
-					flexibility.TurnOnFlexibilityForSubstation(data.Flexibility, currentProduction, data.Gid, affectedEntities);
+					flexibility.TurnOnFlexibilityForSubstation(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
 				}
 				else if (type.Equals("SubGeographicalRegion"))
 				{
@@ -335,7 +337,7 @@ namespace CalculationEngineService
 						}
 					}
 
-					flexibility.TurnOnFlexibilityForSubGeoRegion(data.Flexibility, currentProduction, data.Gid, affectedEntities);
+					flexibility.TurnOnFlexibilityForSubGeoRegion(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
 
 				}
 				else if (type.Equals("GeographicalRegion"))
@@ -374,7 +376,7 @@ namespace CalculationEngineService
 						}
 					}
 
-					listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForGeoRegion(data.Flexibility, currentProduction, data.Gid, affectedEntities);
+					listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForGeoRegion(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
 
 				}
 			}
@@ -384,6 +386,16 @@ namespace CalculationEngineService
 
 			ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(listOfGeneratorsForScada);
 
+		}
+
+		public void ApplyChangesOnProductionCached() // KAD STIGNE POTVRDA SA SKADE DA SU PROMENE IZVRSENE, POZIVAMO OVU METODU KAKO BI NOVI PRORACUNI PROIZVODNJE ZA 24h BILI PRIMENJENI NA CACHE
+		{
+			productionCached = new Dictionary<long, DerForecastDayAhead>(copyOfProductionCached.Count);
+
+			foreach (DerForecastDayAhead der in copyOfProductionCached.Values)
+			{
+				productionCached.Add(der.entityGid, new DerForecastDayAhead(der));
+			}
 		}
 
 		public Dictionary<long, IdentifiedObject> GetNMSModel()
