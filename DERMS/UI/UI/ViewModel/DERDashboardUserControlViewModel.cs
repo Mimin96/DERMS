@@ -1,5 +1,6 @@
 ﻿using DERMSCommon;
 using DERMSCommon.UIModel.ThreeViewModel;
+using DERMSCommon.WeatherForecast;
 using DermsUI.Resources;
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -37,10 +38,12 @@ namespace UI.ViewModel
         private IChartValues chartValues1;
         private IChartValues chartValues2;
         private IChartValues chartValues3;
-        #region Properties
-        public TreeNode<NodeData> Tree { get; set; }
-        private ClientSideProxy ClientSideProxy { get; set; }
-        private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
+		private Dictionary<long, DerForecastDayAhead> ProductionDerForecastDayAhead { get; set; }
+		private ClientSideProxy ClientSideProxy { get; set; }
+		private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
+		#region Properties
+		public TreeNode<NodeData> Tree { get; set; }
+       
         public SolidColorBrush Color1 { get { return color1; } set { color1 = value; OnPropertyChanged("Color1"); } }
         public SolidColorBrush Color2 { get { return color2; } set { color2 = value; OnPropertyChanged("Color2"); } }
 		public long CurrentSelectedGid { get; set; }
@@ -350,8 +353,8 @@ namespace UI.ViewModel
 
         public void DERDashboardDerForecastDayAhead(object parameter)
         {
-            // TREBA IMPLEMENTIRATI
-        }
+			ProductionDerForecastDayAhead = ((DataToUI)parameter).Data;
+		}
 
 		public Double GetIncreaseFlexibility()
 		{

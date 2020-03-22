@@ -396,6 +396,13 @@ namespace CalculationEngineService
 			{
 				productionCached.Add(der.entityGid, new DerForecastDayAhead(der));
 			}
+
+			SendDerForecastDayAhead();
+		}
+
+		public void SendDerForecastDayAhead()
+		{
+			PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
 		}
 
 		public Dictionary<long, IdentifiedObject> GetNMSModel()

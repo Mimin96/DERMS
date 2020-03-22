@@ -1,4 +1,5 @@
 ﻿using CalculationEngineServiceCommon;
+using DERMSCommon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +19,37 @@ namespace CalculationEngineService
         {
             this.ClientAddress = clientAddress;
             Connect();
-        }
+			SendInitialDerForecastDayAhead();
+		}
 
-        public void Connect()
+		public void Connect()
         {
             NetTcpBinding binding = new NetTcpBinding();
             binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
             factory = new ChannelFactory<ICalculationEnginePubSub>(binding, new EndpointAddress(ClientAddress));
             Proxy = factory.CreateChannel();
             ((IContextChannel)Proxy).OperationTimeout = new TimeSpan(0, 0, 1);
-        }
+		}
+
+		public void SendInitialDerForecastDayAhead()
+		{
+			DataToUI data = CalculationEngineCache.Instance.CreateDataForUI();
+			data.Topic = (int)Enums.Topics.DerForecastDayAhead;
+			try
+			{
+				Proxy.SendScadaDataToUI(data);
+			}
+			catch (CommunicationException)
+			{
+				Abort();
+				Connect();
+			}
+			catch (TimeoutException)
+			{
+				Abort();
+				Connect();
+			}
+		}
 
         public void Abort()
         {
