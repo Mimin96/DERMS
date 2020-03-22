@@ -98,7 +98,9 @@
     <Compile Include="NMSCommuication\SignalsTransfer.cs" />
     <Compile Include="NodeData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SCADACommon\CollectItem.cs" />
     <Compile Include="SCADACommon\DataPoint.cs" />
+    <Compile Include="SCADACommon\DayItem.cs" />
     <Compile Include="SCADACommon\Enums.cs" />
     <Compile Include="SCADACommon\IConfigItem.cs" />
     <Compile Include="SCADACommon\IConfiguration.cs" />
