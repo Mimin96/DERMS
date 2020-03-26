@@ -333,29 +333,32 @@ namespace UI.ViewModel
             Location pinLocation = new Location(acLineSegment.Longitude, acLineSegment.Latitude);
 
             MapPolygon polygon = new MapPolygon();
-            polygon.ToolTip = toolTip;
+            MapPolyline line = new MapPolyline();
+            line.ToolTip = toolTip;
 
             if (acLine.Data.Energized == Enums.Energized.FromEnergySRC)
-                polygon.Stroke = new SolidColorBrush(Colors.Green);
+                line.Stroke = new SolidColorBrush(Colors.Green);
             else if (acLine.Data.Energized == Enums.Energized.FromIsland)
-                polygon.Stroke = new SolidColorBrush(Colors.Blue);
+                line.Stroke = new SolidColorBrush(Colors.Blue);
             else
-                polygon.Stroke = new SolidColorBrush(Colors.Red);
+                line.Stroke = new SolidColorBrush(Colors.Red);
 
-            polygon.Uid = acLineSegment.GlobalId.ToString();
-            polygon.StrokeThickness = 2;
-            polygon.Opacity = 0.9;
-            polygon.Cursor = Cursors.Hand;
-            polygon.Locations = new LocationCollection();
+            line.Uid = acLineSegment.GlobalId.ToString();
+            line.StrokeThickness = 2;
+            line.Opacity = 0.9;
+            line.Cursor = Cursors.Hand;
+            line.Locations = new LocationCollection();
+
 
             foreach (long item in acLineSegment.Points)
             {
                 TreeNode<NodeData> data = acLine.Children.Where(X => X.Data.IdentifiedObject.GlobalId == item).First();
                 DERMSCommon.DataModel.Core.Point point1 = (DERMSCommon.DataModel.Core.Point)(data.Data.IdentifiedObject);
-                polygon.Locations.Add(new Location(point1.Longitude, point1.Latitude));
+                //polygon.Locations.Add(new Location(point1.Longitude, point1.Latitude));
+                line.Locations.Add(new Location(point1.Longitude, point1.Latitude));
             }
 
-            _map.Children.Add(polygon);
+            _map.Children.Add(line);
         }
         private void DrowOnMapBreaker(TreeNode<NodeData> breaker, string stringBuilderUniversal)
         {
