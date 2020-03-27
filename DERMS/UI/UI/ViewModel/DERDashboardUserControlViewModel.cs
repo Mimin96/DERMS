@@ -30,6 +30,10 @@ namespace UI.ViewModel
         private bool showConsumption;
         private bool showDerProduction;
         private bool showGridDemands;
+        private long selectedElement;
+        private string energySourceValue;
+        private float productionGenerators;
+        private float consumption;
         private static long gidForOptimization;
         private static float energySourceOptimizedValue;
         private Visibility visibilityConsumption;
@@ -48,7 +52,55 @@ namespace UI.ViewModel
         public SolidColorBrush Color2 { get { return color2; } set { color2 = value; OnPropertyChanged("Color2"); } }
 		public long CurrentSelectedGid { get; set; }
 
-		public bool ShowConsumption
+        public float Consumption
+        {
+            get
+            {
+                return consumption;
+            }
+            set
+            {
+                consumption = value;
+                OnPropertyChanged("Consumption");
+            }
+        }
+        public string EnergySourceValue
+        {
+            get
+            {
+                return energySourceValue;
+            }
+            set
+            {
+                energySourceValue = value;
+                OnPropertyChanged("EnergySourceValue");
+            }
+        }
+        public float ProductionGenerators
+        {
+            get
+            {
+                return productionGenerators;
+            }
+            set
+            {
+                productionGenerators = value;
+                OnPropertyChanged("ProductionGenerators");
+            }
+        }
+        public long SelectedElement
+        {
+            get
+            {
+                return selectedElement;
+            }
+            set
+            {
+                selectedElement = value;               
+                OnPropertyChanged("SelectedElement");
+            }
+        }
+        public bool ShowConsumption
         {
             get
             {
@@ -127,19 +179,28 @@ namespace UI.ViewModel
         public IChartValues ChartValues1
         {
             get { return chartValues1; }
-            set { chartValues1 = value; }
+            set {
+                chartValues1 = value;
+                OnPropertyChanged("ChartValues1");
+            }
         }
 
         public IChartValues ChartValues2
         {
             get { return chartValues2; }
-            set { chartValues2 = value; }
+            set {
+                chartValues2 = value;
+                OnPropertyChanged("ChartValues2");
+            }
         }
 
         public IChartValues ChartValues3
         {
             get { return chartValues3; }
-            set { chartValues3 = value; }
+            set {
+                chartValues3 = value;
+                OnPropertyChanged("ChartValues3");
+            }
         }
 
         public Visibility VisibilityConsumption { get { return visibilityConsumption; } set { visibilityConsumption = value; OnPropertyChanged("VisibilityConsumption"); } }
@@ -154,6 +215,8 @@ namespace UI.ViewModel
         private RelayCommand<long> _geographicalSubRegionCommand;
         private RelayCommand<long> _substationCommand;
         private RelayCommand<long> _substationElementCommand;
+        private RelayCommand<long> _selectedEventCommand;
+        private MyICommand _optimizationCommand;
         public List<NetworkModelTreeClass> _networkModel;
 
         public List<NetworkModelTreeClass> NetworkModel
@@ -166,6 +229,30 @@ namespace UI.ViewModel
             {
                 _networkModel = value;
                 OnPropertyChanged("NetworkModel");
+            }
+        }
+        public ICommand SelectedEventCommand
+        {
+            get
+            {
+                if (_selectedEventCommand == null)
+                {
+                    _selectedEventCommand = new RelayCommand<long>(SelectedEventCommandExecute);
+                }
+
+                return _selectedEventCommand;
+            }
+        }
+        public MyICommand OptimizationCommand
+        {
+            get
+            {
+                if (_optimizationCommand == null)
+                {
+                    _optimizationCommand = new MyICommand(OptimizationCommandExecute);
+                }
+
+                return _optimizationCommand;
             }
         }
         public ICommand NetworkModelCommand
@@ -241,32 +328,7 @@ namespace UI.ViewModel
 
             Color1 = new SolidColorBrush(Colors.Green);
             Color2 = new SolidColorBrush(Colors.Purple);
-            ChartValues1 = new ChartValues<double>();
-            ChartValues1.Add(1.00);
-            ChartValues1.Add(3.00);
-            ChartValues1.Add(9.00);
-            ChartValues1.Add(6.00);
-            ChartValues1.Add(9.00);
-            ChartValues1.Add(7.00);
-            ChartValues1.Add(4.00);
 
-            ChartValues2 = new ChartValues<double>();
-            ChartValues2.Add(8.00);
-            ChartValues2.Add(4.00);
-            ChartValues2.Add(6.00);
-            ChartValues2.Add(2.00);
-            ChartValues2.Add(3.00);
-            ChartValues2.Add(1.00);
-            ChartValues2.Add(5.00);
-
-            ChartValues3 = new ChartValues<double>();
-            ChartValues3.Add(5.00);
-            ChartValues3.Add(8.00);
-            ChartValues3.Add(3.00);
-            ChartValues3.Add(6.00);
-            ChartValues3.Add(2.00);
-            ChartValues3.Add(1.00);
-            ChartValues3.Add(5.00);
 
             this.dERDashboardUserControl = dERDashboardUserControl;
 
@@ -284,10 +346,20 @@ namespace UI.ViewModel
         #region TreeView Commands Execute
         public void NetworkModelCommandExecute(long gid)
         {
-			//GidForOptimization = 0;
-			//GidForOptimization = gid;
-			CurrentSelectedGid = gid;
+            GidForOptimization = 0;
+            GidForOptimization = gid;
+            CurrentSelectedGid = gid;
 			Console.Beep();
+            
+        }
+        public void SelectedEventCommandExecute(long gid)
+        {
+            GidForOptimization = 0;
+            GidForOptimization = gid;
+
+            CurrentSelectedGid = gid;
+            Console.Beep();
+            SetChartValues(gid);
         }
         public void GeographicalRegionCommandExecute(long gid)
         {
@@ -295,6 +367,7 @@ namespace UI.ViewModel
             GidForOptimization = gid;
 			CurrentSelectedGid = gid;
 			Console.Beep();
+            SetChartValues(gid);
         }
         public void GeographicalSubRegionCommandExecute(long gid)
         {
@@ -302,20 +375,28 @@ namespace UI.ViewModel
             GidForOptimization = gid;
             CurrentSelectedGid = gid;
             Console.Beep();
-		}
+            SetChartValues(gid);
+        }
+        
         public void SubstationCommandExecute(long gid)
         {
             GidForOptimization = 0;
             GidForOptimization = gid;
             CurrentSelectedGid = gid;
             Console.Beep();
-		}
+            SetChartValues(gid);
+        }
         public void SubstationElementCommandExecute(long gid)
         {
             CurrentSelectedGid = gid;
             Console.Beep();
+            SetChartValues(gid);
 		}
-
+        public void OptimizationCommandExecute()
+        {
+            var energySourceValue = Optimization();
+            EnergySourceValue = energySourceValue.ToString() + " kW";
+        }
         public float Optimization() {
             if (GidForOptimization != 0) {
                 if (proxy == null)
@@ -324,6 +405,7 @@ namespace UI.ViewModel
                 proxy.Open2();
                 energySourceOptimizedValue = 0;
                 energySourceOptimizedValue = proxy.sendToCE.UpdateThroughUI(GidForOptimization);
+                SetChartValuesAfterOptimization(GidForOptimization);
             }
             return energySourceOptimizedValue;
         }
@@ -367,5 +449,79 @@ namespace UI.ViewModel
 			// TREBA IZ MODELA ILI IZVUCI MIN FLEXIBILITY
 			return 59.5;
 		}
-	}
+        
+        public void SetChartValues(long gid)
+        {
+            foreach(HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Production.Hourly)
+            {
+                if(hdp.Time.Hour.Equals(DateTime.Now.Hour))
+                {
+                    float x = hdp.ActivePower;
+                    string temp = String.Format("{0:0.00}", x);
+                    double y = Double.Parse(temp);
+                    float z = (float)y;
+                    ProductionGenerators = z;
+                }
+            }
+            foreach (HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Consumption.Hourly)
+            {
+                if (hdp.Time.Hour.Equals(DateTime.Now.Hour))
+                {
+                    float x = hdp.ActivePower;
+                    string temp = String.Format("{0:0.00}", x);
+                    double y = Double.Parse(temp);
+                    Consumption = (float)y;
+
+                }
+            }
+           
+            
+            ChartValues1 = new ChartValues<double>();
+            ChartValues2 = new ChartValues<double>();
+            ChartValues3 = new ChartValues<double>();
+            List<HourDataPoint> tempList = new List<HourDataPoint>();
+            List<HourDataPoint> tempListProduction = new List<HourDataPoint>();
+            tempList = ProductionDerForecastDayAhead[gid].Consumption.Hourly.OrderBy(x => x.Time).ToList();
+            tempListProduction= ProductionDerForecastDayAhead[gid].Production.Hourly.OrderBy(x => x.Time).ToList();
+            foreach (HourDataPoint hc in tempList)
+            {
+                ChartValues2.Add((double)hc.ActivePower);
+                ChartValues1.Add((double)hc.ActivePower);
+
+            }
+            foreach (HourDataPoint hc in tempListProduction)
+            {
+                ChartValues3.Add((double)hc.ActivePower);
+            }
+        }
+
+        public void SetChartValuesAfterOptimization(long gid)
+        {
+
+            foreach (HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Consumption.Hourly)
+            {
+                if (hdp.Time.Hour.Equals(DateTime.Now.Hour))
+                {
+                    float x = hdp.ActivePower;
+                    string temp = String.Format("{0:0.00}", x);
+                    double y = Double.Parse(temp);
+                    ProductionGenerators = (float)y;
+                }
+            }
+            ChartValues2 = new ChartValues<double>();
+            ChartValues3 = new ChartValues<double>();
+            List<HourDataPoint> tempList = new List<HourDataPoint>();
+            List<HourDataPoint> tempListProduction = new List<HourDataPoint>();
+            tempList = ProductionDerForecastDayAhead[gid].Consumption.Hourly.OrderBy(x => x.Time).ToList();
+            tempListProduction = ProductionDerForecastDayAhead[gid].Production.Hourly.OrderBy(x => x.Time).ToList();
+            foreach (HourDataPoint hc in tempList)
+            {
+                ChartValues2.Add((double)hc.ActivePower);
+                ChartValues3.Add((double)hc.ActivePower);
+
+            }
+
+        }
+
+    }
 }

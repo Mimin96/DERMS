@@ -10,14 +10,16 @@
              d:DesignHeight="533" d:DesignWidth="1024">
     <Grid>
         <Border Background="Transparent" Width="250" HorizontalAlignment="Left">
-            <TreeView BorderThickness="1" BorderBrush="#FF0398E2" x:Name="MainTreeView" HorizontalAlignment="Stretch" Margin="10" ItemsSource="{Binding NetworkModel}">
+            <TreeView BorderThickness="1" BorderBrush="#FF0398E2" x:Name="MainTreeView"  HorizontalAlignment="Stretch" Margin="10" ItemsSource="{Binding NetworkModel}">
+
                 <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding GeographicalRegions}" DataType="{x:Type TreeView:NetworkModelTreeClass}">
+                    <HierarchicalDataTemplate ItemsSource="{Binding GeographicalRegions}"  DataType="{x:Type TreeView:NetworkModelTreeClass}">
                         <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.NetworkModelCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}">
                             <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
                         </Button>
                         <HierarchicalDataTemplate.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding GeographicalSubRegions}" DataType="{x:Type TreeView:GeographicalRegionTreeClass}">
+
+                            <HierarchicalDataTemplate ItemsSource="{Binding GeographicalSubRegions}"  DataType="{x:Type TreeView:GeographicalRegionTreeClass}">
                                 <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalRegionCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
                                     <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
                                 </Button>
@@ -58,7 +60,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Margin="30" Height="127" VerticalAlignment="Top">
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25"
-                   From="0" To="1000" Value="0" Name="EnergySource" Foreground="ForestGreen" HorizontalAlignment="Left" Width="169">
+                   From="0" To="1000"  Name="EnergySource" Value="{Binding Consumption}"  Foreground="ForestGreen" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
                             <GradientStop Color="ForestGreen" Offset="0.0" />
@@ -67,13 +69,13 @@
                         </LinearGradientBrush>
                     </lvc:Gauge.GaugeActiveFill>
                 </lvc:Gauge>
-                <TextBlock Text="Kw/h" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="ForestGreen" Margin="74,107,74,0"/>
-                <TextBlock Margin="0 -5 0 0" Text="Production from source" HorizontalAlignment="Center" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="ForestGreen" TextWrapping="Wrap" />
+                <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="ForestGreen" Margin="83,107,74,0"/>
+                <TextBlock Margin="0 -5 0 0" Text="Current Consumption" HorizontalAlignment="Center" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="ForestGreen" TextWrapping="Wrap" />
             </Grid>
             <Grid Grid.Column="1" Margin="30" Height="127" VerticalAlignment="Top">
                 <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from generators"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="#FF0CADFF" VerticalAlignment="Top" Width="185"/>
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="ProductionFromGenerators"
-                   From="0" To="100" Value="0" Foreground="#FF0CADFF" HorizontalAlignment="Left" Width="169">
+                   From="0" To="1000" Value="{Binding ProductionGenerators}" Foreground="#FF0CADFF" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
                             <GradientStop Color="DodgerBlue" Offset="0.0" />
@@ -82,12 +84,12 @@
                         </LinearGradientBrush>
                     </lvc:Gauge.GaugeActiveFill>
                 </lvc:Gauge>
-                <TextBlock Text="Kw/h" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="#FF0CADFF" Margin="74,107,74,0"/>
+                <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="#FF0CADFF" Margin="83,107,74,0" RenderTransformOrigin="1.053,0.4"/>
             </Grid>
-            <Grid Grid.Column="2" Margin="30" HorizontalAlignment="Left" Width="197" Background="DarkViolet" Height="104" VerticalAlignment="Top">
-                <TextBlock Text="Current consumption" FontFamily="Champagne &amp; Limousines" Foreground="White" FontSize="15" Margin="34,10,10,75"/>
+            <Grid Grid.Column="2" Margin="30,30,0,0" HorizontalAlignment="Left" Width="209" Background="DarkViolet" Height="104" VerticalAlignment="Top">
+                <TextBlock Text="Production from source" FontFamily="Champagne &amp; Limousines" Foreground="White" FontSize="15" Margin="34,10,10,75"/>
                 <Image Margin="4,4,0,0" Source="../Resources/Images/boltImg.png" Stretch="Fill" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="30"/>
-                <TextBlock Text="0 kw/h" Name="CurrentConsumption" Foreground="White" FontFamily="Champagne &amp; Limousines" FontSize="30" Margin="34,52,34,10" TextAlignment="Center" />
+                <TextBlock Text="{Binding EnergySourceValue}" Name="CurrentConsumption" Foreground="White" FontFamily="Champagne &amp; Limousines" FontSize="30" Margin="34,52,34,10" TextAlignment="Center" />
             </Grid>
         </Grid>
 
@@ -100,7 +102,7 @@
             <Grid Grid.Row="0">
                 <Label HorizontalContentAlignment="Center" Margin="236,8,221,0"  Content="Consumption and production"  FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="DarkViolet" Height="31" VerticalAlignment="Top"/>
                 <Button Content="Manual Commanding" Margin="36,10,0,8" Click="Button_Click_1" Height="Auto" HorizontalAlignment="Left" Width="195"/>
-                <Button Content="Automatic Optimization" Margin="0,10,21,8" Click="Button_Click" Height="Auto" HorizontalAlignment="Right" Width="195"/>
+                <Button Content="Automatic Optimization" Command="{Binding OptimizationCommand}"  Margin="0,10,21,8"  Height="Auto" HorizontalAlignment="Right" Width="195"/>
             </Grid>
 
             <Grid Grid.Row="1">

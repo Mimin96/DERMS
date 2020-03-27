@@ -136,7 +136,7 @@ namespace CalculationEngineService
                                     foreach (long es in energySources[kvp.Key])
                                     {
                                         EnergySource energySource = (EnergySource)networkModel[es];
-                                        energySource.ActivePower -= (hdpProduction.ActivePower - hdpConsumption.ActivePower) / distributionFactor;
+                                        energySource.ActivePower += (hdpProduction.ActivePower - hdpConsumption.ActivePower) / distributionFactor;
                                     }
 
                                     // hdpProduction.ActivePower = hdpConsumption.ActivePower;

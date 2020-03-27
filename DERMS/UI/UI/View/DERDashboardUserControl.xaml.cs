@@ -35,10 +35,10 @@ namespace UI.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-			Window w = new ManualCommandingWindow(((DERDashboardUserControlViewModel)DataContext).GetIncreaseFlexibility(), ((DERDashboardUserControlViewModel)DataContext).GetDecreaseFlexibility(), ((DERDashboardUserControlViewModel)DataContext).CurrentSelectedGid);
-			w.Show();
+            Window w = new ManualCommandingWindow(((DERDashboardUserControlViewModel)DataContext).GetIncreaseFlexibility(), ((DERDashboardUserControlViewModel)DataContext).GetDecreaseFlexibility(), ((DERDashboardUserControlViewModel)DataContext).CurrentSelectedGid);
+            w.Show();
             CurrentConsumption.Text = (EnergySource.Value - ProductionFromGenerators.Value).ToString() + "kw/h";
-            
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -46,7 +46,7 @@ namespace UI.View
             DERDashboardUserControlViewModel d = new DERDashboardUserControlViewModel(this);
             var energySourceValue = d.Optimization();
             EnergySource.Value = (int)energySourceValue;
-            CurrentConsumption.Text = (EnergySource.Value - ProductionFromGenerators.Value).ToString() + "kw/h";
+            //CurrentConsumption.Text = (EnergySource.Value - ProductionFromGenerators.Value).ToString() + "kw/h";
         }
     }
 }
