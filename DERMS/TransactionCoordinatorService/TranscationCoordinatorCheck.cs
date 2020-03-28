@@ -19,11 +19,12 @@ namespace TransactionCoordinator
             this.clientAddress = clientAddress;
             NetTcpBinding binding = new NetTcpBinding();
             binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-            factory = new ChannelFactory<ITransactionCheck>(binding, clientAddress);
+            factory = new ChannelFactory<ITransactionCheck>(binding, clientAddress);			
             proxy = factory.CreateChannel();
-        }
+			((IContextChannel)proxy).OperationTimeout = new TimeSpan(0, 5, 0);
+		}
 
-        public void Commit()
+		public void Commit()
         {
             proxy.Commit();
         }

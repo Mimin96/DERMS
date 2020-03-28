@@ -1,4 +1,5 @@
-﻿using DERMSCommon.WeatherForecast;
+﻿using DERMSCommon.UIModel.ThreeViewModel;
+using DERMSCommon.WeatherForecast;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,12 @@ namespace DERMSCommon
 		[DataMember]
 		public Dictionary<long, double> DataFromCEToScada { get; set; }
 		#endregion
+
+		#region NetworkModelTreeClass
+		[DataMember]
+		public List<NetworkModelTreeClass> NetworkModelTreeClass { get; set; }
+		#endregion
+
 		public DataToUI()
 		{
 			Data = new Dictionary<long, DerForecastDayAhead>();
@@ -40,6 +47,7 @@ namespace DERMSCommon
 			Gid = 0;
 			FlexibilityIncDec = FlexibilityIncDec.Default;
 			DataFromCEToScada = new Dictionary<long, double>();
+			NetworkModelTreeClass = new List<NetworkModelTreeClass>();
 		}
 	}
 }

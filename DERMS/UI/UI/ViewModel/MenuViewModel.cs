@@ -32,13 +32,15 @@ namespace UI.ViewModel
         public MenuViewModel() 
         {
             Mediator.Register("NMSNetworkModelData", GetNetworkModelFromProxy);
+            Mediator.Register("NetworkModelTreeClass", NetworkModelTreeClassChanged);
 
-            _clientSideProxy = new ClientSideProxy();
+			_clientSideProxy = new ClientSideProxy();
             _calculationEnginePubSub = new CalculationEnginePubSub();
             _clientSideProxy.StartServiceHost(_calculationEnginePubSub);
-            _clientSideProxy.Subscribe(1);
+            _clientSideProxy.Subscribe((int)Enums.Topics.DerForecastDayAhead);
+            _clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass);
 
-            _proxy = new CommunicationProxy();
+			_proxy = new CommunicationProxy();
             _proxy.Open();
 
             Logger.Log("UI is started.", Enums.Component.UI, Enums.LogLevel.Info);
@@ -92,7 +94,16 @@ namespace UI.ViewModel
             if (UserControlPresenter.GetType().Name == "GISUserControl")
                 SetUserContro("GIS");
         }
-        public void ExecuteMenuSelectCommand(object sender)
+		public void NetworkModelTreeClassChanged(object parameter)
+		{
+			_networkModelTreeClass = ((DataToUI)parameter).NetworkModelTreeClass;
+			if (UserControlPresenter.GetType().Name == "DERDashboardUserControl")
+			{
+				((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;
+			}
+		}
+
+		public void ExecuteMenuSelectCommand(object sender)
         {
             if (_selectedMenuItem != null)
             {

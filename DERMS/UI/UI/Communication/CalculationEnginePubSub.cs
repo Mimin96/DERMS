@@ -23,6 +23,10 @@ namespace UI.Communication
 			{
 				Mediator.NotifyColleagues("Flexibility", data);
 			}
+			else if (data.Topic.Equals((int)Enums.Topics.NetworkModelTreeClass))
+			{
+				Mediator.NotifyColleagues("NetworkModelTreeClass", data);
+			}
 		}
 	}
 }

@@ -20,14 +20,20 @@ namespace DERMSCommon.UIModel.ThreeViewModel
         private DMSType _type;
         [DataMember]
         private float _p;
+		[DataMember]
+		private float _minFlexibility;
+		[DataMember]
+		private float _maxFlexibility;
 
-        public SubstationElementTreeClass(string name, long gid, DMSType type, float p)
+		public SubstationElementTreeClass(string name, long gid, DMSType type, float p, float min, float max)
         {
             _name = name;
             _gID = gid;
             _type = type;
             _p = p;
-        }
+			_minFlexibility = min;
+			_maxFlexibility = max;
+		}
 
         public string Name
         {
@@ -49,5 +55,15 @@ namespace DERMSCommon.UIModel.ThreeViewModel
             get { return _p; }
             set { _p = value; OnPropertyChanged("P"); }
         }
-    }
+		public float MinFlexibility
+		{
+			get { return _minFlexibility; }
+			set { _minFlexibility = value; OnPropertyChanged("MinFlexibility"); }
+		}
+		public float MaxFlexibility
+		{
+			get { return _maxFlexibility; }
+			set { _maxFlexibility = value; OnPropertyChanged("MaxFlexibility"); }
+		}
+	}
 }

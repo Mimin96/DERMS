@@ -438,16 +438,98 @@ namespace UI.ViewModel
 			ProductionDerForecastDayAhead = ((DataToUI)parameter).Data;
 		}
 
-		public Double GetIncreaseFlexibility()
+		public float GetIncreaseFlexibility()
 		{
-			// TREBA IZ MODELA ILI IZVUCI MAX FLEXIBILITY
-			return 139.5;
+			float ret = 0;
+
+			foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModel)
+			{
+				if(networkModelTreeClasses.GID.Equals(CurrentSelectedGid))
+				{
+					ret = networkModelTreeClasses.MaxFlexibility;
+				}
+
+				foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
+				{
+					if (geographicalRegionTreeClass.GID.Equals(CurrentSelectedGid))
+					{
+						ret = geographicalRegionTreeClass.MaxFlexibility;
+					}
+
+					foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
+					{
+						if (geographicalSubRegionTreeClass.GID.Equals(CurrentSelectedGid))
+						{
+							ret = geographicalSubRegionTreeClass.MaxFlexibility;
+						}
+
+						foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
+						{
+							if (substationTreeClass.GID.Equals(CurrentSelectedGid))
+							{
+								ret = substationTreeClass.MaxFlexibility;
+							}
+
+							foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
+							{
+								if (substationElementTreeClass.GID.Equals(CurrentSelectedGid))
+								{
+									ret = substationElementTreeClass.MaxFlexibility;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			return ret;
 		}
 
-		public Double GetDecreaseFlexibility()
+		public float GetDecreaseFlexibility()
 		{
-			// TREBA IZ MODELA ILI IZVUCI MIN FLEXIBILITY
-			return 59.5;
+			float ret = 0;
+
+			foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModel)
+			{
+				if (networkModelTreeClasses.GID.Equals(CurrentSelectedGid))
+				{
+					ret = networkModelTreeClasses.MinFlexibility;
+				}
+
+				foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
+				{
+					if (geographicalRegionTreeClass.GID.Equals(CurrentSelectedGid))
+					{
+						ret = geographicalRegionTreeClass.MinFlexibility;
+					}
+
+					foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
+					{
+						if (geographicalSubRegionTreeClass.GID.Equals(CurrentSelectedGid))
+						{
+							ret = geographicalSubRegionTreeClass.MinFlexibility;
+						}
+
+						foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
+						{
+							if (substationTreeClass.GID.Equals(CurrentSelectedGid))
+							{
+								ret = substationTreeClass.MinFlexibility;
+							}
+
+							foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
+							{
+								if (substationElementTreeClass.GID.Equals(CurrentSelectedGid))
+								{
+									ret = substationElementTreeClass.MinFlexibility;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			return ret;
 		}
         
         public void SetChartValues(long gid)

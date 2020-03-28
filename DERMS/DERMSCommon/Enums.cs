@@ -28,9 +28,10 @@ namespace DERMSCommon
         public enum Topics
         {
             DerForecastDayAhead = 1,
-            Flexibility
-            //TREBA VIDETI SA CAVICEM KO SE SVE PRETPLACUJE NA PUBSUB
-        }
+            Flexibility,
+			NetworkModelTreeClass
+			//TREBA VIDETI SA CAVICEM KO SE SVE PRETPLACUJE NA PUBSUB
+		}
 
 		public enum FlexibilityIncDec
 		{
