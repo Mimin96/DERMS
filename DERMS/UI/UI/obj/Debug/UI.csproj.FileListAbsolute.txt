@@ -1395,3 +1395,5 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CopyComplete
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\UI.exe
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\UI.pdb
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\UI\UI\obj\Debug\View\HistoryUserControl.g.cs
+C:\Users\Djole\Desktop\MASTER\DERMS\DERMS\UI\UI\obj\Debug\View\HistoryUserControl.baml

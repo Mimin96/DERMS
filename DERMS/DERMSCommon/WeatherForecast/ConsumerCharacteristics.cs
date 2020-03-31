@@ -87,6 +87,17 @@ namespace DERMSCommon.WeatherForecast
 
                     consumerDayAhead.Hourly.Add(dataPointTemp);
                 }
+                else if (dataPoint.Time.Hour.Equals(22))
+                {
+                    HourDataPoint dataPointTemp = new HourDataPoint();
+                    TimeSpan timeSpan = new TimeSpan(22, 0, 0);
+
+                    dataPointTemp.Time = dataPoint.Time.AddDays(-1).Date + timeSpan;
+                    dataPointTemp.ActivePower = (float)HourToActivePower.Value;
+                    dataPointTemp.ReactivePower = (float)HourToActivePower.Value / 50;
+
+                    consumerDayAhead.Hourly.Add(dataPointTemp);
+                }
                 else
                 {
                     dataPoint.ActivePower = (float)HourToActivePower.Value;

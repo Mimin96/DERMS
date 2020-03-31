@@ -60,7 +60,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Margin="30" Height="127" VerticalAlignment="Top">
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25"
-                   From="0" To="1000"  Name="EnergySource" Value="{Binding Consumption}"  Foreground="ForestGreen" HorizontalAlignment="Left" Width="169">
+                   From="0" To="1000"  Name="EnergySource" Value="{Binding Consumption,StringFormat=N2}"  Foreground="ForestGreen" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
                             <GradientStop Color="ForestGreen" Offset="0.0" />
@@ -75,7 +75,7 @@
             <Grid Grid.Column="1" Margin="30" Height="127" VerticalAlignment="Top">
                 <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from generators"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="#FF0CADFF" VerticalAlignment="Top" Width="185"/>
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="ProductionFromGenerators"
-                   From="0" To="1000" Value="{Binding ProductionGenerators}" Foreground="#FF0CADFF" HorizontalAlignment="Left" Width="169">
+                   From="0" To="1000" Value="{Binding ProductionGenerators,StringFormat={}{0:N2}}" Foreground="#FF0CADFF" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
                             <GradientStop Color="DodgerBlue" Offset="0.0" />

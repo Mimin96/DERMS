@@ -206,5 +206,37 @@ namespace CalculationEngineService
 
             return energyFromSource;
         }
+
+        public float BalanceNetworkModel()
+        {
+            float energyFromSource = 0;
+            networkModel = CalculationEngineCache.Instance.GetNMSModel();
+            foreach (KeyValuePair<long, IdentifiedObject> kvp in networkModel)
+            {
+                var type = kvp.Value.GetType();
+                if (type.Name.Equals("GeographicalRegion"))
+                {
+                    energyFromSource += UpdateThroughUI(kvp.Key);
+                }
+            }
+            CalculationEngineCache.Instance.NetworkModelBalanced();
+            return energyFromSource;
+        }
+
+        public List<long> AllGeoRegions()
+        {
+            networkModel = CalculationEngineCache.Instance.GetNMSModel();
+            List<long> geoReg = new List<long>();
+            foreach (KeyValuePair<long, IdentifiedObject> kvp in networkModel)
+            {
+                var type = kvp.Value.GetType();
+                if (type.Name.Equals("GeographicalRegion"))
+                {
+                    geoReg.Add(kvp.Key);
+                }
+            }
+            return geoReg;
+
+        }
     }
 }

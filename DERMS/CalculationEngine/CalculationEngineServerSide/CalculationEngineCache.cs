@@ -418,7 +418,12 @@ namespace CalculationEngineService
         {
             CEUpdateThroughUI ce = new CEUpdateThroughUI();
             float energyFromSource = ce.Balance(productionCached, gid);
+            PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
             return energyFromSource;
+        }
+        public void NetworkModelBalanced()
+        {
+            PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
         }
 
         public List<DataPoint> GetDataPoints(long gid)

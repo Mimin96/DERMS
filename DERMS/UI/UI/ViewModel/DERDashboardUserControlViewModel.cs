@@ -32,8 +32,8 @@ namespace UI.ViewModel
         private bool showGridDemands;
         private long selectedElement;
         private string energySourceValue;
-        private float productionGenerators;
-        private float consumption;
+        private string productionGenerators;
+        private string consumption;
         private static long gidForOptimization;
         private static float energySourceOptimizedValue;
         private Visibility visibilityConsumption;
@@ -42,17 +42,17 @@ namespace UI.ViewModel
         private IChartValues chartValues1;
         private IChartValues chartValues2;
         private IChartValues chartValues3;
-		private Dictionary<long, DerForecastDayAhead> ProductionDerForecastDayAhead { get; set; }
-		private ClientSideProxy ClientSideProxy { get; set; }
-		private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
-		#region Properties
-		public TreeNode<NodeData> Tree { get; set; }
-       
+        private Dictionary<long, DerForecastDayAhead> ProductionDerForecastDayAhead { get; set; }
+        private ClientSideProxy ClientSideProxy { get; set; }
+        private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
+        #region Properties
+        public TreeNode<NodeData> Tree { get; set; }
+
         public SolidColorBrush Color1 { get { return color1; } set { color1 = value; OnPropertyChanged("Color1"); } }
         public SolidColorBrush Color2 { get { return color2; } set { color2 = value; OnPropertyChanged("Color2"); } }
-		public long CurrentSelectedGid { get; set; }
+        public long CurrentSelectedGid { get; set; }
 
-        public float Consumption
+        public string Consumption
         {
             get
             {
@@ -76,7 +76,7 @@ namespace UI.ViewModel
                 OnPropertyChanged("EnergySourceValue");
             }
         }
-        public float ProductionGenerators
+        public string ProductionGenerators
         {
             get
             {
@@ -96,7 +96,7 @@ namespace UI.ViewModel
             }
             set
             {
-                selectedElement = value;               
+                selectedElement = value;
                 OnPropertyChanged("SelectedElement");
             }
         }
@@ -179,7 +179,8 @@ namespace UI.ViewModel
         public IChartValues ChartValues1
         {
             get { return chartValues1; }
-            set {
+            set
+            {
                 chartValues1 = value;
                 OnPropertyChanged("ChartValues1");
             }
@@ -188,7 +189,8 @@ namespace UI.ViewModel
         public IChartValues ChartValues2
         {
             get { return chartValues2; }
-            set {
+            set
+            {
                 chartValues2 = value;
                 OnPropertyChanged("ChartValues2");
             }
@@ -197,7 +199,8 @@ namespace UI.ViewModel
         public IChartValues ChartValues3
         {
             get { return chartValues3; }
-            set {
+            set
+            {
                 chartValues3 = value;
                 OnPropertyChanged("ChartValues3");
             }
@@ -335,9 +338,9 @@ namespace UI.ViewModel
             Mediator.Register("DerForecastDayAhead", DERDashboardDerForecastDayAhead);
             Mediator.Register("Flexibility", DERDashboardFlexibility);
 
-			CurrentSelectedGid = 0;
+            CurrentSelectedGid = 0;
 
-			ClientSideProxy = new ClientSideProxy();
+            ClientSideProxy = new ClientSideProxy();
             CalculationEnginePubSub = new CalculationEnginePubSub();
             ClientSideProxy.StartServiceHost(CalculationEnginePubSub);
             ClientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
@@ -349,8 +352,9 @@ namespace UI.ViewModel
             GidForOptimization = 0;
             GidForOptimization = gid;
             CurrentSelectedGid = gid;
-			Console.Beep();
-            
+            Console.Beep();
+            GetAllGeoRegions();
+
         }
         public void SelectedEventCommandExecute(long gid)
         {
@@ -359,14 +363,14 @@ namespace UI.ViewModel
 
             CurrentSelectedGid = gid;
             Console.Beep();
-            SetChartValues(gid);
+            
         }
         public void GeographicalRegionCommandExecute(long gid)
         {
             GidForOptimization = 0;
             GidForOptimization = gid;
-			CurrentSelectedGid = gid;
-			Console.Beep();
+            CurrentSelectedGid = gid;
+            Console.Beep();
             SetChartValues(gid);
         }
         public void GeographicalSubRegionCommandExecute(long gid)
@@ -377,7 +381,7 @@ namespace UI.ViewModel
             Console.Beep();
             SetChartValues(gid);
         }
-        
+
         public void SubstationCommandExecute(long gid)
         {
             GidForOptimization = 0;
@@ -390,22 +394,37 @@ namespace UI.ViewModel
         {
             CurrentSelectedGid = gid;
             Console.Beep();
-            SetChartValues(gid);
-		}
+            
+        }
         public void OptimizationCommandExecute()
         {
             var energySourceValue = Optimization();
-            EnergySourceValue = energySourceValue.ToString() + " kW";
+
+            string temp = String.Format("{0:0.00}", energySourceValue);
+            EnergySourceValue = temp + " kW";
+            //GetAllGeoRegions();
+
         }
-        public float Optimization() {
-            if (GidForOptimization != 0) {
+        public float Optimization()
+        {
+            if (GidForOptimization != 0 && GidForOptimization != -1)
+            {
                 if (proxy == null)
                     proxy = new CommunicationProxy();
 
                 proxy.Open2();
                 energySourceOptimizedValue = 0;
                 energySourceOptimizedValue = proxy.sendToCE.UpdateThroughUI(GidForOptimization);
-                SetChartValuesAfterOptimization(GidForOptimization);
+
+            }
+            else if (GidForOptimization == -1)
+            {
+                if (proxy == null)
+                    proxy = new CommunicationProxy();
+                energySourceOptimizedValue = 0;
+                proxy.Open2();
+                energySourceOptimizedValue = proxy.sendToCE.BalanceNetworkModel();
+
             }
             return energySourceOptimizedValue;
         }
@@ -435,114 +454,119 @@ namespace UI.ViewModel
 
         public void DERDashboardDerForecastDayAhead(object parameter)
         {
-			ProductionDerForecastDayAhead = ((DataToUI)parameter).Data;
-		}
+            ProductionDerForecastDayAhead = ((DataToUI)parameter).Data;
+            if (GidForOptimization != -1 && GidForOptimization != 0)
+                SetChartValuesAfterOptimization(GidForOptimization);
+            else if (GidForOptimization == -1)
+                GetAllGeoRegions();
+        }
 
-		public float GetIncreaseFlexibility()
-		{
-			float ret = 0;
+        public float GetIncreaseFlexibility()
+        {
+            float ret = 0;
 
-			foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModel)
-			{
-				if(networkModelTreeClasses.GID.Equals(CurrentSelectedGid))
-				{
-					ret = networkModelTreeClasses.MaxFlexibility;
-				}
+            foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModel)
+            {
+                if (networkModelTreeClasses.GID.Equals(CurrentSelectedGid))
+                {
+                    ret = networkModelTreeClasses.MaxFlexibility;
+                }
 
-				foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
-				{
-					if (geographicalRegionTreeClass.GID.Equals(CurrentSelectedGid))
-					{
-						ret = geographicalRegionTreeClass.MaxFlexibility;
-					}
+                foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
+                {
+                    if (geographicalRegionTreeClass.GID.Equals(CurrentSelectedGid))
+                    {
+                        ret = geographicalRegionTreeClass.MaxFlexibility;
+                    }
 
-					foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
-					{
-						if (geographicalSubRegionTreeClass.GID.Equals(CurrentSelectedGid))
-						{
-							ret = geographicalSubRegionTreeClass.MaxFlexibility;
-						}
+                    foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
+                    {
+                        if (geographicalSubRegionTreeClass.GID.Equals(CurrentSelectedGid))
+                        {
+                            ret = geographicalSubRegionTreeClass.MaxFlexibility;
+                        }
 
-						foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
-						{
-							if (substationTreeClass.GID.Equals(CurrentSelectedGid))
-							{
-								ret = substationTreeClass.MaxFlexibility;
-							}
+                        foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
+                        {
+                            if (substationTreeClass.GID.Equals(CurrentSelectedGid))
+                            {
+                                ret = substationTreeClass.MaxFlexibility;
+                            }
 
-							foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
-							{
-								if (substationElementTreeClass.GID.Equals(CurrentSelectedGid))
-								{
-									ret = substationElementTreeClass.MaxFlexibility;
-								}
-							}
-						}
-					}
-				}
-			}
+                            foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
+                            {
+                                if (substationElementTreeClass.GID.Equals(CurrentSelectedGid))
+                                {
+                                    ret = substationElementTreeClass.MaxFlexibility;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-			return ret;
-		}
+            return ret;
+        }
 
-		public float GetDecreaseFlexibility()
-		{
-			float ret = 0;
+        public float GetDecreaseFlexibility()
+        {
+            float ret = 0;
 
-			foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModel)
-			{
-				if (networkModelTreeClasses.GID.Equals(CurrentSelectedGid))
-				{
-					ret = networkModelTreeClasses.MinFlexibility;
-				}
+            foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModel)
+            {
+                if (networkModelTreeClasses.GID.Equals(CurrentSelectedGid))
+                {
+                    ret = networkModelTreeClasses.MinFlexibility;
+                }
 
-				foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
-				{
-					if (geographicalRegionTreeClass.GID.Equals(CurrentSelectedGid))
-					{
-						ret = geographicalRegionTreeClass.MinFlexibility;
-					}
+                foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
+                {
+                    if (geographicalRegionTreeClass.GID.Equals(CurrentSelectedGid))
+                    {
+                        ret = geographicalRegionTreeClass.MinFlexibility;
+                    }
 
-					foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
-					{
-						if (geographicalSubRegionTreeClass.GID.Equals(CurrentSelectedGid))
-						{
-							ret = geographicalSubRegionTreeClass.MinFlexibility;
-						}
+                    foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
+                    {
+                        if (geographicalSubRegionTreeClass.GID.Equals(CurrentSelectedGid))
+                        {
+                            ret = geographicalSubRegionTreeClass.MinFlexibility;
+                        }
 
-						foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
-						{
-							if (substationTreeClass.GID.Equals(CurrentSelectedGid))
-							{
-								ret = substationTreeClass.MinFlexibility;
-							}
+                        foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
+                        {
+                            if (substationTreeClass.GID.Equals(CurrentSelectedGid))
+                            {
+                                ret = substationTreeClass.MinFlexibility;
+                            }
 
-							foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
-							{
-								if (substationElementTreeClass.GID.Equals(CurrentSelectedGid))
-								{
-									ret = substationElementTreeClass.MinFlexibility;
-								}
-							}
-						}
-					}
-				}
-			}
+                            foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
+                            {
+                                if (substationElementTreeClass.GID.Equals(CurrentSelectedGid))
+                                {
+                                    ret = substationElementTreeClass.MinFlexibility;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-			return ret;
-		}
-        
+            return ret;
+        }
+
         public void SetChartValues(long gid)
         {
-            /*foreach(HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Production.Hourly)
+            
+            foreach (HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Production.Hourly)
             {
-                if(hdp.Time.Hour.Equals(DateTime.Now.Hour))
+                if (hdp.Time.Hour.Equals(DateTime.Now.Hour))
                 {
                     float x = hdp.ActivePower;
                     string temp = String.Format("{0:0.00}", x);
                     double y = Double.Parse(temp);
                     float z = (float)y;
-                    ProductionGenerators = z;
+                    ProductionGenerators = temp;
                 }
             }
             foreach (HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Consumption.Hourly)
@@ -552,19 +576,19 @@ namespace UI.ViewModel
                     float x = hdp.ActivePower;
                     string temp = String.Format("{0:0.00}", x);
                     double y = Double.Parse(temp);
-                    Consumption = (float)y;
+                    Consumption = temp;
 
                 }
             }
-           
-            
+
+
             ChartValues1 = new ChartValues<double>();
             ChartValues2 = new ChartValues<double>();
             ChartValues3 = new ChartValues<double>();
             List<HourDataPoint> tempList = new List<HourDataPoint>();
             List<HourDataPoint> tempListProduction = new List<HourDataPoint>();
             tempList = ProductionDerForecastDayAhead[gid].Consumption.Hourly.OrderBy(x => x.Time).ToList();
-            tempListProduction= ProductionDerForecastDayAhead[gid].Production.Hourly.OrderBy(x => x.Time).ToList();
+            tempListProduction = ProductionDerForecastDayAhead[gid].Production.Hourly.OrderBy(x => x.Time).ToList();
             foreach (HourDataPoint hc in tempList)
             {
                 ChartValues2.Add((double)hc.ActivePower);
@@ -574,20 +598,21 @@ namespace UI.ViewModel
             foreach (HourDataPoint hc in tempListProduction)
             {
                 ChartValues3.Add((double)hc.ActivePower);
-            }*/
+            }
+            
         }
 
         public void SetChartValuesAfterOptimization(long gid)
         {
-			/*
-            foreach (HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Consumption.Hourly)
+
+            foreach (HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Production.Hourly)
             {
                 if (hdp.Time.Hour.Equals(DateTime.Now.Hour))
                 {
                     float x = hdp.ActivePower;
                     string temp = String.Format("{0:0.00}", x);
                     double y = Double.Parse(temp);
-                    ProductionGenerators = (float)y;
+                    ProductionGenerators = temp;
                 }
             }
             ChartValues2 = new ChartValues<double>();
@@ -602,7 +627,66 @@ namespace UI.ViewModel
                 ChartValues3.Add((double)hc.ActivePower);
 
             }
-			*/
+
+        }
+
+        public void GetAllGeoRegions()
+        {
+            if (proxy == null)
+                proxy = new CommunicationProxy();
+            List<long> geoReg = new List<long>();
+            proxy.Open2();
+            geoReg = proxy.sendToCE.AllGeoRegions();
+            DerForecastDayAhead NetworkProduction = new DerForecastDayAhead();
+            foreach (long region in geoReg)
+            {
+
+                NetworkProduction.Consumption += ProductionDerForecastDayAhead[region].Consumption;
+                NetworkProduction.Production += ProductionDerForecastDayAhead[region].Production;
+            }
+
+            foreach (HourDataPoint hdp in NetworkProduction.Production.Hourly)
+            {
+                if (hdp.Time.Hour.Equals(DateTime.Now.Hour))
+                {
+                    float x = hdp.ActivePower;
+                    string temp = String.Format("{0:0.00}", x);
+                    double y = Double.Parse(temp);
+                    float z = (float)y;
+                    ProductionGenerators = temp;
+                }
+            }
+            foreach (HourDataPoint hdp in NetworkProduction.Consumption.Hourly)
+            {
+                if (hdp.Time.Hour.Equals(DateTime.Now.Hour))
+                {
+                    float x = hdp.ActivePower;
+                    string temp = String.Format("{0:0.00}", x);
+                    double y = Double.Parse(temp);
+                    Consumption = temp;
+
+                }
+            }
+
+
+            ChartValues1 = new ChartValues<double>();
+            ChartValues2 = new ChartValues<double>();
+            ChartValues3 = new ChartValues<double>();
+            List<HourDataPoint> tempList = new List<HourDataPoint>();
+            List<HourDataPoint> tempListProduction = new List<HourDataPoint>();
+            tempList = NetworkProduction.Consumption.Hourly.OrderBy(x => x.Time).ToList();
+            tempListProduction = NetworkProduction.Production.Hourly.OrderBy(x => x.Time).ToList();
+            foreach (HourDataPoint hc in tempList)
+            {
+                ChartValues2.Add((double)hc.ActivePower);
+                ChartValues1.Add((double)hc.ActivePower);
+
+            }
+            foreach (HourDataPoint hc in tempListProduction)
+            {
+                ChartValues3.Add((double)hc.ActivePower);
+            }
+
         }
 
     }

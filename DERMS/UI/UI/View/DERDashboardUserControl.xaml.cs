@@ -37,7 +37,7 @@ namespace UI.View
         {
             Window w = new ManualCommandingWindow(((DERDashboardUserControlViewModel)DataContext).GetIncreaseFlexibility(), ((DERDashboardUserControlViewModel)DataContext).GetDecreaseFlexibility(), ((DERDashboardUserControlViewModel)DataContext).CurrentSelectedGid);
             w.Show();
-            CurrentConsumption.Text = (EnergySource.Value - ProductionFromGenerators.Value).ToString() + "kw/h";
+            //CurrentConsumption.Text = (EnergySource.Value - ProductionFromGenerators.Value).ToString() + "kw/h";
 
         }
 

@@ -13,5 +13,9 @@ namespace CalculationEngineServiceCommon
     {
         [OperationContract]
         float UpdateThroughUI(long data);
+        [OperationContract]
+        float BalanceNetworkModel();
+        [OperationContract]
+        List<long> AllGeoRegions();
     }
 }
