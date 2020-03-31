@@ -534,7 +534,7 @@ namespace UI.ViewModel
         
         public void SetChartValues(long gid)
         {
-            foreach(HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Production.Hourly)
+            /*foreach(HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Production.Hourly)
             {
                 if(hdp.Time.Hour.Equals(DateTime.Now.Hour))
                 {
@@ -574,12 +574,12 @@ namespace UI.ViewModel
             foreach (HourDataPoint hc in tempListProduction)
             {
                 ChartValues3.Add((double)hc.ActivePower);
-            }
+            }*/
         }
 
         public void SetChartValuesAfterOptimization(long gid)
         {
-
+			/*
             foreach (HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Consumption.Hourly)
             {
                 if (hdp.Time.Hour.Equals(DateTime.Now.Hour))
@@ -602,7 +602,7 @@ namespace UI.ViewModel
                 ChartValues3.Add((double)hc.ActivePower);
 
             }
-
+			*/
         }
 
     }

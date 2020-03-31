@@ -249,7 +249,8 @@ namespace CalculationEngineService
 						}
 					}
 
-					flexibility.TurnOnFlexibilityForGenerator(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
+					flexibility.CalculateNewDerForecastDayAheadForGenerator(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
+					listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForGenerator(data.Flexibility, data.Gid, affectedEntities);
 				}
 				else if (type.Equals("Substation"))
 				{
@@ -292,7 +293,8 @@ namespace CalculationEngineService
 						}
 					}
 
-					flexibility.TurnOnFlexibilityForSubstation(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
+					flexibility.CalculateNewDerForecastDayAheadForSubstation(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
+					listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForSubstation(data.Flexibility, data.Gid, affectedEntities);
 				}
 				else if (type.Equals("SubGeographicalRegion"))
 				{
@@ -338,12 +340,12 @@ namespace CalculationEngineService
 						}
 					}
 
-					flexibility.TurnOnFlexibilityForSubGeoRegion(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
+					flexibility.CalculateNewDerForecastDayAheadForSubGeoRegion(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
+					listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForSubGeoRegion(data.Flexibility, data.Gid, affectedEntities);
 
 				}
 				else if (type.Equals("GeographicalRegion"))
 				{
-					//flexibility.TurnOnFlexibilityForManualCommanding(data.Flexibility, productionCached, data.Gid, type, affectedDERForcast);
 
 					GeographicalRegion gr = (GeographicalRegion)nmsCache[data.Gid];
 
@@ -377,17 +379,17 @@ namespace CalculationEngineService
 						}
 					}
 
-					listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForGeoRegion(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
+					flexibility.CalculateNewDerForecastDayAheadForGeoRegion(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
+					listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForGeoRegion(data.Flexibility, data.Gid, affectedEntities);
 
 				}
 			}
 
-			/*dataForScada.DataFromCEToScada = listOfGeneratorsForScada;
-            PubSubCalculatioEngine.Instance.Notify(dataForScada, (int)Enums.Topics.Flexibility);*/
+			//dataForScada.DataFromCEToScada = listOfGeneratorsForScada;
+            //PubSubCalculatioEngine.Instance.Notify(dataForScada, (int)Enums.Topics.Flexibility);
 
 			ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(listOfGeneratorsForScada);
-			UpdateMinAndMaxFlexibilityForChangedGenerators();
-
+			UpdateMinAndMaxFlexibilityForChangedGenerators(); // OVU LINIJU OBRISATI			
 		}
 
 		public void ApplyChangesOnProductionCached() // KAD STIGNE POTVRDA SA SKADE DA SU PROMENE IZVRSENE, POZIVAMO OVU METODU KAKO BI NOVI PRORACUNI PROIZVODNJE ZA 24h BILI PRIMENJENI NA CACHE
@@ -400,6 +402,7 @@ namespace CalculationEngineService
 			}
 
 			SendDerForecastDayAhead();
+			UpdateMinAndMaxFlexibilityForChangedGenerators();
 		}
 
 		public void SendDerForecastDayAhead()
@@ -767,11 +770,21 @@ namespace CalculationEngineService
 										{
 											substationElementTreeClass.MinFlexibility += (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
 											substationElementTreeClass.MaxFlexibility -= (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
+											if(nmsCache.ContainsKey(substationElementTreeClass.GID))
+											{
+												((Generator)(nmsCache[substationElementTreeClass.GID])).MinFlexibility += (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
+												((Generator)(nmsCache[substationElementTreeClass.GID])).MaxFlexibility -= (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
+											}
 										}
 										else
 										{
 											substationElementTreeClass.MinFlexibility += (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
 											substationElementTreeClass.MaxFlexibility -= (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
+											if (nmsCache.ContainsKey(substationElementTreeClass.GID))
+											{
+												((Generator)(nmsCache[substationElementTreeClass.GID])).MinFlexibility += (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
+												((Generator)(nmsCache[substationElementTreeClass.GID])).MaxFlexibility -= (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
+											}
 										}
 									}
 								}
