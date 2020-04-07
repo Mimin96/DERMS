@@ -2,6 +2,7 @@
 using DERMSCommon.UIModel.ThreeViewModel;
 using DERMSCommon.WeatherForecast;
 using DermsUI.Resources;
+using FTN.Common;
 using LiveCharts;
 using LiveCharts.Defaults;
 using System;
@@ -344,7 +345,8 @@ namespace UI.ViewModel
             CalculationEnginePubSub = new CalculationEnginePubSub();
             ClientSideProxy.StartServiceHost(CalculationEnginePubSub);
             ClientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
-        }
+			dERDashboardUserControl.ManualCommanding.IsEnabled = false;
+		}
 
         #region TreeView Commands Execute
         public void NetworkModelCommandExecute(long gid)
@@ -354,9 +356,9 @@ namespace UI.ViewModel
             CurrentSelectedGid = gid;
             Console.Beep();
             GetAllGeoRegions();
-
-        }
-        public void SelectedEventCommandExecute(long gid)
+			dERDashboardUserControl.ManualCommanding.IsEnabled = false;
+		}
+		public void SelectedEventCommandExecute(long gid)
         {
             GidForOptimization = 0;
             GidForOptimization = gid;
@@ -372,30 +374,58 @@ namespace UI.ViewModel
             CurrentSelectedGid = gid;
             Console.Beep();
             SetChartValues(gid);
-        }
-        public void GeographicalSubRegionCommandExecute(long gid)
+			dERDashboardUserControl.ManualCommanding.IsEnabled = true;
+		}
+		public void GeographicalSubRegionCommandExecute(long gid)
         {
             GidForOptimization = 0;
             GidForOptimization = gid;
             CurrentSelectedGid = gid;
             Console.Beep();
             SetChartValues(gid);
-        }
+			dERDashboardUserControl.ManualCommanding.IsEnabled = true;
+		}
 
-        public void SubstationCommandExecute(long gid)
+		public void SubstationCommandExecute(long gid)
         {
             GidForOptimization = 0;
             GidForOptimization = gid;
             CurrentSelectedGid = gid;
             Console.Beep();
             SetChartValues(gid);
-        }
-        public void SubstationElementCommandExecute(long gid)
+			dERDashboardUserControl.ManualCommanding.IsEnabled = true;
+
+		}
+		public void SubstationElementCommandExecute(long gid)
         {
             CurrentSelectedGid = gid;
             Console.Beep();
-            
-        }
+
+			foreach (NetworkModelTreeClass networkModelTreeClass in NetworkModel)
+			{
+				foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClass.GeographicalRegions)
+				{
+					foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
+					{
+						foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
+						{
+							if (substationTreeClass.SubstationElements.Exists(x => x.GID.Equals(gid)))
+							{
+								SubstationElementTreeClass generator = substationTreeClass.SubstationElements.Where(x => x.GID.Equals(gid)).FirstOrDefault();
+
+								if(generator.Type.Equals(DMSType.GENERATOR))
+									dERDashboardUserControl.ManualCommanding.IsEnabled = true;
+								else
+									dERDashboardUserControl.ManualCommanding.IsEnabled = false;
+
+								return;
+							}
+						}
+								
+					}
+				}	
+			}
+		}
         public void OptimizationCommandExecute()
         {
             var energySourceValue = Optimization();

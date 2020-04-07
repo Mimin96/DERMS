@@ -26,8 +26,8 @@ namespace UI.View
 		{
 			InitializeComponent();
 			DataContext = new ManualCommandingViewModel();
-			IncreaseGauge.Value = inc;
-			DecreaseGauge.Value = dec;
+			IncreaseGauge.Value = Math.Round(inc, 2); 
+			DecreaseGauge.Value = Math.Round(dec, 2); 
 			Gid = gid;
 		}
 
