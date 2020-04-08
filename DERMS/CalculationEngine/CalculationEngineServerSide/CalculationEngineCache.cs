@@ -757,6 +757,10 @@ namespace CalculationEngineService
 		}
 		private void UpdateMinAndMaxFlexibilityForChangedGenerators()
 		{
+			double minProd = 0;
+			double maxProd = 0;
+			double currentProd = 0;
+
 			foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModelTreeClass)
 			{
 				foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
@@ -770,8 +774,8 @@ namespace CalculationEngineService
 								if (substationElementTreeClass.Type.Equals(DMSType.GENERATOR))
 								{
 									if(listOfGeneratorsForScada.ContainsKey(substationElementTreeClass.GID))
-									{										
-										if(listOfGeneratorsForScada[substationElementTreeClass.GID] > 0)
+									{
+										/*if(listOfGeneratorsForScada[substationElementTreeClass.GID] > 0)
 										{
 											substationElementTreeClass.MinFlexibility += (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
 											substationElementTreeClass.MaxFlexibility -= (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
@@ -790,7 +794,23 @@ namespace CalculationEngineService
 												((Generator)(nmsCache[substationElementTreeClass.GID])).MinFlexibility += (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
 												((Generator)(nmsCache[substationElementTreeClass.GID])).MaxFlexibility -= (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
 											}
+										}*/
+
+										maxProd = substationElementTreeClass.P + substationElementTreeClass.P * (substationElementTreeClass.MaxFlexibility / 100);
+										minProd = substationElementTreeClass.P - substationElementTreeClass.P * (substationElementTreeClass.MinFlexibility / 100);
+
+										if (listOfGeneratorsForScada[substationElementTreeClass.GID] > 0)
+										{
+											currentProd = substationElementTreeClass.P + substationElementTreeClass.P * (listOfGeneratorsForScada[substationElementTreeClass.GID] / 100);
 										}
+										else
+										{
+											currentProd = substationElementTreeClass.P - substationElementTreeClass.P * (listOfGeneratorsForScada[substationElementTreeClass.GID] / 100);
+										}
+
+										substationElementTreeClass.P = (float)currentProd;
+										substationElementTreeClass.MaxFlexibility = (float)(((maxProd - currentProd) * 100) / currentProd);
+										substationElementTreeClass.MinFlexibility = (float)(((currentProd - minProd) * 100) / currentProd);
 									}
 								}
 							}

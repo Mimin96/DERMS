@@ -439,18 +439,18 @@ namespace CalculationEngineService
 												{
 													generatorsProduction = difference - generator.ConsiderP * (generator.MaxFlexibility) / 100;
 
-													if (generatorsProduction > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
+													if (generatorsProduction > 0) 
 													{
 														generatorPercent = generator.MaxFlexibility;
 														difference -= generator.ConsiderP * (generator.MaxFlexibility) / 100;
 													}
-													else if (generatorsProduction < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+													else if (generatorsProduction < 0) 
 													{
-														genProd = difference; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
+														genProd = difference; 
 														generatorPercent = (100 * genProd) / generator.ConsiderP;
 														finished = true;
 													}
-													else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+													else 
 													{
 														generatorPercent = generator.MaxFlexibility;
 														finished = true;
@@ -791,18 +791,18 @@ namespace CalculationEngineService
 										{
 											generatorsProduction = difference - generator.ConsiderP * (generator.MaxFlexibility) / 100;
 
-											if (generatorsProduction > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
+											if (generatorsProduction > 0) 
 											{
 												generatorPercent = generator.MaxFlexibility;
 												difference -= generator.ConsiderP * (generator.MaxFlexibility) / 100;
 											}
-											else if (generatorsProduction < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+											else if (generatorsProduction < 0) 
 											{
-												genProd = difference; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
+												genProd = difference; 
 												generatorPercent = (100 * genProd) / generator.ConsiderP;
 												finished = true;
 											}
-											else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+											else 
 											{
 												generatorPercent = generator.MaxFlexibility;
 												finished = true;
@@ -1129,18 +1129,18 @@ namespace CalculationEngineService
 							{
 								generatorsProduction = difference - generator.ConsiderP * (generator.MaxFlexibility) / 100;
 
-								if (generatorsProduction > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
+								if (generatorsProduction > 0) 
 								{
 									generatorPercent = generator.MaxFlexibility;
 									difference -= generator.ConsiderP * (generator.MaxFlexibility) / 100;
 								}
-								else if (generatorsProduction < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+								else if (generatorsProduction < 0) 
 								{
-									genProd = difference; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
+									genProd = difference;
 									generatorPercent = (100 * genProd) / generator.ConsiderP;
 									finished = true;
 								}
-								else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+								else 
 								{
 									generatorPercent = generator.MaxFlexibility;
 									finished = true;
