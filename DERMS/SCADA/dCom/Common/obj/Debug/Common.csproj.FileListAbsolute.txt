@@ -254,3 +254,11 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\SCADA\dCom\Common\obj\Debu
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.dll
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb

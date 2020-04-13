@@ -86,11 +86,25 @@
                 </lvc:Gauge>
                 <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="#FF0CADFF" Margin="83,107,74,0" RenderTransformOrigin="1.053,0.4"/>
             </Grid>
-            <Grid Grid.Column="2" Margin="30,30,0,0" HorizontalAlignment="Left" Width="209" Background="DarkViolet" Height="104" VerticalAlignment="Top">
+            <Grid Grid.Column="2" Margin="30" Height="127" VerticalAlignment="Top">
+                <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from Sources"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="OrangeRed" VerticalAlignment="Top" Width="185"/>
+                <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="EnergyFromSources"
+                   From="0" To="1000" Value="{Binding EnergySourceValue,StringFormat={}{0:N2}}" Foreground="OrangeRed" HorizontalAlignment="Left" Width="169">
+                    <lvc:Gauge.GaugeActiveFill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="Orange" Offset="0.0" />
+                            <GradientStop Color="OrangeRed" Offset="0.5" />
+                            <GradientStop Color="DarkRed" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </lvc:Gauge.GaugeActiveFill>
+                </lvc:Gauge>
+                <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="OrangeRed" Margin="83,107,74,0" RenderTransformOrigin="1.053,0.4"/>
+            </Grid>
+            <!--<Grid Grid.Column="2" Margin="30,30,0,0" HorizontalAlignment="Left" Width="209" Background="DarkViolet" Height="104" VerticalAlignment="Top">
                 <TextBlock Text="Production from source" FontFamily="Champagne &amp; Limousines" Foreground="White" FontSize="15" Margin="34,10,10,75"/>
                 <Image Margin="4,4,0,0" Source="../Resources/Images/boltImg.png" Stretch="Fill" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="30"/>
                 <TextBlock Text="{Binding EnergySourceValue}" Name="CurrentConsumption" Foreground="White" FontFamily="Champagne &amp; Limousines" FontSize="30" Margin="34,52,34,10" TextAlignment="Center" />
-            </Grid>
+            </Grid>-->
         </Grid>
 
         <Grid Margin="255,217,10,10">

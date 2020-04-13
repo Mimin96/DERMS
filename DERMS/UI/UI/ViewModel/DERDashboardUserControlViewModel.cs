@@ -43,6 +43,7 @@ namespace UI.ViewModel
         private IChartValues chartValues1;
         private IChartValues chartValues2;
         private IChartValues chartValues3;
+        private List<long> OptimizatedElements;
         private Dictionary<long, DerForecastDayAhead> ProductionDerForecastDayAhead { get; set; }
         private ClientSideProxy ClientSideProxy { get; set; }
         private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
@@ -332,7 +333,7 @@ namespace UI.ViewModel
 
             Color1 = new SolidColorBrush(Colors.Green);
             Color2 = new SolidColorBrush(Colors.Purple);
-
+            OptimizatedElements = new List<long>();
 
             this.dERDashboardUserControl = dERDashboardUserControl;
 
@@ -356,8 +357,20 @@ namespace UI.ViewModel
             CurrentSelectedGid = gid;
             Console.Beep();
             GetAllGeoRegions();
-			dERDashboardUserControl.ManualCommanding.IsEnabled = false;
-		}
+            dERDashboardUserControl.ManualCommanding.IsEnabled = false;
+            float x;
+            if (OptimizatedElements.Contains(gid))
+            {
+                x = CalculateDemandForSource();
+                string temp = String.Format("{0:0.00}", x);
+                EnergySourceValue = temp;
+            }
+            else
+            {
+                EnergySourceValue = "0";
+            }
+            
+        }
 		public void SelectedEventCommandExecute(long gid)
         {
             GidForOptimization = 0;
@@ -375,7 +388,18 @@ namespace UI.ViewModel
             Console.Beep();
             SetChartValues(gid);
 			dERDashboardUserControl.ManualCommanding.IsEnabled = true;
-		}
+            float x;
+            if (OptimizatedElements.Contains(gid))
+            {
+                x = CalculateDemand(gid);
+                string temp = String.Format("{0:0.00}", x);
+                EnergySourceValue = temp;
+            }
+            else
+            {
+                EnergySourceValue = "0";
+            }
+        }
 		public void GeographicalSubRegionCommandExecute(long gid)
         {
             GidForOptimization = 0;
@@ -384,7 +408,18 @@ namespace UI.ViewModel
             Console.Beep();
             SetChartValues(gid);
 			dERDashboardUserControl.ManualCommanding.IsEnabled = true;
-		}
+            float x;
+            if (OptimizatedElements.Contains(gid))
+            {
+                x = CalculateDemand(gid);
+                string temp = String.Format("{0:0.00}", x);
+                EnergySourceValue = temp;
+            }
+            else
+            {
+                EnergySourceValue = "0";
+            }
+        }
 
 		public void SubstationCommandExecute(long gid)
         {
@@ -394,8 +429,18 @@ namespace UI.ViewModel
             Console.Beep();
             SetChartValues(gid);
 			dERDashboardUserControl.ManualCommanding.IsEnabled = true;
-
-		}
+            float x;
+            if (OptimizatedElements.Contains(gid))
+            {
+                x = CalculateDemand(gid);
+                string temp = String.Format("{0:0.00}", x);
+                EnergySourceValue = temp;
+            }
+            else
+            {
+                EnergySourceValue = "0";
+            }
+        }
 		public void SubstationElementCommandExecute(long gid)
         {
             CurrentSelectedGid = gid;
@@ -431,7 +476,8 @@ namespace UI.ViewModel
             var energySourceValue = Optimization();
 
             string temp = String.Format("{0:0.00}", energySourceValue);
-            EnergySourceValue = temp + " kW";
+            EnergySourceValue = temp;
+            CheckOptimizedDER(GidForOptimization);
             //GetAllGeoRegions();
 
         }
@@ -444,7 +490,8 @@ namespace UI.ViewModel
 
                 proxy.Open2();
                 energySourceOptimizedValue = 0;
-                energySourceOptimizedValue = proxy.sendToCE.UpdateThroughUI(GidForOptimization);
+                float x = proxy.sendToCE.UpdateThroughUI(GidForOptimization);
+                energySourceOptimizedValue = CalculateDemand(GidForOptimization);
 
             }
             else if (GidForOptimization == -1)
@@ -453,7 +500,8 @@ namespace UI.ViewModel
                     proxy = new CommunicationProxy();
                 energySourceOptimizedValue = 0;
                 proxy.Open2();
-                energySourceOptimizedValue = proxy.sendToCE.BalanceNetworkModel();
+                float x = proxy.sendToCE.BalanceNetworkModel();
+                energySourceOptimizedValue = CalculateDemandForSource();
 
             }
             return energySourceOptimizedValue;
@@ -622,14 +670,28 @@ namespace UI.ViewModel
             foreach (HourDataPoint hc in tempList)
             {
                 ChartValues2.Add((double)hc.ActivePower);
-                ChartValues1.Add((double)hc.ActivePower);
+               // ChartValues1.Add((double)hc.ActivePower);
 
             }
             foreach (HourDataPoint hc in tempListProduction)
             {
                 ChartValues3.Add((double)hc.ActivePower);
             }
-            
+            foreach (HourDataPoint hdpProduction in tempListProduction)
+            {
+                foreach (HourDataPoint hdpConsumption in tempList)
+                {
+
+                    if (hdpConsumption.Time.Equals(hdpProduction.Time))
+                    {
+                        if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
+                            ChartValues1.Add((double)(hdpConsumption.ActivePower - hdpProduction.ActivePower));
+                        else
+                            ChartValues1.Add(0.0);
+                    }
+                }
+            }
+
         }
 
         public void SetChartValuesAfterOptimization(long gid)
@@ -645,6 +707,7 @@ namespace UI.ViewModel
                     ProductionGenerators = temp;
                 }
             }
+            ChartValues1 = new ChartValues<double>();
             ChartValues2 = new ChartValues<double>();
             ChartValues3 = new ChartValues<double>();
             List<HourDataPoint> tempList = new List<HourDataPoint>();
@@ -656,6 +719,20 @@ namespace UI.ViewModel
                 ChartValues2.Add((double)hc.ActivePower);
                 ChartValues3.Add((double)hc.ActivePower);
 
+            }
+            foreach (HourDataPoint hdpProduction in tempListProduction)
+            {
+                foreach (HourDataPoint hdpConsumption in tempList)
+                {
+
+                    if (hdpConsumption.Time.Equals(hdpProduction.Time))
+                    {
+                        if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
+                            ChartValues1.Add((double)(hdpConsumption.ActivePower - hdpProduction.ActivePower));
+                        else
+                            ChartValues1.Add(0.0);
+                    }
+                }
             }
 
         }
@@ -709,14 +786,230 @@ namespace UI.ViewModel
             foreach (HourDataPoint hc in tempList)
             {
                 ChartValues2.Add((double)hc.ActivePower);
-                ChartValues1.Add((double)hc.ActivePower);
+                //ChartValues1.Add((double)hc.ActivePower);
 
             }
             foreach (HourDataPoint hc in tempListProduction)
             {
                 ChartValues3.Add((double)hc.ActivePower);
             }
+            foreach (HourDataPoint hdpProduction in tempListProduction)
+            {
+                foreach (HourDataPoint hdpConsumption in tempList)
+                {
 
+                    if (hdpConsumption.Time.Equals(hdpProduction.Time))
+                    {
+                        if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
+                            ChartValues1.Add((double)(hdpConsumption.ActivePower - hdpProduction.ActivePower));
+                        else
+                            ChartValues1.Add(0.0);
+                    }
+                }
+            }
+
+        }
+        public float CalculateDemand(long gid)
+        {
+            List<HourDataPoint> tempList = new List<HourDataPoint>();
+            List<HourDataPoint> tempListProduction = new List<HourDataPoint>();
+            tempList = ProductionDerForecastDayAhead[gid].Consumption.Hourly.OrderBy(x => x.Time).ToList();
+            tempListProduction = ProductionDerForecastDayAhead[gid].Production.Hourly.OrderBy(x => x.Time).ToList();
+            float y = (float)0;
+            foreach (HourDataPoint hdpProduction in tempListProduction)
+            {
+                foreach (HourDataPoint hdpConsumption in tempList)
+                {
+
+                    if (hdpConsumption.Time.Equals(hdpProduction.Time) && hdpConsumption.Time.Hour.Equals(DateTime.Now.Hour))
+                    {
+                        if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
+                            y = hdpConsumption.ActivePower - hdpProduction.ActivePower;
+                        else
+                            y = (float)0;
+                    }
+                }
+            }
+            return y;
+
+        }
+        public float CalculateDemandForSource()
+        {
+            if (proxy == null)
+                proxy = new CommunicationProxy();
+            List<long> geoReg = new List<long>();
+            proxy.Open2();
+            geoReg = proxy.sendToCE.AllGeoRegions();
+            DerForecastDayAhead NetworkProduction = new DerForecastDayAhead();
+            foreach (long region in geoReg)
+            {
+
+                NetworkProduction.Consumption += ProductionDerForecastDayAhead[region].Consumption;
+                NetworkProduction.Production += ProductionDerForecastDayAhead[region].Production;
+            }
+
+            List<HourDataPoint> tempList = new List<HourDataPoint>();
+            List<HourDataPoint> tempListProduction = new List<HourDataPoint>();
+            tempList = NetworkProduction.Consumption.Hourly.OrderBy(x => x.Time).ToList();
+            tempListProduction = NetworkProduction.Production.Hourly.OrderBy(x => x.Time).ToList();
+            float y = (float)0.0;
+            foreach (HourDataPoint hdpProduction in tempListProduction)
+            {
+                foreach (HourDataPoint hdpConsumption in tempList)
+                {
+
+                    if (hdpConsumption.Time.Equals(hdpProduction.Time) && hdpConsumption.Time.Hour.Equals(DateTime.Now.Hour))
+                    {
+                        if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
+                            y = hdpConsumption.ActivePower - hdpProduction.ActivePower;
+                        else
+                            y = (float)0;
+                    }
+                }
+            }
+            return y;
+
+        }
+
+        public void CheckOptimizedDER(long gid)
+        {
+            foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModel)
+            {
+                if (gid.Equals(networkModelTreeClasses.GID))
+                {
+                    if (!OptimizatedElements.Contains(networkModelTreeClasses.GID))
+                    {
+                        OptimizatedElements.Add(networkModelTreeClasses.GID);
+                    }
+                    foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
+                    {
+                        if(!OptimizatedElements.Contains(gr.GID))
+                        {
+                            OptimizatedElements.Add(gr.GID);
+                        }
+                        foreach (GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
+                        {
+                            if (!OptimizatedElements.Contains(sgr.GID))
+                            {
+                                OptimizatedElements.Add(sgr.GID);
+                            }
+                            foreach (SubstationTreeClass sub in sgr.Substations)
+                            {
+                                if (!OptimizatedElements.Contains(sub.GID))
+                                {
+                                    OptimizatedElements.Add(sub.GID);
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+                
+                
+                foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
+                {
+                    if (gid.Equals(gr.GID))
+                    {
+                        if (!OptimizatedElements.Contains(gr.GID))
+                        {
+                            OptimizatedElements.Add(gr.GID);
+                        }
+                        foreach (GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
+                        {
+                            if (!OptimizatedElements.Contains(sgr.GID))
+                            {
+                                OptimizatedElements.Add(sgr.GID);
+                            }
+                            foreach (SubstationTreeClass sub in sgr.Substations)
+                            {
+                                if (!OptimizatedElements.Contains(sub.GID))
+                                {
+                                    OptimizatedElements.Add(sub.GID);
+                                }
+
+                            }
+
+                        }
+                        if (!OptimizatedElements.Contains(networkModelTreeClasses.GID))
+                        {
+                            OptimizatedElements.Add(networkModelTreeClasses.GID);
+                        }
+                    }
+                    
+                }
+
+                foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
+                {
+
+                    foreach (GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
+                    {
+                        if (gid.Equals(sgr.GID))
+                        {
+                            if (!OptimizatedElements.Contains(sgr.GID))
+                            {
+                                OptimizatedElements.Add(sgr.GID);
+                            }
+
+                            foreach (SubstationTreeClass sub in sgr.Substations)
+                            {
+                                if (!OptimizatedElements.Contains(sub.GID))
+                                {
+                                    OptimizatedElements.Add(sub.GID);
+                                }
+
+                            }
+                            if (!OptimizatedElements.Contains(networkModelTreeClasses.GID))
+                            {
+                                OptimizatedElements.Add(networkModelTreeClasses.GID);
+                            }
+                            if (!OptimizatedElements.Contains(gr.GID))
+                            {
+                                OptimizatedElements.Add(gr.GID);
+                            }
+
+                        }
+                        
+                    }
+                    
+
+                }
+                foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
+                {
+
+                    foreach (GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
+                    {
+
+                        foreach (SubstationTreeClass sub in sgr.Substations)
+                        {
+                            if (gid.Equals(sub.GID))
+                            {
+                                if(!OptimizatedElements.Contains(sub.GID))
+                                    OptimizatedElements.Add(sub.GID);
+
+                                if (!OptimizatedElements.Contains(networkModelTreeClasses.GID))
+                                {
+                                    OptimizatedElements.Add(networkModelTreeClasses.GID);
+                                }
+                                if (!OptimizatedElements.Contains(gr.GID))
+                                {
+                                    OptimizatedElements.Add(gr.GID);
+                                }
+                                if (!OptimizatedElements.Contains(sgr.GID))
+                                {
+                                    OptimizatedElements.Add(sgr.GID);
+                                }
+                            }
+
+                        }
+                        
+                    }
+                    
+
+
+                }
+
+            }
         }
 
     }

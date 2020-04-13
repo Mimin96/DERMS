@@ -173,9 +173,9 @@ namespace CalculationEngineService
 
                                 HourDataPoint tempProduction = new HourDataPoint();
                                 tempProduction.Time = hdpProduction.Time;
-                                tempProduction.ActivePower = hdpProduction.ActivePower - hdpConsumption.ActivePower;
+                                //tempProduction.ActivePower = hdpProduction.ActivePower;
                                 tempForecast.Production.Hourly.Add(tempProduction);
-                                hdpProduction.ActivePower = hdpConsumption.ActivePower;
+                                //hdpProduction.ActivePower = hdpConsumption.ActivePower;
 
                             }
                             else
