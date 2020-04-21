@@ -52,5 +52,5 @@
             </StatusBarItem>
         </StatusBar>
         <Label Content="SCADA Server" TextBlock.FontWeight="Bold" TextBlock.FontSize="80" HorizontalAlignment="Left" Margin="137,50,0,0" VerticalAlignment="Top" Height="124" Width="542"/>
-          </Grid>
+    </Grid>
 </Window>

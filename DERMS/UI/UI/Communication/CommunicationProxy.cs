@@ -1,4 +1,5 @@
 ﻿using CalculationEngineServiceCommon;
+using DermsUI.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +11,18 @@ namespace UI.Communication
 {
     public class CommunicationProxy
     {
-       // private ServiceHost serviceHost_SCADAData;
+        private ServiceHost serviceHost_SCADAData;
         private ServiceHost serviceHost_NetworkModel;
         private ChannelFactory<ICEUpdateThroughUI> factory;
         public ICEUpdateThroughUI sendToCE;
         public CommunicationProxy()
         {
-            // Receive from CE
-            //serviceHost_SCADAData = new ServiceHost(typeof(SendSCADADataToUI));
-            //NetTcpBinding binding = new NetTcpBinding();
-            //binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-            //serviceHost_SCADAData.AddServiceEndpoint(typeof(ISendSCADADataToUI), binding,
-            //                                new Uri("net.tcp://localhost:19119/ISendSCADADataToUI"));
+            //Receive from CE
+            serviceHost_SCADAData = new ServiceHost(typeof(SendSCADADataToUI));
+            NetTcpBinding binding = new NetTcpBinding();
+            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            serviceHost_SCADAData.AddServiceEndpoint(typeof(ISendSCADADataToUI), binding,
+                                            new Uri("net.tcp://localhost:19119/ISendSCADADataToUI"));
 
             // Receive from CE
             serviceHost_NetworkModel = new ServiceHost(typeof(SendNetworkModelToUI));
@@ -36,9 +37,9 @@ namespace UI.Communication
 
         public void Open()
         {
-            //serviceHost_SCADAData.Open();
+            serviceHost_SCADAData.Open();
             serviceHost_NetworkModel.Open();
-            //sendToCE = factory.CreateChannel();
+            sendToCE = factory.CreateChannel();
 
         }
         public void Open2()
@@ -48,7 +49,7 @@ namespace UI.Communication
 
         public void Close()
         {
-            //serviceHost_SCADAData.Close();
+            serviceHost_SCADAData.Close();
             serviceHost_NetworkModel.Close();
         }
     }

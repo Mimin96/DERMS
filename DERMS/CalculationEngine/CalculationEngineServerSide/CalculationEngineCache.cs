@@ -27,10 +27,10 @@ namespace CalculationEngineService
         private Dictionary<long, DerForecastDayAhead> productionCached = new Dictionary<long, DerForecastDayAhead>();
         private TreeNode<NodeData> graphCached;
 
-		private Dictionary<long, DerForecastDayAhead> copyOfProductionCached = new Dictionary<long, DerForecastDayAhead>();
-		private Dictionary<long, double> listOfGeneratorsForScada = new Dictionary<long, double>();
+        private Dictionary<long, DerForecastDayAhead> copyOfProductionCached = new Dictionary<long, DerForecastDayAhead>();
+        private Dictionary<long, double> listOfGeneratorsForScada = new Dictionary<long, double>();
 
-		private static CalculationEngineCache instance = null;   
+        private static CalculationEngineCache instance = null;
         public static CalculationEngineCache Instance
         {
             get
@@ -44,12 +44,12 @@ namespace CalculationEngineService
 
             }
         }
-        public TreeNode<NodeData> GraphCached 
+        public TreeNode<NodeData> GraphCached
         {
             get { return graphCached; }
             set { graphCached = value; }
         }
-        public List<NetworkModelTreeClass> NetworkModelTreeClass 
+        public List<NetworkModelTreeClass> NetworkModelTreeClass
         {
             get;
             set;
@@ -116,19 +116,19 @@ namespace CalculationEngineService
         public void PopulateProductionForecast(NetworkModelTransfer networkModel)
         {
             ProductionCalculator productionCalculator = new ProductionCalculator(networkModel);
-			foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
-			{
-				foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
-				{
-					var type = kvpDic.Value.GetType();
-					if (type.Name.Equals("Generator"))
-					{
-						var gr = (Generator)kvpDic.Value;
-						AddDerForecast(productionCalculator.CalculateGenerator(GetForecast(kvpDic.Key), gr), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
-					}
-				}
-			}
-			foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
+            foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
+            {
+                foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
+                {
+                    var type = kvpDic.Value.GetType();
+                    if (type.Name.Equals("Generator"))
+                    {
+                        var gr = (Generator)kvpDic.Value;
+                        AddDerForecast(productionCalculator.CalculateGenerator(GetForecast(kvpDic.Key), gr), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
+                    }
+                }
+            }
+            foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
                 foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
                 {
@@ -192,225 +192,225 @@ namespace CalculationEngineService
             }
         }
 
-		public void CalculateNewFlexibility(DataToUI data)
-		{
-			Dictionary<DMSType, long> affectedDERForcast = new Dictionary<DMSType, long>();
-			DERFlexibility flexibility = new DERFlexibility();
-			string type = nmsCache[data.Gid].GetType().Name;
-			Dictionary<long, IdentifiedObject> affectedEntities = new Dictionary<long, IdentifiedObject>();
-			listOfGeneratorsForScada = new Dictionary<long, double>();
-			DataToUI dataForScada = new DataToUI();
+        public void CalculateNewFlexibility(DataToUI data)
+        {
+            Dictionary<DMSType, long> affectedDERForcast = new Dictionary<DMSType, long>();
+            DERFlexibility flexibility = new DERFlexibility();
+            string type = nmsCache[data.Gid].GetType().Name;
+            Dictionary<long, IdentifiedObject> affectedEntities = new Dictionary<long, IdentifiedObject>();
+            listOfGeneratorsForScada = new Dictionary<long, double>();
+            DataToUI dataForScada = new DataToUI();
 
-			copyOfProductionCached = new Dictionary<long, DerForecastDayAhead>(productionCached.Count); // TRENUTNA PROIZVODNJA 24 CASA UNAPRED
+            copyOfProductionCached = new Dictionary<long, DerForecastDayAhead>(productionCached.Count); // TRENUTNA PROIZVODNJA 24 CASA UNAPRED
 
-			foreach (DerForecastDayAhead der in productionCached.Values)
-			{
-				copyOfProductionCached.Add(der.entityGid, new DerForecastDayAhead(der));
-			}	
+            foreach (DerForecastDayAhead der in productionCached.Values)
+            {
+                copyOfProductionCached.Add(der.entityGid, new DerForecastDayAhead(der));
+            }
 
-			if (flexibility.CheckFlexibilityForManualCommanding(data.Gid, nmsCache))
-			{
-				if (type.Equals("Generator"))
-				{
-					foreach (IdentifiedObject io in nmsCache.Values)
-					{
-						if (io.GetType().Name.Equals("GeographicalRegion"))
-						{
-							GeographicalRegion gr = (GeographicalRegion)nmsCache[io.GlobalId];
-							foreach (long s in gr.Regions)
-							{
-								SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCache[s];
+            if (flexibility.CheckFlexibilityForManualCommanding(data.Gid, nmsCache))
+            {
+                if (type.Equals("Generator"))
+                {
+                    foreach (IdentifiedObject io in nmsCache.Values)
+                    {
+                        if (io.GetType().Name.Equals("GeographicalRegion"))
+                        {
+                            GeographicalRegion gr = (GeographicalRegion)nmsCache[io.GlobalId];
+                            foreach (long s in gr.Regions)
+                            {
+                                SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCache[s];
 
-								foreach (long sub in subGeographicalRegion.Substations)
-								{
-									Substation substation = (Substation)nmsCache[sub];
+                                foreach (long sub in subGeographicalRegion.Substations)
+                                {
+                                    Substation substation = (Substation)nmsCache[sub];
 
-									if (substation.Equipments.Contains(data.Gid))  // TREBA IMPLEMENTIRATI U IFU PROSLEDJIVANJE REGIONA I SUBREGIONA U KOM SE NALAZI Generator
-									{
-										if (nmsCache[data.Gid].GetType().Name.Equals("Generator"))
-										{
-											Generator generator = (Generator)nmsCache[data.Gid];
+                                    if (substation.Equipments.Contains(data.Gid))  // TREBA IMPLEMENTIRATI U IFU PROSLEDJIVANJE REGIONA I SUBREGIONA U KOM SE NALAZI Generator
+                                    {
+                                        if (nmsCache[data.Gid].GetType().Name.Equals("Generator"))
+                                        {
+                                            Generator generator = (Generator)nmsCache[data.Gid];
 
-											if (!affectedEntities.ContainsKey(gr.GlobalId))
-												affectedEntities.Add(gr.GlobalId, gr);
+                                            if (!affectedEntities.ContainsKey(gr.GlobalId))
+                                                affectedEntities.Add(gr.GlobalId, gr);
 
-											if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
-												affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
+                                            if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
+                                                affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
 
-											if (!affectedEntities.ContainsKey(substation.GlobalId))
-												affectedEntities.Add(substation.GlobalId, substation);
+                                            if (!affectedEntities.ContainsKey(substation.GlobalId))
+                                                affectedEntities.Add(substation.GlobalId, substation);
 
-											if (!affectedEntities.ContainsKey(generator.GlobalId))
-												affectedEntities.Add(generator.GlobalId, generator);
-										}
-									}
-								}
-							}
-						}
-					}
+                                            if (!affectedEntities.ContainsKey(generator.GlobalId))
+                                                affectedEntities.Add(generator.GlobalId, generator);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
 
-					flexibility.CalculateNewDerForecastDayAheadForGenerator(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
-					listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForGenerator(data.Flexibility, data.Gid, affectedEntities);
-				}
-				else if (type.Equals("Substation"))
-				{
-					foreach (IdentifiedObject io in nmsCache.Values)
-					{
-						if (io.GetType().Name.Equals("GeographicalRegion"))
-						{
-							GeographicalRegion gr = (GeographicalRegion)nmsCache[io.GlobalId];
-							foreach (long s in gr.Regions)
-							{
-								SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCache[s];
-								foreach (long sub in subGeographicalRegion.Substations)
-								{
-									Substation substation = (Substation)nmsCache[sub];
+                    flexibility.CalculateNewDerForecastDayAheadForGenerator(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
+                    listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForGenerator(data.Flexibility, data.Gid, affectedEntities);
+                }
+                else if (type.Equals("Substation"))
+                {
+                    foreach (IdentifiedObject io in nmsCache.Values)
+                    {
+                        if (io.GetType().Name.Equals("GeographicalRegion"))
+                        {
+                            GeographicalRegion gr = (GeographicalRegion)nmsCache[io.GlobalId];
+                            foreach (long s in gr.Regions)
+                            {
+                                SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCache[s];
+                                foreach (long sub in subGeographicalRegion.Substations)
+                                {
+                                    Substation substation = (Substation)nmsCache[sub];
 
-									if (substation.GlobalId.Equals(data.Gid))  // TREBA IMPLEMENTIRATI U IFU PROSLEDJIVANJE REGIONA I SUBREGIONA U KOM SE NALAZI Substation
-									{
-										foreach (long gen in substation.Equipments)
-										{
-											if (nmsCache[gen].GetType().Name.Equals("Generator"))
-											{
-												Generator generator = (Generator)nmsCache[gen];
+                                    if (substation.GlobalId.Equals(data.Gid))  // TREBA IMPLEMENTIRATI U IFU PROSLEDJIVANJE REGIONA I SUBREGIONA U KOM SE NALAZI Substation
+                                    {
+                                        foreach (long gen in substation.Equipments)
+                                        {
+                                            if (nmsCache[gen].GetType().Name.Equals("Generator"))
+                                            {
+                                                Generator generator = (Generator)nmsCache[gen];
 
-												if (!affectedEntities.ContainsKey(gr.GlobalId))
-													affectedEntities.Add(gr.GlobalId, gr);
+                                                if (!affectedEntities.ContainsKey(gr.GlobalId))
+                                                    affectedEntities.Add(gr.GlobalId, gr);
 
-												if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
-													affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
+                                                if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
+                                                    affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
 
-												if (!affectedEntities.ContainsKey(substation.GlobalId))
-													affectedEntities.Add(substation.GlobalId, substation);
+                                                if (!affectedEntities.ContainsKey(substation.GlobalId))
+                                                    affectedEntities.Add(substation.GlobalId, substation);
 
-												if (!affectedEntities.ContainsKey(generator.GlobalId))
-													affectedEntities.Add(generator.GlobalId, generator);
-											}
-										}
-									}
-								}
-							}
-						}
-					}
+                                                if (!affectedEntities.ContainsKey(generator.GlobalId))
+                                                    affectedEntities.Add(generator.GlobalId, generator);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
 
-					flexibility.CalculateNewDerForecastDayAheadForSubstation(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
-					listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForSubstation(data.Flexibility, data.Gid, affectedEntities);
-				}
-				else if (type.Equals("SubGeographicalRegion"))
-				{
-					foreach (IdentifiedObject io in nmsCache.Values)
-					{
-						if (io.GetType().Name.Equals("GeographicalRegion"))
-						{
-							GeographicalRegion gr = (GeographicalRegion)nmsCache[io.GlobalId];
+                    flexibility.CalculateNewDerForecastDayAheadForSubstation(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
+                    listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForSubstation(data.Flexibility, data.Gid, affectedEntities);
+                }
+                else if (type.Equals("SubGeographicalRegion"))
+                {
+                    foreach (IdentifiedObject io in nmsCache.Values)
+                    {
+                        if (io.GetType().Name.Equals("GeographicalRegion"))
+                        {
+                            GeographicalRegion gr = (GeographicalRegion)nmsCache[io.GlobalId];
 
-							foreach (long s in gr.Regions)
-							{
-								SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCache[s];
+                            foreach (long s in gr.Regions)
+                            {
+                                SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCache[s];
 
-								if (subGeographicalRegion.GlobalId.Equals(data.Gid))
-								{
+                                if (subGeographicalRegion.GlobalId.Equals(data.Gid))
+                                {
 
-									foreach (long sub in subGeographicalRegion.Substations)
-									{
-										Substation substation = (Substation)nmsCache[sub];
+                                    foreach (long sub in subGeographicalRegion.Substations)
+                                    {
+                                        Substation substation = (Substation)nmsCache[sub];
 
-										foreach (long gen in substation.Equipments)
-										{
-											if (nmsCache[gen].GetType().Name.Equals("Generator"))
-											{
-												Generator generator = (Generator)nmsCache[gen];
+                                        foreach (long gen in substation.Equipments)
+                                        {
+                                            if (nmsCache[gen].GetType().Name.Equals("Generator"))
+                                            {
+                                                Generator generator = (Generator)nmsCache[gen];
 
-												if (!affectedEntities.ContainsKey(gr.GlobalId))
-													affectedEntities.Add(gr.GlobalId, gr);
+                                                if (!affectedEntities.ContainsKey(gr.GlobalId))
+                                                    affectedEntities.Add(gr.GlobalId, gr);
 
-												if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
-													affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
+                                                if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
+                                                    affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
 
-												if (!affectedEntities.ContainsKey(substation.GlobalId))
-													affectedEntities.Add(substation.GlobalId, substation);
+                                                if (!affectedEntities.ContainsKey(substation.GlobalId))
+                                                    affectedEntities.Add(substation.GlobalId, substation);
 
-												if (!affectedEntities.ContainsKey(generator.GlobalId))
-													affectedEntities.Add(generator.GlobalId, generator);
-											}
-										}
-									}
-								}
-							}
-						}
-					}
+                                                if (!affectedEntities.ContainsKey(generator.GlobalId))
+                                                    affectedEntities.Add(generator.GlobalId, generator);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
 
-					flexibility.CalculateNewDerForecastDayAheadForSubGeoRegion(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
-					listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForSubGeoRegion(data.Flexibility, data.Gid, affectedEntities);
+                    flexibility.CalculateNewDerForecastDayAheadForSubGeoRegion(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
+                    listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForSubGeoRegion(data.Flexibility, data.Gid, affectedEntities);
 
-				}
-				else if (type.Equals("GeographicalRegion"))
-				{
+                }
+                else if (type.Equals("GeographicalRegion"))
+                {
 
-					GeographicalRegion gr = (GeographicalRegion)nmsCache[data.Gid];
+                    GeographicalRegion gr = (GeographicalRegion)nmsCache[data.Gid];
 
-					foreach (long s in gr.Regions)
-					{
-						SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCache[s];
+                    foreach (long s in gr.Regions)
+                    {
+                        SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCache[s];
 
-						foreach (long sub in subGeographicalRegion.Substations)
-						{
-							Substation substation = (Substation)nmsCache[sub];
+                        foreach (long sub in subGeographicalRegion.Substations)
+                        {
+                            Substation substation = (Substation)nmsCache[sub];
 
-							foreach (long gen in substation.Equipments)
-							{
-								if (nmsCache[gen].GetType().Name.Equals("Generator"))
-								{
-									Generator generator = (Generator)nmsCache[gen];
+                            foreach (long gen in substation.Equipments)
+                            {
+                                if (nmsCache[gen].GetType().Name.Equals("Generator"))
+                                {
+                                    Generator generator = (Generator)nmsCache[gen];
 
-									if (!affectedEntities.ContainsKey(gr.GlobalId))
-										affectedEntities.Add(gr.GlobalId, gr);
+                                    if (!affectedEntities.ContainsKey(gr.GlobalId))
+                                        affectedEntities.Add(gr.GlobalId, gr);
 
-									if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
-										affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
+                                    if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
+                                        affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
 
-									if (!affectedEntities.ContainsKey(substation.GlobalId))
-										affectedEntities.Add(substation.GlobalId, substation);
+                                    if (!affectedEntities.ContainsKey(substation.GlobalId))
+                                        affectedEntities.Add(substation.GlobalId, substation);
 
-									if (!affectedEntities.ContainsKey(generator.GlobalId))
-										affectedEntities.Add(generator.GlobalId, generator);
-								}
-							}
-						}
-					}
+                                    if (!affectedEntities.ContainsKey(generator.GlobalId))
+                                        affectedEntities.Add(generator.GlobalId, generator);
+                                }
+                            }
+                        }
+                    }
 
-					flexibility.CalculateNewDerForecastDayAheadForGeoRegion(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
-					listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForGeoRegion(data.Flexibility, data.Gid, affectedEntities);
+                    flexibility.CalculateNewDerForecastDayAheadForGeoRegion(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities);
+                    listOfGeneratorsForScada = flexibility.TurnOnFlexibilityForGeoRegion(data.Flexibility, data.Gid, affectedEntities);
 
-				}
-			}
+                }
+            }
 
-			//dataForScada.DataFromCEToScada = listOfGeneratorsForScada;
+            //dataForScada.DataFromCEToScada = listOfGeneratorsForScada;
             //PubSubCalculatioEngine.Instance.Notify(dataForScada, (int)Enums.Topics.Flexibility);
 
-			ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(listOfGeneratorsForScada);
-			UpdateMinAndMaxFlexibilityForChangedGenerators(); // OVU LINIJU OBRISATI			
-		}
+            ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(listOfGeneratorsForScada);
+            UpdateMinAndMaxFlexibilityForChangedGenerators(); // OVU LINIJU OBRISATI			
+        }
 
-		public void ApplyChangesOnProductionCached() // KAD STIGNE POTVRDA SA SKADE DA SU PROMENE IZVRSENE, POZIVAMO OVU METODU KAKO BI NOVI PRORACUNI PROIZVODNJE ZA 24h BILI PRIMENJENI NA CACHE
-		{
-			productionCached = new Dictionary<long, DerForecastDayAhead>(copyOfProductionCached.Count);
+        public void ApplyChangesOnProductionCached() // KAD STIGNE POTVRDA SA SKADE DA SU PROMENE IZVRSENE, POZIVAMO OVU METODU KAKO BI NOVI PRORACUNI PROIZVODNJE ZA 24h BILI PRIMENJENI NA CACHE
+        {
+            productionCached = new Dictionary<long, DerForecastDayAhead>(copyOfProductionCached.Count);
 
-			foreach (DerForecastDayAhead der in copyOfProductionCached.Values)
-			{
-				productionCached.Add(der.entityGid, new DerForecastDayAhead(der));
-			}
+            foreach (DerForecastDayAhead der in copyOfProductionCached.Values)
+            {
+                productionCached.Add(der.entityGid, new DerForecastDayAhead(der));
+            }
 
-			SendDerForecastDayAhead();
-			UpdateMinAndMaxFlexibilityForChangedGenerators();
-		}
+            SendDerForecastDayAhead();
+            UpdateMinAndMaxFlexibilityForChangedGenerators();
+        }
 
-		public void SendDerForecastDayAhead()
-		{
-			PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
-		}
+        public void SendDerForecastDayAhead()
+        {
+            PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
+        }
 
-		public Dictionary<long, IdentifiedObject> GetNMSModel()
+        public Dictionary<long, IdentifiedObject> GetNMSModel()
         {
             return nmsCache;
         }
@@ -527,7 +527,7 @@ namespace CalculationEngineService
             }
         }
 
-        
+
 
         #region Build Tree
         public void PopulateGraphCached(NetworkModelTransfer networkModelTransfer)
@@ -566,7 +566,7 @@ namespace CalculationEngineService
                     NetworkModelTreeClass[0].GeographicalRegions.Where(x => x.GID == idOb.GlobalId).First()
                                             .GeographicalSubRegions.Add(new GeographicalSubRegionTreeClass(subRegion.Name, subRegion.GlobalId, DMSType.SUBGEOGRAPHICALREGION, -1, -1));
 
-                   found.AddChild(new NodeData(subRegion, DMSType.SUBGEOGRAPHICALREGION, false));
+                    found.AddChild(new NodeData(subRegion, DMSType.SUBGEOGRAPHICALREGION, false));
                 }
             }
 
@@ -578,7 +578,7 @@ namespace CalculationEngineService
                 {
                     IdentifiedObject substation = networkModelTransfer.Insert[DMSType.SUBSTATION].Values.ToList().Where(x => x.GlobalId == gid).First();
 
-                    GeographicalSubRegionTreeClass subRegionTreeClass =  NetworkModelTreeClass[0].GeographicalRegions.SelectMany(x => x.GeographicalSubRegions.Where( y => y.GID == idOb.GlobalId )).FirstOrDefault();
+                    GeographicalSubRegionTreeClass subRegionTreeClass = NetworkModelTreeClass[0].GeographicalRegions.SelectMany(x => x.GeographicalSubRegions.Where(y => y.GID == idOb.GlobalId)).FirstOrDefault();
                     subRegionTreeClass.Substations.Add(new SubstationTreeClass(substation.Name, substation.GlobalId, DMSType.SUBSTATION, -1, -1));
 
                     found.AddChild(new NodeData(substation, DMSType.SUBSTATION, false));
@@ -666,116 +666,116 @@ namespace CalculationEngineService
             //
 
             ColorGraph();
-			CalculateFlexibility();
-			//OBAVESTI UI DA JE DOSLO DO PROMENE I POSALJI OVAJ GRAPH
-		}
-		private void CalculateFlexibility()
-		{
-			float minFlexibilitySubstation = 0;
-			float maxFlexibilitySubstation = 0;
-			float productionSubstation = 0;
+            CalculateFlexibility();
+            //OBAVESTI UI DA JE DOSLO DO PROMENE I POSALJI OVAJ GRAPH
+        }
+        private void CalculateFlexibility()
+        {
+            float minFlexibilitySubstation = 0;
+            float maxFlexibilitySubstation = 0;
+            float productionSubstation = 0;
 
-			float minFlexibilitySubRegion = 0;
-			float maxFlexibilitySubRegion = 0;
-			float productionSubRegion = 0;
+            float minFlexibilitySubRegion = 0;
+            float maxFlexibilitySubRegion = 0;
+            float productionSubRegion = 0;
 
-			float minFlexibilityGeoRegion = 0;
-			float maxFlexibilityGeoRegion = 0;
-			float productionGeoRegion = 0;
+            float minFlexibilityGeoRegion = 0;
+            float maxFlexibilityGeoRegion = 0;
+            float productionGeoRegion = 0;
 
-			float minFlexibilityNetworkModel = 0;
-			float maxFlexibilityNetworkModel = 0;
-			float productionNetworkModel = 0;
+            float minFlexibilityNetworkModel = 0;
+            float maxFlexibilityNetworkModel = 0;
+            float productionNetworkModel = 0;
 
-			foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModelTreeClass)
-			{
-				foreach(GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
-				{
-					foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
-					{						
-						foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
-						{
-							foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
-							{
-								if(substationElementTreeClass.Type.Equals(DMSType.GENERATOR))
-								{
-									productionSubstation += substationElementTreeClass.P;
-									minFlexibilitySubstation += (substationElementTreeClass.P * substationElementTreeClass.MinFlexibility) / 100;
-									maxFlexibilitySubstation += (substationElementTreeClass.P * substationElementTreeClass.MaxFlexibility) / 100;
-								}
-							}
+            foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModelTreeClass)
+            {
+                foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
+                {
+                    foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
+                    {
+                        foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
+                        {
+                            foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
+                            {
+                                if (substationElementTreeClass.Type.Equals(DMSType.GENERATOR))
+                                {
+                                    productionSubstation += substationElementTreeClass.P;
+                                    minFlexibilitySubstation += (substationElementTreeClass.P * substationElementTreeClass.MinFlexibility) / 100;
+                                    maxFlexibilitySubstation += (substationElementTreeClass.P * substationElementTreeClass.MaxFlexibility) / 100;
+                                }
+                            }
 
-							substationTreeClass.MinFlexibility = (100 * minFlexibilitySubstation) / productionSubstation;
-							substationTreeClass.MaxFlexibility = (100 * maxFlexibilitySubstation) / productionSubstation;
+                            substationTreeClass.MinFlexibility = (100 * minFlexibilitySubstation) / productionSubstation;
+                            substationTreeClass.MaxFlexibility = (100 * maxFlexibilitySubstation) / productionSubstation;
 
-							productionSubRegion += productionSubstation;
-							minFlexibilitySubRegion += (productionSubstation * substationTreeClass.MinFlexibility) / 100;
-							maxFlexibilitySubRegion += (productionSubstation * substationTreeClass.MaxFlexibility) / 100;
+                            productionSubRegion += productionSubstation;
+                            minFlexibilitySubRegion += (productionSubstation * substationTreeClass.MinFlexibility) / 100;
+                            maxFlexibilitySubRegion += (productionSubstation * substationTreeClass.MaxFlexibility) / 100;
 
-							minFlexibilitySubstation = 0;
-							maxFlexibilitySubstation = 0;
-							productionSubstation = 0;
-						}
+                            minFlexibilitySubstation = 0;
+                            maxFlexibilitySubstation = 0;
+                            productionSubstation = 0;
+                        }
 
-						geographicalSubRegionTreeClass.MinFlexibility = (100 * minFlexibilitySubRegion) / productionSubRegion;
-						geographicalSubRegionTreeClass.MaxFlexibility = (100 * maxFlexibilitySubRegion) / productionSubRegion;
+                        geographicalSubRegionTreeClass.MinFlexibility = (100 * minFlexibilitySubRegion) / productionSubRegion;
+                        geographicalSubRegionTreeClass.MaxFlexibility = (100 * maxFlexibilitySubRegion) / productionSubRegion;
 
-						productionGeoRegion += productionSubRegion;
-						minFlexibilityGeoRegion += (productionSubRegion * geographicalSubRegionTreeClass.MinFlexibility) / 100;
-						maxFlexibilityGeoRegion += (productionSubRegion * geographicalSubRegionTreeClass.MaxFlexibility) / 100;
+                        productionGeoRegion += productionSubRegion;
+                        minFlexibilityGeoRegion += (productionSubRegion * geographicalSubRegionTreeClass.MinFlexibility) / 100;
+                        maxFlexibilityGeoRegion += (productionSubRegion * geographicalSubRegionTreeClass.MaxFlexibility) / 100;
 
-						minFlexibilitySubRegion = 0;
-						maxFlexibilitySubRegion = 0;
-						productionSubRegion = 0;
-					}
+                        minFlexibilitySubRegion = 0;
+                        maxFlexibilitySubRegion = 0;
+                        productionSubRegion = 0;
+                    }
 
-					geographicalRegionTreeClass.MinFlexibility = (100 * minFlexibilityGeoRegion) / productionGeoRegion;
-					geographicalRegionTreeClass.MaxFlexibility = (100 * maxFlexibilityGeoRegion) / productionGeoRegion;
+                    geographicalRegionTreeClass.MinFlexibility = (100 * minFlexibilityGeoRegion) / productionGeoRegion;
+                    geographicalRegionTreeClass.MaxFlexibility = (100 * maxFlexibilityGeoRegion) / productionGeoRegion;
 
-					productionNetworkModel += productionGeoRegion;
-					minFlexibilityNetworkModel += (productionGeoRegion * geographicalRegionTreeClass.MinFlexibility) / 100;
-					maxFlexibilityNetworkModel += (productionGeoRegion * geographicalRegionTreeClass.MaxFlexibility) / 100;
+                    productionNetworkModel += productionGeoRegion;
+                    minFlexibilityNetworkModel += (productionGeoRegion * geographicalRegionTreeClass.MinFlexibility) / 100;
+                    maxFlexibilityNetworkModel += (productionGeoRegion * geographicalRegionTreeClass.MaxFlexibility) / 100;
 
-					minFlexibilityGeoRegion = 0;
-					maxFlexibilityGeoRegion = 0;
-					productionGeoRegion = 0;
+                    minFlexibilityGeoRegion = 0;
+                    maxFlexibilityGeoRegion = 0;
+                    productionGeoRegion = 0;
 
-				}
+                }
 
-				networkModelTreeClasses.MinFlexibility = (100 * minFlexibilityNetworkModel) / productionNetworkModel;
-				networkModelTreeClasses.MaxFlexibility = (100 * maxFlexibilityNetworkModel) / productionNetworkModel;
+                networkModelTreeClasses.MinFlexibility = (100 * minFlexibilityNetworkModel) / productionNetworkModel;
+                networkModelTreeClasses.MaxFlexibility = (100 * maxFlexibilityNetworkModel) / productionNetworkModel;
 
-				minFlexibilityNetworkModel = 0;
-				maxFlexibilityNetworkModel = 0;
-				productionNetworkModel = 0;
-			}
+                minFlexibilityNetworkModel = 0;
+                maxFlexibilityNetworkModel = 0;
+                productionNetworkModel = 0;
+            }
 
-			DataToUI data = new DataToUI();
-			data.NetworkModelTreeClass = NetworkModelTreeClass;
-			PubSubCalculatioEngine.Instance.Notify(data, (int)Enums.Topics.NetworkModelTreeClass);
+            DataToUI data = new DataToUI();
+            data.NetworkModelTreeClass = NetworkModelTreeClass;
+            PubSubCalculatioEngine.Instance.Notify(data, (int)Enums.Topics.NetworkModelTreeClass);
 
-		}
-		private void UpdateMinAndMaxFlexibilityForChangedGenerators()
-		{
-			double minProd = 0;
-			double maxProd = 0;
-			double currentProd = 0;
+        }
+        private void UpdateMinAndMaxFlexibilityForChangedGenerators()
+        {
+            double minProd = 0;
+            double maxProd = 0;
+            double currentProd = 0;
 
-			foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModelTreeClass)
-			{
-				foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
-				{
-					foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
-					{
-						foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
-						{
-							foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
-							{
-								if (substationElementTreeClass.Type.Equals(DMSType.GENERATOR))
-								{
-									if(listOfGeneratorsForScada.ContainsKey(substationElementTreeClass.GID))
-									{
-										/*if(listOfGeneratorsForScada[substationElementTreeClass.GID] > 0)
+            foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModelTreeClass)
+            {
+                foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
+                {
+                    foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
+                    {
+                        foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
+                        {
+                            foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
+                            {
+                                if (substationElementTreeClass.Type.Equals(DMSType.GENERATOR))
+                                {
+                                    if (listOfGeneratorsForScada.ContainsKey(substationElementTreeClass.GID))
+                                    {
+                                        /*if(listOfGeneratorsForScada[substationElementTreeClass.GID] > 0)
 										{
 											substationElementTreeClass.MinFlexibility += (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
 											substationElementTreeClass.MaxFlexibility -= (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
@@ -796,31 +796,31 @@ namespace CalculationEngineService
 											}
 										}*/
 
-										maxProd = substationElementTreeClass.P + substationElementTreeClass.P * (substationElementTreeClass.MaxFlexibility / 100);
-										minProd = substationElementTreeClass.P - substationElementTreeClass.P * (substationElementTreeClass.MinFlexibility / 100);
+                                        maxProd = substationElementTreeClass.P + substationElementTreeClass.P * (substationElementTreeClass.MaxFlexibility / 100);
+                                        minProd = substationElementTreeClass.P - substationElementTreeClass.P * (substationElementTreeClass.MinFlexibility / 100);
 
-										if (listOfGeneratorsForScada[substationElementTreeClass.GID] > 0)
-										{
-											currentProd = substationElementTreeClass.P + substationElementTreeClass.P * (listOfGeneratorsForScada[substationElementTreeClass.GID] / 100);
-										}
-										else
-										{
-											currentProd = substationElementTreeClass.P - substationElementTreeClass.P * (listOfGeneratorsForScada[substationElementTreeClass.GID] / 100);
-										}
+                                        if (listOfGeneratorsForScada[substationElementTreeClass.GID] > 0)
+                                        {
+                                            currentProd = substationElementTreeClass.P + substationElementTreeClass.P * (listOfGeneratorsForScada[substationElementTreeClass.GID] / 100);
+                                        }
+                                        else
+                                        {
+                                            currentProd = substationElementTreeClass.P - substationElementTreeClass.P * (listOfGeneratorsForScada[substationElementTreeClass.GID] / 100);
+                                        }
 
-										substationElementTreeClass.P = (float)currentProd;
-										substationElementTreeClass.MaxFlexibility = (float)(((maxProd - currentProd) * 100) / currentProd);
-										substationElementTreeClass.MinFlexibility = (float)(((currentProd - minProd) * 100) / currentProd);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+                                        substationElementTreeClass.P = (float)currentProd;
+                                        substationElementTreeClass.MaxFlexibility = (float)(((maxProd - currentProd) * 100) / currentProd);
+                                        substationElementTreeClass.MinFlexibility = (float)(((currentProd - minProd) * 100) / currentProd);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-			CalculateFlexibility();
-		}
+            CalculateFlexibility();
+        }
         private void DoStartTerminal(Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             // Get energy ESRC
@@ -1233,7 +1233,11 @@ namespace CalculationEngineService
                 }
                 else if (node.Data.Type == DMSType.DISCRETE)
                 {
-                    node.Data.Value = int.Parse(dp.Value, CultureInfo.InvariantCulture.NumberFormat);
+                    int vrednost;
+                    if (dp.Value == "OFF")
+                        vrednost = 0;
+                    else vrednost = 1;
+                    node.Data.Value = vrednost;
                 }
             }
 

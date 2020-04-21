@@ -24,6 +24,8 @@ namespace DERMSCommon.SCADACommon
         [DataMember]
         private long _gid;
         [DataMember]
+        private long _gidGeneratora;
+        [DataMember]
         private string _value;
         [DataMember]
         private ushort _rawValue;
@@ -31,10 +33,11 @@ namespace DERMSCommon.SCADACommon
         private PackIconKind _alarmImage;
         [DataMember]
         private SolidColorBrush _alarmImageColor;
+
         [DataMember]
         protected AlarmType _alarm;
 
-        public DataPoint(long gid, PointType type, ushort address, DateTime timestamp, string name, string value, ushort rawValue, AlarmType alarm)
+        public DataPoint(long gid, PointType type, ushort address, DateTime timestamp, string name, string value, ushort rawValue, AlarmType alarm, long gidGeneratora)
         {
             _gid = gid;
             _type = type;
@@ -44,6 +47,7 @@ namespace DERMSCommon.SCADACommon
             _value = value;
             _rawValue = rawValue;
             _alarm = alarm;
+            _gidGeneratora = gidGeneratora;
 
         }
 
@@ -88,6 +92,14 @@ namespace DERMSCommon.SCADACommon
             get
             {
                 return _gid;
+            }
+        }
+
+        public long GidGeneratora
+        {
+            get
+            {
+                return _gidGeneratora;
             }
         }
 

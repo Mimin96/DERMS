@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-	public interface IConfiguration
-	{
-		int TcpPort { get; }
-		byte UnitAddress { get; }
+    public interface IConfiguration
+    {
+        int TcpPort { get; }
+        byte UnitAddress { get; }
 
-		ushort GetTransactionId();
-		List<IConfigItem> GetConfigurationItems();
+        ushort GetTransactionId();
+        List<IConfigItem> GetConfigurationItems();
 
-		int GetAcquisitionInterval(string pointDescription);
+        int GetAcquisitionInterval(string pointDescription);
 
-		ushort GetStartAddress(string pointDescription);
+        ushort GetStartAddress(string pointDescription);
 
-		ushort GetNumberOfRegisters(string pointDescription);
-	}
+        ushort GetNumberOfRegisters(string pointDescription);
+    }
 }

@@ -10,16 +10,16 @@ using System.Windows.Media;
 
 namespace dCom.Converters
 {
-	public class AlarmToBackgroundColorConverter : IValueConverter
-	{
-		private SolidColorBrush red = new SolidColorBrush(Colors.Red);
-		private SolidColorBrush transparent = new SolidColorBrush(Colors.Transparent);
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			SolidColorBrush color = new SolidColorBrush(Colors.Transparent);
-			if (value != null && value is AlarmType)
-			{
-				AlarmType a = (AlarmType)value;
+    public class AlarmToBackgroundColorConverter : IValueConverter
+    {
+        private SolidColorBrush red = new SolidColorBrush(Colors.Red);
+        private SolidColorBrush transparent = new SolidColorBrush(Colors.Transparent);
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            SolidColorBrush color = new SolidColorBrush(Colors.Transparent);
+            if (value != null && value is AlarmType)
+            {
+                AlarmType a = (AlarmType)value;
                 if (a == AlarmType.REASONABILITY_FAILURE)
                 {
                     color = new SolidColorBrush(Colors.Red);
@@ -36,12 +36,12 @@ namespace dCom.Converters
                     color.Opacity = 0.5;
                 }
             }
-			return color;
-		}
+            return color;
+        }
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
-	}
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

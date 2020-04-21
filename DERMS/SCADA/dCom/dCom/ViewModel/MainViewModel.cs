@@ -1,6 +1,7 @@
 ﻿using CalculationEngineServiceCommon;
 using Common;
 using dCom.Configuration;
+using dCom.Simulation;
 using DERMSCommon.NMSCommuication;
 using DERMSCommon.TransactionManager;
 using Modbus.Acquisition;
@@ -20,7 +21,8 @@ namespace dCom.ViewModel
         public ObservableCollection<BasePointItem> Points { get; set; }
         private ISendDataToCEThroughScada ProxyUI { get; set; }
         private ChannelFactory<ISendDataToCEThroughScada> factoryUI;
-
+        private ServiceHost serviceHostForNMS;
+        private ServiceHost serviceHostForCE;
         private ITransactionListing ProxyTM { get; set; }
         private ChannelFactory<ITransactionListing> factoryTM;
 
@@ -41,6 +43,8 @@ namespace dCom.ViewModel
         private bool disposed = false;
         IConfiguration configuration;
         EasyModbus.ModbusClient modbusClient = new EasyModbus.ModbusClient();
+        private WheaterSimulator ws = new WheaterSimulator();
+        private int brojac = 0;
         #endregion Fields
 
         #region Properties
@@ -113,22 +117,56 @@ namespace dCom.ViewModel
             Console.WriteLine("Connected: net.tcp://localhost:20508/ITransactionListing");
             ProxyTM.Enlist("net.tcp://localhost:19518/ITransactionCheck");
 
-            configuration = new ConfigReader();
-            commandExecutor = new FunctionExecutor(this, configuration);
-            this.acquisitor = new Acquisitor(acquisitionTrigger, this.commandExecutor, this, configuration);
-            modbusClient.Connect();
-            ushort a = configuration.GetStartAddress("DigOut0");
-            bool[] nesto = modbusClient.ReadCoils(configuration.GetStartAddress("DigOut0"), 1);
-
-            InitializePointCollection();
+            //configuration = new ConfigReader();
+            //commandExecutor = new FunctionExecutor(this, configuration);
+            //this.acquisitor = new Acquisitor(acquisitionTrigger, this.commandExecutor, this, configuration);
+            openConnection();
+            //InitializePointCollection();
             InitializeAndStartThreads();
             logBuilder = new StringBuilder();
-            ConnectionState = ConnectionState.DISCONNECTED;
+            ConnectionState = ConnectionState.CONNECTED;
             Thread.CurrentThread.Name = "Main Thread";
+
+
+
         }
 
         #region Private methods
+        private void openConnection()
+        {
+            //Open service for NMS
+            string address3 = String.Format("net.tcp://localhost:19012/ISendDataFromNMSToScada");
+            NetTcpBinding binding = new NetTcpBinding();
+            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            serviceHostForNMS = new ServiceHost(typeof(SendDataFromNmsToScada));
 
+            serviceHostForNMS.AddServiceEndpoint(typeof(ISendDataFromNMSToScada), binding, address3);
+            serviceHostForNMS.Open();
+            Console.WriteLine("Open: net.tcp://localhost:19012/ISendDataFromNMSToScada");
+
+
+            //Open service for NMS
+            string address = String.Format("net.tcp://localhost:18503/ISendListOfGeneratorsToScada");
+            NetTcpBinding binding2 = new NetTcpBinding();
+            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            serviceHostForCE = new ServiceHost(typeof(SendListOfGeneratorsToScada));
+
+            serviceHostForCE.AddServiceEndpoint(typeof(ISendListOfGeneratorsToScada), binding2, address);
+            serviceHostForCE.Open();
+            Console.WriteLine("Open: net.tcp://localhost:19012/ISendListOfGeneratorsToScada");
+            //Open service for TM
+            SendDataFromNmsToScada nmsToScada = new SendDataFromNmsToScada();
+            string address4 = String.Format("net.tcp://localhost:19518/ITransactionCheck");
+            NetTcpBinding binding4 = new NetTcpBinding();
+            binding4.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            ServiceHost serviceHostForTM = new ServiceHost(new SCADATranscation(nmsToScada));
+            var behaviour = serviceHostForTM.Description.Behaviors.Find<ServiceBehaviorAttribute>();
+            behaviour.InstanceContextMode = InstanceContextMode.Single;
+            serviceHostForTM.AddServiceEndpoint(typeof(ITransactionCheck), binding4, address4);
+            serviceHostForTM.Open();
+
+            Console.WriteLine("Open: net.tcp://localhost:19518/ITransactionCheck");
+        }
         private void InitializePointCollection()
         {
             List<DERMSCommon.SCADACommon.DataPoint> datapoints = new List<DERMSCommon.SCADACommon.DataPoint>();
@@ -140,7 +178,7 @@ namespace dCom.ViewModel
                 {
                     Points.Add(pi);
                     DERMSCommon.SCADACommon.PointType dad = (DERMSCommon.SCADACommon.PointType)pi.Type;
-                    DERMSCommon.SCADACommon.DataPoint dataPoint = new DERMSCommon.SCADACommon.DataPoint((long)pi.Gid, (DERMSCommon.SCADACommon.PointType)pi.Type, pi.Address, pi.Timestamp, pi.Name, pi.DisplayValue, pi.RawValue, (DERMSCommon.SCADACommon.AlarmType)pi.Alarm);
+                    DERMSCommon.SCADACommon.DataPoint dataPoint = new DERMSCommon.SCADACommon.DataPoint((long)pi.Gid, (DERMSCommon.SCADACommon.PointType)pi.Type, pi.Address, pi.Timestamp, pi.Name, pi.DisplayValue, pi.RawValue, (DERMSCommon.SCADACommon.AlarmType)pi.Alarm, c.GidGeneratora);
                     datapoints.Add(dataPoint);
                 }
             }
@@ -384,9 +422,12 @@ namespace dCom.ViewModel
                 if (disposed)
                     return;
 
+                brojac++;
                 CurrentTime = DateTime.Now;
                 ElapsedTime = ElapsedTime.Add(new TimeSpan(0, 0, 1));
                 acquisitionTrigger.Set();
+                if (brojac % 100 == 0)
+                    ws.SimulateWheater();
                 Thread.Sleep(1000);
             }
         }

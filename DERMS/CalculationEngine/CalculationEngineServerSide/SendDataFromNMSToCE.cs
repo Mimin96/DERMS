@@ -30,7 +30,7 @@ namespace CalculationEngineService
             // AKO JE U PITANJU MODEL UPDATE POZIVA SE CalculationEngineCache.Instance.RestartCache(networkModel);
             // AKO JE U PITANJU CITAV MODEL PRILIKOM POKRETANJA APLIKACIJE POZIVA SE CalculationEngineCache.Instance.PopulateNSMModelCache(networkModel);
             networkModel = Nmt;
-            if(networkModel.InitState)
+            if (networkModel.InitState)
                 CalculationEngineCache.Instance.PopulateNSMModelCache(networkModel);
             else
                 CalculationEngineCache.Instance.RestartCache(networkModel);

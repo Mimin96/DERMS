@@ -32,7 +32,7 @@ namespace FTN.Services.NetworkModelService
             proxyFromNMSToCE = new CommunicationWithCE();
             proxyFromNMSToScada = new CommunicationWithScada();
             bool result;
-            bool result1;            
+            bool result1;
 
             proxyFromNMSToTM.Open();
             proxyFromNMSToTM.sendToTM.Enlist("net.tcp://localhost:19506/ITransactionCheck");
@@ -116,7 +116,7 @@ namespace FTN.Services.NetworkModelService
             {
                 networkModel = networkModelCopy;
                 return updateResult;
-            }          
+            }
 
             return updateResult;
         }
@@ -214,5 +214,5 @@ namespace FTN.Services.NetworkModelService
     }
 }
 
-    
+
 

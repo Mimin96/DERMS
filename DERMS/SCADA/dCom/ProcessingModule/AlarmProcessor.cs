@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace ProcessingModule
 {
-	public static class AlarmProcessor
-	{
+    public static class AlarmProcessor
+    {
 
         public static AlarmType GetAlarmForAnalogPoint(double eguValue, IConfigItem configItem)
-		{
-			AlarmType alarm = AlarmType.NO_ALARM;
+        {
+            AlarmType alarm = AlarmType.NO_ALARM;
             if (CheckReasonability(eguValue, configItem))
             {
                 alarm = AlarmType.REASONABILITY_FAILURE;
             }
-            else if(eguValue > configItem.HighAlarm)
+            else if (eguValue > configItem.HighAlarm)
             {
                 alarm = AlarmType.HIGH_ALARM;
             }
@@ -27,10 +27,10 @@ namespace ProcessingModule
             }
 
             return alarm;
-		}
+        }
 
-		private static bool CheckReasonability(double eguValue, IConfigItem configItem)
-		{
+        private static bool CheckReasonability(double eguValue, IConfigItem configItem)
+        {
             //ovde izmenio
             bool rez = false;
 
@@ -40,10 +40,10 @@ namespace ProcessingModule
             }
 
             return rez;
-		}
+        }
 
-		public static AlarmType GetAlarmForDigitalPoint(ushort state, IConfigItem configItem)
-		{
+        public static AlarmType GetAlarmForDigitalPoint(ushort state, IConfigItem configItem)
+        {
             //ovde izmenio
             AlarmType a;
             if (state == configItem.AbnormalValue)

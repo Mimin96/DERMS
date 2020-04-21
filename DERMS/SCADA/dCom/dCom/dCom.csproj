@@ -40,6 +40,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DarkSkyApi, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DarkSkyApi.3.3\lib\netstandard1.1\DarkSkyApi.dll</HintPath>
+    </Reference>
     <Reference Include="EasyModbus, Version=5.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\EasyModbusTCP.5.5.0\lib\EasyModbus.dll</HintPath>
     </Reference>
@@ -72,6 +75,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Configuration\ConfigItemEqualityComparer.cs" />
+    <Compile Include="Configuration\SCADACommunication.cs" />
     <Compile Include="Configuration\SCADATranscation.cs" />
     <Compile Include="Configuration\SendDataFromNmsToScada.cs" />
     <Compile Include="Configuration\SendListOfGeneratorsToScada.cs" />
@@ -82,6 +86,7 @@
     <Compile Include="Converters\PointTypeToVisibilityConverter.cs" />
     <Compile Include="Configuration\ConfigItem.cs" />
     <Compile Include="Configuration\ConfigReader.cs" />
+    <Compile Include="Simulation\WheatherSimulator.cs" />
     <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="ViewModel\PointViewModels\AnalaogInput.cs" />
     <Compile Include="ViewModel\PointViewModels\AnalogBase.cs" />

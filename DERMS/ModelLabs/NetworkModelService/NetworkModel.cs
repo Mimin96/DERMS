@@ -12,7 +12,7 @@ using FTN.Services.NetworkModelService.Communication;
 
 
 namespace FTN.Services.NetworkModelService
-{        
+{
     public class NetworkModel
     {
         public HashSet<long> insert;

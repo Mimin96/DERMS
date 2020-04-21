@@ -158,3 +158,4 @@ C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\DermsUI\CIMProfileCreator\bin\Debug\CI
 C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache
 C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.dll
 C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.pdb
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csprojAssemblyReference.cache

@@ -12,8 +12,8 @@ using DERMSCommon.TransactionManager;
 
 namespace FTN.Services.NetworkModelService
 {
-	public class NetworkModelService : IDisposable
-	{
+    public class NetworkModelService : IDisposable
+    {
         private NetworkModelDeepCopy nm = null;
         private List<ServiceHost> hosts = null;
 

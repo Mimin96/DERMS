@@ -1553,3 +1553,13 @@ C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CoreCompileI
 C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CopyComplete
 C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\obj\Debug\UI.exe
 C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\obj\Debug\UI.pdb
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\bin\Debug\RtuCfg.txt
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\bin\Debug\dCom.exe
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\bin\Debug\Modbus.dll
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\bin\Debug\Common.dll
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\bin\Debug\EasyModbus.dll
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\bin\Debug\ProcessingModule.dll
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\bin\Debug\dCom.pdb
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\bin\Debug\dCom.exe.config
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\bin\Debug\Common.pdb
+C:\Users\Djole\Desktop\Grafik\DERMS\DERMS\UI\UI\bin\Debug\ProcessingModule.pdb

@@ -19,23 +19,23 @@ namespace CalculationEngineService
         public ChannelFactory<ISendListOfGeneratorsToScada> factoryScadaListOfGenerators;
         public ChannelFactory<ITransactionListing> factoryTM;
 
-		public ISendSCADADataToUI ProxyUI { get; set; }
+        public ISendSCADADataToUI ProxyUI { get; set; }
         public ISendNetworkModelToUI ProxyUI_NM { get; set; }
         public IUpdateCommand ProxyScada { get; set; }
-		public ISendListOfGeneratorsToScada ProxyScadaListOfGenerators { get; set; }
+        public ISendListOfGeneratorsToScada ProxyScadaListOfGenerators { get; set; }
 
-		public ITransactionListing ProxyTM { get; set; }
+        public ITransactionListing ProxyTM { get; set; }
 
         private static ClientSideCE instance = null;
         public static ClientSideCE Instance
         {
             get
             {
-                if(instance == null)
+                if (instance == null)
                 {
                     instance = new ClientSideCE();
                 }
-                   
+
                 return instance;
 
             }
@@ -57,7 +57,7 @@ namespace CalculationEngineService
         {
             //Connect to UI
             NetTcpBinding binding = new NetTcpBinding();
-            //binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
             factoryUI = new ChannelFactory<ISendSCADADataToUI>(binding, new EndpointAddress("net.tcp://localhost:19119/ISendSCADADataToUI"));
             ProxyUI = factoryUI.CreateChannel();
             Console.WriteLine("Connected: net.tcp://localhost:19119/ISendSCADADataToUI");
@@ -74,15 +74,15 @@ namespace CalculationEngineService
             ProxyScada = factoryScada.CreateChannel();
             Console.WriteLine("Connected: net.tcp://localhost:18500/IUpdateCommand");
 
-			//Connect to Scada for list of generators
-			NetTcpBinding binding5 = new NetTcpBinding();
-			//binding5.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-			factoryScadaListOfGenerators = new ChannelFactory<ISendListOfGeneratorsToScada>(binding5, new EndpointAddress("net.tcp://localhost:18503/ISendListOfGeneratorsToScada"));
-			ProxyScadaListOfGenerators = factoryScadaListOfGenerators.CreateChannel();
-			Console.WriteLine("Connected: net.tcp://localhost:18503/ISendListOfGeneratorsToScada");
+            //Connect to Scada for list of generators
+            NetTcpBinding binding5 = new NetTcpBinding();
+            //binding5.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            factoryScadaListOfGenerators = new ChannelFactory<ISendListOfGeneratorsToScada>(binding5, new EndpointAddress("net.tcp://localhost:18503/ISendListOfGeneratorsToScada"));
+            ProxyScadaListOfGenerators = factoryScadaListOfGenerators.CreateChannel();
+            Console.WriteLine("Connected: net.tcp://localhost:18503/ISendListOfGeneratorsToScada");
 
-			//Connect to TM
-			NetTcpBinding binding4 = new NetTcpBinding();
+            //Connect to TM
+            NetTcpBinding binding4 = new NetTcpBinding();
             factoryTM = new ChannelFactory<ITransactionListing>(binding4, new EndpointAddress("net.tcp://localhost:20505/ITransactionListing"));
             ProxyTM = factoryTM.CreateChannel();
 
@@ -94,14 +94,14 @@ namespace CalculationEngineService
         {
             factoryUI.Abort();
             factoryScada.Abort();
-			factoryScadaListOfGenerators.Abort();
-		}
+            factoryScadaListOfGenerators.Abort();
+        }
 
-		public void Close()
+        public void Close()
         {
             factoryUI.Close();
             factoryScada.Close();
-			factoryScadaListOfGenerators.Close();
-		}
-	}
+            factoryScadaListOfGenerators.Close();
+        }
+    }
 }
