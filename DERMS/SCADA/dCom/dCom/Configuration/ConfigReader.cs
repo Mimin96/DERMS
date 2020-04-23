@@ -140,7 +140,7 @@ namespace dCom.Configuration
                 configItem.NumberOfRegisters = (ushort)AnalogPoints;
                 configItem.StartAddress = (ushort)(3000 + AnalogPoints);
                 AnalogPoints++;
-                pointTypeToConfiguration.Add(configItem.Description, configItem);
+                pointTypeToConfiguration.Add(configItem.Gid.ToString(), configItem);
                 List<long> Gidovi = new List<long>();
                 Gidovi.Add(((Analog)analog.Value).PowerSystemResource);
                 Gidovi.Add(configItem.Gid);
@@ -170,7 +170,7 @@ namespace dCom.Configuration
                 configItem.StartAddress = (ushort)(40 + DigitalPoints);
                 DigitalPoints++;
                 configItem.Gid = ((Discrete)digital.Value).GlobalId;
-                pointTypeToConfiguration.Add(configItem.Description, configItem);
+                pointTypeToConfiguration.Add(configItem.Gid.ToString(), configItem);
                 configItem.GidGeneratora = ((Discrete)digital.Value).PowerSystemResource;
                 List<long> Gidovi = new List<long>();
                 Gidovi.Add(((Discrete)digital.Value).PowerSystemResource);

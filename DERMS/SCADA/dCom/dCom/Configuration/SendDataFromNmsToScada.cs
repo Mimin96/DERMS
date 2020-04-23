@@ -94,7 +94,7 @@ namespace dCom.Configuration
             Dictionary<long, IdentifiedObject> analogni = new Dictionary<long, IdentifiedObject>();
             Dictionary<long, IdentifiedObject> digitalni = new Dictionary<long, IdentifiedObject>();
 
-            if (SignalsTransfer != null)
+            if (SignalsTransfer.Insert.Count > 0 || SignalsTransfer.Update.Count > 0)
             {
                 analogni = SignalsTransfer.Insert[1];
                 digitalni = SignalsTransfer.Insert[0];
