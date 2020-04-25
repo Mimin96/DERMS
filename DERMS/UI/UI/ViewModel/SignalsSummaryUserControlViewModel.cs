@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using UI.Model;
 using UI.Resources;
+using UI.Resources.MediatorPattern;
 
 namespace UI.ViewModel
 {
@@ -37,8 +38,6 @@ namespace UI.ViewModel
             FilterType = new List<string>() { "", PointType.ANALOG_INPUT.ToString(), PointType.ANALOG_OUTPUT.ToString(), PointType.DIGITAL_INPUT.ToString(), PointType.DIGITAL_OUTPUT.ToString() };
             FilterAlarm = new List<string>() { "", AlarmType.NO_ALARM.ToString(), AlarmType.ABNORMAL_VALUE.ToString(), AlarmType.REASONABILITY_FAILURE.ToString(), AlarmType.LOW_ALARM.ToString(), AlarmType.HIGH_ALARM.ToString() };
             MinHeightFilter = 20;
-
-            Test();
         }
 
         #region Properties
@@ -114,6 +113,55 @@ namespace UI.ViewModel
         #endregion
 
         #region Public Method
+        public void GetSCADAData(List<DataPoint> _allPoints)
+        {
+            ///_allPoints = new ObservableCollection<DataPoint>();
+            //_allPoints.Add(new DataPoint(11, PointType.ANALOG_INPUT, 111, DateTime.Now, "ffd", "24", 23, AlarmType.ABNORMAL_VALUE) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff33cc")) });
+            //_allPoints.Add(new DataPoint(12, PointType.DIGITAL_INPUT, 112, DateTime.Now.AddDays(1), "43", "sda", 24, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
+            //_allPoints.Add(new DataPoint(13, PointType.ANALOG_INPUT, 113, DateTime.Now, "ddsfd", "24", 253, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
+            //_allPoints.Add(new DataPoint(14, PointType.DIGITAL_OUTPUT, 114, DateTime.Now, "dsdfsd", "32", 43, AlarmType.HIGH_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#cc0000")) });
+            //_allPoints.Add(new DataPoint(15, PointType.ANALOG_INPUT, 115, DateTime.Now.AddDays(4), "12", "sda", 23, AlarmType.LOW_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff3300")) });
+            //_allPoints.Add(new DataPoint(16, PointType.ANALOG_OUTPUT, 333, DateTime.Now, "dffad", "43", 23, AlarmType.REASONABILITY_FAILURE) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff9966")) });
+            //_allPoints.Add(new DataPoint(17, PointType.ANALOG_INPUT, 116, DateTime.Now.AddDays(2), "87", "sda", 12, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
+            //_allPoints.Add(new DataPoint(18, PointType.ANALOG_INPUT, 117, DateTime.Now, "ddadaf", "11", 223, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
+            //_allPoints.Add(new DataPoint(19, PointType.ANALOG_INPUT, 118, DateTime.Now, "ddfgdfg", "222", 213, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
+            //_allPoints.Add(new DataPoint(21, PointType.ANALOG_OUTPUT, 191, DateTime.Now, "ddfdg", "134", 233, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
+            //_allPoints.Add(new DataPoint(22, PointType.ANALOG_OUTPUT, 171, DateTime.Now, "dddfg", "532", 243, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
+            //_allPoints.Add(new DataPoint(23, PointType.ANALOG_OUTPUT, 211, DateTime.Now.AddDays(3), "ddffr", "875", 253, AlarmType.HIGH_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
+            //_allPoints.Add(new DataPoint(24, PointType.ANALOG_INPUT, 311, DateTime.Now, "ddsdfs", "908", 263, AlarmType.LOW_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff3300")) });
+            //_allPoints.Add(new DataPoint(25, PointType.ANALOG_INPUT, 411, DateTime.Now.AddDays(5), "ddaa", "432", 273, AlarmType.REASONABILITY_FAILURE) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff9966")) });
+
+            //Points = new ObservableCollection<DataPoint>(_allPoints);
+
+            foreach (DataPoint dp in _allPoints)
+            {
+                switch (dp.Alarm)
+                {
+                    case AlarmType.ABNORMAL_VALUE:
+                        dp.AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive;
+                        dp.AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff33cc"));
+                        break;
+                    case AlarmType.HIGH_ALARM:
+                        dp.AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive;
+                        dp.AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#cc0000"));
+                        break;
+                    case AlarmType.LOW_ALARM:
+                        dp.AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive;
+                        dp.AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff3300"));
+                        break;
+                    case AlarmType.REASONABILITY_FAILURE:
+                        dp.AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive;
+                        dp.AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff9966"));
+                        break;
+                    case AlarmType.NO_ALARM:
+                        dp.AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive;
+                        dp.AlarmImageColor = Brushes.Transparent;
+                        break;
+                }
+            }
+
+            Points = new ObservableCollection<DataPoint>(_allPoints);
+        }
         public void OnFocusName(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -222,26 +270,6 @@ namespace UI.ViewModel
         #endregion
 
         #region Private Method
-        private void Test()
-        {
-            //_allPoints = new ObservableCollection<DataPoint>();
-            //_allPoints.Add(new DataPoint(11, PointType.ANALOG_INPUT, 111, DateTime.Now, "ffd", "24", 23, AlarmType.ABNORMAL_VALUE) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff33cc")) });
-            //_allPoints.Add(new DataPoint(12, PointType.DIGITAL_INPUT, 112, DateTime.Now.AddDays(1), "43", "sda", 24, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
-            //_allPoints.Add(new DataPoint(13, PointType.ANALOG_INPUT, 113, DateTime.Now, "ddsfd", "24", 253, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
-            //_allPoints.Add(new DataPoint(14, PointType.DIGITAL_OUTPUT, 114, DateTime.Now, "dsdfsd", "32", 43, AlarmType.HIGH_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#cc0000")) });
-            //_allPoints.Add(new DataPoint(15, PointType.ANALOG_INPUT, 115, DateTime.Now.AddDays(4), "12", "sda", 23, AlarmType.LOW_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff3300")) });
-            //_allPoints.Add(new DataPoint(16, PointType.ANALOG_OUTPUT, 333, DateTime.Now, "dffad", "43", 23, AlarmType.REASONABILITY_FAILURE) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff9966")) });
-            //_allPoints.Add(new DataPoint(17, PointType.ANALOG_INPUT, 116, DateTime.Now.AddDays(2), "87", "sda", 12, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
-            //_allPoints.Add(new DataPoint(18, PointType.ANALOG_INPUT, 117, DateTime.Now, "ddadaf", "11", 223, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
-            //_allPoints.Add(new DataPoint(19, PointType.ANALOG_INPUT, 118, DateTime.Now, "ddfgdfg", "222", 213, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
-            //_allPoints.Add(new DataPoint(21, PointType.ANALOG_OUTPUT, 191, DateTime.Now, "ddfdg", "134", 233, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
-            //_allPoints.Add(new DataPoint(22, PointType.ANALOG_OUTPUT, 171, DateTime.Now, "dddfg", "532", 243, AlarmType.NO_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
-            //_allPoints.Add(new DataPoint(23, PointType.ANALOG_OUTPUT, 211, DateTime.Now.AddDays(3), "ddffr", "875", 253, AlarmType.HIGH_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = Brushes.Transparent });
-            //_allPoints.Add(new DataPoint(24, PointType.ANALOG_INPUT, 311, DateTime.Now, "ddsdfs", "908", 263, AlarmType.LOW_ALARM) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff3300")) });
-            //_allPoints.Add(new DataPoint(25, PointType.ANALOG_INPUT, 411, DateTime.Now.AddDays(5), "ddaa", "432", 273, AlarmType.REASONABILITY_FAILURE) { AlarmImage = MaterialDesignThemes.Wpf.PackIconKind.NotificationsActive, AlarmImageColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ff9966")) });
-
-            //Points = new ObservableCollection<DataPoint>(_allPoints);
-        }
         private void ShowCommanding(object obj)
         {
 

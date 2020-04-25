@@ -13,5 +13,8 @@ namespace CalculationEngineServiceCommon
     {
         [OperationContract]
 		void UpdateFlexibilityFromUIToCE(double valueKW, FlexibilityIncDec incOrDec, long gid);
-	}
+
+        [OperationContract]
+        void ChangeBreakerStatus(long GID, bool NormalOpen);
+    }
 }

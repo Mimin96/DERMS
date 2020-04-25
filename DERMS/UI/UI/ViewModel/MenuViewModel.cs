@@ -1,9 +1,12 @@
 ﻿using DERMSCommon;
+using DERMSCommon.SCADACommon;
 using DERMSCommon.UIModel;
 using DERMSCommon.UIModel.ThreeViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -27,20 +30,22 @@ namespace UI.ViewModel
         private CommunicationProxy _proxy;
         private ClientSideProxy _clientSideProxy;
         private CalculationEnginePubSub _calculationEnginePubSub;
+        private List<DataPoint> _SCADAData;
         #endregion
 
-        public MenuViewModel() 
+        public MenuViewModel()
         {
             Mediator.Register("NMSNetworkModelData", GetNetworkModelFromProxy);
             Mediator.Register("NetworkModelTreeClass", NetworkModelTreeClassChanged);
+            Mediator.Register("SCADADataPoint", GetSCADAData);
 
-			_clientSideProxy = new ClientSideProxy();
+            _clientSideProxy = new ClientSideProxy();
             _calculationEnginePubSub = new CalculationEnginePubSub();
             _clientSideProxy.StartServiceHost(_calculationEnginePubSub);
             _clientSideProxy.Subscribe((int)Enums.Topics.DerForecastDayAhead);
             _clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass);
 
-			_proxy = new CommunicationProxy();
+            _proxy = new CommunicationProxy();
             _proxy.Open();
 
             Logger.Log("UI is started.", Enums.Component.UI, Enums.LogLevel.Info);
@@ -79,6 +84,38 @@ namespace UI.ViewModel
         #endregion
 
         #region Public Methods
+        public void GetSCADAData(object parameter)
+        {
+            List<DataPoint> pom = (List<DataPoint>)parameter;
+            if (_SCADAData == null)
+            {
+                _SCADAData = new List<DataPoint>(pom);
+
+            }
+            else
+            {
+                foreach (DataPoint data in pom)
+                {
+                    DataPoint dp = _SCADAData.Where(x => x.Gid == data.Gid).FirstOrDefault();
+
+                    if (dp == null)
+                    {
+                        _SCADAData.Add(data);
+                        continue;
+                    }
+
+                    dp = data;
+                }
+            }
+
+            try
+            {
+                ((SignalsSummaryUserControlViewModel)UserControlPresenter.DataContext).GetSCADAData(_SCADAData);
+            }
+            catch
+            {
+            }
+        }
         private void GetNetworkModelFromProxy(object parameter)
         {
             if (loadingWindow != null)
@@ -94,16 +131,16 @@ namespace UI.ViewModel
             if (UserControlPresenter.GetType().Name == "GISUserControl")
                 SetUserContro("GIS");
         }
-		public void NetworkModelTreeClassChanged(object parameter)
-		{
-			_networkModelTreeClass = ((DataToUI)parameter).NetworkModelTreeClass;
-			if (UserControlPresenter.GetType().Name == "DERDashboardUserControl")
-			{
-				((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;
-			}
-		}
+        public void NetworkModelTreeClassChanged(object parameter)
+        {
+            _networkModelTreeClass = ((DataToUI)parameter).NetworkModelTreeClass;
+            if (UserControlPresenter.GetType().Name == "DERDashboardUserControl")
+            {
+                ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;
+            }
+        }
 
-		public void ExecuteMenuSelectCommand(object sender)
+        public void ExecuteMenuSelectCommand(object sender)
         {
             if (_selectedMenuItem != null)
             {
@@ -133,7 +170,7 @@ namespace UI.ViewModel
 
             _selectedMenuItem = button;
         }
-        public void LoadingWindow() 
+        public void LoadingWindow()
         {
             Application.Current.Dispatcher.Invoke((Action)delegate {
                 loadingWindow = new LoadingWindow();
@@ -163,6 +200,8 @@ namespace UI.ViewModel
                     break;
                 case "SignalsSummary":
                     UserControlPresenter = new SignalsSummaryUserControl();
+                    if (_SCADAData != null)
+                        ((SignalsSummaryUserControlViewModel)UserControlPresenter.DataContext).GetSCADAData(_SCADAData);
                     break;
                 case "EventSummary":
                     UserControlPresenter = new EventSummaryUserControl();

@@ -98,6 +98,7 @@
     <Compile Include="Resources\MediatorPattern\EventArgs.cs" />
     <Compile Include="Resources\MediatorPattern\EventRaiser.cs" />
     <Compile Include="Resources\MediatorPattern\Mediator.cs" />
+    <Compile Include="ViewModel\BreakerControlThroughGISWindowViewModel.cs" />
     <Compile Include="ViewModel\DERDashboardUserControlViewModel.cs" />
     <Compile Include="ViewModel\EventSummaryUserControlViewModel.cs" />
     <Compile Include="ViewModel\GISUserControlViewModel.cs" />
@@ -106,6 +107,9 @@
     <Compile Include="ViewModel\ManualCommandingViewModel.cs" />
     <Compile Include="ViewModel\NetworkModelUserControlViewModel.cs" />
     <Compile Include="ViewModel\SignalsSummaryUserControlViewModel.cs" />
+    <Compile Include="View\BreakerControlThroughGISWindow.xaml.cs">
+      <DependentUpon>BreakerControlThroughGISWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DERDashboardUserControl.xaml.cs">
       <DependentUpon>DERDashboardUserControl.xaml</DependentUpon>
     </Compile>
@@ -137,6 +141,10 @@
     <Page Include="Resources\AppDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\BreakerControlThroughGISWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\DERDashboardUserControl.xaml">
       <SubType>Designer</SubType>

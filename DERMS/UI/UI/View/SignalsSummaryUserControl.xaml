@@ -9,9 +9,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="533" d:DesignWidth="1024">
     <Grid>
-        <Grid.DataContext>
-            <ViewModel:SignalsSummaryUserControlViewModel/>
-        </Grid.DataContext>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -148,6 +145,11 @@
                     <DataGridTextColumn Binding="{Binding Alarm}" IsReadOnly="True" Width="Auto" MinWidth="210" >
                         <DataGridTextColumn.Header>
                             <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Alarm</Label>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding GidGeneratora}" IsReadOnly="True" Width="Auto" SortDirection="Descending">
+                        <DataGridTextColumn.Header>
+                            <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Owners GID</Label>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Gid}" IsReadOnly="True" Width="Auto" >

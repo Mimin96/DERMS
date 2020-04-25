@@ -17,6 +17,7 @@ using DERMSCommon.DataModel.Core;
 using DERMSCommon.DataModel.Meas;
 using DERMSCommon.DataModel.Wires;
 using FTN.Common;
+using UI.View;
 
 namespace UI.ViewModel
 {
@@ -85,7 +86,26 @@ namespace UI.ViewModel
 
             TreeNode<NodeData> selected = _tree.Where(x => x.Data.IdentifiedObject.GlobalId.ToString() == iElement.Uid).FirstOrDefault();
 
-            //otvoriti novi prozor za komandovanje, proslediti selected u DataContext
+            if (selected.Data.Type == DMSType.BREAKER)
+            {
+                Breaker breaker = (Breaker)selected.Data.IdentifiedObject;
+                Window window = new BreakerControlThroughGISWindow();
+
+                if (breaker.NormalOpen)
+                    ((BreakerControlThroughGISWindowViewModel)window.DataContext).Open = true;
+                else
+                    ((BreakerControlThroughGISWindowViewModel)window.DataContext).Close = true;
+
+                ((BreakerControlThroughGISWindowViewModel)window.DataContext).GID = breaker.GlobalId;
+
+                window.Show();
+            }
+            else if (selected.Data.Type == DMSType.GENERATOR)
+            {
+                Generator generator = (Generator)selected.Data.IdentifiedObject;
+                Window w = new ManualCommandingWindow(generator.MaxFlexibility, generator.MinFlexibility, selected.Data.IdentifiedObject.GlobalId);
+                w.Show();
+            }
         }
         public void OnMouseClick(object sender, MouseButtonEventArgs e)
         {

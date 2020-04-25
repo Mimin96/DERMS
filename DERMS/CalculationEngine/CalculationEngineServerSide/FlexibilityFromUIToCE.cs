@@ -13,6 +13,11 @@ namespace CalculationEngineService
     [DataContract]
     public class FlexibilityFromUIToCE : IFlexibilityFromUIToCE
     {
+		public void ChangeBreakerStatus(long GID, bool NormalOpen)
+		{
+			throw new NotImplementedException();
+		}
+
 		public void UpdateFlexibilityFromUIToCE(double valueKW, FlexibilityIncDec incOrDec, long gid)
 		{
 			// POZOVI METODU ZA RACUNANJE FLEXIBILITY
