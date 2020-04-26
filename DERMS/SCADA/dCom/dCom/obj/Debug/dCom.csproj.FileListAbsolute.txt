@@ -1380,3 +1380,10 @@ C:\Users\Andrej\Desktop\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CoreCo
 C:\Users\Andrej\Desktop\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CopyComplete
 C:\Users\Andrej\Desktop\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.exe
 C:\Users\Andrej\Desktop\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Innovative.Geometry.Angle.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\MaterialDesignColors.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\MaterialDesignColors.pdb

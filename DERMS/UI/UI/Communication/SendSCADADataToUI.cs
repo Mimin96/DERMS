@@ -1,7 +1,7 @@
 ﻿using CalculationEngineServiceCommon;
 using DERMSCommon.SCADACommon;
 using DERMSCommon.WeatherForecast;
-using DermsUI.MediatorPattern;
+using UI.Resources.MediatorPattern;
 using System;
 using System.Collections.Generic;
 using System.Linq;

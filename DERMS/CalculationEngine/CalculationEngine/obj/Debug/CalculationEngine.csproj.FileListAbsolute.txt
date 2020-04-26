@@ -828,3 +828,10 @@ C:\Users\Andrej\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debu
 C:\Users\Andrej\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.csproj.CopyComplete
 C:\Users\Andrej\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.exe
 C:\Users\Andrej\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\Innovative.Geometry.Angle.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\MaterialDesignColors.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\MaterialDesignColors.pdb

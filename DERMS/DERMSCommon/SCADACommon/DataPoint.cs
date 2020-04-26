@@ -109,6 +109,10 @@ namespace DERMSCommon.SCADACommon
             {
                 return _rawValue;
             }
+            set
+            {
+                _rawValue = value;
+            }
         }
 
         public string Value
@@ -116,6 +120,10 @@ namespace DERMSCommon.SCADACommon
             get
             {
                 return _value;
+            }
+            set 
+            {
+                _value = value;
             }
         }
 

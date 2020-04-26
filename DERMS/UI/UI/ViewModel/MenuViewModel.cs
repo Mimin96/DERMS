@@ -35,9 +35,9 @@ namespace UI.ViewModel
 
         public MenuViewModel()
         {
+            Mediator.Register("SCADADataPoint", GetSCADAData);
             Mediator.Register("NMSNetworkModelData", GetNetworkModelFromProxy);
             Mediator.Register("NetworkModelTreeClass", NetworkModelTreeClassChanged);
-            Mediator.Register("SCADADataPoint", GetSCADAData);
 
             _clientSideProxy = new ClientSideProxy();
             _calculationEnginePubSub = new CalculationEnginePubSub();
@@ -84,7 +84,7 @@ namespace UI.ViewModel
         #endregion
 
         #region Public Methods
-        public void GetSCADAData(object parameter)
+        private void GetSCADAData(object parameter)
         {
             List<DataPoint> pom = (List<DataPoint>)parameter;
             if (_SCADAData == null)
@@ -104,7 +104,10 @@ namespace UI.ViewModel
                         continue;
                     }
 
-                    dp = data;
+                    dp.Alarm = data.Alarm;
+                    dp.RawValue = data.RawValue;
+                    dp.Timestamp = data.Timestamp;
+                    dp.Value = data.Value;
                 }
             }
 

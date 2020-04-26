@@ -470,3 +470,10 @@ C:\Users\Andrej\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.Cor
 C:\Users\Andrej\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
 C:\Users\Andrej\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\Innovative.Geometry.Angle.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignColors.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignColors.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignThemes.Wpf.xml
