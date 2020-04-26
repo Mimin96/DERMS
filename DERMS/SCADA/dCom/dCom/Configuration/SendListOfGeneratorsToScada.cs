@@ -19,42 +19,48 @@ namespace dCom.Configuration
             foreach (KeyValuePair<long, double> generator in generators)
             {
 
-                if (analogniStari.ContainsKey(generator.Key))
+                //if (analogniStari.ContainsKey(generator.Key))
+                //{
+                foreach (KeyValuePair<List<long>, ushort> gidoviNaAdresu in GidoviNaAdresu)
                 {
-                    foreach (KeyValuePair<List<long>, ushort> gidoviNaAdresu in GidoviNaAdresu)
+                    if (generator.Key == gidoviNaAdresu.Key[0])
                     {
-                        if (generator.Key == gidoviNaAdresu.Key[0] && gidoviNaAdresu.Key[2] == 1)
+                        if (analogniStari[gidoviNaAdresu.Key[1]].Description == "Commanding")
                         {
-                            ushort raw = 0;
-                            raw = EGUConverter.ConvertToRaw(2, 5, generator.Value);
-                            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, raw, configuration);
-                            Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-                            commandExecutor.EnqueueCommand(fn);
+                            {
+                                ushort raw = 0;
+                                raw = EGUConverter.ConvertToRaw(2, 5, generator.Value);
+                                ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, raw, configuration);
+                                Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
+                                commandExecutor.EnqueueCommand(fn);
+                            }
                         }
                     }
 
-                }
 
-                else if (digitalniStari.ContainsKey(generator.Key))
-                {
-                    foreach (KeyValuePair<List<long>, ushort> gidoviNaAdresu in GidoviNaAdresu)
-                    {
-                        if (generator.Key == gidoviNaAdresu.Key[0] && gidoviNaAdresu.Key[2] == 1)
-                        {
-                            ushort raw = 0;
-                            raw = EGUConverter.ConvertToRaw(2, 5, generator.Value);
-                            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_COIL, gidoviNaAdresu.Value, raw, configuration);
-                            Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-                            commandExecutor.EnqueueCommand(fn);
-                        }
-                    }
+
+                    //else if (digitalniStari.ContainsKey(generator.Key))
+                    //{
+                    //    foreach (KeyValuePair<List<long>, ushort> gidoviNaAdresu in GidoviNaAdresu)
+                    //    {
+                    //        if (generator.Key == gidoviNaAdresu.Key[0] && gidoviNaAdresu.Key[2] == 1)
+                    //        {
+                    //            ushort raw = 0;
+                    //            raw = EGUConverter.ConvertToRaw(2, 5, generator.Value);
+                    //            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_COIL, gidoviNaAdresu.Value, raw, configuration);
+                    //            Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
+                    //            commandExecutor.EnqueueCommand(fn);
+                    //        }
+                    //    }
+                    //}
+
                 }
+                // LISTA GENERATORA KOJI SU PROMENILI FLEXIBILITY
 
             }
-            // LISTA GENERATORA KOJI SU PROMENILI FLEXIBILITY
+
 
         }
-
-
     }
 }
+

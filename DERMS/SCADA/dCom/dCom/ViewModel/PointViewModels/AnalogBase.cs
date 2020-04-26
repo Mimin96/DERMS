@@ -15,6 +15,8 @@ namespace dCom.ViewModel
         private double eguValue;
         private ISendDataToCEThroughScada ProxyUI { get; set; }
         private ChannelFactory<ISendDataToCEThroughScada> factoryUI;
+        private int brojac = 0;
+        private List<DataPoint> datapoints = new List<DataPoint>();
 
         public AnalogBase(Common.IConfigItem c, Common.IFunctionExecutor commandExecutor, Common.IStateUpdater stateUpdater, Common.IConfiguration configuration, int i)
             : base(c, commandExecutor, stateUpdater, configuration, i)
@@ -24,10 +26,11 @@ namespace dCom.ViewModel
 
         protected override void CommandExecutor_UpdatePointEvent(Common.PointType type, ushort pointAddres, ushort newValue)
         {
-
+            
 
             if (this.type == type && this.address == pointAddres && newValue != RawValue)
             {
+             
                 RawValue = newValue;
                 ProcessRawValue(newValue);
                 Timestamp = DateTime.Now;
@@ -39,10 +42,11 @@ namespace dCom.ViewModel
                 Console.WriteLine("Connected: net.tcp://localhost:19999/ISendDataToCEThroughScada");
 
                 DataPoint dataPoint = new DataPoint((long)configItem.Gid, (DERMSCommon.SCADACommon.PointType)configItem.RegistryType, pointAddres, Timestamp, configItem.Description, DisplayValue, RawValue, (DERMSCommon.SCADACommon.AlarmType)alarm, configItem.GidGeneratora);
-                List<DataPoint> datapoints = new List<DataPoint>();
+
                 datapoints.Add(dataPoint);
                 ProxyUI.ReceiveFromScada(datapoints);
             }
+
         }
 
         public double EguValue

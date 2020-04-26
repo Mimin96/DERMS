@@ -280,7 +280,7 @@ namespace dCom.Configuration
         public ConfigItem()
         {
             DecimalSeparatorPlace = 0;
-            AcquisitionInterval = 5;
+            AcquisitionInterval = 20;
 
         }
         public ConfigItem(List<string> configurationParameters)
