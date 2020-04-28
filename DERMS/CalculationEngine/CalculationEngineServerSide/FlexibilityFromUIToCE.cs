@@ -15,7 +15,10 @@ namespace CalculationEngineService
     {
 		public void ChangeBreakerStatus(long GID, bool NormalOpen)
 		{
-			throw new NotImplementedException();
+			Dictionary<long, double> keyValues = new Dictionary<long, double>();
+			keyValues[GID] = NormalOpen ? 1 : 0;
+
+			ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(keyValues);
 		}
 
 		public void UpdateFlexibilityFromUIToCE(double valueKW, FlexibilityIncDec incOrDec, long gid)
