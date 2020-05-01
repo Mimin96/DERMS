@@ -804,7 +804,7 @@
             <Property id="MEASUREMENT_MEAS_TYPE" value="ActivePower" />
             <Property id="ANALOG_MAX_VALUE" value="4" />
             <Property id="ANALOG_MIN_VALUE" value="2" />
-            <Property id="ANALOG_NORMAL_VALUE" value="950" />
+            <Property id="ANALOG_NORMAL_VALUE" value="0" />
             <Property id="MEASUREMENT_LATITUDE" value="19.8529415" />
             <Property id="MEASUREMENT_LONGITUDE" value="45.27137" />
             <Property id="MEASUREMENT_PSR" value="0x00000005ffffffff" />
@@ -849,7 +849,7 @@
             <Property id="MEASUREMENT_MEAS_TYPE" value="ActivePower" />
             <Property id="ANALOG_MAX_VALUE" value="4" />
             <Property id="ANALOG_MIN_VALUE" value="2" />
-            <Property id="ANALOG_NORMAL_VALUE" value="650" />
+            <Property id="ANALOG_NORMAL_VALUE" value="0" />
             <Property id="MEASUREMENT_LATITUDE" value="19.8394165" />
             <Property id="MEASUREMENT_LONGITUDE" value="45.27167" />
             <Property id="MEASUREMENT_PSR" value="0x00000005fffffffe" />

@@ -15,7 +15,7 @@ namespace CalculationEngineService
         public void ReceiveFromScada(List<DataPoint> data)
         {
             SCADADataPointSmartCache smartCache = new SCADADataPointSmartCache();
-            smartCache.WriteToFile(data);
+            //smartCache.WriteToFile(data);
             //CAKI
             CalculationEngineCache.Instance.UpdateGraphWithScadaValues(data);
             ClientSideCE.Instance.ProxyUI.SendScadaDataToUI(data);

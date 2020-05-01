@@ -441,6 +441,7 @@
 		<cim:IdentifiedObject.mRID>a_2733</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>Solar</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
+		<cim:Analog.normalValue>0</cim:Analog.normalValue>	
 		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
 		<cim:Analog.minValue>2</cim:Analog.minValue>			
 		<cim:Measurement.powerSystemResource rdf:resource="g_7"/>			
@@ -720,7 +721,7 @@
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
 		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
 		<cim:Analog.minValue>2</cim:Analog.minValue>			
-		<!-- <cim:Analog.normalValue>3</cim:Analog.normalValue>	 -->
+		<cim:Analog.normalValue>0</cim:Analog.normalValue>	
 		<cim:Measurement.powerSystemResource rdf:resource="g_26"/>	
 		
 	</cim:Analog>

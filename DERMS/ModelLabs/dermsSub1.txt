@@ -403,7 +403,7 @@
 	</cim:ConnectivityNode>			
 	
 	<cim:Discrete rdf:id="d_281">
-		<cim:IdentifiedObject.description>d281</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.description>Commanding</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>d_281</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>D281</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>Discrete</cim:Measurement.measurementType>
@@ -438,9 +438,9 @@
 	</cim:Generator>
 	
 	<cim:Analog rdf:id="a_281">
-		<cim:IdentifiedObject.description>a281</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.description>Aqusition</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>a_281</cim:IdentifiedObject.mRID>
-		<cim:IdentifiedObject.name>A281</cim:IdentifiedObject.name>
+		<cim:IdentifiedObject.name>Solar</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
 		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
 		<cim:Analog.minValue>2</cim:Analog.minValue>	
@@ -448,9 +448,9 @@
 	</cim:Analog>
 	
 	<cim:Analog rdf:id="a_2811">
-		<cim:IdentifiedObject.description>a2811</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.description>Simulation</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>a_2811</cim:IdentifiedObject.mRID>
-		<cim:IdentifiedObject.name>A2811</cim:IdentifiedObject.name>
+		<cim:IdentifiedObject.name>Solar</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
 		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
 		<cim:Analog.minValue>2</cim:Analog.minValue>	
@@ -458,12 +458,13 @@
 	</cim:Analog>
 	
 	<cim:Analog rdf:id="a_2812">
-		<cim:IdentifiedObject.description>a2812</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.description>Commanding</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>a_2812</cim:IdentifiedObject.mRID>
-		<cim:IdentifiedObject.name>A2812</cim:IdentifiedObject.name>
+		<cim:IdentifiedObject.name>Solar</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
 		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>	
+		<cim:Analog.normalValue>0</cim:Analog.normalValue>			
+		<cim:Analog.minValue>0</cim:Analog.minValue>	
 		<cim:Measurement.powerSystemResource rdf:resource="g_221"/>			
 	</cim:Analog>
 	
@@ -808,7 +809,7 @@
 	</cim:Terminal>		
 	
 	<cim:Discrete rdf:id="d_22">
-		<cim:IdentifiedObject.description>d22</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.description>Commanding</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>d_22</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>D22</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>Discrete</cim:Measurement.measurementType>
@@ -843,9 +844,9 @@
 	</cim:Generator>
 	
 	<cim:Analog rdf:id="a_22">
-		<cim:IdentifiedObject.description>a22</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.description>Aqusition</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>a_22</cim:IdentifiedObject.mRID>
-		<cim:IdentifiedObject.name>A22</cim:IdentifiedObject.name>
+		<cim:IdentifiedObject.name>Wind</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
 		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
 		<cim:Analog.minValue>2</cim:Analog.minValue>			
@@ -855,9 +856,9 @@
 	</cim:Analog>
 	
 		<cim:Analog rdf:id="a_2221">
-		<cim:IdentifiedObject.description>a2221</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.description>Simulation</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>a_2221</cim:IdentifiedObject.mRID>
-		<cim:IdentifiedObject.name>A2221</cim:IdentifiedObject.name>
+		<cim:IdentifiedObject.name>Wind</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
 		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
 		<cim:Analog.minValue>2</cim:Analog.minValue>			
@@ -867,13 +868,13 @@
 	</cim:Analog>
 	
 	<cim:Analog rdf:id="a_2222">
-		<cim:IdentifiedObject.description>a2222</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.description>Commanding</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>a_2222</cim:IdentifiedObject.mRID>
-		<cim:IdentifiedObject.name>A2222</cim:IdentifiedObject.name>
+		<cim:IdentifiedObject.name>Wind</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
 		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>			
-		<!-- <cim:Analog.normalValue>3</cim:Analog.normalValue>	 -->
+		<cim:Analog.minValue>0</cim:Analog.minValue>			
+		<cim:Analog.normalValue>0</cim:Analog.normalValue>	
 		<cim:Measurement.powerSystemResource rdf:resource="sm_22"/>	
 		
 	</cim:Analog>

@@ -190,7 +190,10 @@
 
                 if (((FTN.Generator)cimAnalog.PowerSystemResource).CondenserPHasValue)
                 {
-                    rd.AddProperty(new Property(ModelCode.ANALOG_NORMAL_VALUE, ((FTN.Generator)cimAnalog.PowerSystemResource).CondenserP));
+                    if (cimAnalog.Description == "Commanding")
+                        rd.AddProperty(new Property(ModelCode.ANALOG_NORMAL_VALUE, cimAnalog.NormalValue));
+                    else
+                        rd.AddProperty(new Property(ModelCode.ANALOG_NORMAL_VALUE, ((FTN.Generator)cimAnalog.PowerSystemResource).CondenserP));
                 }
 
                 if (((FTN.Generator)cimAnalog.PowerSystemResource).LatitudeHasValue)
