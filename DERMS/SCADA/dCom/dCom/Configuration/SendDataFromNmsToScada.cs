@@ -3,9 +3,13 @@ using Common;
 using dCom.Simulation;
 using dCom.ViewModel;
 using DERMSCommon.DataModel.Core;
+using DERMSCommon.DataModel.Meas;
 using DERMSCommon.NMSCommuication;
+using Modbus;
 using Modbus.Acquisition;
 using Modbus.Connection;
+using Modbus.FunctionParameters;
+using ProcessingModule;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -96,22 +100,53 @@ namespace dCom.Configuration
 
             if (SignalsTransfer.Insert.Count > 0 || SignalsTransfer.Update.Count > 0)
             {
+               
                 analogni = SignalsTransfer.Insert[1];
                 digitalni = SignalsTransfer.Insert[0];
                 foreach (KeyValuePair<long, IdentifiedObject> kvp in analogni)
                 {
                     if (!analogniStari.ContainsKey(kvp.Key))
+                    {
                         analogniStari.Add(kvp.Key, kvp.Value);
+
+                    }
                 }
                 foreach (KeyValuePair<long, IdentifiedObject> kvp in digitalni)
                 {
                     if (!digitalniStari.ContainsKey(kvp.Key))
+                    {
                         digitalniStari.Add(kvp.Key, kvp.Value);
+ 
+                    }
+                }
+
+                configuration = new ConfigReader(analogniStari, digitalniStari);
+                foreach (KeyValuePair<long, IdentifiedObject> kvp in analogni)
+                {
+                    if (!analogniStari.ContainsKey(kvp.Key))
+                    {
+                        
+                        ushort raw = 0;
+                        raw = EGUConverter.ConvertToRaw(2, 5, (double)((Discrete)kvp.Value).NormalValue);
+                        ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)((Discrete)kvp.Value).GlobalId, raw, configuration);
+                        Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
+                        commandExecutor.EnqueueCommand(fn);
+                    }
+                }
+                foreach (KeyValuePair<long, IdentifiedObject> kvp in digitalni)
+                {
+                    if (!digitalniStari.ContainsKey(kvp.Key))
+                    {
+                        
+                        ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_COIL, (ushort)((Discrete)kvp.Value).GlobalId, (ushort)((Discrete)kvp.Value).NormalValue, configuration);
+                        Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
+                        commandExecutor.EnqueueCommand(fn);
+                    }
                 }
 
 
 
-                configuration = new ConfigReader(analogniStari, digitalniStari);
+
                 commandExecutor = new FunctionExecutor(this, configuration);
                 this.acquisitor = new Acquisitor(acquisitionTrigger, commandExecutor, this, configuration);
 

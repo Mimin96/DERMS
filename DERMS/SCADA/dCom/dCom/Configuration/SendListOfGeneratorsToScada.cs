@@ -25,18 +25,32 @@ namespace dCom.Configuration
                 {
                     if (generator.Key == gidoviNaAdresu.Key[0])
                     {
-                        if (analogniStari[gidoviNaAdresu.Key[1]].Description == "Commanding")
+                        if (analogniStari.Keys.Contains(gidoviNaAdresu.Key[1]))
                         {
+                            if (analogniStari[gidoviNaAdresu.Key[1]].Description == "Commanding")
                             {
-                                ushort raw = 0;
-                                raw = EGUConverter.ConvertToRaw(2, 5, generator.Value);
-                                ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, raw, configuration);
-                                Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-                                commandExecutor.EnqueueCommand(fn);
+                                {
+                                    ushort raw = 0;
+                                    raw = EGUConverter.ConvertToRaw(2, 5, generator.Value);
+                                    ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, raw, configuration);
+                                    Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
+                                    commandExecutor.EnqueueCommand(fn);
+                                }
+                            }
+                        }
+                        else if (digitalniStari.Keys.Contains(gidoviNaAdresu.Key[1]))
+                        {
+                            if (digitalniStari[gidoviNaAdresu.Key[1]].Description == "Commanding")
+                            {
+                                {
+
+                                    ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_COIL, gidoviNaAdresu.Value, (ushort)generator.Value, configuration);
+                                    Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
+                                    commandExecutor.EnqueueCommand(fn);
+                                }
                             }
                         }
                     }
-
 
 
                     //else if (digitalniStari.ContainsKey(generator.Key))

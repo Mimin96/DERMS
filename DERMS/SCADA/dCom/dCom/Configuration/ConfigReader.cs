@@ -5,6 +5,9 @@ using DERMSCommon.DataModel.Meas;
 using DERMSCommon.NMSCommuication;
 using DERMSCommon.TransactionManager;
 using Microsoft.Win32;
+using Modbus;
+using Modbus.FunctionParameters;
+using ProcessingModule;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +27,7 @@ namespace dCom.Configuration
         private byte unitAddress;
         private int tcpPort;
         private ConfigItemEqualityComparer confItemEqComp = new ConfigItemEqualityComparer();
-
+        
         private Dictionary<string, IConfigItem> pointTypeToConfiguration = new Dictionary<string, IConfigItem>(30);
 
         private string path = "RtuCfg.txt";
@@ -96,6 +99,7 @@ namespace dCom.Configuration
 
         private void ReadConfiguration(Dictionary<long, IdentifiedObject> analogni, Dictionary<long, IdentifiedObject> digitalni)
         {
+          
             using (TextReader tr = new StreamReader(path))
             {
                 string s = string.Empty;
@@ -147,6 +151,7 @@ namespace dCom.Configuration
                 if (configItem.Description == "Commanding")
                 {
                     Gidovi.Add(1);
+   
                 }
                 else if (configItem.Description == "Simulation")
                 {
@@ -180,6 +185,7 @@ namespace dCom.Configuration
                     Gidovi.Add(1);
                 }
                 GidoviNaAdresu.Add(Gidovi, configItem.StartAddress);
+
 
             }
             //try
