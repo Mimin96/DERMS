@@ -132,81 +132,510 @@ namespace CalculationEngineService
             bool flexibility = false;
             List<Generator> allGenerators = new List<Generator>();
             allGenerators = GetGeneratorsForManualCommand(model);
-            var type = model[gid].GetType();
-            if (type.Name.Equals("Substation"))
-            {
-                Substation substation = (Substation)model[gid];
-                foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
-                {
-                    if (substation.Equipments.Contains(kvpGenerator.Key) && !kvpGenerator.Value)  // <- umesto flexibility treba generator.flexibility
-                    {
-                        generatorsForOverclock.Add(kvpGenerator.Key);
-                        flexibility = true;
-                        break;
-                    }
-                }
-            }
-            else if (type.Name.Equals("GeographicalRegion"))
-            {
-                GeographicalRegion gr = (GeographicalRegion)model[gid];
-                foreach (long s in gr.Regions)
-                {
-                    SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)model[s];
-                    foreach (long sub in subGeographicalRegion.Substations)
-                    {
-                        Substation substation = (Substation)model[sub];
-                        foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
-                        {
-                            if (substation.Equipments.Contains(kvpGenerator.Key) && !kvpGenerator.Value)  // <- umesto flexibility treba generator.flexibility
-                            {
-                                generatorsForOverclock.Add(kvpGenerator.Key);
-                                flexibility = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            else if (type.Name.Equals("SubGeographicalRegion"))
-            {
-                SubGeographicalRegion sgr = (SubGeographicalRegion)model[gid];
-                foreach (long sub in sgr.Substations)
-                {
-                    Substation substation = (Substation)model[sub];
-                    foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
-                    {
-                        if (substation.Equipments.Contains(kvpGenerator.Key) && !kvpGenerator.Value)  // <- umesto flexibility treba generator.flexibility
-                        {
-                            generatorsForOverclock.Add(kvpGenerator.Key);
-                            flexibility = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            else if (type.Name.Equals("Generator"))
-            {
-                Generator generator = (Generator)model[gid];
-                foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
-                {
-                    if (generator.GlobalId.Equals(kvpGenerator.Key) && !kvpGenerator.Value)  // TurnOnFlexibilityForManualCommanding NE MOZE SE PROSLEDJIVATI GID GENERATORA
-                    {
-                        generatorsForOverclock.Add(kvpGenerator.Key);
-                        flexibility = true;
-                        break;
-                    }
-                }
-            }
 
-            foreach (long gen in generatorsForOverclock)
-            {
-                stateOfGenerator[gen] = !stateOfGenerator[gen];
-            }
+			if(model.ContainsKey(gid))
+			{
+				var type = model[gid].GetType();
+
+				if (type.Name.Equals("Substation"))
+				{
+					Substation substation = (Substation)model[gid];
+					foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
+					{
+						if (substation.Equipments.Contains(kvpGenerator.Key) && !kvpGenerator.Value)  // <- umesto flexibility treba generator.flexibility
+						{
+							generatorsForOverclock.Add(kvpGenerator.Key);
+							flexibility = true;
+							break;
+						}
+					}
+				}
+				else if (type.Name.Equals("GeographicalRegion"))
+				{
+					GeographicalRegion gr = (GeographicalRegion)model[gid];
+					foreach (long s in gr.Regions)
+					{
+						SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)model[s];
+						foreach (long sub in subGeographicalRegion.Substations)
+						{
+							Substation substation = (Substation)model[sub];
+							foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
+							{
+								if (substation.Equipments.Contains(kvpGenerator.Key) && !kvpGenerator.Value)  // <- umesto flexibility treba generator.flexibility
+								{
+									generatorsForOverclock.Add(kvpGenerator.Key);
+									flexibility = true;
+									break;
+								}
+							}
+						}
+					}
+				}
+				else if (type.Name.Equals("SubGeographicalRegion"))
+				{
+					SubGeographicalRegion sgr = (SubGeographicalRegion)model[gid];
+					foreach (long sub in sgr.Substations)
+					{
+						Substation substation = (Substation)model[sub];
+						foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
+						{
+							if (substation.Equipments.Contains(kvpGenerator.Key) && !kvpGenerator.Value)  // <- umesto flexibility treba generator.flexibility
+							{
+								generatorsForOverclock.Add(kvpGenerator.Key);
+								flexibility = true;
+								break;
+							}
+						}
+					}
+				}
+				else if (type.Name.Equals("Generator"))
+				{
+					Generator generator = (Generator)model[gid];
+					foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
+					{
+						if (generator.GlobalId.Equals(kvpGenerator.Key) && !kvpGenerator.Value)  // TurnOnFlexibilityForManualCommanding NE MOZE SE PROSLEDJIVATI GID GENERATORA
+						{
+							generatorsForOverclock.Add(kvpGenerator.Key);
+							flexibility = true;
+							break;
+						}
+					}
+				}
+
+				foreach (long gen in generatorsForOverclock)
+				{
+					stateOfGenerator[gen] = !stateOfGenerator[gen];
+				}
+			}
+			else
+			{
+				flexibility = true;
+			}			
 
             return flexibility;
         }
 
-        public void CalculateNewDerForecastDayAheadForGeoRegion(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
+		#region NetworkModel
+		public void CalculateNewDerForecastDayAheadForNetworkModel(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
+		{
+			int numOfHour = -1;
+			bool finished = false;
+			double networkModelActivePower = 0;
+			if (!affectedEntities.Count.Equals(0))
+			{
+				if (flexibilityValue > 0)
+				{
+					while(numOfHour < 23)
+					{
+						numOfHour++;
+						finished = false;
+
+						foreach (var gr in affectedEntities.Values)
+						{
+							if (gr.GetType().Name.Equals("GeographicalRegion"))
+							{
+								networkModelActivePower += derForcast[gr.GlobalId].Production.Hourly[numOfHour].ActivePower;
+							}
+						}
+
+						double productionHour = networkModelActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
+						foreach (IdentifiedObject io in affectedEntities.Values)
+						{
+							if (!finished)
+							{
+								if (io.GetType().Name.Equals("GeographicalRegion"))
+								{
+									GeographicalRegion geographicalRegion = (GeographicalRegion)io;
+
+									foreach (long subGeoReg in geographicalRegion.Regions)
+									{
+										SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[subGeoReg];
+										foreach (long sub in subGeographicalRegion.Substations)
+										{
+											if (!finished)
+											{
+												Substation substation = (Substation)affectedEntities[sub];
+												foreach (long gen in substation.Equipments)
+												{
+													if (affectedEntities.ContainsKey(gen))
+													{
+														Generator generator = (Generator)affectedEntities[gen];
+														if (generator.MaxFlexibility > 0)
+														{
+															double genProduction = 0;
+															double genProductionInPercent = 0;
+															double contition = productionHour - (derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100));
+															if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
+															{
+																genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
+																genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+																productionHour -= genProduction;
+															}
+															else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+															{
+																genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
+																genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+																productionHour -= genProduction;
+																finished = true;
+															}
+															else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+															{
+																genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
+																genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+																productionHour -= genProduction;
+																finished = true;
+															}
+
+															derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
+															derForcast[substation.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+															derForcast[subGeographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+															derForcast[geographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
+
+															if (finished)
+																break;
+
+														}
+													}
+
+												}
+											}
+											else
+											{
+												break;
+											}
+										}
+									}
+								}
+							}
+							else
+							{
+								break;
+							}
+						}
+					}
+				}
+				else if (flexibilityValue < 0)
+				{
+
+					while (numOfHour < 23)
+					{
+						numOfHour++;
+						finished = false;
+
+						foreach (var gr in affectedEntities.Values)
+						{
+							if (gr.GetType().Name.Equals("GeographicalRegion"))
+							{
+								networkModelActivePower += derForcast[gr.GlobalId].Production.Hourly[numOfHour].ActivePower;
+							}
+						}
+
+						double productionHour = -1 * networkModelActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE SMANJI PROZIVODNJA PO SATU
+						foreach (IdentifiedObject io in affectedEntities.Values)
+						{
+							if (!finished)
+							{
+								if (io.GetType().Name.Equals("GeographicalRegion"))
+								{
+									GeographicalRegion geographicalRegion = (GeographicalRegion)io;
+
+									foreach (long subGeoReg in geographicalRegion.Regions)
+									{
+										SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[subGeoReg];
+										foreach (long sub in subGeographicalRegion.Substations)
+										{
+											if (!finished)
+											{
+												Substation substation = (Substation)affectedEntities[sub];
+												foreach (long gen in substation.Equipments)
+												{
+													if (affectedEntities.ContainsKey(gen))
+													{
+														Generator generator = (Generator)affectedEntities[gen];
+														if (generator.MinFlexibility > 0)
+														{
+															double genProduction = 0;
+															double genProductionInPercent = 0;
+															double contition = productionHour - (derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100));
+															if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MIN I NASTAVLJAMO DALJE DA SMANJUJEMO PROIZVODNJU OSTALIH GENERATORA
+															{
+																genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
+																genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+																productionHour -= genProduction;
+															}
+															else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+															{
+																genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
+																genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+																productionHour -= genProduction;
+																finished = true;
+															}
+															else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+															{
+																genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
+																genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+																productionHour -= genProduction;
+																finished = true;
+															}
+
+															derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
+															derForcast[substation.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+															derForcast[subGeographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+															derForcast[geographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
+
+															if (finished)
+																break;
+														}
+													}
+
+												}
+											}
+											else
+											{
+												break;
+											}
+										}
+									}
+								}							
+							}
+							else
+							{
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		public Dictionary<long, double> TurnOnFlexibilityForNetworkModel(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
+		{
+			Dictionary<long, double> ret = new Dictionary<long, double>();
+			bool finished = false;
+
+			float currentProduction = 0;
+			float productionAfterFlexibility = 0;
+			float difference = 0;
+			float generatorsProduction = 0;
+			float generatorPercent = 0;
+			float genProd = 0;
+
+			if (!affectedEntities.Count.Equals(0))
+			{
+				if (flexibilityValue > 0)
+				{
+					foreach (var gr in affectedEntities.Values)
+					{
+						if (gr.GetType().Name.Equals("GeographicalRegion"))
+						{
+							GeographicalRegion geographicalRegion = (GeographicalRegion)gr;
+
+							foreach (long subGeo in geographicalRegion.Regions)
+							{
+								SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[subGeo];
+
+								foreach (long sub in subGeographicalRegion.Substations)
+								{
+									if (affectedEntities.ContainsKey(sub))
+									{
+										Substation substation = (Substation)affectedEntities[sub];
+										foreach (long gen in substation.Equipments)
+										{
+											if (affectedEntities.ContainsKey(gen))
+											{
+												Generator generator = (Generator)affectedEntities[gen];
+
+												if (affectedEntities.ContainsKey(gen))
+												{
+													currentProduction += generator.ConsiderP;
+												}
+											}
+										}
+									}
+								}
+
+							}
+
+							productionAfterFlexibility = currentProduction + currentProduction * (float)(flexibilityValue / 100);
+
+							difference = productionAfterFlexibility - currentProduction;
+
+							foreach (long subGeo in geographicalRegion.Regions)
+							{
+								SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[subGeo];
+								if (!finished)
+								{
+									foreach (long sub in subGeographicalRegion.Substations)
+									{
+										if (!finished)
+										{
+											if (affectedEntities.ContainsKey(sub))
+											{
+												Substation substation = (Substation)affectedEntities[sub];
+
+												foreach (long gen in substation.Equipments)
+												{
+													if (affectedEntities.ContainsKey(gen))
+													{
+														Generator generator = (Generator)affectedEntities[gen];
+														if (generator.MaxFlexibility > 0)
+														{
+															generatorsProduction = difference - generator.ConsiderP * (generator.MaxFlexibility) / 100;
+
+															if (generatorsProduction > 0)
+															{
+																generatorPercent = generator.MaxFlexibility;
+																difference -= generator.ConsiderP * (generator.MaxFlexibility) / 100;
+															}
+															else if (generatorsProduction < 0)
+															{
+																genProd = difference;
+																generatorPercent = (100 * genProd) / generator.ConsiderP;
+																finished = true;
+															}
+															else
+															{
+																generatorPercent = generator.MaxFlexibility;
+																finished = true;
+															}
+
+															if (!ret.ContainsKey(generator.GlobalId))
+																ret.Add(generator.GlobalId, generatorPercent);
+
+															if (finished)
+																break;
+														}
+													}
+												}
+											}
+										}
+										else
+										{
+											break;
+										}
+									}
+								}
+								else
+								{
+									break;
+								}
+							}
+						}
+					}
+				}
+				else if (flexibilityValue < 0)
+				{
+
+					foreach (var gr in affectedEntities.Values)
+					{
+						if (gr.GetType().Name.Equals("GeographicalRegion"))
+						{
+							GeographicalRegion geographicalRegion = (GeographicalRegion)gr;
+
+							foreach (long subGeo in geographicalRegion.Regions)
+							{
+								SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[subGeo];
+
+								foreach (long sub in subGeographicalRegion.Substations)
+								{
+									if (affectedEntities.ContainsKey(sub))
+									{
+										Substation substation = (Substation)affectedEntities[sub];
+										foreach (long gen in substation.Equipments)
+										{
+											if (affectedEntities.ContainsKey(gen))
+											{
+												Generator generator = (Generator)affectedEntities[gen];
+
+												if (affectedEntities.ContainsKey(gen))
+												{
+													currentProduction += generator.ConsiderP;
+												}
+											}
+										}
+									}
+								}
+
+							}
+
+							productionAfterFlexibility = currentProduction + currentProduction * (float)(flexibilityValue / 100);
+
+							difference = currentProduction - productionAfterFlexibility;
+
+							foreach (long subGeo in geographicalRegion.Regions)
+							{
+								SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[subGeo];
+								if (!finished)
+								{
+									foreach (long sub in subGeographicalRegion.Substations)
+									{
+										if (!finished)
+										{
+											if (affectedEntities.ContainsKey(sub))
+											{
+												Substation substation = (Substation)affectedEntities[sub];
+
+												foreach (long gen in substation.Equipments)
+												{
+													if (affectedEntities.ContainsKey(gen))
+													{
+														Generator generator = (Generator)affectedEntities[gen];
+														if (generator.MinFlexibility > 0)
+														{
+															generatorsProduction = difference - generator.ConsiderP * (generator.MinFlexibility) / 100;
+
+															if (generatorsProduction > 0)
+															{
+																generatorPercent = generator.MinFlexibility;
+																difference -= generator.ConsiderP * (generator.MinFlexibility) / 100;
+															}
+															else if (generatorsProduction < 0)
+															{
+																genProd = difference;
+																generatorPercent = (100 * genProd) / generator.ConsiderP;
+																finished = true;
+															}
+															else
+															{
+																generatorPercent = generator.MinFlexibility;
+																finished = true;
+															}
+
+															if (!ret.ContainsKey(generator.GlobalId))
+																ret.Add(generator.GlobalId, -1 * generatorPercent);
+
+															if (finished)
+																break;
+														}
+													}
+												}
+											}
+										}
+										else
+										{
+											break;
+										}
+									}
+
+								}
+								else
+								{
+									break;
+								}
+							}
+
+						}
+					}
+				}
+			}
+
+			return ret;
+		}
+		#endregion
+
+		#region GeoRegion
+
+		public void CalculateNewDerForecastDayAheadForGeoRegion(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
         {
             GeographicalRegion geographicalRegion = (GeographicalRegion)affectedEntities[gid];
             int numOfHour = -1;
@@ -506,7 +935,7 @@ namespace CalculationEngineService
 
                     }
 
-                    productionAfterFlexibility = currentProduction - currentProduction * (float)(flexibilityValue / 100);
+                    productionAfterFlexibility = currentProduction + currentProduction * (float)(flexibilityValue / 100);
 
                     difference = currentProduction - productionAfterFlexibility;
 
@@ -579,7 +1008,10 @@ namespace CalculationEngineService
             return ret;
         }
 
-        public void CalculateNewDerForecastDayAheadForSubGeoRegion(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
+		#endregion
+
+		#region SubGeoRegion
+		public void CalculateNewDerForecastDayAheadForSubGeoRegion(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
         {
             SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[gid];
             GeographicalRegion geographicalRegion = null;
@@ -846,7 +1278,7 @@ namespace CalculationEngineService
                         }
                     }
 
-                    productionAfterFlexibility = currentProduction - currentProduction * (float)(flexibilityValue / 100);
+                    productionAfterFlexibility = currentProduction + currentProduction * (float)(flexibilityValue / 100);
 
                     difference = currentProduction - productionAfterFlexibility;
 
@@ -905,8 +1337,10 @@ namespace CalculationEngineService
 
             return ret;
         }
+		#endregion
 
-        public void CalculateNewDerForecastDayAheadForSubstation(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
+		#region Substation
+		public void CalculateNewDerForecastDayAheadForSubstation(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
         {
             SubGeographicalRegion subGeographicalRegion = null;
             GeographicalRegion geographicalRegion = null;
@@ -1170,7 +1604,7 @@ namespace CalculationEngineService
                         }
                     }
 
-                    productionAfterFlexibility = currentProduction - currentProduction * (float)(flexibilityValue / 100);
+                    productionAfterFlexibility = currentProduction + currentProduction * (float)(flexibilityValue / 100);
 
                     difference = currentProduction - productionAfterFlexibility;
 
@@ -1214,8 +1648,10 @@ namespace CalculationEngineService
 
             return ret;
         }
+		#endregion
 
-        public void CalculateNewDerForecastDayAheadForGenerator(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
+		#region Generator
+		public void CalculateNewDerForecastDayAheadForGenerator(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
         {
             SubGeographicalRegion subGeographicalRegion = null;
             GeographicalRegion geographicalRegion = null;
@@ -1376,16 +1812,17 @@ namespace CalculationEngineService
                 }
                 else if (flexibilityValue < 0)
                 {
-                    if (generator.MinFlexibility >= flexibilityValue)
-                        ret.Add(generator.GlobalId, -1 * flexibilityValue);
+                    if (generator.MinFlexibility >= (-1 * flexibilityValue))
+                        ret.Add(generator.GlobalId, flexibilityValue);
                 }
 
             }
 
             return ret;
         }
+		#endregion
 
-        public List<Generator> GetGenerators()
+		public List<Generator> GetGenerators()
         {
             List<Generator> generators = new List<Generator>();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)

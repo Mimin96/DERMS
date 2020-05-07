@@ -357,7 +357,7 @@ namespace UI.ViewModel
             CurrentSelectedGid = gid;
             Console.Beep();
             GetAllGeoRegions();
-            dERDashboardUserControl.ManualCommanding.IsEnabled = false;
+            dERDashboardUserControl.ManualCommanding.IsEnabled = true;
             float x;
             if (OptimizatedElements.Contains(gid))
             {
