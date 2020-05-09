@@ -60,51 +60,47 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Margin="30" Height="127" VerticalAlignment="Top">
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25"
-                   From="0" To="1000"  Name="EnergySource" Value="{Binding Consumption,StringFormat=N2}"  Foreground="ForestGreen" HorizontalAlignment="Left" Width="169">
+                   From="0" To="1000"  Name="EnergySource" Value="{Binding Consumption,StringFormat=N2}"  Foreground="DeepSkyBlue" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
-                            <GradientStop Color="ForestGreen" Offset="0.0" />
-                            <GradientStop Color="Green" Offset="0.5" />
-                            <GradientStop Color="Lime" Offset="1.0" />
+                            <GradientStop Color="DeepSkyBlue" Offset="0.0" />
+                            <GradientStop Color="Blue" Offset="0.5" />
+                            <GradientStop Color="DodgerBlue" Offset="1.0" />
                         </LinearGradientBrush>
                     </lvc:Gauge.GaugeActiveFill>
                 </lvc:Gauge>
-                <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="ForestGreen" Margin="83,107,74,0"/>
-                <TextBlock Margin="0 -5 0 0" Text="Current Consumption" HorizontalAlignment="Center" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="ForestGreen" TextWrapping="Wrap" />
+                <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="DeepSkyBlue" Margin="83,107,74,0"/>
+                <TextBlock Margin="0 -5 0 0" Text="Current Consumption" HorizontalAlignment="Center" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="DeepSkyBlue" TextWrapping="Wrap" />
             </Grid>
             <Grid Grid.Column="1" Margin="30" Height="127" VerticalAlignment="Top">
-                <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from generators"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="#FF0CADFF" VerticalAlignment="Top" Width="185"/>
+                <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from generators"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Tomato" VerticalAlignment="Top" Width="185"/>
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="ProductionFromGenerators"
-                   From="0" To="1000" Value="{Binding ProductionGenerators,StringFormat={}{0:N2}}" Foreground="#FF0CADFF" HorizontalAlignment="Left" Width="169">
+                   From="0" To="1000" Value="{Binding ProductionGenerators,StringFormat={}{0:N2}}" Foreground="Tomato" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
-                            <GradientStop Color="DodgerBlue" Offset="0.0" />
-                            <GradientStop Color="DeepSkyBlue" Offset="0.5" />
-                            <GradientStop Color="LightBlue" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </lvc:Gauge.GaugeActiveFill>
-                </lvc:Gauge>
-                <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="#FF0CADFF" Margin="83,107,74,0" RenderTransformOrigin="1.053,0.4"/>
-            </Grid>
-            <Grid Grid.Column="2" Margin="30" Height="127" VerticalAlignment="Top">
-                <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from Sources"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="OrangeRed" VerticalAlignment="Top" Width="185"/>
-                <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="EnergyFromSources"
-                   From="0" To="1000" Value="{Binding EnergySourceValue,StringFormat={}{0:N2}}" Foreground="OrangeRed" HorizontalAlignment="Left" Width="169">
-                    <lvc:Gauge.GaugeActiveFill>
-                        <LinearGradientBrush>
-                            <GradientStop Color="Orange" Offset="0.0" />
-                            <GradientStop Color="OrangeRed" Offset="0.5" />
+                            <GradientStop Color="Tomato" Offset="0.0" />
+                            <GradientStop Color="Orange" Offset="0.5" />
                             <GradientStop Color="DarkRed" Offset="1.0" />
                         </LinearGradientBrush>
                     </lvc:Gauge.GaugeActiveFill>
                 </lvc:Gauge>
-                <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="OrangeRed" Margin="83,107,74,0" RenderTransformOrigin="1.053,0.4"/>
+                <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Tomato" Margin="83,107,74,0" RenderTransformOrigin="1.053,0.4"/>
             </Grid>
-            <!--<Grid Grid.Column="2" Margin="30,30,0,0" HorizontalAlignment="Left" Width="209" Background="DarkViolet" Height="104" VerticalAlignment="Top">
-                <TextBlock Text="Production from source" FontFamily="Champagne &amp; Limousines" Foreground="White" FontSize="15" Margin="34,10,10,75"/>
-                <Image Margin="4,4,0,0" Source="../Resources/Images/boltImg.png" Stretch="Fill" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="30"/>
-                <TextBlock Text="{Binding EnergySourceValue}" Name="CurrentConsumption" Foreground="White" FontFamily="Champagne &amp; Limousines" FontSize="30" Margin="34,52,34,10" TextAlignment="Center" />
-            </Grid>-->
+            <Grid Grid.Column="2" Margin="30" Height="127" VerticalAlignment="Top">
+                <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from Sources"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Yellow" VerticalAlignment="Top" Width="185"/>
+                <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="EnergyFromSources"
+                   From="0" To="1000" Value="{Binding EnergySourceValue,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="Yellow" HorizontalAlignment="Left" Width="169">
+                    <lvc:Gauge.GaugeActiveFill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="Yellow" Offset="0.0" />
+                            <GradientStop Color="LightGoldenrodYellow" Offset="0.5" />
+                            <GradientStop Color="DarkGoldenrod" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </lvc:Gauge.GaugeActiveFill>
+                </lvc:Gauge>
+                <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Yellow" Margin="83,107,74,0" RenderTransformOrigin="1.053,0.4"/>
+            </Grid>
+            
         </Grid>
 
         <Grid Margin="255,217,10,10">

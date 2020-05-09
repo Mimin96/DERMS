@@ -367,7 +367,7 @@ namespace UI.ViewModel
             }
             else
             {
-                EnergySourceValue = "0";
+                //EnergySourceValue = "0";
             }
             
         }
@@ -397,7 +397,7 @@ namespace UI.ViewModel
             }
             else
             {
-                EnergySourceValue = "0";
+               // EnergySourceValue = "0";
             }
         }
 		public void GeographicalSubRegionCommandExecute(long gid)
@@ -417,7 +417,7 @@ namespace UI.ViewModel
             }
             else
             {
-                EnergySourceValue = "0";
+                //EnergySourceValue = "0";
             }
         }
 
@@ -438,7 +438,7 @@ namespace UI.ViewModel
             }
             else
             {
-                EnergySourceValue = "0";
+                //EnergySourceValue = "0";
             }
         }
 		public void SubstationElementCommandExecute(long gid)
@@ -692,6 +692,43 @@ namespace UI.ViewModel
                 }
             }
 
+            for(int i = 0; i < 2; i++)
+            {
+                double chart1 = (double)ChartValues1[i];
+                ChartValues1.Add(chart1);
+                double chart2 = (double)ChartValues2[i];
+                ChartValues2.Add(chart2);
+                double chart3 = (double)ChartValues3[i];
+                ChartValues3.Add(chart3);
+                
+
+            }
+            ChartValues1.RemoveAt(0);
+            ChartValues2.RemoveAt(0);
+            ChartValues3.RemoveAt(0);
+            ChartValues1.RemoveAt(1);
+            ChartValues2.RemoveAt(1);
+            ChartValues3.RemoveAt(1);
+            float tempSource = (float)0.0;
+            foreach (HourDataPoint hdpProduction in tempListProduction)
+            {
+                foreach (HourDataPoint hdpConsumption in tempList)
+                {
+
+                    if (hdpConsumption.Time.Equals(hdpProduction.Time) && hdpConsumption.Time.Hour.Equals(DateTime.Now.Hour))
+                    {
+                        if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
+                            tempSource = hdpConsumption.ActivePower - hdpProduction.ActivePower;
+                        else
+                            tempSource = (float)0;
+                    }
+                }
+            }
+            string tempx = String.Format("{0:0.00}", tempSource);
+            EnergySourceValue = "0";
+            EnergySourceValue = tempx;
+            
+
         }
 
         public void SetChartValuesAfterOptimization(long gid)
@@ -717,7 +754,7 @@ namespace UI.ViewModel
             foreach (HourDataPoint hc in tempList)
             {
                 ChartValues2.Add((double)hc.ActivePower);
-                ChartValues3.Add((double)hc.ActivePower);
+               // ChartValues3.Add((double)hc.ActivePower);
 
             }
             foreach (HourDataPoint hdpProduction in tempListProduction)
@@ -728,12 +765,38 @@ namespace UI.ViewModel
                     if (hdpConsumption.Time.Equals(hdpProduction.Time))
                     {
                         if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
-                            ChartValues1.Add((double)(hdpConsumption.ActivePower - hdpProduction.ActivePower));
+                        {
+                            ChartValues1.Add((double)hdpConsumption.ActivePower - hdpProduction.ActivePower);
+                            ChartValues3.Add((double)(hdpProduction.ActivePower));
+                        }
                         else
+                        {
                             ChartValues1.Add(0.0);
+                            ChartValues3.Add((double)hdpConsumption.ActivePower);
+                        }
                     }
                 }
             }
+
+            for (int i = 0; i < 2; i++)
+            {
+                double chart1 = (double)ChartValues1[i];
+                ChartValues1.Add(chart1);
+                double chart2 = (double)ChartValues2[i];
+                ChartValues2.Add(chart2);
+                double chart3 = (double)ChartValues3[i];
+                ChartValues3.Add(chart3);
+
+
+            }
+            ChartValues1.RemoveAt(0);
+            ChartValues2.RemoveAt(0);
+            ChartValues3.RemoveAt(0);
+            ChartValues1.RemoveAt(1);
+            ChartValues2.RemoveAt(1);
+            ChartValues3.RemoveAt(1);
+
+
 
         }
 
@@ -807,6 +870,43 @@ namespace UI.ViewModel
                     }
                 }
             }
+
+            for (int i = 0; i < 2; i++)
+            {
+                double chart1 = (double)ChartValues1[i];
+                ChartValues1.Add(chart1);
+                double chart2 = (double)ChartValues2[i];
+                ChartValues2.Add(chart2);
+                double chart3 = (double)ChartValues3[i];
+                ChartValues3.Add(chart3);
+
+
+            }
+            ChartValues1.RemoveAt(0);
+            ChartValues2.RemoveAt(0);
+            ChartValues3.RemoveAt(0);
+            ChartValues1.RemoveAt(1);
+            ChartValues2.RemoveAt(1);
+            ChartValues3.RemoveAt(1);
+            float tempSource = (float)0.0;
+            foreach (HourDataPoint hdpProduction in tempListProduction)
+            {
+                foreach (HourDataPoint hdpConsumption in tempList)
+                {
+
+                    if (hdpConsumption.Time.Equals(hdpProduction.Time) && hdpConsumption.Time.Hour.Equals(DateTime.Now.Hour))
+                    {
+                        if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
+                            tempSource = hdpConsumption.ActivePower - hdpProduction.ActivePower;
+                        else
+                            tempSource = (float)0;
+                    }
+                }
+            }
+            string tempx = String.Format("{0:0.00}", tempSource);
+            EnergySourceValue = "0";
+            EnergySourceValue = tempx;
+
 
         }
         public float CalculateDemand(long gid)

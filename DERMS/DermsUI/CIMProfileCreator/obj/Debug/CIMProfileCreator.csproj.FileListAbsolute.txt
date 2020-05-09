@@ -165,3 +165,4 @@ C:\Users\Andrej\Desktop\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfi
 C:\Users\Andrej\Desktop\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.pdb
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csprojAssemblyReference.cache
+C:\Users\Djole\Desktop\Master\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csprojAssemblyReference.cache
