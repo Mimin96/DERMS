@@ -326,6 +326,7 @@ namespace UI.ViewModel
 
         public DERDashboardUserControlViewModel(DERDashboardUserControl dERDashboardUserControl)
         {
+            Mediator.Register("NMSNetworkModelDataDERDashboard", NMSNetworkModelDataDERDashboard);
 
             ShowConsumption = true;
             ShowDerProduction = true;
@@ -507,6 +508,13 @@ namespace UI.ViewModel
             return energySourceOptimizedValue;
         }
         #endregion
+
+        public void NMSNetworkModelDataDERDashboard(object parameter) 
+        {
+            List<object> obj = (List<object>)parameter;
+            Tree = (TreeNode<NodeData>)obj[0];
+            NetworkModel = (List<NetworkModelTreeClass>)obj[1];
+        }
 
         public ChartValues<ObservableValue> Values1 { get; set; }
         public ChartValues<ObservableValue> Values2 { get; set; }

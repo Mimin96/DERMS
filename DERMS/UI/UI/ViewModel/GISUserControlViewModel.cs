@@ -18,6 +18,7 @@ using DERMSCommon.DataModel.Meas;
 using DERMSCommon.DataModel.Wires;
 using FTN.Common;
 using UI.View;
+using UI.Resources.MediatorPattern;
 
 namespace UI.ViewModel
 {
@@ -32,6 +33,7 @@ namespace UI.ViewModel
 
         public GISUserControlViewModel(Map map, TextBox gisTextBlock)
         {
+            Mediator.Register("NMSNetworkModelDataGIS", NMSNetworkModelDataGIS);
             VisibilityOfElements = new Dictionary<string, bool>();
             VisibilityOfElementPopulate();
 
@@ -67,6 +69,11 @@ namespace UI.ViewModel
         #endregion
 
         #region Public Methods
+        public void NMSNetworkModelDataGIS(object parameter) 
+        {
+            List<object> obj = (List<object>)parameter;
+            Tree = (TreeNode<NodeData>)obj[0];
+        }
         public void GetCoordinatesOnMouseClick(object sender, MouseButtonEventArgs e)
         {
             UIElement iElement = null;

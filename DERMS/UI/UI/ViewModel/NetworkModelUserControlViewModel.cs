@@ -14,6 +14,7 @@ using DERMSCommon.UIModel.ThreeViewModel;
 using DERMSCommon;
 using DERMSCommon.DataModel.Core;
 using DERMSCommon.DataModel.Meas;
+using UI.Resources.MediatorPattern;
 
 namespace UI.ViewModel
 {
@@ -117,16 +118,12 @@ namespace UI.ViewModel
 
         public NetworkModelUserControlViewModel()
         {
+            Mediator.Register("NMSNetworkModelDataNetworkModel", NMSNetworkModelDataNetworkModel);
+
             PopulateNetworkModelItemsForWholeTree();
             ComboboxItems = new List<ComboData>();
             SelectedItem = new ComboData();
             SearchCriteria = new List<string>();
-            //SearchCriteria.Add("Gid");
-            //SearchCriteria.Add("Region");
-            //SearchCriteria.Add("Subregion");
-            //SearchCriteria.Add("Substations");
-            //SearchCriteria.Add("Generators");
-            //SearchCriteria.Add("Consumers");
             SearchCriteria.Add("Name");
             SearchCriteria.Add("Gid");
             SelectedCriteria = SearchCriteria[0];
@@ -399,5 +396,12 @@ namespace UI.ViewModel
             return data;
         }
         #endregion
+
+        public void NMSNetworkModelDataNetworkModel(object parameter) 
+        {
+            List<object> obj = (List<object>)parameter;
+            Tree = (TreeNode<NodeData>)obj[0];
+            NetworkModel = (List<NetworkModelTreeClass>)obj[1];
+        }
     }
 }

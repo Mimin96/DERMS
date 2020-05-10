@@ -17,6 +17,9 @@ namespace UI.Communication
         {
             List<object> obj = new List<object>() { data, NetworkModelTreeClass };
             Mediator.NotifyColleagues("NMSNetworkModelData", obj);
+            Mediator.NotifyColleagues("NMSNetworkModelDataDERDashboard", obj);
+            Mediator.NotifyColleagues("NMSNetworkModelDataNetworkModel", obj);
+            Mediator.NotifyColleagues("NMSNetworkModelDataGIS", obj);
         }
     }
 }
