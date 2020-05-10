@@ -293,3 +293,4 @@ C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache

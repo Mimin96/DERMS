@@ -890,3 +890,4 @@ C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\TransactionCoordinator\obj\Debug\Tr
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.exe
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csproj.CoreCompileInputs.cache

@@ -1,7 +1,7 @@
 ﻿using DERMSCommon;
+using DERMSCommon.UIModel;
 using DERMSCommon.UIModel.ThreeViewModel;
 using DERMSCommon.WeatherForecast;
-using DermsUI.Resources;
 using FTN.Common;
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -221,7 +221,7 @@ namespace UI.ViewModel
         private RelayCommand<long> _substationCommand;
         private RelayCommand<long> _substationElementCommand;
         private RelayCommand<long> _selectedEventCommand;
-        private MyICommand _optimizationCommand;
+        private RelayCommand<long> _optimizationCommand;
         public List<NetworkModelTreeClass> _networkModel;
 
         public List<NetworkModelTreeClass> NetworkModel
@@ -248,13 +248,13 @@ namespace UI.ViewModel
                 return _selectedEventCommand;
             }
         }
-        public MyICommand OptimizationCommand
+        public ICommand OptimizationCommand
         {
             get
             {
                 if (_optimizationCommand == null)
                 {
-                    _optimizationCommand = new MyICommand(OptimizationCommandExecute);
+                    _optimizationCommand = new RelayCommand<long>(OptimizationCommandExecute);
                 }
 
                 return _optimizationCommand;
@@ -471,7 +471,7 @@ namespace UI.ViewModel
 				}	
 			}
 		}
-        public void OptimizationCommandExecute()
+        public void OptimizationCommandExecute(long obj)
         {
             var energySourceValue = Optimization();
 

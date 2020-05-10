@@ -113,7 +113,7 @@
                     <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="Auto" >
                         <DataGridTextColumn.Header>
                             <Grid>
-                                <Label Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Name</Label>
+                                <Label Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Use</Label>
                             </Grid>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>

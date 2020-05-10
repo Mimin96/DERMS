@@ -209,9 +209,6 @@ namespace UI.ViewModel
                 case "EventSummary":
                     UserControlPresenter = new EventSummaryUserControl();
                     break;
-                case "LoggesSummary":
-                    UserControlPresenter = new LoggesSummaryUserControl();
-                    break;
                 case "History":
                     UserControlPresenter = new HistoryUserControl();
                     ((HistoryUserControlViewModel)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;

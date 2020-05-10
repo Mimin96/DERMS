@@ -487,3 +487,4 @@ C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\TransactionCoordinatorService\obj\D
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CoreCompileInputs.cache

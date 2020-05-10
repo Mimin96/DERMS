@@ -728,3 +728,4 @@ C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\CalculationEngine\CalculationEngine
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\obj\Debug\CalculationEngineService.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\obj\Debug\CalculationEngineService.dll
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\obj\Debug\CalculationEngineService.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServerSide\obj\Debug\CalculationEngineService.csproj.CoreCompileInputs.cache

@@ -861,3 +861,4 @@ C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\CalculationEngine\CalculationEngine
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.exe
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.csproj.CoreCompileInputs.cache

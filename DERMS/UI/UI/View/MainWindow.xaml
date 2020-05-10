@@ -106,16 +106,6 @@
                                     <TextBlock HorizontalAlignment="Center" Text="Event Summary" FontFamily="Champagne &amp; Limousines"/>
                                 </Grid>
                             </Button>
-                            <Button Cursor="Hand" x:Name="LoggesSummary" Width="Auto" Height="Auto" Background="Transparent" BorderBrush="Transparent" Foreground="#FF0398E2">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                        <i:CallMethodAction MethodName="OnMouseClick" TargetObject="{Binding}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                <Grid Width="145">
-                                    <TextBlock HorizontalAlignment="Center" Text="Logges Summary" FontFamily="Champagne &amp; Limousines"/>
-                                </Grid>
-                            </Button>
                         </MenuItem>
                     </Menu>
                 </StackPanel>

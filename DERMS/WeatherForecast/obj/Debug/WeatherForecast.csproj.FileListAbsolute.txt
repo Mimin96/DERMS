@@ -551,3 +551,4 @@ C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherFo
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.dll
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.csproj.CoreCompileInputs.cache

@@ -355,3 +355,4 @@ C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Deb
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CoreCompileInputs.cache

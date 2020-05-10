@@ -494,3 +494,4 @@ C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.c
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CoreCompileInputs.cache

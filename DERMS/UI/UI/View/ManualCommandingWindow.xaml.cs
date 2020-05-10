@@ -26,8 +26,17 @@ namespace UI.View
 		{
 			InitializeComponent();
 			DataContext = new ManualCommandingViewModel();
-			IncreaseGauge.Value = Math.Round(inc, 2); 
-			DecreaseGauge.Value = Math.Round(dec, 2); 
+
+			//IncreaseGauge.Value = Math.Round(inc, 2);
+			IncreaseGauge.Series.Where(X => X.Title == "Maximum Increase Flexibility").FirstOrDefault().Values.Clear();
+			IncreaseGauge.Series.Where(X => X.Title == "Maximum Decrease Flexibility").FirstOrDefault().Values.Clear();
+
+			IncreaseGauge.Series.Where(X => X.Title == "Maximum Increase Flexibility").FirstOrDefault().Values.Add(Math.Round(inc, 2));
+			IncreaseGauge.Series.Where(X => X.Title == "Maximum Decrease Flexibility").FirstOrDefault().Values.Add(Math.Round(dec, 2));
+
+			IncreaseGauge.Series.Where(X => X.Title == "Maximum Increase Flexibility").FirstOrDefault().LabelPoint = dd => string.Format("{0}", Math.Round(inc, 2));
+			IncreaseGauge.Series.Where(X => X.Title == "Maximum Decrease Flexibility").FirstOrDefault().LabelPoint = dd => string.Format("{0}", Math.Round(dec, 2));
+
 			Gid = gid;
 		}
 

@@ -1425,3 +1425,4 @@ C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.cspr
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.exe
 C:\Users\Nemanja\Desktop\Git3004\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CoreCompileInputs.cache

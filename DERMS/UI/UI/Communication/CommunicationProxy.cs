@@ -1,5 +1,4 @@
 ﻿using CalculationEngineServiceCommon;
-using DermsUI.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +21,13 @@ namespace UI.Communication
             NetTcpBinding binding = new NetTcpBinding();
             binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
             serviceHost_SCADAData.AddServiceEndpoint(typeof(ISendSCADADataToUI), binding,
-                                            new Uri("net.tcp://localhost:19119/ISendSCADADataToUI"));
+                                            new Uri("net.tcp://localhost:29139/ISendSCADADataToUI"));
 
             // Receive from CE
             serviceHost_NetworkModel = new ServiceHost(typeof(SendNetworkModelToUI));
 
             serviceHost_NetworkModel.AddServiceEndpoint(typeof(ISendNetworkModelToUI), new NetTcpBinding(),
-                                            new Uri("net.tcp://localhost:27128/ISendNetworkModelToUI"));
+                                            new Uri("net.tcp://localhost:27138/ISendNetworkModelToUI"));
 
             // Send to CE
             factory = new ChannelFactory<ICEUpdateThroughUI>(new NetTcpBinding(),

@@ -103,7 +103,6 @@
     <Compile Include="ViewModel\EventSummaryUserControlViewModel.cs" />
     <Compile Include="ViewModel\GISUserControlViewModel.cs" />
     <Compile Include="ViewModel\HistoryUserControlViewModel.cs" />
-    <Compile Include="ViewModel\LoggesSummaryUserControlViewModel.cs" />
     <Compile Include="ViewModel\ManualCommandingViewModel.cs" />
     <Compile Include="ViewModel\NetworkModelUserControlViewModel.cs" />
     <Compile Include="ViewModel\SignalsSummaryUserControlViewModel.cs" />
@@ -125,9 +124,6 @@
     </Compile>
     <Compile Include="View\LoadingWindow.xaml.cs">
       <DependentUpon>LoadingWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\LoggesSummaryUserControl.xaml.cs">
-      <DependentUpon>LoggesSummaryUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ManualCommandingWindow.xaml.cs">
       <DependentUpon>ManualCommandingWindow.xaml</DependentUpon>
@@ -163,10 +159,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LoadingWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\LoggesSummaryUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -234,10 +226,6 @@
     <ProjectReference Include="..\..\DERMSCommon\DERMSCommon.csproj">
       <Project>{776EB305-B428-4D01-B4A7-0B05FA59F9B9}</Project>
       <Name>DERMSCommon</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DermsUI\DermsUI\DermsUI.csproj">
-      <Project>{39DC0591-4161-4EEE-B200-39A02EBCBCC2}</Project>
-      <Name>DermsUI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ModelLabs\Common\Common.csproj">
       <Project>{b1e36476-2a09-4271-b336-3158cbd9df2f}</Project>
