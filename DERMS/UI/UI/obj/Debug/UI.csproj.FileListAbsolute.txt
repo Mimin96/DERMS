@@ -1733,7 +1733,6 @@ C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\UI.pdb
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\CalculationEngineServiceCommon.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\dCom.exe
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\DERMSCommon.dll
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\DermsUI.exe
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\FontAwesome.WPF.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\FTN.Common.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\LiveCharts.dll
@@ -1746,20 +1745,11 @@ C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Modbus.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\DarkSkyApi.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Innovative.SolarCalculator.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Innovative.Geometry.Angle.dll
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\MahApps.Metro.dll
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\GMap.NET.WindowsForms.dll
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\GMap.NET.Core.dll
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\CIMProfileCreator.dll
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Common.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\EasyModbus.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\ProcessingModule.dll
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\ControlzEx.dll
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\System.Windows.Interactivity.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\CalculationEngineServiceCommon.pdb
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\DERMSCommon.pdb
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\DermsUI.pdb
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\DermsUI.exe.config
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\dCom.pdb
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\dCom.exe.config
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\FTN.Common.pdb
@@ -1774,12 +1764,8 @@ C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Microsoft.Xaml.Behaviors.pdb
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Microsoft.Xaml.Behaviors.xml
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\MahApps.Metro.pdb
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\MahApps.Metro.xml
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\CIMProfileCreator.pdb
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Common.pdb
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\ProcessingModule.pdb
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\ControlzEx.pdb
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\UI.csprojResolveAssemblyReference.cache
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\Resources\AppDictionary.baml
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\GISUserControl.baml
@@ -1790,7 +1776,6 @@ C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\EventSummaryUserControl
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\GISUserControl.g.cs
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\HistoryUserControl.g.cs
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\LoadingWindow.g.cs
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\LoggesSummaryUserControl.g.cs
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\MainWindow.g.cs
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\ManualCommandingWindow.g.cs
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\NetworkModelUserControl.g.cs
@@ -1804,7 +1789,6 @@ C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\DERDashboardUserControl
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\EventSummaryUserControl.baml
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\HistoryUserControl.baml
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\LoadingWindow.baml
-C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\LoggesSummaryUserControl.baml
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\MainWindow.baml
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\ManualCommandingWindow.baml
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\NetworkModelUserControl.baml

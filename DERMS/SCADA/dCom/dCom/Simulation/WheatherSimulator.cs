@@ -27,7 +27,7 @@ namespace dCom.Simulation
             // fa6d00664c0c9abf42654341ff91db31
             // e67254e31e12e23461c61e0fb0489142
             // ab42e06e054eb1164d36132c278edef9
-            darkSkyProxy = new DarkSkyService("e67254e31e12e23461c61e0fb0489142");
+            darkSkyProxy = new DarkSkyService("fa6d00664c0c9abf42654341ff91db31");
         }
 
         public void SimulateWheater()
@@ -47,9 +47,9 @@ namespace dCom.Simulation
                         raw = EGUConverter.ConvertToRaw(2, 5, vrednost);
                         try
                         {
-                            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, raw, configuration);
-                            Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-                            commandExecutor.EnqueueCommand(fn);
+                            //ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, raw, configuration);
+                            //Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
+                            //commandExecutor.EnqueueCommand(fn);
                         }
                         catch (Exception ex)
                         {

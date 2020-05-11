@@ -141,7 +141,7 @@ namespace dCom.Configuration
                 configItem.LowAlarm = 90;
                 configItem.Gid = analog.Value.GlobalId;
                 configItem.GidGeneratora = ((Analog)analog.Value).PowerSystemResource;
-                configItem.NumberOfRegisters = (ushort)AnalogPoints;
+                configItem.NumberOfRegisters = 0;
                 configItem.StartAddress = (ushort)(3000 + AnalogPoints);
                 AnalogPoints++;
                 pointTypeToConfiguration.Add(configItem.Gid.ToString(), configItem);
@@ -171,7 +171,7 @@ namespace dCom.Configuration
                 configItem.ProcessingType = ((Discrete)digital.Value).Name;
                 configItem.Description = ((Discrete)digital.Value).Description;
 
-                configItem.NumberOfRegisters = (ushort)DigitalPoints;
+                configItem.NumberOfRegisters = 0;
                 configItem.StartAddress = (ushort)(40 + DigitalPoints);
                 DigitalPoints++;
                 configItem.Gid = ((Discrete)digital.Value).GlobalId;

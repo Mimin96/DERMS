@@ -121,33 +121,46 @@ namespace dCom.Configuration
                 }
 
                 configuration = new ConfigReader(analogniStari, digitalniStari);
+                commandExecutor = new FunctionExecutor(this, configuration);
                 foreach (KeyValuePair<long, IdentifiedObject> kvp in analogni)
                 {
-                    if (!analogniStari.ContainsKey(kvp.Key))
+
+                    foreach (KeyValuePair<List<long>, ushort> par in GidoviNaAdresu)
                     {
-                        
-                        ushort raw = 0;
-                        raw = EGUConverter.ConvertToRaw(2, 5, (double)((Discrete)kvp.Value).NormalValue);
-                        ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)((Discrete)kvp.Value).GlobalId, raw, configuration);
-                        Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-                        commandExecutor.EnqueueCommand(fn);
+                        if (par.Key.Contains(((Analog)kvp.Value).GlobalId))
+                        {
+                            ushort raw = 0;
+                            if((double)((Analog)kvp.Value).NormalValue != 0)
+                            {
+                                raw = (ushort)((Analog)kvp.Value).NormalValue;
+                            }
+                            
+                            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, par.Value, raw, configuration);
+                            Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
+                            commandExecutor.EnqueueCommand(fn);
+                        }
                     }
+                    
                 }
                 foreach (KeyValuePair<long, IdentifiedObject> kvp in digitalni)
                 {
-                    if (!digitalniStari.ContainsKey(kvp.Key))
+                    foreach (KeyValuePair<List<long>, ushort> par in GidoviNaAdresu)
                     {
-                        
-                        ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_COIL, (ushort)((Discrete)kvp.Value).GlobalId, (ushort)((Discrete)kvp.Value).NormalValue, configuration);
-                        Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-                        commandExecutor.EnqueueCommand(fn);
+                        if (par.Key.Contains(((Discrete)kvp.Value).GlobalId))
+                        {
+
+                            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_COIL, par.Value, (ushort)((Discrete)kvp.Value).NormalValue, configuration);
+                            Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
+                            commandExecutor.EnqueueCommand(fn);
+                        }
                     }
+                    
                 }
 
 
 
 
-                commandExecutor = new FunctionExecutor(this, configuration);
+                
                 this.acquisitor = new Acquisitor(acquisitionTrigger, commandExecutor, this, configuration);
 
                 InitializePointCollection();

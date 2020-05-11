@@ -1,6 +1,7 @@
 ﻿using CalculationEngineServiceCommon;
 using Common;
 using DERMSCommon.DataModel.Core;
+using DERMSCommon.DataModel.Meas;
 using Modbus;
 using Modbus.FunctionParameters;
 using ProcessingModule;
@@ -30,11 +31,14 @@ namespace dCom.Configuration
                             if (analogniStari[gidoviNaAdresu.Key[1]].Description == "Commanding")
                             {
                                 {
-                                    ushort raw = 0;
-                                    raw = EGUConverter.ConvertToRaw(2, 5, generator.Value);
-                                    ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, raw, configuration);
+                                    ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)generator.Value, configuration);
                                     Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
                                     commandExecutor.EnqueueCommand(fn);
+                                    KeyValuePair<long,IdentifiedObject> a = analogniStari.ElementAt(gidoviNaAdresu.Value - 3000-2);
+                                    float zbir = ((Analog)a.Value).NormalValue + (float)generator.Value;
+                                    ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value-2), (ushort)zbir, configuration);
+                                    Common.IModbusFunction fn1 = FunctionFactory.CreateModbusFunction(p1);
+                                    commandExecutor.EnqueueCommand(fn1);
                                 }
                             }
                         }

@@ -30,7 +30,7 @@ namespace dCom.ViewModel
 
             if (this.type == type && this.address == pointAddres && newValue != RawValue)
             {
-             
+                
                 RawValue = newValue;
                 ProcessRawValue(newValue);
                 Timestamp = DateTime.Now;
