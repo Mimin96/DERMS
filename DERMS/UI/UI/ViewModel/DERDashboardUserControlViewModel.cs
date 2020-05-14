@@ -687,7 +687,7 @@ namespace UI.ViewModel
                         if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
                             ChartValues1.Add((double)(hdpConsumption.ActivePower - hdpProduction.ActivePower));
                         else
-                            ChartValues1.Add(0.0);
+                            ChartValues1.Add((double)(hdpConsumption.ActivePower - hdpProduction.ActivePower));
                     }
                 }
             }
@@ -720,7 +720,7 @@ namespace UI.ViewModel
                         if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
                             tempSource = hdpConsumption.ActivePower - hdpProduction.ActivePower;
                         else
-                            tempSource = (float)0;
+                            tempSource = hdpConsumption.ActivePower - hdpProduction.ActivePower;
                     }
                 }
             }
@@ -771,8 +771,8 @@ namespace UI.ViewModel
                         }
                         else
                         {
-                            ChartValues1.Add(0.0);
-                            ChartValues3.Add((double)hdpConsumption.ActivePower);
+                            ChartValues1.Add((double)(hdpConsumption.ActivePower - hdpProduction.ActivePower));
+                            ChartValues3.Add((double)hdpProduction.ActivePower);
                         }
                     }
                 }
@@ -866,7 +866,7 @@ namespace UI.ViewModel
                         if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
                             ChartValues1.Add((double)(hdpConsumption.ActivePower - hdpProduction.ActivePower));
                         else
-                            ChartValues1.Add(0.0);
+                            ChartValues1.Add((double)(hdpConsumption.ActivePower - hdpProduction.ActivePower));
                     }
                 }
             }
@@ -899,7 +899,7 @@ namespace UI.ViewModel
                         if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
                             tempSource = hdpConsumption.ActivePower - hdpProduction.ActivePower;
                         else
-                            tempSource = (float)0;
+                            tempSource = hdpConsumption.ActivePower - hdpProduction.ActivePower;
                     }
                 }
             }
@@ -926,7 +926,7 @@ namespace UI.ViewModel
                         if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
                             y = hdpConsumption.ActivePower - hdpProduction.ActivePower;
                         else
-                            y = (float)0;
+                            y = hdpConsumption.ActivePower - hdpProduction.ActivePower;
                     }
                 }
             }
@@ -963,7 +963,7 @@ namespace UI.ViewModel
                         if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
                             y = hdpConsumption.ActivePower - hdpProduction.ActivePower;
                         else
-                            y = (float)0;
+                            y = hdpConsumption.ActivePower - hdpProduction.ActivePower;
                     }
                 }
             }

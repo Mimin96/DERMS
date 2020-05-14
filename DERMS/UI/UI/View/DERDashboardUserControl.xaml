@@ -75,7 +75,7 @@
             <Grid Grid.Column="1" Margin="30" Height="127" VerticalAlignment="Top">
                 <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from generators"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Tomato" VerticalAlignment="Top" Width="185"/>
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="ProductionFromGenerators"
-                   From="0" To="1000" Value="{Binding ProductionGenerators,StringFormat={}{0:N2}}" Foreground="Tomato" HorizontalAlignment="Left" Width="169">
+                   From="0" To="2000" Value="{Binding ProductionGenerators,StringFormat={}{0:N2}}" Foreground="Tomato" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
                             <GradientStop Color="Tomato" Offset="0.0" />
@@ -87,9 +87,9 @@
                 <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Tomato" Margin="83,107,74,0" RenderTransformOrigin="1.053,0.4"/>
             </Grid>
             <Grid Grid.Column="2" Margin="30" Height="127" VerticalAlignment="Top">
-                <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Production from Sources"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Yellow" VerticalAlignment="Top" Width="185"/>
+                <TextBlock HorizontalAlignment="Center"  Margin="0 -5 0 0" TextWrapping="Wrap" Text="Exchange with Sources"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Yellow" VerticalAlignment="Top" Width="185"/>
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="EnergyFromSources"
-                   From="0" To="1000" Value="{Binding EnergySourceValue,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="Yellow" HorizontalAlignment="Left" Width="169">
+                   From="-2000" To="2000" Value="{Binding EnergySourceValue,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="Yellow" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
                             <GradientStop Color="Yellow" Offset="0.0" />
@@ -100,7 +100,7 @@
                 </lvc:Gauge>
                 <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Yellow" Margin="83,107,74,0" RenderTransformOrigin="1.053,0.4"/>
             </Grid>
-            
+
         </Grid>
 
         <Grid Margin="255,217,10,10">
@@ -128,7 +128,7 @@
             <Grid Grid.Row="2">
                 <CheckBox Background="DeepSkyBlue" Content="Consumption" FontSize="14" Foreground="DeepSkyBlue" IsChecked="{Binding ShowConsumption}" HorizontalAlignment="Left" Margin="67,0,0,0" VerticalAlignment="Top"/>
                 <CheckBox Background="Tomato" Content="DER Production" FontSize="14" Foreground="Tomato" IsChecked="{Binding ShowDerProduction}" HorizontalAlignment="Left" Height="20" Margin="227,0,0,0" VerticalAlignment="Top"/>
-                <CheckBox Background="Yellow" Content="Demands from Grid" FontSize="14" Foreground="Yellow" IsChecked="{Binding ShowGridDemands}" HorizontalAlignment="Left" Height="20" Margin="386,0,0,0" VerticalAlignment="Top"/>
+                <CheckBox Background="Yellow" Content="Exchange with source" FontSize="14" Foreground="Yellow" IsChecked="{Binding ShowGridDemands}" HorizontalAlignment="Left" Height="20" Margin="386,0,0,0" VerticalAlignment="Top"/>
             </Grid>
         </Grid>
 

@@ -137,6 +137,7 @@ namespace CalculationEngineService
                                     {
                                         EnergySource energySource = (EnergySource)networkModel[es];
                                         energySource.ActivePower += (hdpProduction.ActivePower - hdpConsumption.ActivePower) / distributionFactor;
+
                                     }
 
                                     // hdpProduction.ActivePower = hdpConsumption.ActivePower;
@@ -146,7 +147,9 @@ namespace CalculationEngineService
                                 tempProduction.Time = hdpProduction.Time;
                                 tempProduction.ActivePower = hdpProduction.ActivePower - hdpConsumption.ActivePower;
                                 tempForecast.Production.Hourly.Add(tempProduction);
-                                hdpProduction.ActivePower = hdpConsumption.ActivePower;
+                                //hdpProduction.ActivePower = hdpConsumption.ActivePower;
+                                //PROBAJ DA SMANJIS FLEX KOLIKO MOZE -> AKO JE DOVOLJNO DA SE PORAVNA
+                                // NE DAJES NISTA SORSU, AKO OPET PROIZVODI VISE -> OSTATAK PREDAJ SORSU
 
                             }
                             else if (hdpProduction.ActivePower <= hdpConsumption.ActivePower)
@@ -165,6 +168,8 @@ namespace CalculationEngineService
                                         }
                                     }
 
+                                    //POKUSAJ SA FLEX DA PODIGNES-> AKO NEMA DOSTA OSTATAK POVUCI IZ SOURSA
+
                                 }
                                 else
                                 {
@@ -173,9 +178,7 @@ namespace CalculationEngineService
 
                                 HourDataPoint tempProduction = new HourDataPoint();
                                 tempProduction.Time = hdpProduction.Time;
-                                //tempProduction.ActivePower = hdpProduction.ActivePower;
                                 tempForecast.Production.Hourly.Add(tempProduction);
-                                //hdpProduction.ActivePower = hdpConsumption.ActivePower;
 
                             }
                             else
