@@ -221,7 +221,7 @@ namespace UI.ViewModel
         private RelayCommand<long> _substationCommand;
         private RelayCommand<long> _substationElementCommand;
         private RelayCommand<long> _selectedEventCommand;
-        private RelayCommand<long> _optimizationCommand;
+        private MyICommand _optimizationCommand;
         public List<NetworkModelTreeClass> _networkModel;
 
         public List<NetworkModelTreeClass> NetworkModel
@@ -248,13 +248,13 @@ namespace UI.ViewModel
                 return _selectedEventCommand;
             }
         }
-        public ICommand OptimizationCommand
+        public MyICommand OptimizationCommand
         {
             get
             {
                 if (_optimizationCommand == null)
                 {
-                    _optimizationCommand = new RelayCommand<long>(OptimizationCommandExecute);
+                    _optimizationCommand = new MyICommand(OptimizationCommandExecute);
                 }
 
                 return _optimizationCommand;
@@ -326,7 +326,6 @@ namespace UI.ViewModel
 
         public DERDashboardUserControlViewModel(DERDashboardUserControl dERDashboardUserControl)
         {
-            Mediator.Register("NMSNetworkModelDataDERDashboard", NMSNetworkModelDataDERDashboard);
 
             ShowConsumption = true;
             ShowDerProduction = true;
@@ -347,8 +346,8 @@ namespace UI.ViewModel
             CalculationEnginePubSub = new CalculationEnginePubSub();
             ClientSideProxy.StartServiceHost(CalculationEnginePubSub);
             ClientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
-			dERDashboardUserControl.ManualCommanding.IsEnabled = false;
-		}
+            dERDashboardUserControl.ManualCommanding.IsEnabled = false;
+        }
 
         #region TreeView Commands Execute
         public void NetworkModelCommandExecute(long gid)
@@ -370,16 +369,16 @@ namespace UI.ViewModel
             {
                 //EnergySourceValue = "0";
             }
-            
+
         }
-		public void SelectedEventCommandExecute(long gid)
+        public void SelectedEventCommandExecute(long gid)
         {
             GidForOptimization = 0;
             GidForOptimization = gid;
 
             CurrentSelectedGid = gid;
             Console.Beep();
-            
+
         }
         public void GeographicalRegionCommandExecute(long gid)
         {
@@ -388,7 +387,7 @@ namespace UI.ViewModel
             CurrentSelectedGid = gid;
             Console.Beep();
             SetChartValues(gid);
-			dERDashboardUserControl.ManualCommanding.IsEnabled = true;
+            dERDashboardUserControl.ManualCommanding.IsEnabled = true;
             float x;
             if (OptimizatedElements.Contains(gid))
             {
@@ -398,17 +397,17 @@ namespace UI.ViewModel
             }
             else
             {
-               // EnergySourceValue = "0";
+                // EnergySourceValue = "0";
             }
         }
-		public void GeographicalSubRegionCommandExecute(long gid)
+        public void GeographicalSubRegionCommandExecute(long gid)
         {
             GidForOptimization = 0;
             GidForOptimization = gid;
             CurrentSelectedGid = gid;
             Console.Beep();
             SetChartValues(gid);
-			dERDashboardUserControl.ManualCommanding.IsEnabled = true;
+            dERDashboardUserControl.ManualCommanding.IsEnabled = true;
             float x;
             if (OptimizatedElements.Contains(gid))
             {
@@ -422,14 +421,14 @@ namespace UI.ViewModel
             }
         }
 
-		public void SubstationCommandExecute(long gid)
+        public void SubstationCommandExecute(long gid)
         {
             GidForOptimization = 0;
             GidForOptimization = gid;
             CurrentSelectedGid = gid;
             Console.Beep();
             SetChartValues(gid);
-			dERDashboardUserControl.ManualCommanding.IsEnabled = true;
+            dERDashboardUserControl.ManualCommanding.IsEnabled = true;
             float x;
             if (OptimizatedElements.Contains(gid))
             {
@@ -442,37 +441,37 @@ namespace UI.ViewModel
                 //EnergySourceValue = "0";
             }
         }
-		public void SubstationElementCommandExecute(long gid)
+        public void SubstationElementCommandExecute(long gid)
         {
             CurrentSelectedGid = gid;
             Console.Beep();
 
-			foreach (NetworkModelTreeClass networkModelTreeClass in NetworkModel)
-			{
-				foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClass.GeographicalRegions)
-				{
-					foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
-					{
-						foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
-						{
-							if (substationTreeClass.SubstationElements.Exists(x => x.GID.Equals(gid)))
-							{
-								SubstationElementTreeClass generator = substationTreeClass.SubstationElements.Where(x => x.GID.Equals(gid)).FirstOrDefault();
+            foreach (NetworkModelTreeClass networkModelTreeClass in NetworkModel)
+            {
+                foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClass.GeographicalRegions)
+                {
+                    foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
+                    {
+                        foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
+                        {
+                            if (substationTreeClass.SubstationElements.Exists(x => x.GID.Equals(gid)))
+                            {
+                                SubstationElementTreeClass generator = substationTreeClass.SubstationElements.Where(x => x.GID.Equals(gid)).FirstOrDefault();
 
-								if(generator.Type.Equals(DMSType.GENERATOR))
-									dERDashboardUserControl.ManualCommanding.IsEnabled = true;
-								else
-									dERDashboardUserControl.ManualCommanding.IsEnabled = false;
+                                if (generator.Type.Equals(DMSType.GENERATOR))
+                                    dERDashboardUserControl.ManualCommanding.IsEnabled = true;
+                                else
+                                    dERDashboardUserControl.ManualCommanding.IsEnabled = false;
 
-								return;
-							}
-						}
-								
-					}
-				}	
-			}
-		}
-        public void OptimizationCommandExecute(long obj)
+                                return;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        public void OptimizationCommandExecute()
         {
             var energySourceValue = Optimization();
 
@@ -508,13 +507,6 @@ namespace UI.ViewModel
             return energySourceOptimizedValue;
         }
         #endregion
-
-        public void NMSNetworkModelDataDERDashboard(object parameter) 
-        {
-            List<object> obj = (List<object>)parameter;
-            Tree = (TreeNode<NodeData>)obj[0];
-            NetworkModel = (List<NetworkModelTreeClass>)obj[1];
-        }
 
         public ChartValues<ObservableValue> Values1 { get; set; }
         public ChartValues<ObservableValue> Values2 { get; set; }
@@ -643,7 +635,7 @@ namespace UI.ViewModel
 
         public void SetChartValues(long gid)
         {
-            
+
             foreach (HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Production.Hourly)
             {
                 if (hdp.Time.Hour.Equals(DateTime.Now.Hour))
@@ -678,7 +670,7 @@ namespace UI.ViewModel
             foreach (HourDataPoint hc in tempList)
             {
                 ChartValues2.Add((double)hc.ActivePower);
-               // ChartValues1.Add((double)hc.ActivePower);
+                // ChartValues1.Add((double)hc.ActivePower);
 
             }
             foreach (HourDataPoint hc in tempListProduction)
@@ -700,7 +692,7 @@ namespace UI.ViewModel
                 }
             }
 
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 double chart1 = (double)ChartValues1[i];
                 ChartValues1.Add(chart1);
@@ -708,7 +700,7 @@ namespace UI.ViewModel
                 ChartValues2.Add(chart2);
                 double chart3 = (double)ChartValues3[i];
                 ChartValues3.Add(chart3);
-                
+
 
             }
             ChartValues1.RemoveAt(0);
@@ -735,7 +727,7 @@ namespace UI.ViewModel
             string tempx = String.Format("{0:0.00}", tempSource);
             EnergySourceValue = "0";
             EnergySourceValue = tempx;
-            
+
 
         }
 
@@ -762,7 +754,7 @@ namespace UI.ViewModel
             foreach (HourDataPoint hc in tempList)
             {
                 ChartValues2.Add((double)hc.ActivePower);
-               // ChartValues3.Add((double)hc.ActivePower);
+                // ChartValues3.Add((double)hc.ActivePower);
 
             }
             foreach (HourDataPoint hdpProduction in tempListProduction)
@@ -991,7 +983,7 @@ namespace UI.ViewModel
                     }
                     foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
                     {
-                        if(!OptimizatedElements.Contains(gr.GID))
+                        if (!OptimizatedElements.Contains(gr.GID))
                         {
                             OptimizatedElements.Add(gr.GID);
                         }
@@ -1013,8 +1005,8 @@ namespace UI.ViewModel
                         }
                     }
                 }
-                
-                
+
+
                 foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
                 {
                     if (gid.Equals(gr.GID))
@@ -1044,7 +1036,7 @@ namespace UI.ViewModel
                             OptimizatedElements.Add(networkModelTreeClasses.GID);
                         }
                     }
-                    
+
                 }
 
                 foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
@@ -1077,9 +1069,9 @@ namespace UI.ViewModel
                             }
 
                         }
-                        
+
                     }
-                    
+
 
                 }
                 foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
@@ -1092,7 +1084,7 @@ namespace UI.ViewModel
                         {
                             if (gid.Equals(sub.GID))
                             {
-                                if(!OptimizatedElements.Contains(sub.GID))
+                                if (!OptimizatedElements.Contains(sub.GID))
                                     OptimizatedElements.Add(sub.GID);
 
                                 if (!OptimizatedElements.Contains(networkModelTreeClasses.GID))
@@ -1110,9 +1102,9 @@ namespace UI.ViewModel
                             }
 
                         }
-                        
+
                     }
-                    
+
 
 
                 }

@@ -98,6 +98,7 @@
     <Compile Include="Resources\MediatorPattern\EventArgs.cs" />
     <Compile Include="Resources\MediatorPattern\EventRaiser.cs" />
     <Compile Include="Resources\MediatorPattern\Mediator.cs" />
+    <Compile Include="Resources\MyICommand.cs" />
     <Compile Include="ViewModel\BreakerControlThroughGISWindowViewModel.cs" />
     <Compile Include="ViewModel\DERDashboardUserControlViewModel.cs" />
     <Compile Include="ViewModel\EventSummaryUserControlViewModel.cs" />
