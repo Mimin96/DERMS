@@ -67,7 +67,7 @@
 		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
 		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_2"/>
-	</cim:ACLineSegment>
+	</cim:ACLineSegment>	
 	
 	<cim:Point rdf:ID="p_19">
 		<cim:IdentifiedObject.description>p19</cim:IdentifiedObject.description>
@@ -122,6 +122,16 @@
 		<cim:Point.latitude>19.822928</cim:Point.latitude>
 		<cim:Point.Line rdf:resource="#acl_29"/>
 	</cim:Point>
+	
+	<cim:Point rdf:ID="p_2901234">
+		<cim:IdentifiedObject.description>p2901234</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_2901234</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P2901234</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.270494</cim:Point.longitude>
+		<cim:Point.latitude>19.822133</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_29"/>
+	</cim:Point>
+	
 	
 	<cim:Terminal rdf:id="t_69">
 		<cim:IdentifiedObject.description>t69</cim:IdentifiedObject.description>
@@ -445,6 +455,15 @@
 		<cim:ConductingEquipment.latitude>19.843979</cim:ConductingEquipment.latitude> -->
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_2"/>
 	</cim:ACLineSegment>
+	
+	<cim:Point rdf:ID="p_10">
+		<cim:IdentifiedObject.description>p10</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_10</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P10</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.275477</cim:Point.longitude>
+		<cim:Point.latitude>19.803101</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_28"/>
+	</cim:Point>
 	
 	<cim:Point rdf:ID="p_18">
 		<cim:IdentifiedObject.description>p18</cim:IdentifiedObject.description>

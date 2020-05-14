@@ -1,7 +1,7 @@
 ﻿<delta id="0">
   <operations>
     <operation type="insert">
-      <ResourceDescriptions count="78">
+      <ResourceDescriptions count="80">
         <ResourceDescription>
           <id gid="0x0000000bffffffff" type="SUBGEOGRAPHICALREGION" />
           <Properties>
@@ -32,7 +32,7 @@
             <Property id="IDOBJ_NAME" value="B26" />
             <Property id="CONDEQ_LONGITUDE" value="45.2702675" />
             <Property id="CONDEQ_LATITUDE" value="19.8463" />
-            <Property id="SWITCH_NORMAL_OPEN" value="1" />
+            <Property id="SWITCH_NORMAL_OPEN" value="0" />
             <Property id="SWITCH_FEEDER_ID1" value="feeder1" />
             <Property id="SWITCH_FEEDER_ID2" value="feeder2" />
             <Property id="EQUIPMENT_CONTAINER" value="0x0000000affffffff" />
@@ -46,7 +46,7 @@
             <Property id="IDOBJ_NAME" value="B27" />
             <Property id="CONDEQ_LONGITUDE" value="45.27157" />
             <Property id="CONDEQ_LATITUDE" value="19.840416" />
-            <Property id="SWITCH_NORMAL_OPEN" value="1" />
+            <Property id="SWITCH_NORMAL_OPEN" value="0" />
             <Property id="SWITCH_FEEDER_ID1" value="feeder1" />
             <Property id="SWITCH_FEEDER_ID2" value="feeder2" />
             <Property id="EQUIPMENT_CONTAINER" value="0x0000000affffffff" />
@@ -247,6 +247,17 @@
         <ResourceDescription>
           <id gid="0x0000000dffffffff" type="POINT" />
           <Properties>
+            <Property id="IDOBJ_MRID" value="p_11" />
+            <Property id="IDOBJ_DESCRIPTION" value="p11" />
+            <Property id="IDOBJ_NAME" value="P11" />
+            <Property id="POINT_LONGITUDE" value="45.2703667" />
+            <Property id="POINT_LATITUDE" value="19.8456573" />
+            <Property id="POINT_LINE" value="0x0000000cffffffff" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x0000000dfffffffe" type="POINT" />
+          <Properties>
             <Property id="IDOBJ_MRID" value="p_16" />
             <Property id="IDOBJ_DESCRIPTION" value="p16" />
             <Property id="IDOBJ_NAME" value="P16" />
@@ -256,7 +267,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffffe" type="POINT" />
+          <id gid="0x0000000dfffffffd" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_17" />
             <Property id="IDOBJ_DESCRIPTION" value="p17" />
@@ -267,7 +278,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffffd" type="POINT" />
+          <id gid="0x0000000dfffffffc" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_26" />
             <Property id="IDOBJ_DESCRIPTION" value="p26" />
@@ -278,7 +289,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffffc" type="POINT" />
+          <id gid="0x0000000dfffffffb" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_261" />
             <Property id="IDOBJ_DESCRIPTION" value="p261" />
@@ -289,7 +300,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffffb" type="POINT" />
+          <id gid="0x0000000dfffffffa" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_262" />
             <Property id="IDOBJ_DESCRIPTION" value="p262" />
@@ -300,7 +311,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffffa" type="POINT" />
+          <id gid="0x0000000dfffffff9" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_263" />
             <Property id="IDOBJ_DESCRIPTION" value="p263" />
@@ -311,7 +322,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff9" type="POINT" />
+          <id gid="0x0000000dfffffff8" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_27" />
             <Property id="IDOBJ_DESCRIPTION" value="p27" />
@@ -322,7 +333,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff8" type="POINT" />
+          <id gid="0x0000000dfffffff7" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_270" />
             <Property id="IDOBJ_DESCRIPTION" value="p270" />
@@ -333,7 +344,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff7" type="POINT" />
+          <id gid="0x0000000dfffffff6" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_271" />
             <Property id="IDOBJ_DESCRIPTION" value="p271" />
@@ -344,7 +355,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff6" type="POINT" />
+          <id gid="0x0000000dfffffff5" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_272" />
             <Property id="IDOBJ_DESCRIPTION" value="p272" />
@@ -355,7 +366,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff5" type="POINT" />
+          <id gid="0x0000000dfffffff4" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_274" />
             <Property id="IDOBJ_DESCRIPTION" value="p274" />
@@ -366,7 +377,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff4" type="POINT" />
+          <id gid="0x0000000dfffffff3" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_275" />
             <Property id="IDOBJ_DESCRIPTION" value="p275" />
@@ -377,13 +388,24 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff3" type="POINT" />
+          <id gid="0x0000000dfffffff2" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_276" />
             <Property id="IDOBJ_DESCRIPTION" value="p276" />
             <Property id="IDOBJ_NAME" value="P276" />
             <Property id="POINT_LONGITUDE" value="45.27157" />
             <Property id="POINT_LATITUDE" value="19.840416" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x0000000dfffffff1" type="POINT" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="p_277" />
+            <Property id="IDOBJ_DESCRIPTION" value="p277" />
+            <Property id="IDOBJ_NAME" value="P277" />
+            <Property id="POINT_LONGITUDE" value="45.27167" />
+            <Property id="POINT_LATITUDE" value="19.8394165" />
             <Property id="POINT_LINE" value="0x0000000cfffffffe" />
           </Properties>
         </ResourceDescription>

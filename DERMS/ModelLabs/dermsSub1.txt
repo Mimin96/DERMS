@@ -124,7 +124,7 @@
 	<!-- grana1 start (source, breaker, consumer, acl, solar generator)-->	
 	
 	<cim:Breaker rdf:ID="b_281">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_281</cim:IdentifiedObject.mRID>
@@ -186,6 +186,15 @@
 		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>
 	</cim:ACLineSegment>
+	
+	<cim:Point rdf:ID="p_018">
+		<cim:IdentifiedObject.description>p018</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_018</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P018</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.262610</cim:Point.longitude>
+		<cim:Point.latitude>19.801417</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_281"/>
+	</cim:Point>
 	
 	<cim:Point rdf:ID="p_0181">
 		<cim:IdentifiedObject.description>p0181</cim:IdentifiedObject.description>
@@ -566,6 +575,15 @@
 		<cim:IdentifiedObject.name>P22123456</cim:IdentifiedObject.name>
 		<cim:Point.longitude>45.277259</cim:Point.longitude>
 		<cim:Point.latitude>19.798745</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_22"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_221234567">
+		<cim:IdentifiedObject.description>p221234567</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_221234567</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P221234567</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.277772</cim:Point.longitude>
+		<cim:Point.latitude>19.799303</cim:Point.latitude>
 		<cim:Point.Line rdf:resource="#acl_22"/>
 	</cim:Point>
 	

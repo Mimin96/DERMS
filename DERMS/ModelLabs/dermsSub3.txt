@@ -141,6 +141,15 @@
 		<cim:Point.Line rdf:resource="#acl_27"/>
 	</cim:Point>
 	
+	<cim:Point rdf:ID="p_277">
+		<cim:IdentifiedObject.description>p277</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_277</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P277</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.271670</cim:Point.longitude>
+		<cim:Point.latitude>19.839416</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_27"/>
+	</cim:Point>	
+	
 	<cim:Terminal rdf:id="t_67">
 		<cim:IdentifiedObject.description>t67</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>t_67</cim:IdentifiedObject.mRID>
@@ -362,7 +371,7 @@
 	</cim:ConnectivityNode>		
 	
 	<cim:Breaker rdf:ID="b_27">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_27</cim:IdentifiedObject.mRID>
@@ -463,7 +472,7 @@
 	<!-- grana2 start (source, breaker, consumer, acl, wind generator)-->	
 	
 	<cim:Breaker rdf:ID="b_26">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_26</cim:IdentifiedObject.mRID>
@@ -542,7 +551,16 @@
 		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
 		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_3"/>
-	</cim:ACLineSegment>
+	</cim:ACLineSegment>	
+	
+	<cim:Point rdf:ID="p_11"> 
+		<cim:IdentifiedObject.description>p11</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_11</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P11</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.270365</cim:Point.longitude>
+		<cim:Point.latitude>19.845657</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_26"/>
+	</cim:Point>
 	
 	<cim:Point rdf:ID="p_16"> 
 		<cim:IdentifiedObject.description>p16</cim:IdentifiedObject.description>
