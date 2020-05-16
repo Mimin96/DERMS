@@ -21,11 +21,24 @@ namespace UI.View
     /// </summary>
     public partial class HistoryUserControl : UserControl
     {
+        Button _selectedTreeButton;
+
         public HistoryUserControl()
         {
             InitializeComponent();
 
+            _selectedTreeButton = new Button();
             DataContext = new HistoryUserControlViewModel();
+        }
+
+        private void SelectedElementFromTree(object sender, RoutedEventArgs e)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+
+            _selectedTreeButton.Background = (Brush)converter.ConvertFromString("#FF303030");
+
+            _selectedTreeButton = (Button)sender;
+            _selectedTreeButton.Background = (Brush)converter.ConvertFromString("#1c1c1c");
         }
     }
 }

@@ -21,15 +21,29 @@ namespace UI.View
     /// </summary>
     public partial class NetworkModelUserControl : UserControl
     {
+        Button _selectedTreeButton;
+
         public NetworkModelUserControl()
         {
              InitializeComponent();
-             DataContext = new NetworkModelUserControlViewModel();
+
+            _selectedTreeButton = new Button();
+            DataContext = new NetworkModelUserControlViewModel();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //((NetworkModelUserControlViewModel)DataContext).GidInput;
+        }
+
+        private void SelectedElementFromTree(object sender, RoutedEventArgs e)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+
+            _selectedTreeButton.Background = (Brush)converter.ConvertFromString("#FF303030");
+
+            _selectedTreeButton = (Button)sender;
+            _selectedTreeButton.Background = (Brush)converter.ConvertFromString("#1c1c1c");
         }
     }
 }

@@ -15,6 +15,7 @@ using DERMSCommon;
 using DERMSCommon.DataModel.Core;
 using DERMSCommon.DataModel.Meas;
 using UI.Resources.MediatorPattern;
+using System.Threading;
 
 namespace UI.ViewModel
 {
@@ -263,6 +264,7 @@ namespace UI.ViewModel
         #endregion
 
         #region Private methods
+
         private void PopulateNetworkModelItemsForWholeTree()
         {
             if (Tree == null)

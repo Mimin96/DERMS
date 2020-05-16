@@ -22,9 +22,13 @@ namespace UI.View
     /// </summary>
     public partial class DERDashboardUserControl : UserControl
     {
+        Button _selectedTreeButton;
+
         public DERDashboardUserControl()
         {
             InitializeComponent();
+
+            _selectedTreeButton = new Button();
             var yAxis = new Axis { Separator = new LiveCharts.Wpf.Separator { StrokeThickness = 0.12 } };
             var sAxis = new Axis { Separator = new LiveCharts.Wpf.Separator { StrokeThickness = 0.1 } };
             cartesianChart.AxisY.Add(yAxis);
@@ -47,6 +51,16 @@ namespace UI.View
             var energySourceValue = d.Optimization();
             EnergySource.Value = (int)energySourceValue;
             //CurrentConsumption.Text = (EnergySource.Value - ProductionFromGenerators.Value).ToString() + "kw/h";
+        }
+
+        private void SelectedElementFromTree(object sender, RoutedEventArgs e)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+
+            _selectedTreeButton.Background = (Brush)converter.ConvertFromString("#FF303030");
+
+            _selectedTreeButton = (Button)sender;
+            _selectedTreeButton.Background = (Brush)converter.ConvertFromString("#1c1c1c");
         }
     }
 }

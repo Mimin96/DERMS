@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -22,8 +23,12 @@ using UI.View;
 
 namespace UI.ViewModel
 {
-    public class DERDashboardUserControlViewModel : BindableBase
+    public class DERDashboardUserControlViewModel : BindableBase, IDisposable
     {
+        string currentTime;
+        private Thread timerWorker;
+        private bool timerThreadStopSignal = true;
+        private bool disposed = false;
         CommunicationProxy proxy;
         DERDashboardUserControl dERDashboardUserControl;
         private SolidColorBrush color1;
@@ -48,6 +53,19 @@ namespace UI.ViewModel
         private ClientSideProxy ClientSideProxy { get; set; }
         private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
         #region Properties
+        public string CurrentTime
+        {
+            get
+            {
+                return currentTime;
+            }
+
+            set
+            {
+                currentTime = value;
+                OnPropertyChanged("CurrentTime");
+            }
+        }
         public TreeNode<NodeData> Tree { get; set; }
 
         public SolidColorBrush Color1 { get { return color1; } set { color1 = value; OnPropertyChanged("Color1"); } }
@@ -347,6 +365,10 @@ namespace UI.ViewModel
             ClientSideProxy.StartServiceHost(CalculationEnginePubSub);
             ClientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
             dERDashboardUserControl.ManualCommanding.IsEnabled = false;
+
+            timerWorker = new Thread(TimerWorker_DoWork);
+            timerWorker.Name = "Timer Thread";
+            timerWorker.Start();
         }
 
         #region TreeView Commands Execute
@@ -355,7 +377,6 @@ namespace UI.ViewModel
             GidForOptimization = 0;
             GidForOptimization = gid;
             CurrentSelectedGid = gid;
-            Console.Beep();
             GetAllGeoRegions();
             dERDashboardUserControl.ManualCommanding.IsEnabled = true;
             float x;
@@ -377,7 +398,6 @@ namespace UI.ViewModel
             GidForOptimization = gid;
 
             CurrentSelectedGid = gid;
-            Console.Beep();
 
         }
         public void GeographicalRegionCommandExecute(long gid)
@@ -385,7 +405,7 @@ namespace UI.ViewModel
             GidForOptimization = 0;
             GidForOptimization = gid;
             CurrentSelectedGid = gid;
-            Console.Beep();
+
             SetChartValues(gid);
             dERDashboardUserControl.ManualCommanding.IsEnabled = true;
             float x;
@@ -405,7 +425,7 @@ namespace UI.ViewModel
             GidForOptimization = 0;
             GidForOptimization = gid;
             CurrentSelectedGid = gid;
-            Console.Beep();
+
             SetChartValues(gid);
             dERDashboardUserControl.ManualCommanding.IsEnabled = true;
             float x;
@@ -426,7 +446,7 @@ namespace UI.ViewModel
             GidForOptimization = 0;
             GidForOptimization = gid;
             CurrentSelectedGid = gid;
-            Console.Beep();
+
             SetChartValues(gid);
             dERDashboardUserControl.ManualCommanding.IsEnabled = true;
             float x;
@@ -444,7 +464,7 @@ namespace UI.ViewModel
         public void SubstationElementCommandExecute(long gid)
         {
             CurrentSelectedGid = gid;
-            Console.Beep();
+
 
             foreach (NetworkModelTreeClass networkModelTreeClass in NetworkModel)
             {
@@ -507,6 +527,24 @@ namespace UI.ViewModel
             return energySourceOptimizedValue;
         }
         #endregion
+
+        private void TimerWorker_DoWork()
+        {
+            while (timerThreadStopSignal)
+            {
+                if (disposed)
+                    return;
+
+                CurrentTime = DateTime.Now.ToString("HH:mm:ss");
+                Thread.Sleep(1000);
+            }
+        }
+
+        public void Dispose()
+        {
+            disposed = true;
+            timerThreadStopSignal = false;
+        }
 
         public ChartValues<ObservableValue> Values1 { get; set; }
         public ChartValues<ObservableValue> Values2 { get; set; }

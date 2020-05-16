@@ -17,27 +17,27 @@
             <TreeView BorderThickness="1" BorderBrush="#FF0398E2" x:Name="MainTreeView" HorizontalAlignment="Stretch" Margin="10" ItemsSource="{Binding NetworkModel}">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding GeographicalRegions}" DataType="{x:Type TreeView:NetworkModelTreeClass}">
-                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.NetworkModelCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}">
+                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.NetworkModelCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}">
                             <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
                         </Button>
                         <HierarchicalDataTemplate.ItemTemplate>
                             <HierarchicalDataTemplate ItemsSource="{Binding GeographicalSubRegions}" DataType="{x:Type TreeView:GeographicalRegionTreeClass}">
-                                <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalRegionCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalRegionCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
                                     <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
                                 </Button>
                                 <HierarchicalDataTemplate.ItemTemplate>
                                     <HierarchicalDataTemplate ItemsSource="{Binding Substations}" DataType="{x:Type TreeView:GeographicalSubRegionTreeClass}">
-                                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalSubRegionCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalSubRegionCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
                                             <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
                                         </Button>
                                         <HierarchicalDataTemplate.ItemTemplate>
                                             <HierarchicalDataTemplate ItemsSource="{Binding SubstationElements}" DataType="{x:Type TreeView:SubstationTreeClass}">
-                                                <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.SubstationCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                                <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.SubstationCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
                                                     <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
                                                 </Button>
                                                 <HierarchicalDataTemplate.ItemTemplate>
                                                     <DataTemplate DataType="{x:Type TreeView:SubstationElementTreeClass}">
-                                                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.SubstationElementCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.SubstationElementCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
                                                             <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
                                                         </Button>
                                                     </DataTemplate>

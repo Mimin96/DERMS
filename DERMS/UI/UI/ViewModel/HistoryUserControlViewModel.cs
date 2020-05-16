@@ -140,27 +140,22 @@ namespace UI.ViewModel
         public void NetworkModelCommandExecute(long gid)
         {
             _selectedGID = gid;
-            Console.Beep();
         }
         public void GeographicalRegionCommandExecute(long gid)
         {
             _selectedGID = gid;
-            Console.Beep();
         }
         public void GeographicalSubRegionCommandExecute(long gid)
         {
             _selectedGID = gid;
-            Console.Beep();
         }
         public void SubstationCommandExecute(long gid)
         {
             _selectedGID = gid;
-            Console.Beep();
         }
         public void SubstationElementCommandExecute(long gid)
         {
             _selectedGID = gid;
-            Console.Beep();
         }
         #endregion
 

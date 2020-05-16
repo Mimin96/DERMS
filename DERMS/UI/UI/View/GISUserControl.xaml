@@ -120,6 +120,8 @@
                 </Grid>
             </Border>
         </Expander>
+        <TextBox Margin="10,10,814,493" Width="200" Height="30">dsdsad</TextBox>
+        <Button Margin="215,10,709,491">Search</Button>
         <Border Margin="5,0,5,10" BorderThickness="1" BorderBrush="#FF007ACC" Height="116" VerticalAlignment="Bottom">
             <TextBox x:Name="GISTextBlock" IsReadOnly="True" TextWrapping="Wrap" Text="" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="14"/>
         </Border>
