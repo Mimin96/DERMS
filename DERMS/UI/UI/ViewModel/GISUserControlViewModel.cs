@@ -387,6 +387,7 @@ namespace UI.ViewModel
 
             _map.Children.Add(line);
         }
+
         private void DrowOnMapBreaker(TreeNode<NodeData> breaker, string stringBuilderUniversal)
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -395,7 +396,17 @@ namespace UI.ViewModel
             Location pinLocation = new Location(breaker1.Longitude, breaker1.Latitude);
             stringBuilder.Append(stringBuilderUniversal);
             stringBuilder.AppendFormat("Name: {0}{1}", breaker1.Name, Environment.NewLine);
-            stringBuilder.AppendFormat("Description: {0}", breaker1.Description);
+            stringBuilder.AppendFormat("Description: {0}{1}", breaker1.Description, Environment.NewLine);
+
+            if (breaker1.NormalOpen)
+            {
+                stringBuilder.AppendFormat("Current State: OPEN", Environment.NewLine);
+            }
+            else
+            {
+                stringBuilder.AppendFormat("Current State: CLOSED", Environment.NewLine);
+            }
+
             string toolTip = stringBuilder.ToString();
 
             Pushpin pushpin = new Pushpin();
@@ -472,6 +483,7 @@ namespace UI.ViewModel
             stringBuilder.AppendFormat("Min Value: {0}{1}", disc.MinValue, Environment.NewLine);
             stringBuilder.AppendFormat("Max Value: {0}{1}", disc.MaxValue, Environment.NewLine);
             stringBuilder.AppendFormat("Current Value: {0}", disc.NormalValue);
+
             pushpin.ToolTip += stringBuilder.ToString();
         }
         private void DrowOnMapAnalog(TreeNode<NodeData> analog, string stringBuilderUniversal)

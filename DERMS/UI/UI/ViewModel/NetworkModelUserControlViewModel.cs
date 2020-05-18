@@ -391,7 +391,7 @@ namespace UI.ViewModel
                     if (measurement != null)
                     {
                         Analog analogMeas = (Analog)measurement.Data.IdentifiedObject;
-                        data += "Measurement value: " + analogMeas.NormalValue + "\n";
+                        data += "Measurement " + analogMeas.Mrid + "= " + analogMeas.NormalValue + " kW\n";
                     }
                 }
             }
