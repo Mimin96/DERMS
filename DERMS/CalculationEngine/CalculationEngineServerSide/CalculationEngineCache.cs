@@ -1112,7 +1112,7 @@ namespace CalculationEngineService
                 TreeNode<NodeData> analog = graphCached.FindTreeNode(x => x.Data.Type == DMSType.ANALOG && ((Analog)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
                 if (analog != null)
                 {
-                    if (analog.Data.Value > 0)
+                    if (((Analog)analog.Data.IdentifiedObject).NormalValue > 0)
                         node.Data.Energized = Enums.Energized.FromIsland;
                     else
                         node.Data.Energized = Enums.Energized.NotEnergized;
@@ -1135,12 +1135,13 @@ namespace CalculationEngineService
                 //CAKI
                 //Posmatramo vr dig signala koji je zakacen za breaker 
                 //1705
-                /*Breaker breaker = (Breaker)node.Data.IdentifiedObject;
+                Breaker breaker = (Breaker)node.Data.IdentifiedObject;
                 TreeNode<NodeData> digital = graphCached.FindTreeNode(x => x.Data.Type == DMSType.DISCRETE && ((Discrete)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
+                Discrete disc = (Discrete)digital.Data.IdentifiedObject;
 
-                if (digital != null)
+                if (disc != null)
                 {
-                    if (digital.Data.Value == 0)
+                    if (disc.NormalValue == 0)
                     {
                         node.Data.Energized = Enums.Energized.NotEnergized;
                     }
@@ -1153,8 +1154,8 @@ namespace CalculationEngineService
                 else
                 {
                     node.Data.Energized = Enums.Energized.NotEnergized;
-                }*/
-                Breaker breaker = (Breaker)node.Data.IdentifiedObject;
+                }
+                /*Breaker breaker = (Breaker)node.Data.IdentifiedObject;
                 if (breaker.NormalOpen)
                 {
                     node.Data.Energized = Enums.Energized.NotEnergized;
@@ -1162,7 +1163,7 @@ namespace CalculationEngineService
                 else
                 {
                     node.Data.Energized = node.Parent.Data.Energized;
-                }
+                }*/
             }
 
             foreach (TreeNode<NodeData> child in node.Children)
@@ -1194,12 +1195,12 @@ namespace CalculationEngineService
             else if (node.Data.Type == DMSType.BREAKER)
             {
                 //1705
-                /*Breaker breaker = (Breaker)node.Data.IdentifiedObject;
+                Breaker breaker = (Breaker)node.Data.IdentifiedObject;
                 TreeNode<NodeData> digital = graphCached.FindTreeNode(x => x.Data.Type == DMSType.DISCRETE && ((Discrete)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
-
-                if (digital != null)
+                Discrete disc = (Discrete)digital.Data.IdentifiedObject;
+                if (disc != null)
                 {
-                    if (digital.Data.Value == 0) // otvoren nema nista 
+                    if (disc.NormalValue == 0) // otvoren nema nista 
                     {
 
                     }
@@ -1225,13 +1226,13 @@ namespace CalculationEngineService
                 else
                 {
                     node.Data.Energized = Enums.Energized.NotEnergized;
-                }*/
+                }
 
 
                 //1705
 
                 //vidi stanje ali u sustini se vrati nema zasto gore da ide
-                Breaker breaker = (Breaker)node.Data.IdentifiedObject;
+                /*Breaker breaker = (Breaker)node.Data.IdentifiedObject;
                 if (!breaker.NormalOpen)
                 {
                     if (node.Data.Energized == Enums.Energized.FromEnergySRC)
@@ -1250,7 +1251,7 @@ namespace CalculationEngineService
                     }
                     //node.Data.Energized = node.Parent.Data.Energized;
 
-                }
+                }*/
                 return;
             }
             else
@@ -1294,7 +1295,9 @@ namespace CalculationEngineService
             if (node.Data.Type == DMSType.BREAKER)
             {
                 Breaker breaker = (Breaker)node.Data.IdentifiedObject;
-                if (breaker.NormalOpen)
+                TreeNode<NodeData> digital = graphCached.FindTreeNode(x => x.Data.Type == DMSType.DISCRETE && ((Discrete)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
+                Discrete disc = (Discrete)digital.Data.IdentifiedObject;
+                if (disc.NormalValue == 0)
                 {
                     return;
                 }
@@ -1348,7 +1351,9 @@ namespace CalculationEngineService
 
                 if (node.Data.Type == DMSType.ANALOG)
                 {
-                    node.Data.Value = float.Parse(dp.Value, CultureInfo.InvariantCulture.NumberFormat);
+                    //node.Data.Value = float.Parse(dp.Value, CultureInfo.InvariantCulture.NumberFormat);
+                    //
+                    ((Analog)node.Data.IdentifiedObject).NormalValue = float.Parse(dp.Value, CultureInfo.InvariantCulture.NumberFormat);
                 }
                 else if (node.Data.Type == DMSType.DISCRETE)
                 {
@@ -1356,7 +1361,7 @@ namespace CalculationEngineService
                     if (dp.Value == "OFF")
                         vrednost = 0;
                     else vrednost = 1;
-                    node.Data.Value = vrednost;
+                    ((Discrete)node.Data.IdentifiedObject).NormalValue = vrednost;
                 }
             }
 

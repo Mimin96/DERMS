@@ -120,8 +120,17 @@
                 </Grid>
             </Border>
         </Expander>
-        <TextBox Margin="10,10,814,493" Width="200" Height="30">dsdsad</TextBox>
-        <Button Margin="215,10,709,491">Search</Button>
+        <TextBox Margin="10,10,0,0" Width="200" Height="30" VerticalAlignment="Top" Text="{Binding SearchParameter}" Foreground="#FF0398E2" Background="Gainsboro" HorizontalAlignment="Left">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="GotFocus">
+                    <i:CallMethodAction MethodName="OnFocusSearchParameter" TargetObject="{Binding}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:CallMethodAction MethodName="OnOffFocusSearchParameter" TargetObject="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <Button Margin="215,10,0,0" HorizontalAlignment="Left" Width="100" VerticalAlignment="Top" Command="{Binding Path=SearchCommand}">Search</Button>
         <Border Margin="5,0,5,10" BorderThickness="1" BorderBrush="#FF007ACC" Height="116" VerticalAlignment="Bottom">
             <TextBox x:Name="GISTextBlock" IsReadOnly="True" TextWrapping="Wrap" Text="" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="14"/>
         </Border>

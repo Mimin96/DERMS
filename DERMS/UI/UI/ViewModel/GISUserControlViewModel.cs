@@ -29,6 +29,8 @@ namespace UI.ViewModel
         private TextBox _gisTextBlock;
         private Map _map;
         private Dictionary<string, bool> _visibilityOfElements;
+        private RelayCommand<object> _searchCommand;
+        private string _searchParam;
         #endregion
 
         public GISUserControlViewModel(Map map, TextBox gisTextBlock)
@@ -36,6 +38,7 @@ namespace UI.ViewModel
             Mediator.Register("NMSNetworkModelDataGIS", NMSNetworkModelDataGIS);
             VisibilityOfElements = new Dictionary<string, bool>();
             VisibilityOfElementPopulate();
+            SearchParameter = "Element Name";
 
             _map = map;
             _gisTextBlock = gisTextBlock;
@@ -66,9 +69,44 @@ namespace UI.ViewModel
                 _visibilityOfElements = value;
             }
         }
+
+        public string SearchParameter
+        {
+            get
+            {
+                return _searchParam;
+            }
+            set
+            {
+                _searchParam = value;
+                OnPropertyChanged("SearchParameter");
+            }
+        }
         #endregion
 
         #region Public Methods
+        public void OnFocusSearchParameter(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+
+            if (textBox.Text.Trim() == "Element Name")
+            {
+                textBox.FontStyle = FontStyles.Normal;
+                textBox.Text = "";
+            }
+        }
+        public void OnOffFocusSearchParameter(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+
+            if (textBox.Text.Trim() == "" || textBox.Text.Trim() == "Element Name")
+            {
+                textBox.Text = "Element Name";
+                SearchParameter = "Element Name";
+                textBox.FontStyle = FontStyles.Italic;
+            }
+        }
+
         public void NMSNetworkModelDataGIS(object parameter) 
         {
             List<object> obj = (List<object>)parameter;
@@ -188,7 +226,15 @@ namespace UI.ViewModel
                     break;
                 case FTN.Common.DMSType.BREAKER:
                     Breaker breaker = (Breaker)selected.Data.IdentifiedObject;
-                    stringBuilder.AppendFormat("Normal open state: {0}{1}", breaker.NormalOpen.ToString(), Environment.NewLine);
+                    
+                    if (breaker.NormalOpen)
+                    {
+                        stringBuilder.AppendFormat("Normal open state: true (0) {1}", breaker.NormalOpen.ToString(), Environment.NewLine);
+                    }
+                    else
+                    {
+                        stringBuilder.AppendFormat("Normal open state: false (1) {1}", breaker.NormalOpen.ToString(), Environment.NewLine);
+                    }
                     substationGID = breaker.Container;
                     measurementGIDs = breaker.Measurements;
                     break;
@@ -259,7 +305,14 @@ namespace UI.ViewModel
                     stringBuilderFinal.AppendFormat("Measurement Type: {0}{1}", discrete.MeasurementType, Environment.NewLine);
                     stringBuilderFinal.AppendFormat("Min Value: {0}     ", discrete.MinValue);
                     stringBuilderFinal.AppendFormat("Max Value: {0}     ", discrete.MaxValue);
-                    stringBuilderFinal.AppendFormat("Normal Value: {0}{1}", discrete.NormalValue, Environment.NewLine);
+                    if (discrete.NormalValue == 0)
+                    {
+                        stringBuilderFinal.AppendFormat("Normal Value: OPEN({0}){1}", discrete.NormalValue, Environment.NewLine);
+                    }
+                    else
+                    {
+                        stringBuilderFinal.AppendFormat("Normal Value: CLOSED({0}){1}", discrete.NormalValue, Environment.NewLine);
+                    }
                 }
             }
 
@@ -400,11 +453,11 @@ namespace UI.ViewModel
 
             if (breaker1.NormalOpen)
             {
-                stringBuilder.AppendFormat("Current State: OPEN", Environment.NewLine);
+                stringBuilder.AppendFormat("Normal Open: true", Environment.NewLine);
             }
             else
             {
-                stringBuilder.AppendFormat("Current State: CLOSED", Environment.NewLine);
+                stringBuilder.AppendFormat("Normal Open: false", Environment.NewLine);
             }
 
             string toolTip = stringBuilder.ToString();
@@ -482,7 +535,17 @@ namespace UI.ViewModel
             stringBuilder.AppendFormat("----------------------------------------{0}", Environment.NewLine);
             stringBuilder.AppendFormat("Min Value: {0}{1}", disc.MinValue, Environment.NewLine);
             stringBuilder.AppendFormat("Max Value: {0}{1}", disc.MaxValue, Environment.NewLine);
-            stringBuilder.AppendFormat("Current Value: {0}", disc.NormalValue);
+
+            if (disc.NormalValue == 0)
+            {
+                stringBuilder.AppendFormat("Current State: OPEN (0)", Environment.NewLine);
+            }
+            else
+            {
+                stringBuilder.AppendFormat("Current State: CLOSED (1)", Environment.NewLine);
+            }
+
+            //stringBuilder.AppendFormat("Current Value: {0}", disc.NormalValue);
 
             pushpin.ToolTip += stringBuilder.ToString();
         }
@@ -538,6 +601,125 @@ namespace UI.ViewModel
                 return true;
 
             return false;
+        }
+
+        private double getLongitude(TreeNode<NodeData> node)
+        {
+            if (node.Data.Type == DMSType.ACLINESEGMENT)
+            {
+                //+
+                ACLineSegment acLineSegment = (ACLineSegment)node.Data.IdentifiedObject;
+                return acLineSegment.Longitude;
+            }
+            else if (node.Data.Type == DMSType.BREAKER)
+            {
+                //+
+                Breaker breaker = (Breaker)node.Data.IdentifiedObject;
+                return breaker.Longitude;
+            }
+            else if (node.Data.Type == DMSType.ENEGRYSOURCE)
+            {
+                //+
+                EnergySource source = (EnergySource)node.Data.IdentifiedObject;
+                return source.Longitude;
+
+            }
+            else if (node.Data.Type == DMSType.ENERGYCONSUMER)
+            {
+                //+
+                EnergyConsumer consumer = (EnergyConsumer)node.Data.IdentifiedObject;
+                return consumer.Longitude;
+            }
+            else if (node.Data.Type == DMSType.GENERATOR)
+            {
+                //+
+                Generator generator = (Generator)node.Data.IdentifiedObject;
+                return generator.Longitude;
+            }
+
+            return 0;
+        }
+
+        private double getLatitude(TreeNode<NodeData> node)
+        {
+
+            if (node.Data.Type == DMSType.ACLINESEGMENT)
+            {
+                //+
+                ACLineSegment acLineSegment = (ACLineSegment)node.Data.IdentifiedObject;
+                return acLineSegment.Latitude;
+            }
+            else if (node.Data.Type == DMSType.BREAKER)
+            {
+                //+
+                Breaker breaker = (Breaker)node.Data.IdentifiedObject;
+                return breaker.Latitude;
+            }
+            else if (node.Data.Type == DMSType.ENEGRYSOURCE)
+            {
+                //+
+                EnergySource source = (EnergySource)node.Data.IdentifiedObject;
+                return source.Latitude;
+
+            }
+            else if (node.Data.Type == DMSType.ENERGYCONSUMER)
+            {
+                //+
+                EnergyConsumer consumer = (EnergyConsumer)node.Data.IdentifiedObject;
+                return consumer.Latitude;
+            }
+            else if (node.Data.Type == DMSType.GENERATOR)
+            {
+                //+
+                Generator generator = (Generator)node.Data.IdentifiedObject;
+                return generator.Latitude;
+            }
+
+            return 0;
+        }
+        #endregion
+
+        #region commands
+        public ICommand SearchCommand
+        {
+            get
+            {
+                if (_searchCommand == null)
+                {
+                    _searchCommand = new RelayCommand<object>(DoSearch);
+                }
+
+                return _searchCommand;
+            }
+        }
+
+        private void DoSearch(object obj)
+        {
+            //long gid = (long)Convert.ToDouble(_searchParam);
+            //Nadji u stablu entitet koji ti treba na osnovu _search param
+            try
+            {
+                TreeNode<NodeData> node = _tree.Where(x => x.Data.IdentifiedObject.Name == SearchParameter).ToList().First();
+                if (node != null)
+                {
+                    double lon = getLongitude(node);
+                    double lat = getLatitude(node);
+
+                    Location pinLocation = new Location(lon, lat);
+                    _map.ZoomLevel = 23; // 
+                    _map.Center = pinLocation;
+
+                    _gisTextBlock.Text = String.Empty;
+                    _gisTextBlock.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0398E2"));
+                    _gisTextBlock.AppendText(BuildToolTipOnClick(node));
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Element with selected name does not exist.", "Element not found", MessageBoxButton.OK);
+            }
+
+
         }
         #endregion
     }
