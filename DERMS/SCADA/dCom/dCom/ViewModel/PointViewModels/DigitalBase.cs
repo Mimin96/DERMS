@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace dCom.ViewModel
@@ -57,8 +58,12 @@ namespace dCom.ViewModel
         }
         protected override void CommandExecutor_UpdatePointEvent(Common.PointType type, ushort pointAddres, ushort newValue)
         {
+            Thread.Sleep(100);
+
             if (this.type == type && this.address == pointAddres && newValue != RawValue)
             {
+                //OVDE UPISATI U BAZU - POPUNJAVAA SE DATA POINT SA PODACIMA
+
                 RawValue = newValue;
                 ProcessRawValue(newValue);
                 Timestamp = DateTime.Now;

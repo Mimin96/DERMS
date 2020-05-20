@@ -1,4 +1,5 @@
 ﻿using Common;
+using dCom.Configuration;
 using dCom.Utils;
 using Modbus;
 using Modbus.FunctionParameters;
@@ -8,7 +9,7 @@ using System.Windows.Threading;
 
 namespace dCom.ViewModel
 {
-    internal class BasePointItem : ViewModelBase, IDataErrorInfo
+    internal class BasePointItem : ViewModelBase, IDataErrorInfo 
     {
         protected PointType type;
         protected ushort address;

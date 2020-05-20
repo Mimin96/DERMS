@@ -127,7 +127,7 @@ namespace dCom.ViewModel
             ConnectionState = ConnectionState.CONNECTED;
             Thread.CurrentThread.Name = "Main Thread";
 
-
+    
 
         }
 

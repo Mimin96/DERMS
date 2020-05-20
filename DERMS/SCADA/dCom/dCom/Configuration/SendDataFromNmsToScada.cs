@@ -159,14 +159,14 @@ namespace dCom.Configuration
 
 
 
-
-                
+                commandExecutor.UpdatePointEvent += CommandExecutor_UpdatePointEvent;
+                //Thread.Sleep(10000);
                 this.acquisitor = new Acquisitor(acquisitionTrigger, commandExecutor, this, configuration);
 
                 InitializePointCollection();
                 InitializeAndStartThreads();
+               
 
-                commandExecutor.UpdatePointEvent += CommandExecutor_UpdatePointEvent;
             }
             signals = SignalsTransfer;
             if (signals != null)
@@ -244,8 +244,11 @@ namespace dCom.Configuration
 
                 CurrentTime = DateTime.Now;
                 ElapsedTime = ElapsedTime.Add(new TimeSpan(0, 0, 1));
-                acquisitionTrigger.Set();
-                Thread.Sleep(1000);
+                // acquisitionTrigger.Set();
+                //ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, 0, 0, configuration);
+                //Common.IModbusFunction fn1 = FunctionFactory.CreateModbusFunction(p1);
+                //commandExecutor.EnqueueCommand(fn1);
+                //Thread.Sleep(6000);
             }
         }
 
