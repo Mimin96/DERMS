@@ -1,17 +1,7 @@
 ﻿<delta id="0">
   <operations>
     <operation type="insert">
-      <ResourceDescriptions count="87">
-        <ResourceDescription>
-          <id gid="0x00000001ffffffff" type="GEOGRAPHICALREGION" />
-          <Properties>
-            <Property id="IDOBJ_MRID" value="gr_1" />
-            <Property id="IDOBJ_DESCRIPTION" value="gr1" />
-            <Property id="IDOBJ_NAME" value="GR1" />
-            <Property id="GEOGRAPHICALREGION_LONGITUDE" value="45.25167" />
-            <Property id="GEOGRAPHICALREGION_LATITUDE" value="19.83694" />
-          </Properties>
-        </ResourceDescription>
+      <ResourceDescriptions count="90">
         <ResourceDescription>
           <id gid="0x0000000bffffffff" type="SUBGEOGRAPHICALREGION" />
           <Properties>
@@ -20,7 +10,7 @@
             <Property id="IDOBJ_NAME" value="SGR2" />
             <Property id="SUBGEOGRAPHICALREGION_LONGITUDE" value="45.15177" />
             <Property id="SUBGEOGRAPHICALREGION_LATITUDE" value="19.93674" />
-            <Property id="SUBGEOGRAPHICALREGION_GEOREG" value="0x00000001ffffffff" />
+            <Property id="SUBGEOGRAPHICALREGION_GEOREG" value="0x0000000100000001" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -37,11 +27,11 @@
         <ResourceDescription>
           <id gid="0x00000002ffffffff" type="BREAKER" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="b_26" />
-            <Property id="IDOBJ_DESCRIPTION" value="b26" />
-            <Property id="IDOBJ_NAME" value="B26" />
-            <Property id="CONDEQ_LONGITUDE" value="45.2702675" />
-            <Property id="CONDEQ_LATITUDE" value="19.8463" />
+            <Property id="IDOBJ_MRID" value="b_27" />
+            <Property id="IDOBJ_DESCRIPTION" value="b27" />
+            <Property id="IDOBJ_NAME" value="B27" />
+            <Property id="CONDEQ_LONGITUDE" value="45.27157" />
+            <Property id="CONDEQ_LATITUDE" value="19.840416" />
             <Property id="SWITCH_NORMAL_OPEN" value="0" />
             <Property id="SWITCH_FEEDER_ID1" value="feeder1" />
             <Property id="SWITCH_FEEDER_ID2" value="feeder2" />
@@ -51,11 +41,11 @@
         <ResourceDescription>
           <id gid="0x00000002fffffffe" type="BREAKER" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="b_27" />
-            <Property id="IDOBJ_DESCRIPTION" value="b27" />
-            <Property id="IDOBJ_NAME" value="B27" />
-            <Property id="CONDEQ_LONGITUDE" value="45.27157" />
-            <Property id="CONDEQ_LATITUDE" value="19.840416" />
+            <Property id="IDOBJ_MRID" value="b_426" />
+            <Property id="IDOBJ_DESCRIPTION" value="b426" />
+            <Property id="IDOBJ_NAME" value="B426" />
+            <Property id="CONDEQ_LONGITUDE" value="45.2702675" />
+            <Property id="CONDEQ_LATITUDE" value="19.8463" />
             <Property id="SWITCH_NORMAL_OPEN" value="0" />
             <Property id="SWITCH_FEEDER_ID1" value="feeder1" />
             <Property id="SWITCH_FEEDER_ID2" value="feeder2" />
@@ -233,6 +223,18 @@
         <ResourceDescription>
           <id gid="0x0000000cffffffff" type="ACLINESEGMENT" />
           <Properties>
+            <Property id="IDOBJ_MRID" value="acl_25" />
+            <Property id="IDOBJ_DESCRIPTION" value="ac25" />
+            <Property id="IDOBJ_NAME" value="ACL25" />
+            <Property id="CONDUCTOR_TYPE" value="Overhead" />
+            <Property id="ACLINESEGMENT_CURRENTFLOW" value="30" />
+            <Property id="ACLINESEGMENT_FEEDERCABLE" value="0" />
+            <Property id="EQUIPMENT_CONTAINER" value="0x0000000affffffff" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x0000000cfffffffe" type="ACLINESEGMENT" />
+          <Properties>
             <Property id="IDOBJ_MRID" value="acl_26" />
             <Property id="IDOBJ_DESCRIPTION" value="acl26" />
             <Property id="IDOBJ_NAME" value="ACL26" />
@@ -243,7 +245,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000cfffffffe" type="ACLINESEGMENT" />
+          <id gid="0x0000000cfffffffd" type="ACLINESEGMENT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="acl_27" />
             <Property id="IDOBJ_DESCRIPTION" value="acl27" />
@@ -255,7 +257,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000cfffffffd" type="ACLINESEGMENT" />
+          <id gid="0x0000000cfffffffc" type="ACLINESEGMENT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="acl_37" />
             <Property id="IDOBJ_DESCRIPTION" value="acl37" />
@@ -274,15 +276,15 @@
             <Property id="IDOBJ_NAME" value="P037" />
             <Property id="POINT_LONGITUDE" value="45.27157" />
             <Property id="POINT_LATITUDE" value="19.840416" />
-            <Property id="POINT_LINE" value="0x0000000cfffffffd" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffc" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000dfffffffe" type="POINT" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="p_11" />
-            <Property id="IDOBJ_DESCRIPTION" value="p11" />
-            <Property id="IDOBJ_NAME" value="P11" />
+            <Property id="IDOBJ_MRID" value="p_113" />
+            <Property id="IDOBJ_DESCRIPTION" value="p113" />
+            <Property id="IDOBJ_NAME" value="P113" />
             <Property id="POINT_LONGITUDE" value="45.2703667" />
             <Property id="POINT_LATITUDE" value="19.8456573" />
             <Property id="POINT_LINE" value="0x0000000cffffffff" />
@@ -296,150 +298,150 @@
             <Property id="IDOBJ_NAME" value="P16" />
             <Property id="POINT_LONGITUDE" value="45.2702675" />
             <Property id="POINT_LATITUDE" value="19.8463" />
-            <Property id="POINT_LINE" value="0x0000000cffffffff" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000dfffffffc" type="POINT" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="p_163" />
+            <Property id="IDOBJ_DESCRIPTION" value="p163" />
+            <Property id="IDOBJ_NAME" value="P163" />
+            <Property id="POINT_LONGITUDE" value="45.2702675" />
+            <Property id="POINT_LATITUDE" value="19.8463" />
+            <Property id="POINT_LINE" value="0x0000000cffffffff" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x0000000dfffffffb" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_17" />
             <Property id="IDOBJ_DESCRIPTION" value="p17" />
             <Property id="IDOBJ_NAME" value="P17" />
             <Property id="POINT_LONGITUDE" value="45.2703667" />
             <Property id="POINT_LATITUDE" value="19.8456573" />
-            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffd" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffffb" type="POINT" />
+          <id gid="0x0000000dfffffffa" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_26" />
             <Property id="IDOBJ_DESCRIPTION" value="p26" />
             <Property id="IDOBJ_NAME" value="P26" />
             <Property id="POINT_LONGITUDE" value="45.26989" />
             <Property id="POINT_LATITUDE" value="19.8473415" />
-            <Property id="POINT_LINE" value="0x0000000cffffffff" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffffa" type="POINT" />
+          <id gid="0x0000000dfffffff9" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_261" />
             <Property id="IDOBJ_DESCRIPTION" value="p261" />
             <Property id="IDOBJ_NAME" value="P261" />
             <Property id="POINT_LONGITUDE" value="45.2682076" />
             <Property id="POINT_LATITUDE" value="19.8518143" />
-            <Property id="POINT_LINE" value="0x0000000cffffffff" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff9" type="POINT" />
+          <id gid="0x0000000dfffffff8" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_262" />
             <Property id="IDOBJ_DESCRIPTION" value="p262" />
             <Property id="IDOBJ_NAME" value="P262" />
             <Property id="POINT_LONGITUDE" value="45.26999" />
             <Property id="POINT_LATITUDE" value="19.8528442" />
-            <Property id="POINT_LINE" value="0x0000000cffffffff" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff8" type="POINT" />
+          <id gid="0x0000000dfffffff7" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_263" />
             <Property id="IDOBJ_DESCRIPTION" value="p263" />
             <Property id="IDOBJ_NAME" value="P263" />
             <Property id="POINT_LONGITUDE" value="45.27137" />
             <Property id="POINT_LATITUDE" value="19.8529415" />
-            <Property id="POINT_LINE" value="0x0000000cffffffff" />
-          </Properties>
-        </ResourceDescription>
-        <ResourceDescription>
-          <id gid="0x0000000dfffffff7" type="POINT" />
-          <Properties>
-            <Property id="IDOBJ_MRID" value="p_27" />
-            <Property id="IDOBJ_DESCRIPTION" value="p27" />
-            <Property id="IDOBJ_NAME" value="P27" />
-            <Property id="POINT_LONGITUDE" value="45.2708664" />
-            <Property id="POINT_LATITUDE" value="19.84497" />
             <Property id="POINT_LINE" value="0x0000000cfffffffe" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000dfffffff6" type="POINT" />
           <Properties>
+            <Property id="IDOBJ_MRID" value="p_27" />
+            <Property id="IDOBJ_DESCRIPTION" value="p27" />
+            <Property id="IDOBJ_NAME" value="P27" />
+            <Property id="POINT_LONGITUDE" value="45.2708664" />
+            <Property id="POINT_LATITUDE" value="19.84497" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffd" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x0000000dfffffff5" type="POINT" />
+          <Properties>
             <Property id="IDOBJ_MRID" value="p_270" />
             <Property id="IDOBJ_DESCRIPTION" value="p270" />
             <Property id="IDOBJ_NAME" value="P270" />
             <Property id="POINT_LONGITUDE" value="45.2706146" />
             <Property id="POINT_LATITUDE" value="19.8440857" />
-            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffd" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff5" type="POINT" />
+          <id gid="0x0000000dfffffff4" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_271" />
             <Property id="IDOBJ_DESCRIPTION" value="p271" />
             <Property id="IDOBJ_NAME" value="P271" />
             <Property id="POINT_LONGITUDE" value="45.27067" />
             <Property id="POINT_LATITUDE" value="19.8431511" />
-            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffd" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff4" type="POINT" />
+          <id gid="0x0000000dfffffff3" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_272" />
             <Property id="IDOBJ_DESCRIPTION" value="p272" />
             <Property id="IDOBJ_NAME" value="P272" />
             <Property id="POINT_LONGITUDE" value="45.27149" />
             <Property id="POINT_LATITUDE" value="19.8426056" />
-            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffd" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff3" type="POINT" />
+          <id gid="0x0000000dfffffff2" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_274" />
             <Property id="IDOBJ_DESCRIPTION" value="p274" />
             <Property id="IDOBJ_NAME" value="P274" />
             <Property id="POINT_LONGITUDE" value="45.271244" />
             <Property id="POINT_LATITUDE" value="19.8419228" />
-            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffd" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff2" type="POINT" />
+          <id gid="0x0000000dfffffff1" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_275" />
             <Property id="IDOBJ_DESCRIPTION" value="p275" />
             <Property id="IDOBJ_NAME" value="P275" />
             <Property id="POINT_LONGITUDE" value="45.271656" />
             <Property id="POINT_LATITUDE" value="19.8417511" />
-            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffd" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000dfffffff1" type="POINT" />
+          <id gid="0x0000000dfffffff0" type="POINT" />
           <Properties>
             <Property id="IDOBJ_MRID" value="p_276" />
             <Property id="IDOBJ_DESCRIPTION" value="p276" />
             <Property id="IDOBJ_NAME" value="P276" />
             <Property id="POINT_LONGITUDE" value="45.27157" />
             <Property id="POINT_LATITUDE" value="19.840416" />
-            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
-          </Properties>
-        </ResourceDescription>
-        <ResourceDescription>
-          <id gid="0x0000000dfffffff0" type="POINT" />
-          <Properties>
-            <Property id="IDOBJ_MRID" value="p_277" />
-            <Property id="IDOBJ_DESCRIPTION" value="p277" />
-            <Property id="IDOBJ_NAME" value="P277" />
-            <Property id="POINT_LONGITUDE" value="45.27167" />
-            <Property id="POINT_LATITUDE" value="19.8394165" />
-            <Property id="POINT_LINE" value="0x0000000cfffffffe" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffd" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -447,10 +449,10 @@
           <Properties>
             <Property id="IDOBJ_MRID" value="p_37" />
             <Property id="IDOBJ_DESCRIPTION" value="p37" />
-            <Property id="IDOBJ_NAME" value="P277" />
+            <Property id="IDOBJ_NAME" value="P37" />
             <Property id="POINT_LONGITUDE" value="45.27167" />
             <Property id="POINT_LATITUDE" value="19.8394165" />
-            <Property id="POINT_LINE" value="0x0000000cfffffffd" />
+            <Property id="POINT_LINE" value="0x0000000cfffffffc" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -465,6 +467,15 @@
         <ResourceDescription>
           <id gid="0x00000003fffffffe" type="CONNECTIVITYNODE" />
           <Properties>
+            <Property id="IDOBJ_MRID" value="cn_438" />
+            <Property id="IDOBJ_DESCRIPTION" value="cn438" />
+            <Property id="IDOBJ_NAME" value="CN438" />
+            <Property id="CONNECTIVITYNODE_CONTAINER" value="0x0000000affffffff" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000003fffffffd" type="CONNECTIVITYNODE" />
+          <Properties>
             <Property id="IDOBJ_MRID" value="cn_66" />
             <Property id="IDOBJ_DESCRIPTION" value="cn66" />
             <Property id="IDOBJ_NAME" value="CN66" />
@@ -472,7 +483,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000003fffffffd" type="CONNECTIVITYNODE" />
+          <id gid="0x00000003fffffffc" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="cn_67" />
             <Property id="IDOBJ_DESCRIPTION" value="cn67" />
@@ -481,7 +492,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000003fffffffc" type="CONNECTIVITYNODE" />
+          <id gid="0x00000003fffffffb" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="cn_670" />
             <Property id="IDOBJ_DESCRIPTION" value="cn670" />
@@ -490,7 +501,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000003fffffffb" type="CONNECTIVITYNODE" />
+          <id gid="0x00000003fffffffa" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="cn_671" />
             <Property id="IDOBJ_DESCRIPTION" value="cn671" />
@@ -499,7 +510,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000003fffffffa" type="CONNECTIVITYNODE" />
+          <id gid="0x00000003fffffff9" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="cn_672" />
             <Property id="IDOBJ_DESCRIPTION" value="cn672" />
@@ -508,7 +519,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000003fffffff9" type="CONNECTIVITYNODE" />
+          <id gid="0x00000003fffffff8" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="cn_673" />
             <Property id="IDOBJ_DESCRIPTION" value="cn673" />
@@ -517,7 +528,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000003fffffff8" type="CONNECTIVITYNODE" />
+          <id gid="0x00000003fffffff7" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="cn_674" />
             <Property id="IDOBJ_DESCRIPTION" value="cn674" />
@@ -526,7 +537,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000003fffffff7" type="CONNECTIVITYNODE" />
+          <id gid="0x00000003fffffff6" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="cn_681021" />
             <Property id="IDOBJ_DESCRIPTION" value="cn681021" />
@@ -535,7 +546,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000003fffffff6" type="CONNECTIVITYNODE" />
+          <id gid="0x00000003fffffff5" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="cn_681121" />
             <Property id="IDOBJ_DESCRIPTION" value="cn681121" />
@@ -544,7 +555,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000003fffffff5" type="CONNECTIVITYNODE" />
+          <id gid="0x00000003fffffff4" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="cn_76" />
             <Property id="IDOBJ_DESCRIPTION" value="cn76" />
@@ -553,7 +564,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000003fffffff4" type="CONNECTIVITYNODE" />
+          <id gid="0x00000003fffffff3" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="cn_77" />
             <Property id="IDOBJ_DESCRIPTION" value="cn77" />
@@ -562,7 +573,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000003fffffff3" type="CONNECTIVITYNODE" />
+          <id gid="0x00000003fffffff2" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="cn_777" />
             <Property id="IDOBJ_DESCRIPTION" value="cn777" />
@@ -576,8 +587,8 @@
             <Property id="IDOBJ_MRID" value="t_106" />
             <Property id="IDOBJ_DESCRIPTION" value="t106" />
             <Property id="IDOBJ_NAME" value="T106" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cffffffff" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff5" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffe" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff4" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -586,8 +597,8 @@
             <Property id="IDOBJ_MRID" value="t_107" />
             <Property id="IDOBJ_DESCRIPTION" value="t107" />
             <Property id="IDOBJ_NAME" value="T107" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000002fffffffe" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff4" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000002ffffffff" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff3" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -597,7 +608,7 @@
             <Property id="IDOBJ_DESCRIPTION" value="t126" />
             <Property id="IDOBJ_NAME" value="T126" />
             <Property id="TERMINAL_COND_EQ" value="0x00000005ffffffff" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff5" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff4" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -606,8 +617,8 @@
             <Property id="IDOBJ_MRID" value="t_367" />
             <Property id="IDOBJ_DESCRIPTION" value="t367" />
             <Property id="IDOBJ_NAME" value="T367" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffd" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff4" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffc" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff3" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -616,12 +627,22 @@
             <Property id="IDOBJ_MRID" value="t_3673" />
             <Property id="IDOBJ_DESCRIPTION" value="t3673" />
             <Property id="IDOBJ_NAME" value="T3673" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffd" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff3" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffc" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff2" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006fffffffa" type="TERMINAL" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="t_36733" />
+            <Property id="IDOBJ_DESCRIPTION" value="t36733" />
+            <Property id="IDOBJ_NAME" value="T36733" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000005fffffffe" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff2" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000006fffffff9" type="TERMINAL" />
           <Properties>
             <Property id="IDOBJ_MRID" value="t_37" />
             <Property id="IDOBJ_DESCRIPTION" value="t37" />
@@ -631,233 +652,243 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000006fffffff9" type="TERMINAL" />
-          <Properties>
-            <Property id="IDOBJ_MRID" value="t_427" />
-            <Property id="IDOBJ_DESCRIPTION" value="t427" />
-            <Property id="IDOBJ_NAME" value="T427" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000005fffffffe" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff3" />
-          </Properties>
-        </ResourceDescription>
-        <ResourceDescription>
           <id gid="0x00000006fffffff8" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_66" />
-            <Property id="IDOBJ_DESCRIPTION" value="t66" />
-            <Property id="IDOBJ_NAME" value="T66" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000002ffffffff" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003ffffffff" />
+            <Property id="IDOBJ_MRID" value="t_43683" />
+            <Property id="IDOBJ_DESCRIPTION" value="t43683" />
+            <Property id="IDOBJ_NAME" value="T43683" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cffffffff" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffe" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006fffffff7" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_67" />
-            <Property id="IDOBJ_DESCRIPTION" value="t67" />
-            <Property id="IDOBJ_NAME" value="T67" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffe" />
+            <Property id="IDOBJ_MRID" value="t_466" />
+            <Property id="IDOBJ_DESCRIPTION" value="t466" />
+            <Property id="IDOBJ_NAME" value="T466" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cffffffff" />
             <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003ffffffff" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006fffffff6" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_76" />
-            <Property id="IDOBJ_DESCRIPTION" value="t76" />
-            <Property id="IDOBJ_NAME" value="T76" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000002ffffffff" />
+            <Property id="IDOBJ_MRID" value="t_566" />
+            <Property id="IDOBJ_DESCRIPTION" value="t566" />
+            <Property id="IDOBJ_NAME" value="T566" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000002fffffffe" />
             <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffe" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006fffffff5" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_77" />
-            <Property id="IDOBJ_DESCRIPTION" value="t77" />
-            <Property id="IDOBJ_NAME" value="T77" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffe" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffd" />
+            <Property id="IDOBJ_MRID" value="t_67" />
+            <Property id="IDOBJ_DESCRIPTION" value="t67" />
+            <Property id="IDOBJ_NAME" value="T67" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffd" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003ffffffff" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006fffffff4" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_770" />
-            <Property id="IDOBJ_DESCRIPTION" value="t770" />
-            <Property id="IDOBJ_NAME" value="T770" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffe" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffc" />
+            <Property id="IDOBJ_MRID" value="t_76" />
+            <Property id="IDOBJ_DESCRIPTION" value="t76" />
+            <Property id="IDOBJ_NAME" value="T76" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000002fffffffe" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffd" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006fffffff3" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_771" />
-            <Property id="IDOBJ_DESCRIPTION" value="t771" />
-            <Property id="IDOBJ_NAME" value="T771" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffe" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffb" />
+            <Property id="IDOBJ_MRID" value="t_77" />
+            <Property id="IDOBJ_DESCRIPTION" value="t77" />
+            <Property id="IDOBJ_NAME" value="T77" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffd" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffc" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006fffffff2" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_772" />
-            <Property id="IDOBJ_DESCRIPTION" value="t772" />
-            <Property id="IDOBJ_NAME" value="T772" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffe" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffa" />
+            <Property id="IDOBJ_MRID" value="t_770" />
+            <Property id="IDOBJ_DESCRIPTION" value="t770" />
+            <Property id="IDOBJ_NAME" value="T770" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffd" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffb" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006fffffff1" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_773" />
-            <Property id="IDOBJ_DESCRIPTION" value="t773" />
-            <Property id="IDOBJ_NAME" value="T773" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffe" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff9" />
+            <Property id="IDOBJ_MRID" value="t_771" />
+            <Property id="IDOBJ_DESCRIPTION" value="t771" />
+            <Property id="IDOBJ_NAME" value="T771" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffd" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffa" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006fffffff0" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_774" />
-            <Property id="IDOBJ_DESCRIPTION" value="t774" />
-            <Property id="IDOBJ_NAME" value="T774" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffe" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff8" />
+            <Property id="IDOBJ_MRID" value="t_772" />
+            <Property id="IDOBJ_DESCRIPTION" value="t772" />
+            <Property id="IDOBJ_NAME" value="T772" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffd" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff9" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffef" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_781021" />
-            <Property id="IDOBJ_DESCRIPTION" value="t781021" />
-            <Property id="IDOBJ_NAME" value="T781021" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cffffffff" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff7" />
+            <Property id="IDOBJ_MRID" value="t_773" />
+            <Property id="IDOBJ_DESCRIPTION" value="t773" />
+            <Property id="IDOBJ_NAME" value="T773" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffd" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff8" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffee" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_781121" />
-            <Property id="IDOBJ_DESCRIPTION" value="t781121" />
-            <Property id="IDOBJ_NAME" value="T781121" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cffffffff" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff6" />
+            <Property id="IDOBJ_MRID" value="t_774" />
+            <Property id="IDOBJ_DESCRIPTION" value="t774" />
+            <Property id="IDOBJ_NAME" value="T774" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffd" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff7" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffed" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_86" />
-            <Property id="IDOBJ_DESCRIPTION" value="t86" />
-            <Property id="IDOBJ_NAME" value="T86" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000004ffffffff" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffe" />
+            <Property id="IDOBJ_MRID" value="t_781021" />
+            <Property id="IDOBJ_DESCRIPTION" value="t781021" />
+            <Property id="IDOBJ_NAME" value="T781021" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffe" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff6" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffec" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_87" />
-            <Property id="IDOBJ_DESCRIPTION" value="t87" />
-            <Property id="IDOBJ_NAME" value="T87" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffffe" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffd" />
+            <Property id="IDOBJ_MRID" value="t_781121" />
+            <Property id="IDOBJ_DESCRIPTION" value="t781121" />
+            <Property id="IDOBJ_NAME" value="T781121" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffe" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff5" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffeb" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_870" />
-            <Property id="IDOBJ_DESCRIPTION" value="t870" />
-            <Property id="IDOBJ_NAME" value="T870" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffffd" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffc" />
+            <Property id="IDOBJ_MRID" value="t_86" />
+            <Property id="IDOBJ_DESCRIPTION" value="t86" />
+            <Property id="IDOBJ_NAME" value="T86" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000004ffffffff" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffd" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffea" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_871" />
-            <Property id="IDOBJ_DESCRIPTION" value="t871" />
-            <Property id="IDOBJ_NAME" value="T871" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffffc" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffb" />
+            <Property id="IDOBJ_MRID" value="t_87" />
+            <Property id="IDOBJ_DESCRIPTION" value="t87" />
+            <Property id="IDOBJ_NAME" value="T87" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffffe" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffc" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffe9" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_872" />
-            <Property id="IDOBJ_DESCRIPTION" value="t872" />
-            <Property id="IDOBJ_NAME" value="T872" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffffb" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffa" />
+            <Property id="IDOBJ_MRID" value="t_870" />
+            <Property id="IDOBJ_DESCRIPTION" value="t870" />
+            <Property id="IDOBJ_NAME" value="T870" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffffd" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffb" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffe8" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_873" />
-            <Property id="IDOBJ_DESCRIPTION" value="t873" />
-            <Property id="IDOBJ_NAME" value="T873" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffffa" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff9" />
+            <Property id="IDOBJ_MRID" value="t_871" />
+            <Property id="IDOBJ_DESCRIPTION" value="t871" />
+            <Property id="IDOBJ_NAME" value="T871" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffffc" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffa" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffe7" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_874" />
-            <Property id="IDOBJ_DESCRIPTION" value="t874" />
-            <Property id="IDOBJ_NAME" value="T874" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffff9" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff8" />
+            <Property id="IDOBJ_MRID" value="t_872" />
+            <Property id="IDOBJ_DESCRIPTION" value="t872" />
+            <Property id="IDOBJ_NAME" value="T872" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffffb" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff9" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffe6" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_881021" />
-            <Property id="IDOBJ_DESCRIPTION" value="t881021" />
-            <Property id="IDOBJ_NAME" value="T881021" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffff8" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff7" />
+            <Property id="IDOBJ_MRID" value="t_873" />
+            <Property id="IDOBJ_DESCRIPTION" value="t873" />
+            <Property id="IDOBJ_NAME" value="T873" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffffa" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff8" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffe5" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_881121" />
-            <Property id="IDOBJ_DESCRIPTION" value="t881121" />
-            <Property id="IDOBJ_NAME" value="T881121" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffff7" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff6" />
+            <Property id="IDOBJ_MRID" value="t_874" />
+            <Property id="IDOBJ_DESCRIPTION" value="t874" />
+            <Property id="IDOBJ_NAME" value="T874" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffff9" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff7" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffe4" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="t_96" />
-            <Property id="IDOBJ_DESCRIPTION" value="t96" />
-            <Property id="IDOBJ_NAME" value="T96" />
-            <Property id="TERMINAL_COND_EQ" value="0x0000000cffffffff" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffe" />
+            <Property id="IDOBJ_MRID" value="t_881021" />
+            <Property id="IDOBJ_DESCRIPTION" value="t881021" />
+            <Property id="IDOBJ_NAME" value="T881021" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffff8" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff6" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000006ffffffe3" type="TERMINAL" />
           <Properties>
+            <Property id="IDOBJ_MRID" value="t_881121" />
+            <Property id="IDOBJ_DESCRIPTION" value="t881121" />
+            <Property id="IDOBJ_NAME" value="T881121" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000004fffffff7" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff5" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000006ffffffe2" type="TERMINAL" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="t_96" />
+            <Property id="IDOBJ_DESCRIPTION" value="t96" />
+            <Property id="IDOBJ_NAME" value="T96" />
+            <Property id="TERMINAL_COND_EQ" value="0x0000000cfffffffe" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffffd" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000006ffffffe1" type="TERMINAL" />
+          <Properties>
             <Property id="IDOBJ_MRID" value="t_97" />
             <Property id="IDOBJ_DESCRIPTION" value="t97" />
             <Property id="IDOBJ_NAME" value="T97" />
-            <Property id="TERMINAL_COND_EQ" value="0x00000002fffffffe" />
-            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff8" />
+            <Property id="TERMINAL_COND_EQ" value="0x00000002ffffffff" />
+            <Property id="TERMINAL_CONNECTIVITY_NODE" value="0x00000003fffffff7" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -953,21 +984,6 @@
         <ResourceDescription>
           <id gid="0x00000008ffffffff" type="DISCRETE" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="d_26" />
-            <Property id="IDOBJ_DESCRIPTION" value="Commanding" />
-            <Property id="IDOBJ_NAME" value="D26" />
-            <Property id="MEASUREMENT_MEAS_TYPE" value="Discrete" />
-            <Property id="DISCRETE_MAX_VALUE" value="1" />
-            <Property id="DISCRETE_MIN_VALUE" value="0" />
-            <Property id="DISCRETE_NORMAL_VALUE" value="1" />
-            <Property id="MEASUREMENT_LATITUDE" value="19.8463" />
-            <Property id="MEASUREMENT_LONGITUDE" value="45.2702675" />
-            <Property id="MEASUREMENT_PSR" value="0x00000002ffffffff" />
-          </Properties>
-        </ResourceDescription>
-        <ResourceDescription>
-          <id gid="0x00000008fffffffe" type="DISCRETE" />
-          <Properties>
             <Property id="IDOBJ_MRID" value="d_27" />
             <Property id="IDOBJ_DESCRIPTION" value="Commanding" />
             <Property id="IDOBJ_NAME" value="D27" />
@@ -977,8 +993,31 @@
             <Property id="DISCRETE_NORMAL_VALUE" value="1" />
             <Property id="MEASUREMENT_LATITUDE" value="19.840416" />
             <Property id="MEASUREMENT_LONGITUDE" value="45.27157" />
+            <Property id="MEASUREMENT_PSR" value="0x00000002ffffffff" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000008fffffffe" type="DISCRETE" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="d_426" />
+            <Property id="IDOBJ_DESCRIPTION" value="Commanding" />
+            <Property id="IDOBJ_NAME" value="D426" />
+            <Property id="MEASUREMENT_MEAS_TYPE" value="Discrete" />
+            <Property id="DISCRETE_MAX_VALUE" value="1" />
+            <Property id="DISCRETE_MIN_VALUE" value="0" />
+            <Property id="DISCRETE_NORMAL_VALUE" value="1" />
+            <Property id="MEASUREMENT_LATITUDE" value="19.8463" />
+            <Property id="MEASUREMENT_LONGITUDE" value="45.2702675" />
             <Property id="MEASUREMENT_PSR" value="0x00000002fffffffe" />
           </Properties>
+        </ResourceDescription>
+      </ResourceDescriptions>
+    </operation>
+    <operation type="update">
+      <ResourceDescriptions count="1">
+        <ResourceDescription>
+          <id gid="0x0000000100000001" type="GEOGRAPHICALREGION" />
+          <Properties />
         </ResourceDescription>
       </ResourceDescriptions>
     </operation>
