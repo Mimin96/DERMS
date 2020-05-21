@@ -15,6 +15,7 @@ using Modbus.FunctionParameters;
 using Modbus;
 using Common;
 using ProcessingModule;
+using Innovative.SolarCalculator;
 
 namespace dCom.Simulation
 {
@@ -143,11 +144,11 @@ namespace dCom.Simulation
 
 
                 P = (float)(ConsiderP * insolation * 0.00095 * (1 - 0.005 * (TCell - 25)));
-                //SolarTimes solarTimes = new SolarTimes(DateTime.Now, latitude, longitude);
-                //DateTime sunrise = solarTimes.Sunrise;
-                //DateTime sunset = solarTimes.Sunset;
-                //if (dataPoint.Time > sunset || dataPoint.Time < sunrise)
-                //    P = 0;
+                SolarTimes solarTimes = new SolarTimes(DateTime.Now, latitude, longitude);
+                DateTime sunrise = solarTimes.Sunrise;
+                DateTime sunset = solarTimes.Sunset;
+                if (hourDataPoint.Time > sunset || hourDataPoint.Time < sunrise)
+                    P = 0;
 
 
 
