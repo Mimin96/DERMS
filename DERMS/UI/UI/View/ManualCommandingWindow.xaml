@@ -9,7 +9,7 @@
         Title="ManualCommandingWindow" Height="460" Width="400">
     <Grid Grid.Row="1" Background="#FF303030">
         <TextBlock Text="Flexibility" FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="ForestGreen" Margin="149,192,117,204"/>
-        <TextBox HorizontalAlignment="Left" Name="ValueKW" TextAlignment="Center" FontSize="18" Height="30" Margin="106,230,106,0" Text="20" TextWrapping="Wrap" Foreground="ForestGreen" VerticalAlignment="Top" Width="182"/>
+        <TextBox HorizontalAlignment="Left" Name="ValueKW" TextAlignment="Center" FontSize="18" Height="30" Margin="106,230,106,0" Text="0" TextWrapping="Wrap" Foreground="ForestGreen" VerticalAlignment="Top" Width="182"/>
         <RadioButton Content="Increase" Name="Increase" IsChecked="True" HorizontalAlignment="Left" Height="20" Margin="159,288,0,0" Foreground="ForestGreen" VerticalAlignment="Top" Width="120"/>
         <RadioButton Content="Decrease" Name="Decrease" HorizontalAlignment="Left" Height="20" Margin="159,324,0,0" Foreground="ForestGreen" VerticalAlignment="Top" Width="120"/>
         <Button Content="Manual Commanding" HorizontalAlignment="Left" Margin="120,375,0,0" VerticalAlignment="Top" Width="150" Command="{Binding Command}" Click="Button_Click"/>

@@ -311,3 +311,14 @@ C:\Users\Nemanja\Desktop\Git1905\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debu
 C:\Users\Nemanja\Desktop\Git1905\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git1905\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.exe
 C:\Users\Nemanja\Desktop\Git1905\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.pdb
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\bin\ModelLabsApp.exe.config
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\bin\ModelLabsApp.exe
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\bin\ModelLabsApp.pdb
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.csprojAssemblyReference.cache
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.ModelLabsAppForm.resources
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.Properties.Resources.resources
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.csproj.GenerateResource.cache
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.csproj.CoreCompileInputs.cache
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.csproj.CopyComplete
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.exe
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\ModelLabsApp\obj\x86\Debug\ModelLabsApp.pdb

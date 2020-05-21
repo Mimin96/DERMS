@@ -326,3 +326,11 @@ C:\Users\Caki\Desktop\2005\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj
 C:\Users\Caki\Desktop\2005\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\Caki\Desktop\2005\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\Caki\Desktop\2005\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.dll
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb

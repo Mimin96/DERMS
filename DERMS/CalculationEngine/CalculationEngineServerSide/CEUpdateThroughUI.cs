@@ -27,7 +27,9 @@ namespace CalculationEngineService
             networkModel = CalculationEngineCache.Instance.GetNMSModel();
             Dictionary<long, double> battery = new Dictionary<long, double>();
             Dictionary<long, List<long>> energySources = new Dictionary<long, List<long>>();
-            DerForecastDayAhead tempForecast = new DerForecastDayAhead();
+
+            Dictionary<long, DerForecastDayAhead> dicGener = new Dictionary<long, DerForecastDayAhead>();
+            Dictionary<long, DerForecastDayAhead> tempDiffrence = new Dictionary<long, DerForecastDayAhead>();
 
             IdentifiedObject io = networkModel[GidUi];
             var type = io.GetType();
@@ -118,8 +120,6 @@ namespace CalculationEngineService
             {
                 DerForecastDayAhead derForecastDayAhead = prod[kvp.Key];
 
-
-
                 foreach (HourDataPoint hdpProduction in derForecastDayAhead.Production.Hourly)
                 {
                     foreach (HourDataPoint hdpConsumption in derForecastDayAhead.Consumption.Hourly)
@@ -127,84 +127,353 @@ namespace CalculationEngineService
 
                         if (hdpConsumption.Time.Equals(hdpProduction.Time))
                         {
+
                             if (hdpProduction.ActivePower > hdpConsumption.ActivePower)
                             {
 
-                                if (energySources.ContainsKey(kvp.Key))
-                                {
-                                    int distributionFactor = energySources[kvp.Key].Count;
-                                    foreach (long es in energySources[kvp.Key])
-                                    {
-                                        EnergySource energySource = (EnergySource)networkModel[es];
-                                        energySource.ActivePower += (hdpProduction.ActivePower - hdpConsumption.ActivePower) / distributionFactor;
-
-                                    }
-
-                                    // hdpProduction.ActivePower = hdpConsumption.ActivePower;
-                                }
-
-                                HourDataPoint tempProduction = new HourDataPoint();
-                                tempProduction.Time = hdpProduction.Time;
-                                tempProduction.ActivePower = hdpProduction.ActivePower - hdpConsumption.ActivePower;
-                                tempForecast.Production.Hourly.Add(tempProduction);
                                 //hdpProduction.ActivePower = hdpConsumption.ActivePower;
                                 //PROBAJ DA SMANJIS FLEX KOLIKO MOZE -> AKO JE DOVOLJNO DA SE PORAVNA
                                 // NE DAJES NISTA SORSU, AKO OPET PROIZVODI VISE -> OSTATAK PREDAJ SORSU
+                                var it = networkModel[kvp.Key];
+                                var tip = it.GetType();
+
+                                if (tip.Name.Equals("Substation"))
+                                {
+                                    Substation sub = (Substation)it;
+                                    foreach (var item in sub.Equipments)
+                                    {
+                                        var generatorType = networkModel[item].GetType();
+                                        if (generatorType.Name.Equals("Generator"))
+                                        {
+                                            Generator generator = (Generator)networkModel[item];
+                                            DerForecastDayAhead GeneratorderForecastDayAhead = prod[generator.GlobalId];
+                                            foreach (HourDataPoint generatorProduction in GeneratorderForecastDayAhead.Production.Hourly)
+                                            {
+                                                if (generatorProduction.Time.Equals(hdpProduction.Time))
+                                                {
+                                                    if (generator.GeneratorType.Equals(GeneratorType.Solar))
+                                                    {
+                                                        generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * 0.95);
+                                                        if(dicGener.ContainsKey(generator.GlobalId))
+                                                        {
+                                                            dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                        }
+                                                        else
+                                                        {
+                                                            dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                                            dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                        }
+                                                    }
+                                                    if (generator.GeneratorType.Equals(GeneratorType.Wind))
+                                                    {
+                                                        generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * 0.92);
+                                                        if (dicGener.ContainsKey(generator.GlobalId))
+                                                        {
+                                                            dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                        }
+                                                        else
+                                                        {
+                                                            dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                                            dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                        }
+                                                    }
+
+                                                  
+                                                }
+                                            }
+
+
+                                        }
+
+                                    }
+                                }
+
 
                             }
                             else if (hdpProduction.ActivePower <= hdpConsumption.ActivePower)
                             {
+                                //POKUSAJ SA FLEX DA PODIGNES-> AKO NEMA DOSTA OSTATAK POVUCI IZ SOURSA
+                                var it = networkModel[kvp.Key];
+                                var tip = it.GetType();
 
-                                if (energySources.ContainsKey(kvp.Key))
+                                if (tip.Name.Equals("Substation"))
                                 {
-                                    int distributionFactor = energySources[kvp.Key].Count;
-                                    foreach (long es in energySources[kvp.Key])
+                                    Substation sub = (Substation)it;
+                                    foreach (var item in sub.Equipments)
                                     {
-                                        EnergySource energySource = (EnergySource)networkModel[es];
-                                        if (energySource.ActivePower >= (hdpConsumption.ActivePower - hdpProduction.ActivePower) / distributionFactor)
+                                        var generatorType = networkModel[item].GetType();
+                                        if (generatorType.Name.Equals("Generator"))
                                         {
-                                            energySource.ActivePower -= (hdpConsumption.ActivePower - hdpProduction.ActivePower) / distributionFactor;
-                                            energyFromSource += (hdpConsumption.ActivePower - hdpProduction.ActivePower) / distributionFactor;
+                                            
+                                            Generator generator = (Generator)networkModel[item];
+                                            DerForecastDayAhead GeneratorderForecastDayAhead = prod[generator.GlobalId];
+                                            foreach (HourDataPoint generatorProduction in GeneratorderForecastDayAhead.Production.Hourly)
+                                            {
+                                                if (generatorProduction.Time.Equals(hdpProduction.Time))
+                                                {
+                                                    if (generator.GeneratorType.Equals(GeneratorType.Solar))
+                                                    {
+                                                        generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * 1.05);
+                                                        if (dicGener.ContainsKey(generator.GlobalId))
+                                                        {
+                                                            dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                        }
+                                                        else
+                                                        {
+                                                            dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                                            dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                        }
+                                                    }
+                                                    if (generator.GeneratorType.Equals(GeneratorType.Wind))
+                                                    {
+                                                        generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * 1.08);
+                                                        if (dicGener.ContainsKey(generator.GlobalId))
+                                                        {
+                                                            dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                        }
+                                                        else
+                                                        {
+                                                            dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                                            dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                        }
+                                                    }
+                                                   
+                                                }
+                                            }
+
+
                                         }
+
                                     }
-
-                                    //POKUSAJ SA FLEX DA PODIGNES-> AKO NEMA DOSTA OSTATAK POVUCI IZ SOURSA
-
                                 }
-                                else
-                                {
-                                    //Turn off consumers...
-                                }
-
-                                HourDataPoint tempProduction = new HourDataPoint();
-                                tempProduction.Time = hdpProduction.Time;
-                                tempForecast.Production.Hourly.Add(tempProduction);
-
-                            }
-                            else
-                            {
 
                             }
                         }
 
                     }
                 }
+
             }
+
             if (type.Name.Equals("Substation"))
             {
 
-                Substation substation = (Substation)networkModel[GidUi];
-                SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)networkModel[substation.SubGeoReg];
+                Substation sub = (Substation)networkModel[GidUi];
+                
+                foreach (var item in sub.Equipments)
+                {
+                    var generatorType = networkModel[item].GetType();
+                    if (generatorType.Name.Equals("Generator"))
+                    {
+                        Generator generator = (Generator)networkModel[item];
+                        Substation substation = (Substation)networkModel[generator.Container];
+                        DerForecastDayAhead tempGen = new DerForecastDayAhead();
+                        tempGen.Production = prod[generator.GlobalId].Production - dicGener[generator.GlobalId].Production;
+                        tempDiffrence.Add(generator.GlobalId,tempGen);
+                    }
+                }
+                DerForecastDayAhead tempSubValue = new DerForecastDayAhead();
+
+                foreach(var item in dicGener)
+                {
+                    if(sub.Equipments.Contains(item.Key))
+                    {
+                        if(tempSubValue.Production.Hourly.Count == 0)
+                        {
+                            tempSubValue.Production = prod[item.Key].Production;
+                        }
+                        else
+                        {
+                            tempSubValue.Production += prod[item.Key].Production;
+                        }
+                    }
+                }
+                prod[sub.GlobalId].Production = tempSubValue.Production;
+
+                SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)networkModel[sub.SubGeoReg];
                 GeographicalRegion geographicalRegion = (GeographicalRegion)networkModel[subGeographicalRegion.GeoReg];
-                prod[subGeographicalRegion.GlobalId].Production -= tempForecast.Production;
-                prod[geographicalRegion.GlobalId].Production -= tempForecast.Production;
+
+                DerForecastDayAhead tempSubRegValue = new DerForecastDayAhead();
+                foreach (var item in subGeographicalRegion.Substations)
+                {
+                    if(tempSubRegValue.Production.Hourly.Count==0)
+                    {
+                        tempSubRegValue.Production = prod[item].Production;
+                    }
+                    else
+                    {
+                        tempSubRegValue.Production += prod[item].Production;
+                    }
+                }
+                prod[subGeographicalRegion.GlobalId].Production = tempSubRegValue.Production;
+                DerForecastDayAhead tempGeoRegValue = new DerForecastDayAhead();
+                foreach (var item in geographicalRegion.Regions)
+                {
+                    if (tempGeoRegValue.Production.Hourly.Count == 0)
+                    {
+                        tempGeoRegValue.Production = prod[item].Production;
+                    }
+                    else
+                    {
+                        tempGeoRegValue.Production += prod[item].Production;
+                    }
+                }
+                prod[geographicalRegion.GlobalId].Production = tempGeoRegValue.Production;
+                //prod[subGeographicalRegion.GlobalId].Production -= tempForecast.Production;
+                //prod[geographicalRegion.GlobalId].Production -= tempForecast.Production;
             }
+
             if (type.Name.Equals("SubGeographicalRegion"))
             {
-                SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)networkModel[GidUi];
-                GeographicalRegion geographicalRegion = (GeographicalRegion)networkModel[subGeographicalRegion.GeoReg];
-                prod[geographicalRegion.GlobalId].Production -= tempForecast.Production;
+                SubGeographicalRegion subGeographicalRegionMain = (SubGeographicalRegion)networkModel[GidUi];
+
+                foreach (var itemSub in subGeographicalRegionMain.Substations)
+                {
+                    Substation sub = (Substation)networkModel[itemSub];
+
+                    foreach (var item in sub.Equipments)
+                    {
+                        var generatorType = networkModel[item].GetType();
+                        if (generatorType.Name.Equals("Generator"))
+                        {
+                            Generator generator = (Generator)networkModel[item];
+                            Substation substation = (Substation)networkModel[generator.Container];
+                            DerForecastDayAhead tempGen = new DerForecastDayAhead();
+                            tempGen.Production = prod[generator.GlobalId].Production - dicGener[generator.GlobalId].Production;
+                            tempDiffrence.Add(generator.GlobalId, tempGen);
+                        }
+                    }
+                    DerForecastDayAhead tempSubValue = new DerForecastDayAhead();
+
+                    foreach (var item in dicGener)
+                    {
+                        if (sub.Equipments.Contains(item.Key))
+                        {
+                            if (tempSubValue.Production.Hourly.Count == 0)
+                            {
+                                tempSubValue.Production = prod[item.Key].Production;
+                            }
+                            else
+                            {
+                                tempSubValue.Production += prod[item.Key].Production;
+                            }
+                        }
+                    }
+                    prod[sub.GlobalId].Production = tempSubValue.Production;
+
+                    SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)networkModel[sub.SubGeoReg];
+                    GeographicalRegion geographicalRegion = (GeographicalRegion)networkModel[subGeographicalRegion.GeoReg];
+
+                    DerForecastDayAhead tempSubRegValue = new DerForecastDayAhead();
+                    foreach (var item in subGeographicalRegion.Substations)
+                    {
+                        if (tempSubRegValue.Production.Hourly.Count == 0)
+                        {
+                            tempSubRegValue.Production = prod[item].Production;
+                        }
+                        else
+                        {
+                            tempSubRegValue.Production += prod[item].Production;
+                        }
+                    }
+                    prod[subGeographicalRegion.GlobalId].Production = tempSubRegValue.Production;
+                    DerForecastDayAhead tempGeoRegValue = new DerForecastDayAhead();
+                    foreach (var item in geographicalRegion.Regions)
+                    {
+                        if (tempGeoRegValue.Production.Hourly.Count == 0)
+                        {
+                            tempGeoRegValue.Production = prod[item].Production;
+                        }
+                        else
+                        {
+                            tempGeoRegValue.Production += prod[item].Production;
+                        }
+                    }
+                    prod[geographicalRegion.GlobalId].Production = tempGeoRegValue.Production;
+                    //prod[subGeographicalRegion.GlobalId].Production -= tempForecast.Production;
+                    //prod[geographicalRegion.GlobalId].Production -= tempForecast.Production;
+                }
             }
+
+            if (type.Name.Equals("GeographicalRegion"))
+            {
+                GeographicalRegion geographicalRegionMain = (GeographicalRegion)networkModel[GidUi];
+
+                foreach (var itemGeo in geographicalRegionMain.Regions)
+                {
+
+
+                    SubGeographicalRegion subGeographicalRegionMain = (SubGeographicalRegion)networkModel[itemGeo];
+
+                    foreach (var itemSub in subGeographicalRegionMain.Substations)
+                    {
+                        Substation sub = (Substation)networkModel[itemSub];
+
+                        foreach (var item in sub.Equipments)
+                        {
+                            var generatorType = networkModel[item].GetType();
+                            if (generatorType.Name.Equals("Generator"))
+                            {
+                                Generator generator = (Generator)networkModel[item];
+                                Substation substation = (Substation)networkModel[generator.Container];
+                                DerForecastDayAhead tempGen = new DerForecastDayAhead();
+                                tempGen.Production = prod[generator.GlobalId].Production - dicGener[generator.GlobalId].Production;
+                                tempDiffrence.Add(generator.GlobalId, tempGen);
+                            }
+                        }
+                        DerForecastDayAhead tempSubValue = new DerForecastDayAhead();
+
+                        foreach (var item in dicGener)
+                        {
+                            if (sub.Equipments.Contains(item.Key))
+                            {
+                                if (tempSubValue.Production.Hourly.Count == 0)
+                                {
+                                    tempSubValue.Production = prod[item.Key].Production;
+                                }
+                                else
+                                {
+                                    tempSubValue.Production += prod[item.Key].Production;
+                                }
+                            }
+                        }
+                        prod[sub.GlobalId].Production = tempSubValue.Production;
+
+                        SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)networkModel[sub.SubGeoReg];
+                        GeographicalRegion geographicalRegion = (GeographicalRegion)networkModel[subGeographicalRegion.GeoReg];
+
+                        DerForecastDayAhead tempSubRegValue = new DerForecastDayAhead();
+                        foreach (var item in subGeographicalRegion.Substations)
+                        {
+                            if (tempSubRegValue.Production.Hourly.Count == 0)
+                            {
+                                tempSubRegValue.Production = prod[item].Production;
+                            }
+                            else
+                            {
+                                tempSubRegValue.Production += prod[item].Production;
+                            }
+                        }
+                        prod[subGeographicalRegion.GlobalId].Production = tempSubRegValue.Production;
+                        DerForecastDayAhead tempGeoRegValue = new DerForecastDayAhead();
+                        foreach (var item in geographicalRegion.Regions)
+                        {
+                            if (tempGeoRegValue.Production.Hourly.Count == 0)
+                            {
+                                tempGeoRegValue.Production = prod[item].Production;
+                            }
+                            else
+                            {
+                                tempGeoRegValue.Production += prod[item].Production;
+                            }
+                        }
+                        prod[geographicalRegion.GlobalId].Production = tempGeoRegValue.Production;
+                        //prod[subGeographicalRegion.GlobalId].Production -= tempForecast.Production;
+                        //prod[geographicalRegion.GlobalId].Production -= tempForecast.Production;
+                    }
+                }
+            }
+
 
 
             return energyFromSource;

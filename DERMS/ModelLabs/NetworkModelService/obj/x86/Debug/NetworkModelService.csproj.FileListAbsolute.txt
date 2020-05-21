@@ -339,3 +339,10 @@ C:\Users\Caki\Desktop\2005\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Deb
 C:\Users\Caki\Desktop\2005\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CopyComplete
 C:\Users\Caki\Desktop\2005\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.dll
 C:\Users\Caki\Desktop\2005\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.pdb
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\bin\FTN.Services.NetworkModelService.dll
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\bin\FTN.Services.NetworkModelService.pdb
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csprojAssemblyReference.cache
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CoreCompileInputs.cache
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CopyComplete
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.dll
+E:\Master\21.05.2020.v2\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.pdb

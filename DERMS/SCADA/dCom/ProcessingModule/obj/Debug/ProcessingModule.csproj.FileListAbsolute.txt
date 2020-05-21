@@ -392,3 +392,12 @@ C:\Users\Caki\Desktop\2005\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\Pro
 C:\Users\Caki\Desktop\2005\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
 C:\Users\Caki\Desktop\2005\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
 C:\Users\Caki\Desktop\2005\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.dll
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.pdb
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\ProcessingModule\bin\Debug\Common.dll
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\ProcessingModule\bin\Debug\Common.pdb
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csprojAssemblyReference.cache
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CoreCompileInputs.cache
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
+E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb

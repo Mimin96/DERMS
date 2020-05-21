@@ -29,13 +29,13 @@
 		<cim:ConductingEquipment.latitude>19.855462</cim:ConductingEquipment.latitude>		
 	</cim:Substation>
 	
-<!-- substation3 -->	
+<!-- substation3 -->
 	<!-- grana1 start (source, acl, consumer, breaker, solar panel)-->
 	<cim:EnergySource rdf:id="es_3">
 		<cim:IdentifiedObject.description>es3</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>es_3</cim:IdentifiedObject.mRID>		
 		<cim:IdentifiedObject.name>ES3</cim:IdentifiedObject.name>
-		<cim:EnergySource.activePower>950</cim:EnergySource.activePower>
+		<cim:EnergySource.activePower>700</cim:EnergySource.activePower>
 		<cim:EnergySource.nominalVoltage>10</cim:EnergySource.nominalVoltage>
 		<cim:EnergySource.voltageMagnitude>20</cim:EnergySource.voltageMagnitude>
 		<cim:EnergySource.sourceType>Distribution</cim:EnergySource.sourceType>
@@ -177,7 +177,7 @@
 		<cim:IdentifiedObject.description>ec27</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>ec_27</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>EC27</cim:IdentifiedObject.name>
-		<cim:EnergyConsumer.pfixed>3</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.pfixed>75</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
 		<cim:ConductingEquipment.longitude>45.270866</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.844970</cim:ConductingEquipment.latitude>
@@ -211,7 +211,7 @@
 		<cim:IdentifiedObject.description>ec270</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>ec_270</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>EC270</cim:IdentifiedObject.name>
-		<cim:EnergyConsumer.pfixed>3</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.pfixed>75</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
 		<cim:ConductingEquipment.longitude>45.270615</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.844085</cim:ConductingEquipment.latitude>
@@ -245,7 +245,7 @@
 		<cim:IdentifiedObject.description>ec271</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>ec_271</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>EC271</cim:IdentifiedObject.name>
-		<cim:EnergyConsumer.pfixed>3</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.pfixed>40</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
 		<cim:ConductingEquipment.longitude>45.270671</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.843152</cim:ConductingEquipment.latitude>
@@ -280,7 +280,7 @@
 		<cim:IdentifiedObject.description>ec272</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>ec_272</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>EC272</cim:IdentifiedObject.name>
-		<cim:EnergyConsumer.pfixed>3</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.pfixed>60</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
 		<cim:ConductingEquipment.longitude>45.271487</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.842605</cim:ConductingEquipment.latitude>
@@ -314,7 +314,7 @@
 		<cim:IdentifiedObject.description>ec273</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>ec_273</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>EC273</cim:IdentifiedObject.name>
-		<cim:EnergyConsumer.pfixed>3</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.pfixed>50</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
 		<cim:ConductingEquipment.longitude>45.271245</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.841923</cim:ConductingEquipment.latitude>
@@ -348,7 +348,7 @@
 		<cim:IdentifiedObject.description>ec274</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>ec_274</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>EC274</cim:IdentifiedObject.name>
-		<cim:EnergyConsumer.pfixed>3</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.pfixed>50</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
 		<cim:ConductingEquipment.longitude>45.271657</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.841752</cim:ConductingEquipment.latitude>
@@ -466,10 +466,10 @@
 		<cim:IdentifiedObject.name>g7</cim:IdentifiedObject.name>
 		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
 		<cim:Generator.minQ>0</cim:Generator.minQ>			
-		<cim:Generator.condenserP>650</cim:Generator.condenserP>
+		<cim:Generator.condenserP>300</cim:Generator.condenserP>
 		<cim:Generator.flexibility>true</cim:Generator.flexibility>
-		<cim:Generator.maxFlexibility>50</cim:Generator.maxFlexibility>
-		<cim:Generator.minFlexibility>50</cim:Generator.minFlexibility>
+		<cim:Generator.maxFlexibility>5</cim:Generator.maxFlexibility>
+		<cim:Generator.minFlexibility>5</cim:Generator.minFlexibility>
 		<cim:ConductingEquipment.longitude>45.271670</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.839416</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Solar</cim:Generator.generatorType>
@@ -623,7 +623,7 @@
 		<cim:IdentifiedObject.description>ec26</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>ec_26</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>EC26</cim:IdentifiedObject.name>
-		<cim:EnergyConsumer.pfixed>2</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.pfixed>120</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
 		<cim:ConductingEquipment.longitude>45.269890</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.847341</cim:ConductingEquipment.latitude>
@@ -727,7 +727,7 @@
 		<cim:IdentifiedObject.description>ec281021</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>ec_281021</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>EC281021</cim:IdentifiedObject.name>
-		<cim:EnergyConsumer.pfixed>2</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.pfixed>130</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
 		<cim:ConductingEquipment.longitude>45.268206</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.851815</cim:ConductingEquipment.latitude>
@@ -761,7 +761,7 @@
 		<cim:IdentifiedObject.description>ec281121</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>ec_281121</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>EC281121</cim:IdentifiedObject.name>
-		<cim:EnergyConsumer.pfixed>2</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.pfixed>100</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
 		<cim:ConductingEquipment.longitude>45.269988</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.852845</cim:ConductingEquipment.latitude>
@@ -791,10 +791,10 @@
 		<cim:IdentifiedObject.name>g26</cim:IdentifiedObject.name>
 		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
 		<cim:Generator.minQ>0</cim:Generator.minQ>			
-		<cim:Generator.condenserP>950</cim:Generator.condenserP>
+		<cim:Generator.condenserP>600</cim:Generator.condenserP>
 		<cim:Generator.flexibility>true</cim:Generator.flexibility>
-		<cim:Generator.maxFlexibility>90</cim:Generator.maxFlexibility>
-		<cim:Generator.minFlexibility>90</cim:Generator.minFlexibility>
+		<cim:Generator.maxFlexibility>8</cim:Generator.maxFlexibility>
+		<cim:Generator.minFlexibility>8</cim:Generator.minFlexibility>
 		<cim:ConductingEquipment.longitude>45.271370</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.852942</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Wind</cim:Generator.generatorType>
