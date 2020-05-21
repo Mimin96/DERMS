@@ -1355,7 +1355,6 @@ C:\Users\Nemanja\Desktop\Git3103\DERMS\DERMS\UI\UI\obj\Debug\UI.pdb
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\UI.exe.config
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\CalculationEngineServiceCommon.dll
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\DERMSCommon.dll
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\DermsUI.exe
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\FontAwesome.WPF.dll
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\FTN.Common.dll
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\LiveCharts.dll
@@ -1367,17 +1366,8 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\Microsoft.
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\DarkSkyApi.dll
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\Innovative.SolarCalculator.dll
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\Innovative.Geometry.Angle.dll
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\MahApps.Metro.dll
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\GMap.NET.WindowsForms.dll
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\GMap.NET.Core.dll
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\CIMProfileCreator.dll
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.dll
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\ControlzEx.dll
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\System.Windows.Interactivity.dll
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\CalculationEngineServiceCommon.pdb
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\DERMSCommon.pdb
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\DermsUI.pdb
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\DermsUI.exe.config
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\FTN.Common.pdb
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\FontAwesome.WPF.xml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\LiveCharts.pdb
@@ -1390,10 +1380,6 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\MaterialDe
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\Microsoft.Xaml.Behaviors.pdb
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\Microsoft.Xaml.Behaviors.xml
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\MahApps.Metro.pdb
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\MahApps.Metro.xml
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\CIMProfileCreator.pdb
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\ControlzEx.pdb
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\UI.csprojAssemblyReference.cache
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\Resources\AppDictionary.baml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\GISUserControl.baml
@@ -1403,7 +1389,6 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\Event
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\GISUserControl.g.cs
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\HistoryUserControl.g.cs
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\LoadingWindow.g.cs
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\LoggesSummaryUserControl.g.cs
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\MainWindow.g.cs
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\ManualCommandingWindow.g.cs
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\NetworkModelUserControl.g.cs
@@ -1416,7 +1401,6 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\DERDa
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\EventSummaryUserControl.baml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\HistoryUserControl.baml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\LoadingWindow.baml
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\LoggesSummaryUserControl.baml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\MainWindow.baml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\ManualCommandingWindow.baml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\NetworkModelUserControl.baml

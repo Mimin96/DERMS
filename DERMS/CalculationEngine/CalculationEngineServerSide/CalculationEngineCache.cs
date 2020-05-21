@@ -442,8 +442,8 @@ namespace CalculationEngineService
             //PubSubCalculatioEngine.Instance.Notify(dataForScada, (int)Enums.Topics.Flexibility);
 
             ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(listOfGeneratorsForScada);
-            UpdateMinAndMaxFlexibilityForChangedGenerators(); // OVU LINIJU OBRISATI			
-        }
+			ApplyChangesOnProductionCached(); // OVU LINIJU OBRISATI I POZVATI JE KAD SKADA POSALJE ODGOVOR		
+		}
 
         public void ApplyChangesOnProductionCached() // KAD STIGNE POTVRDA SA SKADE DA SU PROMENE IZVRSENE, POZIVAMO OVU METODU KAKO BI NOVI PRORACUNI PROIZVODNJE ZA 24h BILI PRIMENJENI NA CACHE
         {
@@ -723,67 +723,46 @@ namespace CalculationEngineService
             //OBAVESTI UI DA JE DOSLO DO PROMENE I POSALJI OVAJ GRAPH
         }
 
-        private void UpdateMinAndMaxFlexibilityForChangedGenerators()
-        {
-            double minProd = 0;
-            double maxProd = 0;
-            double currentProd = 0;
+		private void UpdateMinAndMaxFlexibilityForChangedGenerators()
+		{
+			double minProd = 0;
+			double maxProd = 0;
+			double currentProd = 0;
 
-            foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModelTreeClass)
-            {
-                foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
-                {
-                    foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
-                    {
-                        foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
-                        {
-                            foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
-                            {
-                                if (substationElementTreeClass.Type.Equals(DMSType.GENERATOR))
-                                {
-                                    if (listOfGeneratorsForScada.ContainsKey(substationElementTreeClass.GID))
-                                    {
-                                        /*if(listOfGeneratorsForScada[substationElementTreeClass.GID] > 0)
-										{
-											substationElementTreeClass.MinFlexibility += (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
-											substationElementTreeClass.MaxFlexibility -= (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
-											if(nmsCache.ContainsKey(substationElementTreeClass.GID))
-											{
-												((Generator)(nmsCache[substationElementTreeClass.GID])).MinFlexibility += (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
-												((Generator)(nmsCache[substationElementTreeClass.GID])).MaxFlexibility -= (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
-											}
-										}
-										else
-										{
-											substationElementTreeClass.MinFlexibility += (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
-											substationElementTreeClass.MaxFlexibility -= (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
-											if (nmsCache.ContainsKey(substationElementTreeClass.GID))
-											{
-												((Generator)(nmsCache[substationElementTreeClass.GID])).MinFlexibility += (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
-												((Generator)(nmsCache[substationElementTreeClass.GID])).MaxFlexibility -= (float)listOfGeneratorsForScada[substationElementTreeClass.GID];
-											}
-										}*/
+			foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModelTreeClass)
+			{
+				foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
+				{
+					foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
+					{
+						foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
+						{
+							foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
+							{
+								if (substationElementTreeClass.Type.Equals(DMSType.GENERATOR))
+								{
+									if (listOfGeneratorsForScada.ContainsKey(substationElementTreeClass.GID))
+									{
+										maxProd = substationElementTreeClass.P + substationElementTreeClass.P * (substationElementTreeClass.MaxFlexibility / 100);
+										minProd = substationElementTreeClass.P - substationElementTreeClass.P * (substationElementTreeClass.MinFlexibility / 100);
 
-                                        maxProd = substationElementTreeClass.P + substationElementTreeClass.P * (substationElementTreeClass.MaxFlexibility / 100);
-                                        minProd = substationElementTreeClass.P - substationElementTreeClass.P * (substationElementTreeClass.MinFlexibility / 100);
+										currentProd = substationElementTreeClass.P + substationElementTreeClass.P * (listOfGeneratorsForScada[substationElementTreeClass.GID] / 100);
 
-                                        currentProd = substationElementTreeClass.P + substationElementTreeClass.P * (listOfGeneratorsForScada[substationElementTreeClass.GID] / 100);
+										substationElementTreeClass.P = (float)currentProd;
+										substationElementTreeClass.MaxFlexibility = (float)(((maxProd - currentProd) * 100) / currentProd);
+										substationElementTreeClass.MinFlexibility = (float)(((currentProd - minProd) * 100) / currentProd);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 
-                                        substationElementTreeClass.P = (float)currentProd;
-                                        substationElementTreeClass.MaxFlexibility = (float)(((maxProd - currentProd) * 100) / currentProd);
-                                        substationElementTreeClass.MinFlexibility = (float)(((currentProd - minProd) * 100) / currentProd);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+			CalculateFlexibility();
+		}
 
-            CalculateFlexibility();
-        }
-
-        private void CalculateFlexibility()
+		private void CalculateFlexibility()
         {
             float minFlexibilitySubstation = 0;
             float maxFlexibilitySubstation = 0;
