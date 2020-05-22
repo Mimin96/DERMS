@@ -135,8 +135,11 @@ namespace UI.ViewModel
             {
                 Breaker breaker = (Breaker)selected.Data.IdentifiedObject;
                 Window window = new BreakerControlThroughGISWindow();
+                long GIDm = breaker.Measurements.FirstOrDefault();
 
-                if (breaker.NormalOpen)
+                Discrete discrete = (Discrete)Tree.Where(t => t.Data.IdentifiedObject.GlobalId == GIDm).FirstOrDefault().Data.IdentifiedObject;
+
+                if (discrete.NormalValue == 0)
                     ((BreakerControlThroughGISWindowViewModel)window.DataContext).Open = true;
                 else
                     ((BreakerControlThroughGISWindowViewModel)window.DataContext).Close = true;
@@ -700,7 +703,7 @@ namespace UI.ViewModel
             try
             {
                 TreeNode<NodeData> node = _tree.Where(x => x.Data.IdentifiedObject.Name == SearchParameter).ToList().First();
-                if (node != null)
+                if (node != null && node.Data.Type != DMSType.DISCRETE && node.Data.Type != DMSType.ANALOG)
                 {
                     double lon = getLongitude(node);
                     double lat = getLatitude(node);
@@ -712,6 +715,10 @@ namespace UI.ViewModel
                     _gisTextBlock.Text = String.Empty;
                     _gisTextBlock.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0398E2"));
                     _gisTextBlock.AppendText(BuildToolTipOnClick(node));
+                }
+                else
+                {
+                    MessageBox.Show("Element with selected name does not exist.", "Element not found", MessageBoxButton.OK);
                 }
             }
             catch

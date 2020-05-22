@@ -1617,3 +1617,5 @@ E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CoreCo
 E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CopyComplete
 E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.exe
 E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.pdb
+C:\Users\filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Innovative.Geometry.Angle.xml
+C:\Users\filip\Desktop\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Innovative.SolarCalculator.xml

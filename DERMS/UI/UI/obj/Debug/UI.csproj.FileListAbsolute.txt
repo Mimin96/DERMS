@@ -2277,3 +2277,5 @@ E:\Master\21.05.2020.v2\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CoreCompileInputs.
 E:\Master\21.05.2020.v2\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CopyComplete
 E:\Master\21.05.2020.v2\DERMS\DERMS\UI\UI\obj\Debug\UI.exe
 E:\Master\21.05.2020.v2\DERMS\DERMS\UI\UI\obj\Debug\UI.pdb
+C:\Users\filip\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Innovative.SolarCalculator.xml
+C:\Users\filip\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Innovative.Geometry.Angle.xml
