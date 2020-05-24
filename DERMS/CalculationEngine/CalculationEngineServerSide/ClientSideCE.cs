@@ -18,6 +18,7 @@ namespace CalculationEngineService
         public ChannelFactory<IUpdateCommand> factoryScada;
         public ChannelFactory<ISendListOfGeneratorsToScada> factoryScadaListOfGenerators;
         public ChannelFactory<ITransactionListing> factoryTM;
+        public ChannelFactory<ISendEventsToUI> factoryUI_CE;
 
         public ISendSCADADataToUI ProxyUI { get; set; }
         public ISendNetworkModelToUI ProxyUI_NM { get; set; }
@@ -25,6 +26,7 @@ namespace CalculationEngineService
         public ISendListOfGeneratorsToScada ProxyScadaListOfGenerators { get; set; }
 
         public ITransactionListing ProxyTM { get; set; }
+        public ISendEventsToUI ProxyUI_CE { get; set; }
 
         private static ClientSideCE instance = null;
         public static ClientSideCE Instance
@@ -88,6 +90,11 @@ namespace CalculationEngineService
 
             Console.WriteLine("Connected: net.tcp://localhost:20505/ITransactionListing");
 
+            NetTcpBinding binding6 = new NetTcpBinding();
+            factoryUI_CE = new ChannelFactory<ISendEventsToUI>(binding6, new EndpointAddress("net.tcp://localhost:27777/ISendEventsToUI"));
+            ProxyUI_CE = factoryUI_CE.CreateChannel();
+            Console.WriteLine("Connected: net.tcp://localhost:27777/ISendEventsToUI");
+
         }
 
         public void Abort()
@@ -95,6 +102,7 @@ namespace CalculationEngineService
             factoryUI.Abort();
             factoryScada.Abort();
             factoryScadaListOfGenerators.Abort();
+            factoryUI_CE.Abort();
         }
 
         public void Close()
@@ -102,6 +110,7 @@ namespace CalculationEngineService
             factoryUI.Close();
             factoryScada.Close();
             factoryScadaListOfGenerators.Close();
+            factoryUI_CE.Close();
         }
     }
 }

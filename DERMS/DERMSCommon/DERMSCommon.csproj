@@ -90,6 +90,7 @@
     <Compile Include="DataToUI.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="EventsLogger.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="NMSCommuication\ISendDataFromNMSToCE.cs" />

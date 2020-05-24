@@ -16,7 +16,7 @@ namespace CalculationEngineService
     {
         private Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
         private Dictionary<long, double> batteryStorage = new Dictionary<long, double>();
-
+   
         public float UpdateThroughUI(long data)
         {
             float energyFromSource = CalculationEngineCache.Instance.PopulateBalance(data);

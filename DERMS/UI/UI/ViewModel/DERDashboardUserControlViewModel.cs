@@ -498,6 +498,10 @@ namespace UI.ViewModel
             string temp = String.Format("{0:0.00}", energySourceValue);
             EnergySourceValue = temp;
             CheckOptimizedDER(GidForOptimization);
+            Event e = new Event("Izvrsena je automatska optimizacija", Enums.Component.CalculationEngine, DateTime.Now);
+            EventsLogger el = new EventsLogger();
+            el.WriteToFile(e);
+
             //GetAllGeoRegions();
 
         }

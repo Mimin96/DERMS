@@ -89,6 +89,7 @@
     <Compile Include="Communication\CalculationEnginePubSub.cs" />
     <Compile Include="Communication\ClientSideProxy.cs" />
     <Compile Include="Communication\CommunicationProxy.cs" />
+    <Compile Include="Communication\SendEventsToUI.cs" />
     <Compile Include="Communication\SendNetworkModelToUI.cs" />
     <Compile Include="Communication\SendSCADADataToUI.cs" />
     <Compile Include="Model\ComboData.cs" />

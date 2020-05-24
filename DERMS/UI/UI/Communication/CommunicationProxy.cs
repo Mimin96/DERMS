@@ -12,8 +12,10 @@ namespace UI.Communication
     {
         private ServiceHost serviceHost_SCADAData;
         private ServiceHost serviceHost_NetworkModel;
+        private ServiceHost serviceHost_Events;
         private ChannelFactory<ICEUpdateThroughUI> factory;
         public ICEUpdateThroughUI sendToCE;
+
         public CommunicationProxy()
         {
             //Receive from CE
@@ -28,6 +30,12 @@ namespace UI.Communication
 
             serviceHost_NetworkModel.AddServiceEndpoint(typeof(ISendNetworkModelToUI), new NetTcpBinding(),
                                             new Uri("net.tcp://localhost:27138/ISendNetworkModelToUI"));
+
+             // Receive from CE3
+            serviceHost_Events = new ServiceHost(typeof(SendEventsToUI));
+
+            serviceHost_Events.AddServiceEndpoint(typeof(ISendEventsToUI), new NetTcpBinding(),
+                                            new Uri("net.tcp://localhost:27777/ISendEventsToUI"));
 
             // Send to CE
             factory = new ChannelFactory<ICEUpdateThroughUI>(new NetTcpBinding(),
