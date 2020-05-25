@@ -37,6 +37,7 @@ namespace UI.ViewModel
         private bool showDerProduction;
         private bool showGridDemands;
         private long selectedElement;
+        private bool canOptimizate;
         private string energySourceValue;
         private string productionGenerators;
         private string consumption;
@@ -497,9 +498,12 @@ namespace UI.ViewModel
         {
             var energySourceValue = Optimization();
 
-            string temp = String.Format("{0:0.00}", energySourceValue);
-            EnergySourceValue = temp;
-            CheckOptimizedDER(GidForOptimization);
+            if (canOptimizate)
+            {
+                string temp = String.Format("{0:0.00}", energySourceValue);
+                EnergySourceValue = temp;
+                CheckOptimizedDER(GidForOptimization);
+            }
 
             Event e = new Event("Izvrsena je automatska optimizacija", Enums.Component.CalculationEngine, DateTime.Now);
             EventsLogger el = new EventsLogger();
@@ -523,10 +527,12 @@ namespace UI.ViewModel
                     float x = proxy.sendToCE.UpdateThroughUI(GidForOptimization);
                     energySourceOptimizedValue = CalculateDemand(GidForOptimization);
                     DisableOptimization(GidForOptimization);
+                    canOptimizate = true;
                 }
                 else
                 {
                     MessageBox.Show("Ne meze");
+                    canOptimizate = false;
                 }
 
             }
@@ -857,8 +863,24 @@ namespace UI.ViewModel
             ChartValues1.RemoveAt(1);
             ChartValues2.RemoveAt(1);
             ChartValues3.RemoveAt(1);
+            float tempSource = (float)0.0;
+            foreach (HourDataPoint hdpProduction in tempListProduction)
+            {
+                foreach (HourDataPoint hdpConsumption in tempList)
+                {
 
-
+                    if (hdpConsumption.Time.Equals(hdpProduction.Time) && hdpConsumption.Time.Hour.Equals(DateTime.Now.Hour))
+                    {
+                        if (hdpConsumption.ActivePower >= hdpProduction.ActivePower)
+                            tempSource = hdpConsumption.ActivePower - hdpProduction.ActivePower;
+                        else
+                            tempSource = hdpConsumption.ActivePower - hdpProduction.ActivePower;
+                    }
+                }
+            }
+            string tempx = String.Format("{0:0.00}", tempSource);
+            EnergySourceValue = "0";
+            EnergySourceValue = tempx;
 
         }
 

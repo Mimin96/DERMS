@@ -44,6 +44,11 @@ namespace CalculationEngineService
 
             }
         }
+        public Dictionary<long,double> ListOfGenerators
+        {
+            get { return listOfGeneratorsForScada; }
+            set { listOfGeneratorsForScada = value; }
+        }
         public TreeNode<NodeData> GraphCached
         {
             get { return graphCached; }
@@ -723,7 +728,7 @@ namespace CalculationEngineService
             //OBAVESTI UI DA JE DOSLO DO PROMENE I POSALJI OVAJ GRAPH
         }
 
-		private void UpdateMinAndMaxFlexibilityForChangedGenerators()
+		public void UpdateMinAndMaxFlexibilityForChangedGenerators()
 		{
 			double minProd = 0;
 			double maxProd = 0;

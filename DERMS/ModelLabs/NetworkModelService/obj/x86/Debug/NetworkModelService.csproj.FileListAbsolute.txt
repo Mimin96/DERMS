@@ -353,3 +353,10 @@ C:\Users\boske\Desktop\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\N
 C:\Users\boske\Desktop\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CopyComplete
 C:\Users\boske\Desktop\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.dll
 C:\Users\boske\Desktop\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.pdb
+E:\Master\25.5.2020\DERMS\DERMS\ModelLabs\bin\FTN.Services.NetworkModelService.dll
+E:\Master\25.5.2020\DERMS\DERMS\ModelLabs\bin\FTN.Services.NetworkModelService.pdb
+E:\Master\25.5.2020\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csprojAssemblyReference.cache
+E:\Master\25.5.2020\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CoreCompileInputs.cache
+E:\Master\25.5.2020\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CopyComplete
+E:\Master\25.5.2020\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.dll
+E:\Master\25.5.2020\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.pdb

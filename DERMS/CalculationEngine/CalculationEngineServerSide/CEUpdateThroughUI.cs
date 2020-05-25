@@ -30,6 +30,7 @@ namespace CalculationEngineService
 
             Dictionary<long, DerForecastDayAhead> dicGener = new Dictionary<long, DerForecastDayAhead>();
             Dictionary<long, DerForecastDayAhead> tempDiffrence = new Dictionary<long, DerForecastDayAhead>();
+            Dictionary<long, double> dicForScada = new Dictionary<long, double>();
 
             IdentifiedObject io = networkModel[GidUi];
             var type = io.GetType();
@@ -229,7 +230,10 @@ namespace CalculationEngineService
                                                             }
                                                         }
 
-
+                                                        if (generatorProduction.Time.Hour.Equals(DateTime.Now.Hour))
+                                                        {
+                                                            dicForScada.Add(generator.GlobalId, -tempDicProcentValues[generator.GlobalId]);
+                                                        }
                                                     }
                                                 }
 
@@ -277,6 +281,10 @@ namespace CalculationEngineService
                                                                 dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
                                                                 dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
                                                             }
+                                                        }
+                                                        if (generatorProduction.Time.Hour.Equals(DateTime.Now.Hour))
+                                                        {
+                                                            dicForScada.Add(generator.GlobalId, -generator.MinFlexibility);
                                                         }
 
 
@@ -390,6 +398,11 @@ namespace CalculationEngineService
                                                             }
                                                         }
 
+                                                        if (generatorProduction.Time.Hour.Equals(DateTime.Now.Hour))
+                                                        {
+                                                            dicForScada.Add(generator.GlobalId, tempDicProcentValues[generator.GlobalId]);
+                                                        }
+
 
                                                     }
                                                 }
@@ -439,6 +452,10 @@ namespace CalculationEngineService
                                                                 dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
                                                                 dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
                                                             }
+                                                        }
+                                                        if (generatorProduction.Time.Hour.Equals(DateTime.Now.Hour))
+                                                        {
+                                                            dicForScada.Add(generator.GlobalId, generator.MaxFlexibility);
                                                         }
 
                                                     }
@@ -677,9 +694,9 @@ namespace CalculationEngineService
                     }
                 }
             }
-
-
-
+            CalculationEngineCache.Instance.ListOfGenerators = dicForScada;
+            ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(dicForScada);
+            CalculationEngineCache.Instance.UpdateMinAndMaxFlexibilityForChangedGenerators();
             return energyFromSource;
         }
 
