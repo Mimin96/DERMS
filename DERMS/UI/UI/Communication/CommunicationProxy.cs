@@ -47,6 +47,7 @@ namespace UI.Communication
             serviceHost_SCADAData.Open();
             serviceHost_NetworkModel.Open();
             sendToCE = factory.CreateChannel();
+            serviceHost_Events.Open();
 
         }
         public void Open2()
@@ -58,6 +59,7 @@ namespace UI.Communication
         {
             serviceHost_SCADAData.Close();
             serviceHost_NetworkModel.Close();
+            serviceHost_Events.Close();
         }
     }
 }

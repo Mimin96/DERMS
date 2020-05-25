@@ -50,6 +50,7 @@ namespace UI.ViewModel
         private IChartValues chartValues3;
         private List<long> OptimizatedElements;
         private Dictionary<long, DerForecastDayAhead> ProductionDerForecastDayAhead { get; set; }
+        private List<long> DisableAutomaticOptimization { get; set; }
         private ClientSideProxy ClientSideProxy { get; set; }
         private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
         #region Properties
@@ -352,6 +353,7 @@ namespace UI.ViewModel
             Color1 = new SolidColorBrush(Colors.Green);
             Color2 = new SolidColorBrush(Colors.Purple);
             OptimizatedElements = new List<long>();
+            DisableAutomaticOptimization = new List<long>();
 
             this.dERDashboardUserControl = dERDashboardUserControl;
 
@@ -498,6 +500,7 @@ namespace UI.ViewModel
             string temp = String.Format("{0:0.00}", energySourceValue);
             EnergySourceValue = temp;
             CheckOptimizedDER(GidForOptimization);
+
             Event e = new Event("Izvrsena je automatska optimizacija", Enums.Component.CalculationEngine, DateTime.Now);
             EventsLogger el = new EventsLogger();
             el.WriteToFile(e);
@@ -509,23 +512,40 @@ namespace UI.ViewModel
         {
             if (GidForOptimization != 0 && GidForOptimization != -1)
             {
-                if (proxy == null)
-                    proxy = new CommunicationProxy();
 
-                proxy.Open2();
-                energySourceOptimizedValue = 0;
-                float x = proxy.sendToCE.UpdateThroughUI(GidForOptimization);
-                energySourceOptimizedValue = CalculateDemand(GidForOptimization);
+
+                if (!DisableAutomaticOptimization.Contains(GidForOptimization))
+                {
+                    if (proxy == null)
+                        proxy = new CommunicationProxy();
+                    proxy.Open2();
+                    energySourceOptimizedValue = 0;
+                    float x = proxy.sendToCE.UpdateThroughUI(GidForOptimization);
+                    energySourceOptimizedValue = CalculateDemand(GidForOptimization);
+                    DisableOptimization(GidForOptimization);
+                }
+                else
+                {
+                    MessageBox.Show("Ne meze");
+                }
 
             }
             else if (GidForOptimization == -1)
             {
-                if (proxy == null)
-                    proxy = new CommunicationProxy();
-                energySourceOptimizedValue = 0;
-                proxy.Open2();
-                float x = proxy.sendToCE.BalanceNetworkModel();
-                energySourceOptimizedValue = CalculateDemandForSource();
+                if (!DisableAutomaticOptimization.Contains(GidForOptimization))
+                {
+                    if (proxy == null)
+                        proxy = new CommunicationProxy();
+                    energySourceOptimizedValue = 0;
+                    proxy.Open2();
+                    float x = proxy.sendToCE.BalanceNetworkModel();
+                    energySourceOptimizedValue = CalculateDemandForSource();
+                    DisableOptimization(GidForOptimization);
+                }
+                else
+                {
+                    MessageBox.Show("Ne meze");
+                }
 
             }
             return energySourceOptimizedValue;
@@ -1153,6 +1173,262 @@ namespace UI.ViewModel
 
             }
         }
+        private void DisableOptimization(long gid)
+        {
+            foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModel)
+            {
+                if (gid.Equals(networkModelTreeClasses.GID))
+                {
+                    if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
+                    {
+                        DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
+                    }
+                    foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
+                    {
+                        if (!DisableAutomaticOptimization.Contains(gr.GID))
+                        {
+                            DisableAutomaticOptimization.Add(gr.GID);
+                        }
+                        foreach (GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
+                        {
+                            if (!DisableAutomaticOptimization.Contains(sgr.GID))
+                            {
+                                DisableAutomaticOptimization.Add(sgr.GID);
+                            }
+                            foreach (SubstationTreeClass sub in sgr.Substations)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(sub.GID))
+                                {
+                                    DisableAutomaticOptimization.Add(sub.GID);
+                                }
 
+                            }
+
+                        }
+                    }
+                }
+
+
+                foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
+                {
+                    if (gid.Equals(gr.GID))
+                    {
+                        if (!DisableAutomaticOptimization.Contains(gr.GID))
+                        {
+                            DisableAutomaticOptimization.Add(gr.GID);
+                        }
+                        foreach (GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
+                        {
+                            if (!DisableAutomaticOptimization.Contains(sgr.GID))
+                            {
+                                DisableAutomaticOptimization.Add(sgr.GID);
+                            }
+                            foreach (SubstationTreeClass sub in sgr.Substations)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(sub.GID))
+                                {
+                                    DisableAutomaticOptimization.Add(sub.GID);
+                                }
+
+                            }
+
+                        }
+                        if (networkModelTreeClasses.GeographicalRegions.Count == 1)
+                        {
+                            if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
+                            {
+                                DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
+                            }
+                        }
+                        bool tempProvera = true;
+                        foreach (var item in networkModelTreeClasses.GeographicalRegions)
+                        {
+                            if (!DisableAutomaticOptimization.Contains(item.GID))
+                            {
+                                tempProvera = false;
+                                break;
+                            }
+                        }
+                        if (tempProvera)
+                        {
+                            if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
+                            {
+                                DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
+                            }
+                        }
+                    }
+
+                }
+
+                foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
+                {
+
+                    foreach (GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
+                    {
+                        if (gid.Equals(sgr.GID))
+                        {
+                            if (!DisableAutomaticOptimization.Contains(sgr.GID))
+                            {
+                                DisableAutomaticOptimization.Add(sgr.GID);
+                            }
+
+                            foreach (SubstationTreeClass sub in sgr.Substations)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(sub.GID))
+                                {
+                                    DisableAutomaticOptimization.Add(sub.GID);
+                                }
+
+                            }
+
+                            if (gr.GeographicalSubRegions.Count == 1)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(gr.GID))
+                                {
+                                    DisableAutomaticOptimization.Add(gr.GID);
+                                }
+                            }
+                            bool tempProvera = true;
+                            foreach (var item in gr.GeographicalSubRegions)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(item.GID))
+                                {
+                                    tempProvera = false;
+                                    break;
+                                }
+                            }
+                            if (tempProvera)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(gr.GID))
+                                {
+                                    DisableAutomaticOptimization.Add(gr.GID);
+                                }
+                            }
+                            if (networkModelTreeClasses.GeographicalRegions.Count == 1 && DisableAutomaticOptimization.Contains(gr.GID))
+                            {
+                                if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
+                                {
+                                    DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
+                                }
+                            }
+                            tempProvera = true;
+                            foreach (var item in networkModelTreeClasses.GeographicalRegions)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(item.GID))
+                                {
+                                    tempProvera = false;
+                                    break;
+                                }
+                            }
+                            if (tempProvera)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
+                                {
+                                    DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
+                                }
+                            }
+
+                        }
+
+                    }
+
+
+                }
+                foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
+                {
+
+                    foreach (GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
+                    {
+
+                        foreach (SubstationTreeClass sub in sgr.Substations)
+                        {
+                            if (gid.Equals(sub.GID))
+                            {
+                                if (!DisableAutomaticOptimization.Contains(sub.GID))
+                                    DisableAutomaticOptimization.Add(sub.GID);
+
+                                if (sgr.Substations.Count == 1)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(sgr.GID))
+                                    {
+                                        DisableAutomaticOptimization.Add(sgr.GID);
+                                    }
+                                }
+                                bool tempProvera = true;
+                                foreach (var item in sgr.Substations)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(item.GID))
+                                    {
+                                        tempProvera = false;
+                                        break;
+                                    }
+                                }
+                                if (tempProvera)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(sgr.GID))
+                                    {
+                                        DisableAutomaticOptimization.Add(sgr.GID);
+                                    }
+                                }
+                                tempProvera = true;
+                                if (gr.GeographicalSubRegions.Count == 1 && DisableAutomaticOptimization.Contains(sgr.GID))
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(gr.GID))
+                                    {
+                                        DisableAutomaticOptimization.Add(gr.GID);
+                                    }
+                                }
+                                foreach (var item in gr.GeographicalSubRegions)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(item.GID))
+                                    {
+                                        tempProvera = false;
+                                        break;
+                                    }
+                                }
+                                if (tempProvera)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(gr.GID))
+                                    {
+                                        DisableAutomaticOptimization.Add(gr.GID);
+                                    }
+                                }
+                                if (networkModelTreeClasses.GeographicalRegions.Count == 1 && DisableAutomaticOptimization.Contains(gr.GID))
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
+                                    {
+                                        DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
+                                    }
+                                }
+                                tempProvera = true;
+                                foreach (var item in networkModelTreeClasses.GeographicalRegions)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(item.GID))
+                                    {
+                                        tempProvera = false;
+                                        break;
+                                    }
+                                }
+                                if (tempProvera)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
+                                    {
+                                        DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
+                                    }
+                                }
+
+
+                            }
+
+                        }
+
+                    }
+
+
+
+                }
+
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,9 +23,10 @@ namespace DERMSCommon {
                 {
                     using (var w = new StreamWriter(fs))
                     {
-                        //var bw = new BinaryFormatter();
-                        //bw.Serialize(fs, e);
-                        w.Write(e.Message, e.Component, e.DateTime);
+                    //var bw = new BinaryFormatter();
+                    //bw.Serialize(fs, e);
+
+                        w.Write(e.DateTime);
                     }
                 }
             }

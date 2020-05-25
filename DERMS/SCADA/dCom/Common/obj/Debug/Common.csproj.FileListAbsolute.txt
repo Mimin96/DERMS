@@ -337,8 +337,8 @@ E:\Master\21.05.2020.v2\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
 C:\Users\boske\Desktop\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.dll
 C:\Users\boske\Desktop\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
 C:\Users\boske\Desktop\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\boske\Desktop\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
 C:\Users\boske\Desktop\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 C:\Users\boske\Desktop\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\boske\Desktop\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\boske\Desktop\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
-C:\Users\boske\Desktop\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache

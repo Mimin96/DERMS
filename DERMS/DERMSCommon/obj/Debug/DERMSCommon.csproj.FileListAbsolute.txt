@@ -592,8 +592,8 @@ C:\Users\boske\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\FTN.Common.pdb
 C:\Users\boske\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignColors.pdb
 C:\Users\boske\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignThemes.Wpf.pdb
 C:\Users\boske\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\boske\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csprojAssemblyReference.cache
 C:\Users\boske\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CoreCompileInputs.cache
 C:\Users\boske\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
 C:\Users\boske\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
 C:\Users\boske\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb
-C:\Users\boske\Desktop\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csprojAssemblyReference.cache
