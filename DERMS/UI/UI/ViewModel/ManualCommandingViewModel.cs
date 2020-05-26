@@ -1,4 +1,5 @@
 ﻿using CalculationEngineServiceCommon;
+using DERMSCommon;
 using DERMSCommon.UIModel;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,11 @@ namespace UI.ViewModel
 			try
 			{
 				ProxyCE.UpdateFlexibilityFromUIToCE(valueKW, incdec, gid);
-			}
+
+                Event e = new Event("Izvrsena je manuelna optimizacija", Enums.Component.CalculationEngine, DateTime.Now);
+                EventsLogger el = new EventsLogger();
+                el.WriteToFile(e);
+            }
 			catch (Exception e)
 			{
 				MessageBox.Show("ManualCommandingViewModel 34: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);

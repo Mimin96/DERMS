@@ -447,3 +447,11 @@ E:\Master\25.5.2020\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\Networ
 E:\Master\25.5.2020\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csproj.CopyComplete
 E:\Master\25.5.2020\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.exe
 E:\Master\25.5.2020\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.pdb
+C:\Users\boske\Desktop\Projekat\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.exe.config
+C:\Users\boske\Desktop\Projekat\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.exe
+C:\Users\boske\Desktop\Projekat\DERMS\DERMS\ModelLabs\bin\FTN_NetworkModelService.pdb
+C:\Users\boske\Desktop\Projekat\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csprojAssemblyReference.cache
+C:\Users\boske\Desktop\Projekat\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csproj.CoreCompileInputs.cache
+C:\Users\boske\Desktop\Projekat\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\NetworkModelServiceSelfHost.csproj.CopyComplete
+C:\Users\boske\Desktop\Projekat\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.exe
+C:\Users\boske\Desktop\Projekat\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x86\Debug\FTN_NetworkModelService.pdb
