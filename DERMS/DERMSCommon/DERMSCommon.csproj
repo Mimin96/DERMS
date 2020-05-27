@@ -108,7 +108,10 @@
     <Compile Include="SCADACommon\IFunctionExecutor.cs" />
     <Compile Include="SCADACommon\IModbusFunction.cs" />
     <Compile Include="SCADACommon\IStateUpdater.cs" />
+    <Compile Include="SCADACommon\MonthItem.cs" />
     <Compile Include="SCADACommon\SCADACommanding.cs" />
+    <Compile Include="SCADACommon\ScadaDB.cs" />
+    <Compile Include="SCADACommon\YearItem.cs" />
     <Compile Include="SmartCache\SCADADataPointSmartCache.cs" />
     <Compile Include="SmartCache\WeatherForecastSmartCache.cs" />
     <Compile Include="TransactionManager\ITransactionCheck.cs" />

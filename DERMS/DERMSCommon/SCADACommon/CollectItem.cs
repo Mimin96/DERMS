@@ -22,7 +22,7 @@ namespace DERMSCommon.SCADACommon
         {
             Gid = gid;
             Timestamp = timestamp;
-            P = P;
+            P = p;
         }
 
         public long Gid { get => _gid; set => _gid = value; }

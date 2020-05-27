@@ -7,6 +7,7 @@
              xmlns:TreeView="clr-namespace:DERMSCommon.UIModel.ThreeViewModel;assembly=DERMSCommon"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:wpftoolkit="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
              mc:Ignorable="d" 
              d:DesignHeight="533" d:DesignWidth="1024">
     <Grid>
@@ -14,27 +15,27 @@
             <TreeView BorderThickness="1" BorderBrush="#FF0398E2" x:Name="MainTreeView" HorizontalAlignment="Stretch" Margin="10" ItemsSource="{Binding NetworkModel}">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding GeographicalRegions}" DataType="{x:Type TreeView:NetworkModelTreeClass}">
-                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.NetworkModelCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}">
+                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.NetworkModelCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}">
                             <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
                         </Button>
                         <HierarchicalDataTemplate.ItemTemplate>
                             <HierarchicalDataTemplate ItemsSource="{Binding GeographicalSubRegions}" DataType="{x:Type TreeView:GeographicalRegionTreeClass}">
-                                <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalRegionCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalRegionCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
                                     <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
                                 </Button>
                                 <HierarchicalDataTemplate.ItemTemplate>
                                     <HierarchicalDataTemplate ItemsSource="{Binding Substations}" DataType="{x:Type TreeView:GeographicalSubRegionTreeClass}">
-                                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalSubRegionCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalSubRegionCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
                                             <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
                                         </Button>
                                         <HierarchicalDataTemplate.ItemTemplate>
                                             <HierarchicalDataTemplate ItemsSource="{Binding SubstationElements}" DataType="{x:Type TreeView:SubstationTreeClass}">
-                                                <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.SubstationCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                                <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.SubstationCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
                                                     <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
                                                 </Button>
                                                 <HierarchicalDataTemplate.ItemTemplate>
                                                     <DataTemplate DataType="{x:Type TreeView:SubstationElementTreeClass}">
-                                                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.SubstationElementCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.SubstationElementCommand}" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
                                                             <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
                                                         </Button>
                                                     </DataTemplate>
@@ -56,7 +57,41 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <ComboBox Margin="11,29,0,0" ToolTip="Period" Foreground="#FF0398E2" HorizontalContentAlignment="Center" ItemsSource="{Binding Period}" SelectedItem="{Binding SelectedPeriod}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" BorderThickness="1" BorderBrush="#FF0398E2"/>
+                <ComboBox Margin="11,29,0,0" ToolTip="Period" Foreground="#FF0398E2" HorizontalContentAlignment="Center" ItemsSource="{Binding Period}" SelectedItem="{Binding SelectedPeriod}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" BorderThickness="1" BorderBrush="#FF0398E2">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:CallMethodAction MethodName="HistorySelect" TargetObject="{Binding}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <ComboBox Margin="11,69,0,0" ToolTip="Month" Foreground="#FF0398E2" HorizontalContentAlignment="Center" ItemsSource="{Binding Mesec}" SelectedItem="{Binding SelectedMesec}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" BorderThickness="1" BorderBrush="#FF0398E2" Visibility="{Binding IsMesec}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:CallMethodAction MethodName="HistorySelectMesec" TargetObject="{Binding}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+
+                <ComboBox Margin="11,109,0,0" ToolTip="Month" Foreground="#FF0398E2" HorizontalContentAlignment="Center" ItemsSource="{Binding Godina}" SelectedItem="{Binding SelectedGodina}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" BorderThickness="1" BorderBrush="#FF0398E2" Visibility="{Binding IsGodina}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:CallMethodAction MethodName="HistorySelectGodina" TargetObject="{Binding}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+
+                <ListBox Margin="11,69,0,0" ToolTip="Day" Foreground="#FF0398E2" HorizontalContentAlignment="Center" ItemsSource="{Binding Dan}" SelectedItem="{Binding SelectedDan}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" BorderThickness="1" BorderBrush="#FF0398E2" Visibility="{Binding IsDan}">
+                    <TextBlock>
+                    <DatePicker>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectedDateChanged">
+                                    <i:CallMethodAction MethodName="HistorySelectDan" TargetObject="{Binding}" />
+                        </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </DatePicker>
+                    </TextBlock>
+
+                </ListBox>
                 <CheckBox x:Name="Min" Foreground="#FF0398E2" Background="#FF0398E2" Margin="192,10,521,182">
                     <TextBlock Margin="-38 30 0 0">Minimum</TextBlock>
                     <i:Interaction.Triggers>
@@ -93,9 +128,13 @@
             </Grid>
 
             <Grid Grid.Row="1">
+                <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,-20,727,206">kW</Label>
+                <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom" Visibility="{Binding IsDan}">H</Label>
+                <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom" Visibility="{Binding IsMesec}">D</Label>
+                <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom" Visibility="{Binding IsGodinaa}">M</Label>
                 <lvc:CartesianChart Margin="0,0,0,24">
                     <lvc:CartesianChart.Series>
-                        <lvc:StepLineSeries Values="{Binding ChartValues}" Visibility="{Binding IsVisible}"  />
+                        <lvc:ScatterSeries Values="{Binding ChartValues}" Visibility="{Binding IsVisible}"  />
                     </lvc:CartesianChart.Series>
                 </lvc:CartesianChart>
             </Grid>
