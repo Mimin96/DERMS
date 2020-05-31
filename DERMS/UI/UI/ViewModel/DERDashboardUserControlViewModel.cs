@@ -531,7 +531,8 @@ namespace UI.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Ne meze");
+                    PopUpWindow popUpWindow = new PopUpWindow();
+                    popUpWindow.Show();
                     canOptimizate = false;
                 }
 
@@ -550,7 +551,8 @@ namespace UI.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Ne meze");
+                    PopUpWindow popUpWindow = new PopUpWindow();
+                    popUpWindow.Show();
                 }
 
             }

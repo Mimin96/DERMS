@@ -2583,3 +2583,7 @@ C:\Users\Nemanja\Desktop\Git2605\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CoreCompi
 C:\Users\Nemanja\Desktop\Git2605\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git2605\DERMS\DERMS\UI\UI\obj\Debug\UI.exe
 C:\Users\Nemanja\Desktop\Git2605\DERMS\DERMS\UI\UI\obj\Debug\UI.pdb
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\UI\UI\bin\Debug\Innovative.SolarCalculator.xml
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\UI\UI\bin\Debug\Innovative.Geometry.Angle.xml
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\UI\UI\obj\Debug\View\PopUpWindow.g.cs
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\UI\UI\obj\Debug\View\PopUpWindow.baml

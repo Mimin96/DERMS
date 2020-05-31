@@ -1782,3 +1782,5 @@ C:\Users\Nemanja\Desktop\Git2605\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.cspr
 C:\Users\Nemanja\Desktop\Git2605\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git2605\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.exe
 C:\Users\Nemanja\Desktop\Git2605\DERMS\DERMS\SCADA\dCom\dCom\obj\Debug\dCom.pdb
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Innovative.Geometry.Angle.xml
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\SCADA\dCom\dCom\bin\Debug\Innovative.SolarCalculator.xml
