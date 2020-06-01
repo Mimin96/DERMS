@@ -140,9 +140,9 @@ namespace UI.ViewModel
                 Discrete discrete = (Discrete)Tree.Where(t => t.Data.IdentifiedObject.GlobalId == GIDm).FirstOrDefault().Data.IdentifiedObject;
 
                 if (discrete.NormalValue == 0)
-                    ((BreakerControlThroughGISWindowViewModel)window.DataContext).Open = true;
-                else
                     ((BreakerControlThroughGISWindowViewModel)window.DataContext).Close = true;
+                else
+                ((BreakerControlThroughGISWindowViewModel)window.DataContext).Open = true;
 
                 ((BreakerControlThroughGISWindowViewModel)window.DataContext).GID = breaker.GlobalId;
 
@@ -308,7 +308,7 @@ namespace UI.ViewModel
                     stringBuilderFinal.AppendFormat("Measurement Type: {0}{1}", discrete.MeasurementType, Environment.NewLine);
                     stringBuilderFinal.AppendFormat("Min Value: {0}     ", discrete.MinValue);
                     stringBuilderFinal.AppendFormat("Max Value: {0}     ", discrete.MaxValue);
-                    if (discrete.NormalValue == 0)
+                    if (discrete.NormalValue == 1)
                     {
                         stringBuilderFinal.AppendFormat("Normal Value: OPEN({0}){1}", discrete.NormalValue, Environment.NewLine);
                     }
@@ -539,13 +539,13 @@ namespace UI.ViewModel
             stringBuilder.AppendFormat("Min Value: {0}{1}", disc.MinValue, Environment.NewLine);
             stringBuilder.AppendFormat("Max Value: {0}{1}", disc.MaxValue, Environment.NewLine);
 
-            if (disc.NormalValue == 0)
+            if (disc.NormalValue == 1)
             {
-                stringBuilder.AppendFormat("Current State: OPEN (0)", Environment.NewLine);
+                stringBuilder.AppendFormat("Current State: OPEN (1)", Environment.NewLine);
             }
             else
             {
-                stringBuilder.AppendFormat("Current State: CLOSED (1)", Environment.NewLine);
+                stringBuilder.AppendFormat("Current State: CLOSED (0)", Environment.NewLine);
             }
 
             //stringBuilder.AppendFormat("Current Value: {0}", disc.NormalValue);

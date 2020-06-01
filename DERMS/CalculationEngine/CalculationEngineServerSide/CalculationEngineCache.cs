@@ -1125,7 +1125,7 @@ namespace CalculationEngineService
 
                 if (disc != null)
                 {
-                    if (disc.NormalValue == 0)
+                    if (disc.NormalValue == 1)
                     {
                         node.Data.Energized = Enums.Energized.NotEnergized;
                     }
@@ -1184,7 +1184,7 @@ namespace CalculationEngineService
                 Discrete disc = (Discrete)digital.Data.IdentifiedObject;
                 if (disc != null)
                 {
-                    if (disc.NormalValue == 0) // otvoren nema nista 
+                    if (disc.NormalValue == 1) // otvoren nema nista 
                     {
 
                     }
@@ -1281,7 +1281,7 @@ namespace CalculationEngineService
                 Breaker breaker = (Breaker)node.Data.IdentifiedObject;
                 TreeNode<NodeData> digital = graphCached.FindTreeNode(x => x.Data.Type == DMSType.DISCRETE && ((Discrete)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
                 Discrete disc = (Discrete)digital.Data.IdentifiedObject;
-                if (disc.NormalValue == 0)
+                if (disc.NormalValue == 1)
                 {
                     return;
                 }
