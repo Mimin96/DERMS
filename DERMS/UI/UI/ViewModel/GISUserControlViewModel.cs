@@ -42,6 +42,9 @@ namespace UI.ViewModel
 
             _map = map;
             _gisTextBlock = gisTextBlock;
+
+            _map.ZoomLevel = 12;
+            _map.Center = new Location(45.27143, 19.7794009);
         }
 
         #region Properties
@@ -114,6 +117,7 @@ namespace UI.ViewModel
         }
         public void GetCoordinatesOnMouseClick(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
             UIElement iElement = null;
             UIElementCollection ee = ((Map)sender).Children;
 

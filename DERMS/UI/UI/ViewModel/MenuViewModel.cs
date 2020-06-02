@@ -132,7 +132,8 @@ namespace UI.ViewModel
             _networkModelTreeClass = (List<NetworkModelTreeClass>)obj[1];
 
             if (UserControlPresenter.GetType().Name == "GISUserControl")
-                SetUserContro("GIS");
+                ((GISUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
+            //SetUserContro("GIS");
         }
         public void NetworkModelTreeClassChanged(object parameter)
         {

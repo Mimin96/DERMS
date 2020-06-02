@@ -2665,3 +2665,5 @@ C:\Users\Caki\Desktop\3105\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CoreCompileInpu
 C:\Users\Caki\Desktop\3105\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CopyComplete
 C:\Users\Caki\Desktop\3105\DERMS\DERMS\UI\UI\obj\Debug\UI.exe
 C:\Users\Caki\Desktop\3105\DERMS\DERMS\UI\UI\obj\Debug\UI.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\PopUpWindow.g.cs
+C:\Users\Filip\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\PopUpWindow.baml
