@@ -18,6 +18,7 @@ namespace UI.Model
             Value = "Value";
             RawValue = "Raw Value";
             GID = "GID";
+            OwnersGID = "Owners GID";
             From = DateTime.Today.AddDays(-1);
             To = DateTime.Today.AddDays(1);
         }
@@ -68,6 +69,12 @@ namespace UI.Model
             set;
         }
         public string GID
+        {
+            get;
+            set;
+        }
+
+        public string OwnersGID
         {
             get;
             set;

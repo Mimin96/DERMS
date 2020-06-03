@@ -532,7 +532,7 @@ namespace UI.ViewModel
                 else
                 {
                     PopUpWindow popUpWindow = new PopUpWindow();
-                    popUpWindow.Show();
+                    popUpWindow.ShowDialog();
                     canOptimizate = false;
                 }
 
@@ -552,7 +552,7 @@ namespace UI.ViewModel
                 else
                 {
                     PopUpWindow popUpWindow = new PopUpWindow();
-                    popUpWindow.Show();
+                    popUpWindow.ShowDialog();
                 }
 
             }
