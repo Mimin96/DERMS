@@ -1214,6 +1214,7 @@
 6/2/2020 8:49:15 PM << UI >> [Info] -> UI is started.
 6/2/2020 9:08:08 PM << UI >> [Info] -> UI is started.
 6/2/2020 9:31:05 PM << UI >> [Info] -> UI is started.
+<<<<<<< HEAD
 6/3/2020 8:27:39 PM << UI >> [Info] -> UI is started.
 6/3/2020 9:12:38 PM << UI >> [Info] -> UI is started.
 6/3/2020 9:26:05 PM << UI >> [Info] -> UI is started.
@@ -1228,3 +1229,12 @@
 6/3/2020 10:36:58 PM << UI >> [Info] -> UI is started.
 6/3/2020 10:39:44 PM << UI >> [Info] -> UI is started.
 6/3/2020 10:47:08 PM << UI >> [Info] -> UI is started.
+=======
+6/3/2020 8:53:36 PM << UI >> [Info] -> UI is started.
+6/3/2020 9:03:52 PM << UI >> [Info] -> UI is started.
+6/3/2020 9:05:41 PM << UI >> [Info] -> UI is started.
+6/3/2020 9:46:42 PM << UI >> [Info] -> UI is started.
+6/3/2020 9:54:32 PM << UI >> [Info] -> UI is started.
+6/3/2020 10:01:29 PM << UI >> [Info] -> UI is started.
+6/3/2020 10:20:43 PM << UI >> [Info] -> UI is started.
+>>>>>>> 70dfefedb249d597559797b8c4ea37d4a7163c69

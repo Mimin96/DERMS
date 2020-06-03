@@ -31,11 +31,12 @@ namespace dCom.Configuration
                             if (analogniStari[gidoviNaAdresu.Key[1]].Description == "Commanding")
                             {
                                 {
-                                    ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)generator.Value, configuration);
+
+                                    KeyValuePair<long,IdentifiedObject> a = analogniStari.ElementAt(gidoviNaAdresu.Value - 3000-2);
+                                    float zbir = ((Analog)a.Value).NormalValue + (float)generator.Value * ((Analog)a.Value).NormalValue/100;
+                                    ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)(generator.Value * ((Analog)a.Value).NormalValue / 100), configuration);
                                     Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
                                     commandExecutor.EnqueueCommand(fn);
-                                    KeyValuePair<long,IdentifiedObject> a = analogniStari.ElementAt(gidoviNaAdresu.Value - 3000-2);
-                                    float zbir = ((Analog)a.Value).NormalValue + (float)generator.Value;
                                     ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value-2), (ushort)zbir, configuration);
                                     Common.IModbusFunction fn1 = FunctionFactory.CreateModbusFunction(p1);
                                     commandExecutor.EnqueueCommand(fn1);
