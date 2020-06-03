@@ -2667,3 +2667,7 @@ C:\Users\Caki\Desktop\3105\DERMS\DERMS\UI\UI\obj\Debug\UI.exe
 C:\Users\Caki\Desktop\3105\DERMS\DERMS\UI\UI\obj\Debug\UI.pdb
 C:\Users\Filip\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\PopUpWindow.g.cs
 C:\Users\Filip\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\PopUpWindow.baml
+C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Innovative.SolarCalculator.xml
+C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Innovative.Geometry.Angle.xml
+C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\PopUpWindow.g.cs
+C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\PopUpWindow.baml

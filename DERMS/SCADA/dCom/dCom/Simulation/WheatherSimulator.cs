@@ -44,18 +44,21 @@ namespace dCom.Simulation
                 {
                     if (gidoviNaAdresu.Key[1] == (((Analog)kvp.Value).GlobalId) && ((Analog)kvp.Value).Description == "Simulation")
                     {
-                        ushort raw = 0;
-                        raw = EGUConverter.ConvertToRaw(2, 5, vrednost);
-                        try
+                        if (vrednost != 0)
                         {
-                            //ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, raw, configuration);
-                            //Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-                            //commandExecutor.EnqueueCommand(fn);
-                        }
-                        catch (Exception ex)
-                        {
-                            string message = $"{ex.TargetSite.ReflectedType.Name}.{ex.TargetSite.Name}: {ex.Message}";
+                            ushort raw = 0;
+                            raw = EGUConverter.ConvertToRaw(2, 5, vrednost);
+                            try
+                            {
+                                ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, raw, configuration);
+                                Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
+                                commandExecutor.EnqueueCommand(fn);
+                            }
+                            catch (Exception ex)
+                            {
+                                string message = $"{ex.TargetSite.ReflectedType.Name}.{ex.TargetSite.Name}: {ex.Message}";
 
+                            }
                         }
                     }
                 }
@@ -90,7 +93,12 @@ namespace dCom.Simulation
             List<HourDataPoint> hourDataPoints = result.Hourly.Hours.ToList();
 
             DERMSCommon.WeatherForecast.WeatherForecast weatherForecast = new DERMSCommon.WeatherForecast.WeatherForecast(1001, 1, 1, 1, 1, DateTime.Now, "");
-            hourDataPoint = hourDataPoints[0];
+            foreach(HourDataPoint hdr in hourDataPoints)
+            {
+                if (hdr.Time.Hour.Equals(DateTime.Now.Hour))
+                    hourDataPoint = hourDataPoints[0];
+            }
+            
 
 
         }
