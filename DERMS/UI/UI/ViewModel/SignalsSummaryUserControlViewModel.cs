@@ -167,6 +167,27 @@ namespace UI.ViewModel
                 textBox.FontStyle = FontStyles.Italic;
             }
         }
+        public void OnFocusOwnersGID(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+
+            if (textBox.Text.Trim() == "Owners GID")
+            {
+                textBox.FontStyle = FontStyles.Normal;
+                textBox.Text = "";
+            }
+        }
+        public void OnOffFocusOwnersGID(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+
+            if (textBox.Text.Trim() == "" || textBox.Text.Trim() == "Owners GID")
+            {
+                textBox.Text = "Owners GID";
+                SignalsSummaryFilter.Name = "Owners GID";
+                textBox.FontStyle = FontStyles.Italic;
+            }
+        }
         public void OnFocusAddress(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -354,6 +375,27 @@ namespace UI.ViewModel
                 foreach (DataPoint dataPoint in toShow)
                 {
                     if (helper1.Exists(x => x.Gid == dataPoint.Gid))
+                    {
+                        helper2.Add(dataPoint);
+                    }
+                }
+
+                if (toShow.Count == 0)
+                    toShow = new List<DataPoint>(helper1);
+                else
+                    toShow = new List<DataPoint>(helper2);
+            }
+
+            helper2 = new List<DataPoint>();
+
+            if (SignalsSummaryFilter.GID.Trim() != "Owners GID")
+            {
+                isFilterApplied = true;
+                helper1 = _allPoints.Where(x => x.GidGeneratora.ToString().Trim() == SignalsSummaryFilter.OwnersGID.Trim()).ToList();
+
+                foreach (DataPoint dataPoint in toShow)
+                {
+                    if (helper1.Exists(x => x.GidGeneratora == dataPoint.GidGeneratora))
                     {
                         helper2.Add(dataPoint);
                     }

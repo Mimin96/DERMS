@@ -224,22 +224,18 @@ namespace UI.ViewModel
         public void NetworkModelCommandExecute(long gid)
         {
             _selectedGID = gid;
-            Console.Beep();
         }
         public void GeographicalRegionCommandExecute(long gid)
         {
             _selectedGID = gid;
-            Console.Beep();
         }
         public void GeographicalSubRegionCommandExecute(long gid)
         {
             _selectedGID = gid;
-            Console.Beep();
         }
         public void SubstationCommandExecute(long gid)
         {
             _selectedGID = gid;
-            Console.Beep();
         }
         public void SubstationElementCommandExecute(long gid)
         {
@@ -446,10 +442,6 @@ namespace UI.ViewModel
                     MessageBox.Show("Data for that month doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-
-
-
-            Console.Beep();
         }
         #endregion
 

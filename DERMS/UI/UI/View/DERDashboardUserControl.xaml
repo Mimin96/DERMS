@@ -13,7 +13,6 @@
         <TextBlock Text="{Binding CurrentTime}" TextBlock.FontWeight="Bold" TextBlock.FontFamily="Cambria" TextBlock.FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="362,204,0,305" HorizontalAlignment="Left" Width="146" />
         <Border Background="Transparent" Width="250" HorizontalAlignment="Left">
             <TreeView BorderThickness="1" BorderBrush="#FF0398E2" x:Name="MainTreeView"  HorizontalAlignment="Stretch" Margin="10" ItemsSource="{Binding NetworkModel}">
-
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding GeographicalRegions}"  DataType="{x:Type TreeView:NetworkModelTreeClass}">
                         <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.NetworkModelCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}">
