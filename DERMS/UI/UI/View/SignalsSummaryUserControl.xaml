@@ -52,16 +52,6 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </TextBox>
-            <TextBox Background="Transparent"  FontStyle="Italic" Foreground="#FF0398E2" BorderBrush="#FF0398E2" Width="150" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{Binding SignalsSummaryFilter.Value}" Margin="395,5,0,0" ToolTip="Value" BorderThickness="0 0 0 1" Visibility="{Binding Path=FilterVisibility}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="GotFocus">
-                        <i:CallMethodAction MethodName="OnFocusValue" TargetObject="{Binding}" />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="LostFocus">
-                        <i:CallMethodAction MethodName="OnOffFocusValue" TargetObject="{Binding}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TextBox>
             <TextBox Background="Transparent"  FontStyle="Italic" Foreground="#FF0398E2" BorderBrush="#FF0398E2" Width="150" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{Binding SignalsSummaryFilter.RawValue}" Margin="395,40,0,0" ToolTip="Raw Value" BorderThickness="0 0 0 1" Visibility="{Binding Path=FilterVisibility}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="GotFocus">
@@ -137,14 +127,9 @@
                             <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Address</Label>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Value}" IsReadOnly="True" Width="Auto" >
-                        <DataGridTextColumn.Header>
-                            <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Value</Label>
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding RawValue}" IsReadOnly="True" Width="Auto" >
                         <DataGridTextColumn.Header>
-                            <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Raw Value</Label>
+                            <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Value</Label>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Timestamp}" IsReadOnly="True" Width="Auto" MinWidth="200" >

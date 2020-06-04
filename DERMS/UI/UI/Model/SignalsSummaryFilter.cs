@@ -13,10 +13,10 @@ namespace UI.Model
             FilterByTime = false;
             SelectedFilterType = "";
             SelectedFilterAlarm = "";
-            Name = "Name";
+            Name = "Use";
             Address = "Address";
-            Value = "Value";
-            RawValue = "Raw Value";
+            Value = "NValue";
+            RawValue = "Value";
             GID = "GID";
             OwnersGID = "Owners GID";
             From = DateTime.Today.AddDays(-1);

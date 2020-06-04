@@ -150,7 +150,7 @@ namespace UI.ViewModel
         {
             TextBox textBox = (TextBox)sender;
 
-            if (textBox.Text.Trim() == "Name")
+            if (textBox.Text.Trim() == "Use")
             {
                 textBox.FontStyle = FontStyles.Normal;
                 textBox.Text = "";
@@ -160,10 +160,10 @@ namespace UI.ViewModel
         {
             TextBox textBox = (TextBox)sender;
 
-            if (textBox.Text.Trim() == "" || textBox.Text.Trim() == "Name")
+            if (textBox.Text.Trim() == "" || textBox.Text.Trim() == "Use")
             {
-                textBox.Text = "Name";
-                SignalsSummaryFilter.Name = "Name";
+                textBox.Text = "Use";
+                SignalsSummaryFilter.Name = "Use";
                 textBox.FontStyle = FontStyles.Italic;
             }
         }
@@ -209,7 +209,7 @@ namespace UI.ViewModel
                 textBox.FontStyle = FontStyles.Italic;
             }
         }
-        public void OnFocusValue(object sender, RoutedEventArgs e)
+        public void OnFocusRawValue(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
 
@@ -219,35 +219,14 @@ namespace UI.ViewModel
                 textBox.Text = "";
             }
         }
-        public void OnOffFocusValue(object sender, RoutedEventArgs e)
+        public void OnOffFocusRawValue(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
 
             if (textBox.Text.Trim() == "" || textBox.Text.Trim() == "Value")
             {
                 textBox.Text = "Value";
-                SignalsSummaryFilter.Value = "Value";
-                textBox.FontStyle = FontStyles.Italic;
-            }
-        }
-        public void OnFocusRawValue(object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-
-            if (textBox.Text.Trim() == "Raw Value")
-            {
-                textBox.FontStyle = FontStyles.Normal;
-                textBox.Text = "";
-            }
-        }
-        public void OnOffFocusRawValue(object sender, RoutedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-
-            if (textBox.Text.Trim() == "" || textBox.Text.Trim() == "Raw Value")
-            {
-                textBox.Text = "Raw Value";
-                SignalsSummaryFilter.RawValue = "Raw Value";
+                SignalsSummaryFilter.RawValue = "Value";
                 textBox.FontStyle = FontStyles.Italic;
             }
         }
@@ -298,34 +277,13 @@ namespace UI.ViewModel
             List<DataPoint> toShow = new List<DataPoint>();
             List<DataPoint> helper1, helper2 = new List<DataPoint>();
 
-            if (SignalsSummaryFilter.Name.Trim() != "Name")
+            if (SignalsSummaryFilter.Name.Trim() != "Use")
             {
                 isFilterApplied = true;
                 toShow.AddRange(_allPoints.Where(x => x.Name.Trim().Contains(SignalsSummaryFilter.Name.Trim())).ToList());
             }
 
-            if (SignalsSummaryFilter.Value.Trim() != "Value")
-            {
-                isFilterApplied = true;
-                helper1 = _allPoints.Where(x => x.Value.Trim() == SignalsSummaryFilter.Value.Trim()).ToList();
-
-                foreach (DataPoint dataPoint in toShow)
-                {
-                    if (helper1.Exists(x => x.Gid == dataPoint.Gid))
-                    {
-                        helper2.Add(dataPoint);
-                    }
-                }
-
-                if (toShow.Count == 0)
-                    toShow = new List<DataPoint>(helper1);
-                else
-                    toShow = new List<DataPoint>(helper2);
-            }
-
-            helper2 = new List<DataPoint>();
-
-            if (SignalsSummaryFilter.RawValue.Trim() != "Raw Value")
+            if (SignalsSummaryFilter.RawValue.Trim() != "Value")
             {
                 isFilterApplied = true;
                 helper1 = _allPoints.Where(x => x.RawValue.ToString().Trim() == SignalsSummaryFilter.RawValue.Trim()).ToList();
@@ -388,7 +346,7 @@ namespace UI.ViewModel
 
             helper2 = new List<DataPoint>();
 
-            if (SignalsSummaryFilter.GID.Trim() != "Owners GID")
+            if (SignalsSummaryFilter.OwnersGID.Trim() != "Owners GID")
             {
                 isFilterApplied = true;
                 helper1 = _allPoints.Where(x => x.GidGeneratora.ToString().Trim() == SignalsSummaryFilter.OwnersGID.Trim()).ToList();

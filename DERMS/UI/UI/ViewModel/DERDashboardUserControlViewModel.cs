@@ -4,6 +4,7 @@ using DERMSCommon.UIModel.ThreeViewModel;
 using DERMSCommon.WeatherForecast;
 using FTN.Common;
 using LiveCharts;
+using LiveCharts.Configurations;
 using LiveCharts.Defaults;
 using System;
 using System.Collections.Generic;
@@ -231,7 +232,7 @@ namespace UI.ViewModel
         public Visibility VisibilityConsumption { get { return visibilityConsumption; } set { visibilityConsumption = value; OnPropertyChanged("VisibilityConsumption"); } }
         public Visibility VisibilityDERProduction { get { return visibilityDERProduction; } set { visibilityDERProduction = value; OnPropertyChanged("VisibilityDERProduction"); } }
         public Visibility VisibilityGridDemands { get { return visibilityGridDemands; } set { visibilityGridDemands = value; OnPropertyChanged("VisibilityGridDemands"); } }
-
+        public CartesianMapper<ObservableValue> mapper { get; set; }
         #endregion
 
         #region TreeView Data adn Commands
@@ -346,6 +347,13 @@ namespace UI.ViewModel
 
         public DERDashboardUserControlViewModel(DERDashboardUserControl dERDashboardUserControl)
         {
+            //Consumption = "";
+            //ProductionGenerators = "";
+            //EnergySourceValue = "";
+
+            //ChartValues1 = new ChartValues<double>();
+            //ChartValues3 = new ChartValues<double>();
+            //ChartValues2 = new ChartValues<double>();
 
             ShowConsumption = true;
             ShowDerProduction = true;
@@ -372,6 +380,8 @@ namespace UI.ViewModel
             timerWorker = new Thread(TimerWorker_DoWork);
             timerWorker.Name = "Timer Thread";
             timerWorker.Start();
+
+
         }
 
         #region TreeView Commands Execute
@@ -567,6 +577,10 @@ namespace UI.ViewModel
                 if (disposed)
                     return;
 
+                var mapper = new LiveCharts.Configurations.CartesianMapper<double>().X((values, index) => index).Y((values) => values).Fill((v, i) => i == DateTime.Now.Hour ? Brushes.Green : Brushes.White).Stroke((v, i) => i == DateTime.Now.Hour ? Brushes.Green : Brushes.White);
+
+                LiveCharts.Charting.For<double>(mapper, LiveCharts.SeriesOrientation.Horizontal);
+
                 CurrentTime = DateTime.Now.ToString("HH:mm:ss");
                 Thread.Sleep(1000);
             }
@@ -576,6 +590,9 @@ namespace UI.ViewModel
         {
             disposed = true;
             timerThreadStopSignal = false;
+            //
+
+            //
         }
 
         public ChartValues<ObservableValue> Values1 { get; set; }
@@ -740,6 +757,7 @@ namespace UI.ViewModel
             foreach (HourDataPoint hc in tempList)
             {
                 ChartValues2.Add((double)hc.ActivePower);
+                
                 // ChartValues1.Add((double)hc.ActivePower);
 
             }
@@ -797,8 +815,6 @@ namespace UI.ViewModel
             string tempx = String.Format("{0:0.00}", tempSource);
             EnergySourceValue = "0";
             EnergySourceValue = tempx;
-
-
         }
 
         public void SetChartValuesAfterOptimization(long gid)
@@ -816,6 +832,7 @@ namespace UI.ViewModel
             }
             ChartValues1 = new ChartValues<double>();
             ChartValues2 = new ChartValues<double>();
+
             ChartValues3 = new ChartValues<double>();
             List<HourDataPoint> tempList = new List<HourDataPoint>();
             List<HourDataPoint> tempListProduction = new List<HourDataPoint>();

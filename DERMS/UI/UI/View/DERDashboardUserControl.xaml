@@ -61,7 +61,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Margin="30" Height="127" VerticalAlignment="Top">
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25"
-                   From="0" To="1000"  Name="EnergySource" Value="{Binding Consumption,StringFormat=N2}"  Foreground="DeepSkyBlue" HorizontalAlignment="Left" Width="169">
+                   From="0" To="3000"  Name="EnergySource" Value="{Binding Consumption,StringFormat=N2}"  Foreground="DeepSkyBlue" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
                             <GradientStop Color="DeepSkyBlue" Offset="0.0" />
@@ -80,7 +80,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock  Margin="0,-3,0,0" TextWrapping="Wrap" Text="Production from generators"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Tomato" VerticalAlignment="Top" Height="80" Grid.ColumnSpan="2"/>
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="ProductionFromGenerators"
-                   From="0" To="2000" Value="{Binding ProductionGenerators,StringFormat={}{0:N2}}" Foreground="Tomato" HorizontalAlignment="Left" Width="169" Grid.ColumnSpan="2">
+                   From="0" To="2500" Value="{Binding ProductionGenerators,StringFormat={}{0:N2}}" Foreground="Tomato" HorizontalAlignment="Left" Width="169" Grid.ColumnSpan="2">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
                             <GradientStop Color="Tomato" Offset="0.0" />
@@ -94,7 +94,7 @@
             <Grid Grid.Column="2" Margin="30" Height="127" VerticalAlignment="Top">
                 <TextBlock  Margin="20,-6,10,0" TextWrapping="Wrap" Text="Exchange with Sources"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Yellow" VerticalAlignment="Top" Height="108"/>
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="EnergyFromSources"
-                   From="-2000" To="2000" Value="{Binding EnergySourceValue,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="Yellow" HorizontalAlignment="Left" Width="169">
+                   From="-2500" To="2500" Value="{Binding EnergySourceValue,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="Yellow" HorizontalAlignment="Left" Width="169">
                     <lvc:Gauge.GaugeActiveFill>
                         <LinearGradientBrush>
                             <GradientStop Color="Yellow" Offset="0.0" />
@@ -125,9 +125,9 @@
                 <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom">H</Label>
                 <lvc:CartesianChart x:Name="cartesianChart" Margin="0,0,5,24">
                     <lvc:CartesianChart.Series>
-                        <lvc:StepLineSeries Fill="{Binding Color1}"  Values="{Binding ChartValues2}" Visibility="{Binding VisibilityConsumption}"  />
-                        <lvc:StepLineSeries Fill="{Binding Color2}" Values="{Binding ChartValues3}" Visibility="{Binding VisibilityDERProduction}" />
-                        <lvc:StepLineSeries Fill="Aqua" Values="{Binding ChartValues1}" Visibility="{Binding VisibilityGridDemands}" />
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Fill="{Binding Color1}"  Values="{Binding ChartValues2}" Visibility="{Binding VisibilityConsumption}" />
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Fill="{Binding Color2}" Values="{Binding ChartValues3}" Visibility="{Binding VisibilityDERProduction}" />
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Fill="Aqua" Values="{Binding ChartValues1}" Visibility="{Binding VisibilityGridDemands}" />
                     </lvc:CartesianChart.Series>
                 </lvc:CartesianChart>
             </Grid>

@@ -1,4 +1,6 @@
-﻿using LiveCharts.Wpf;
+﻿using LiveCharts.Configurations;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,8 @@ namespace UI.View
     public partial class DERDashboardUserControl : UserControl
     {
         Button _selectedTreeButton;
+        
+
 
         public DERDashboardUserControl()
         {
@@ -30,9 +34,14 @@ namespace UI.View
 
             _selectedTreeButton = new Button();
             var yAxis = new Axis { Separator = new LiveCharts.Wpf.Separator { StrokeThickness = 0.12 } };
-            var sAxis = new Axis { Separator = new LiveCharts.Wpf.Separator { StrokeThickness = 0.1 } };
+            var sAxis = new Axis { Separator = new LiveCharts.Wpf.Separator { StrokeThickness = 0.1, Step = 1 } };
             cartesianChart.AxisY.Add(yAxis);
             cartesianChart.AxisX.Add(sAxis);
+
+            //var mapper = new LiveCharts.Configurations.CartesianMapper<double>().X((values,index)=>index).Y((values)=>values).Fill((v,i)=>i==DateTime.Now.Hour?Brushes.Green : Brushes.White).Stroke((v, i) => i == DateTime.Now.Hour ? Brushes.Green : Brushes.White);
+
+            //LiveCharts.Charting.For<double>(mapper, LiveCharts.SeriesOrientation.Horizontal);
+            // cartesianChart.AxisX.Add({ Label = });
 
             DataContext = new DERDashboardUserControlViewModel(this);
         }
