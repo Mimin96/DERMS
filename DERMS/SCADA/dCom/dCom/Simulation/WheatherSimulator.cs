@@ -46,13 +46,15 @@ namespace dCom.Simulation
                     {
                         if (vrednost != 0)
                         {
-                            ushort raw = 0;
-                            raw = EGUConverter.ConvertToRaw(2, 5, vrednost);
+
                             try
                             {
-                                ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, raw, configuration);
+                                ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)vrednost, configuration);
                                 Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
                                 commandExecutor.EnqueueCommand(fn);
+                                ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value-1), (ushort)vrednost, configuration);
+                                Common.IModbusFunction fn1 = FunctionFactory.CreateModbusFunction(p1);
+                                commandExecutor.EnqueueCommand(fn1);
                             }
                             catch (Exception ex)
                             {
@@ -96,7 +98,7 @@ namespace dCom.Simulation
             foreach(HourDataPoint hdr in hourDataPoints)
             {
                 if (hdr.Time.Hour.Equals(DateTime.Now.Hour))
-                    hourDataPoint = hourDataPoints[0];
+                    hourDataPoint = hdr;
             }
             
 
