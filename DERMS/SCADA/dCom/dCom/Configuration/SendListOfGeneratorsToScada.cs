@@ -32,9 +32,17 @@ namespace dCom.Configuration
                             {
                                 {
 
-                                    KeyValuePair<long,IdentifiedObject> a = analogniStari.ElementAt(gidoviNaAdresu.Value - 3000-2);
+                                    KeyValuePair<long,IdentifiedObject> a = analogniStari.ElementAt(gidoviNaAdresu.Value - 3000-1);
                                     float zbir = ((Analog)a.Value).NormalValue + (float)generator.Value * ((Analog)a.Value).NormalValue/100;
-                                    ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)(generator.Value * ((Analog)a.Value).NormalValue / 100), configuration);
+                                    zbir = (float)Math.Round(zbir);
+                                    double vred = (generator.Value * ((Analog)a.Value).NormalValue / 100);
+                                    vred = (double)Math.Round(vred);
+                                    if (vred < 0)
+                                    {
+                                        vred = vred * (-1); 
+                                    }
+
+                                    ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)vred, configuration);
                                     Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
                                     commandExecutor.EnqueueCommand(fn);
                                     ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value-2), (ushort)zbir, configuration);

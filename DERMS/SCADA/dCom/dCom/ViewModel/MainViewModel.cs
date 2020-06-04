@@ -417,6 +417,7 @@ namespace dCom.ViewModel
         /// </summary>
         private void TimerWorker_DoWork()
         {
+            int nes = 0;
             while (timerThreadStopSignal)
             {
                 if (disposed)
@@ -426,8 +427,11 @@ namespace dCom.ViewModel
                 CurrentTime = DateTime.Now;
                 ElapsedTime = ElapsedTime.Add(new TimeSpan(0, 0, 1));
                 acquisitionTrigger.Set();
-                if (brojac % 100 == 0)
+                if (brojac % 20 == 0 && nes < 3)
+                {
                     ws.SimulateWheater();
+                    nes++;
+                }
                 Thread.Sleep(1000);
             }
         }

@@ -28,7 +28,7 @@ namespace dCom.Simulation
             // fa6d00664c0c9abf42654341ff91db31
             // e67254e31e12e23461c61e0fb0489142
             // ab42e06e054eb1164d36132c278edef9
-            darkSkyProxy = new DarkSkyService("e67254e31e12e23461c61e0fb0489142");
+            darkSkyProxy = new DarkSkyService("ab42e06e054eb1164d36132c278edef9");
         }
 
         public void SimulateWheater()
@@ -44,17 +44,23 @@ namespace dCom.Simulation
                 {
                     if (gidoviNaAdresu.Key[1] == (((Analog)kvp.Value).GlobalId) && ((Analog)kvp.Value).Description == "Simulation")
                     {
-                        if (vrednost != 0)
-                        {
+  
 
                             try
                             {
                                 ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)vrednost, configuration);
                                 Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
                                 commandExecutor.EnqueueCommand(fn);
+                             ((Analog)kvp.Value).NormalValue = vrednost;
                                 ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value-1), (ushort)vrednost, configuration);
                                 Common.IModbusFunction fn1 = FunctionFactory.CreateModbusFunction(p1);
                                 commandExecutor.EnqueueCommand(fn1);
+                            if(vrednost == 0)
+                            {
+                                ModbusWriteCommandParameters p12 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 2), (ushort)vrednost, configuration);
+                                Common.IModbusFunction fn12 = FunctionFactory.CreateModbusFunction(p12);
+                                commandExecutor.EnqueueCommand(fn12);
+                            }
                             }
                             catch (Exception ex)
                             {
@@ -62,7 +68,7 @@ namespace dCom.Simulation
 
                             }
                         }
-                    }
+                    
                 }
             }
 
