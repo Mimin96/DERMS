@@ -1337,7 +1337,7 @@ namespace CalculationEngineService
                 {
                     //node.Data.Value = float.Parse(dp.Value, CultureInfo.InvariantCulture.NumberFormat);
                     //
-                    ((Analog)node.Data.IdentifiedObject).NormalValue = float.Parse(dp.Value, CultureInfo.InvariantCulture.NumberFormat);
+                    ((Analog)node.Data.IdentifiedObject).NormalValue = float.Parse(dp.RawValue.ToString(), CultureInfo.InvariantCulture.NumberFormat);
                 }
                 else if (node.Data.Type == DMSType.DISCRETE)
                 {
