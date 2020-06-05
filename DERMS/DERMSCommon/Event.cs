@@ -13,6 +13,11 @@ namespace DERMSCommon
         private Enums.Component _component;
         private DateTime _dateTime;
 
+        public Event()
+        {
+            
+        }
+
         public Event(string message, Enums.Component component, DateTime dateTime)
         {
             Message = message;

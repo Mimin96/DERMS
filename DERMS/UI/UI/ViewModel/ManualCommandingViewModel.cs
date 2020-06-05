@@ -31,7 +31,7 @@ namespace UI.ViewModel
 			{
 				ProxyCE.UpdateFlexibilityFromUIToCE(valueKW, incdec, gid);
 
-                Event e = new Event("Izvrsena je manuelna optimizacija", Enums.Component.CalculationEngine, DateTime.Now);
+                Event e = new Event("Manual optimization is executed", Enums.Component.CalculationEngine, DateTime.Now);
                 EventsLogger el = new EventsLogger();
                 el.WriteToFile(e);
             }
