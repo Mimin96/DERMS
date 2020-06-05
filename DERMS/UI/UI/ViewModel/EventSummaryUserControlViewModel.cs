@@ -25,6 +25,9 @@ namespace UI.ViewModel
         private RelayCommand<object> _applyFilterCommand;
         private ObservableCollection<Event> _events;
         private ObservableCollection<Event> _allEvents;
+       
+        List<Event> listOfEvents = new List<Event>();
+        EventsLogger events = new EventsLogger();
         #endregion
 
         public EventSummaryUserControlViewModel()
@@ -109,13 +112,14 @@ namespace UI.ViewModel
         #region Private Method
         private void ShowCommanding()
         {
-            _allEvents = new ObservableCollection<Event>();
-            _allEvents.Add(new Event("dasdd", Enums.Component.SCADA, DateTime.Now));
-            _allEvents.Add(new Event("dasdd", Enums.Component.SCADA, DateTime.Now.AddDays(7)));
-            _allEvents.Add(new Event("dasdd", Enums.Component.SCADA, DateTime.Now));
-            _allEvents.Add(new Event("sdsdfg", Enums.Component.UI, DateTime.Now));
-            _allEvents.Add(new Event("dasdd", Enums.Component.SCADA, DateTime.Now));
-            _allEvents.Add(new Event("ggfgfg", Enums.Component.NMS, DateTime.Now));
+            //_allEvents = new ObservableCollection<Event>();
+            //_allEvents.Add(new Event("dasdd", Enums.Component.SCADA, DateTime.Now));
+            //_allEvents.Add(new Event("dasdd", Enums.Component.SCADA, DateTime.Now.AddDays(7)));
+            //_allEvents.Add(new Event("dasdd", Enums.Component.SCADA, DateTime.Now));
+            //_allEvents.Add(new Event("sdsdfg", Enums.Component.UI, DateTime.Now));
+            //_allEvents.Add(new Event("dasdd", Enums.Component.SCADA, DateTime.Now));
+            //_allEvents.Add(new Event("ggfgfg", Enums.Component.NMS, DateTime.Now));
+            _allEvents = new ObservableCollection<Event>(events.ReadFromFile());
 
             Events = new ObservableCollection<Event>(_allEvents);
         }

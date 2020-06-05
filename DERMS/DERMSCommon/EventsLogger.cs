@@ -8,23 +8,50 @@ using System.Threading.Tasks;
 
 namespace DERMSCommon { 
 
+        
         public class EventsLogger
         {
             private string path;
+            List<Event> temp;
+            List<Event> listOfEvents = new List<Event>();
 
-            public EventsLogger()
+        public EventsLogger()
             {
                 path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, @"SmartCache\Events.dat");
             }
 
         public void WriteToFile(Event e)
         {
+            temp = ReadFromFile();
+            temp.Add(e);
+            
 
-            string eventmess = e.Message + "  " + e.Component + "  " + e.DateTime + "\n";
 
-            using (StreamWriter w = File.AppendText(path))
+            using (var fs = new FileStream(path, FileMode.OpenOrCreate))
             {
-                w.Write(eventmess);
+                using (var w = new StreamWriter(fs))
+                {
+                    var bw = new BinaryFormatter();
+                    bw.Serialize(fs, temp);
+                    w.Write(temp);
+
+                }
+            }
+        }
+
+        public List<Event> ReadFromFile()
+        {
+            try
+            {
+                using (var fs = new FileStream(path, FileMode.Open))
+                {
+                    var bw = new BinaryFormatter();
+                    return (List<Event>)bw.Deserialize(fs);
+                }
+            }
+            catch
+            {
+                return new List<Event>();
             }
 
         }

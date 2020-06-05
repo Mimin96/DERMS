@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DERMSCommon
 {
+    [Serializable()]
     public class Event
     {
         private string _message;
