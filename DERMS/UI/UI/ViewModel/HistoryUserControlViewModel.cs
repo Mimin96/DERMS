@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using UI.Resources;
 
 namespace UI.ViewModel
@@ -37,6 +38,10 @@ namespace UI.ViewModel
 
         public HistoryUserControlViewModel()
         {
+            var mapper = new LiveCharts.Configurations.CartesianMapper<double>().X((values, index) => index).Y((values) => values).Fill((v, i) => i == DateTime.Now.Hour ? Brushes.White : Brushes.White).Stroke((v, i) => i == DateTime.Now.Hour ? Brushes.White : Brushes.White);
+
+            LiveCharts.Charting.For<double>(mapper, LiveCharts.SeriesOrientation.Horizontal);
+
             Period = new List<string>() { "Day", "Month", "Year" };
             Mesec = new List<string>() { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
             Godina = new List<string>() { "2020", "2019", "2018", "2017", "2016", "2015" };

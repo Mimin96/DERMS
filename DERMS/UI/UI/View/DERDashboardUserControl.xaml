@@ -6,6 +6,7 @@
              xmlns:ViewModel="clr-namespace:UI.ViewModel"
              xmlns:TreeView="clr-namespace:DERMSCommon.UIModel.ThreeViewModel;assembly=DERMSCommon"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="533" d:DesignWidth="1024">
     <Grid>
@@ -136,6 +137,8 @@
                 <CheckBox Background="DeepSkyBlue" Content="Consumption" FontSize="14" Foreground="DeepSkyBlue" IsChecked="{Binding ShowConsumption}" HorizontalAlignment="Left" Margin="67,0,0,0" VerticalAlignment="Top"/>
                 <CheckBox Background="Tomato" Content="DER Production" FontSize="14" Foreground="Tomato" IsChecked="{Binding ShowDerProduction}" HorizontalAlignment="Left" Height="20" Margin="227,0,0,0" VerticalAlignment="Top"/>
                 <CheckBox Background="Yellow" Content="Exchange with source" FontSize="14" Foreground="Yellow" IsChecked="{Binding ShowGridDemands}" HorizontalAlignment="Left" Height="20" Margin="397,0,0,0" VerticalAlignment="Top"/>
+                <materialDesign:PackIcon Kind="Circle" Margin="576,1,163,9" Foreground="Green"/>
+                <Label Content="Current time" Foreground="Green" FontSize="15" Margin="601,-2,35,2"/>
             </Grid>
         </Grid>
 
