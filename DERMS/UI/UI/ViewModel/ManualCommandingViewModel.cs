@@ -8,6 +8,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using UI.View;
 using static DERMSCommon.Enums;
 
 namespace UI.ViewModel
@@ -17,10 +18,14 @@ namespace UI.ViewModel
 		#region Variables
 		private IFlexibilityFromUIToCE ProxyCE { get; set; }
 		private ChannelFactory<IFlexibilityFromUIToCE> factoryCE;
+		private Double Inc { get; set; }
+		private Double Dec { get; set; }
 		#endregion
 
-		public ManualCommandingViewModel()
+		public ManualCommandingViewModel(Double inc, Double dec)
 		{
+			Inc = inc;
+			Dec = dec;
 			Connect();
 		}
 
@@ -29,12 +34,45 @@ namespace UI.ViewModel
 			//ProxyCE.UpdateThroughUI(valueKW, incOrDec);
 			try
 			{
-				ProxyCE.UpdateFlexibilityFromUIToCE(valueKW, incdec, gid);
+				bool canManualCommand = false;
 
-                Event e = new Event("Manual optimization is executed", Enums.Component.CalculationEngine, DateTime.Now);
-                EventsLogger el = new EventsLogger();
-                el.WriteToFile(e);
-            }
+				if (incdec.Equals(FlexibilityIncDec.Increase))
+				{
+					if (valueKW > Inc)
+					{
+						canManualCommand = false;
+					}
+					else
+					{
+						canManualCommand = true;
+					}
+				}
+				else
+				{
+					if (-1 * valueKW > Dec)
+					{
+						canManualCommand = false;
+					}
+					else
+					{
+						canManualCommand = true;
+					}
+				}
+
+				if (canManualCommand)
+				{
+					ProxyCE.UpdateFlexibilityFromUIToCE(valueKW, incdec, gid);
+
+					Event e = new Event("Izvrsena je manuelna optimizacija", Enums.Component.CalculationEngine, DateTime.Now);
+					EventsLogger el = new EventsLogger();
+					el.WriteToFile(e);
+				}
+				else
+				{
+					ValidationForManualCommanding validationForManualCommanding = new ValidationForManualCommanding();
+					validationForManualCommanding.ShowDialog();
+				}
+			}
 			catch (Exception e)
 			{
 				MessageBox.Show("ManualCommandingViewModel 34: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -19,6 +19,7 @@ using DERMSCommon.DataModel.Wires;
 using FTN.Common;
 using UI.View;
 using UI.Resources.MediatorPattern;
+using DERMSCommon.UIModel.ThreeViewModel;
 
 namespace UI.ViewModel
 {
@@ -36,7 +37,8 @@ namespace UI.ViewModel
         public GISUserControlViewModel(Map map, TextBox gisTextBlock)
         {
             Mediator.Register("NMSNetworkModelDataGIS", NMSNetworkModelDataGIS);
-            VisibilityOfElements = new Dictionary<string, bool>();
+
+			VisibilityOfElements = new Dictionary<string, bool>();
             VisibilityOfElementPopulate();
             SearchParameter = "Element Name";
 
@@ -85,10 +87,11 @@ namespace UI.ViewModel
                 OnPropertyChanged("SearchParameter");
             }
         }
-        #endregion
+		#endregion
 
-        #region Public Methods
-        public void OnFocusSearchParameter(object sender, RoutedEventArgs e)
+		#region Public Methods
+
+		public void OnFocusSearchParameter(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
 

@@ -25,7 +25,7 @@ namespace UI.View
 		public ManualCommandingWindow(Double inc, Double dec, long gid)
 		{
 			InitializeComponent();
-			DataContext = new ManualCommandingViewModel();
+			DataContext = new ManualCommandingViewModel(inc,dec);
 
 			//IncreaseGauge.Value = Math.Round(inc, 2);
 			IncreaseGauge.Series.Where(X => X.Title == "Maximum Increase Flexibility").FirstOrDefault().Values.Clear();

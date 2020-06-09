@@ -2983,3 +2983,9 @@ C:\Users\Caki\Desktop\0606\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CoreCompileInpu
 C:\Users\Caki\Desktop\0606\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CopyComplete
 C:\Users\Caki\Desktop\0606\DERMS\DERMS\UI\UI\obj\Debug\UI.exe
 C:\Users\Caki\Desktop\0606\DERMS\DERMS\UI\UI\obj\Debug\UI.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\Innovative.SolarCalculator.xml
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\Innovative.Geometry.Angle.xml
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\PopUpWindow.g.cs
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\ValidationForManualCommanding.g.cs
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\PopUpWindow.baml
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\obj\Debug\View\ValidationForManualCommanding.baml

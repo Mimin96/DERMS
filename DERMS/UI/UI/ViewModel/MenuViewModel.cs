@@ -15,6 +15,8 @@ using UI.Communication;
 using UI.Resources;
 using UI.Resources.MediatorPattern;
 using UI.View;
+using DERMSCommon.DataModel.Core;
+using FTN.Common;
 
 namespace UI.ViewModel
 {
@@ -37,7 +39,7 @@ namespace UI.ViewModel
         {
             Mediator.Register("SCADADataPoint", GetSCADAData);
             Mediator.Register("NMSNetworkModelData", GetNetworkModelFromProxy);
-            Mediator.Register("NetworkModelTreeClass", NetworkModelTreeClassChanged);
+            Mediator.Register("NetworkModelTreeClass", NetworkModelTreeClassChangedMenu);
 
             _clientSideProxy = new ClientSideProxy();
             _calculationEnginePubSub = new CalculationEnginePubSub();
@@ -135,14 +137,50 @@ namespace UI.ViewModel
                 ((GISUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
             //SetUserContro("GIS");
         }
-        public void NetworkModelTreeClassChanged(object parameter)
+        public void NetworkModelTreeClassChangedMenu(object parameter)
         {
             _networkModelTreeClass = ((DataToUI)parameter).NetworkModelTreeClass;
-            if (UserControlPresenter.GetType().Name == "DERDashboardUserControl")
+
+			if (_tree != null)
+			{
+				List<NetworkModelTreeClass> _networkModelTreeClass = ((DataToUI)parameter).NetworkModelTreeClass;
+
+				foreach (NetworkModelTreeClass io in _networkModelTreeClass)
+				{
+					foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in io.GeographicalRegions)
+					{
+						foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
+						{
+							foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
+							{
+								foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
+								{
+									if (substationElementTreeClass.Type.Equals(DMSType.GENERATOR))
+									{
+										TreeNode<NodeData> nodeData = _tree.Where(x => x.Data.IdentifiedObject.GlobalId.Equals(substationElementTreeClass.GID)).FirstOrDefault();
+										if (nodeData.Data.IdentifiedObject != null)
+										{
+											((Generator)nodeData.Data.IdentifiedObject).MinFlexibility = substationElementTreeClass.MinFlexibility;
+											((Generator)nodeData.Data.IdentifiedObject).MaxFlexibility = substationElementTreeClass.MaxFlexibility;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			if (UserControlPresenter.GetType().Name == "DERDashboardUserControl")
             {
                 ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;
             }
-        }
+
+			if (UserControlPresenter.GetType().Name == "GISUserControl")
+			{
+				((GISUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree; ;
+			}
+		}
 
         public void ExecuteMenuSelectCommand(object sender)
         {
