@@ -28,47 +28,55 @@ namespace dCom.Simulation
             // fa6d00664c0c9abf42654341ff91db31
             // e67254e31e12e23461c61e0fb0489142
             // ab42e06e054eb1164d36132c278edef9
-            darkSkyProxy = new DarkSkyService("e67254e31e12e23461c61e0fb0489142");
+            darkSkyProxy = new DarkSkyService("ab42e06e054eb1164d36132c278edef9");
         }
 
-        public void SimulateWheater()
+        public async void GetWeatherForecastAsyncSimulate()
         {
 
             foreach (KeyValuePair<long, IdentifiedObject> kvp in analogniStari)
             {
+                Forecast result = await darkSkyProxy.GetTimeMachineWeatherAsync(((Analog)kvp.Value).Latitude, ((Analog)kvp.Value).Longitude, DateTime.Now, Unit.Auto);
+                List<HourDataPoint> hourDataPoints = result.Hourly.Hours.ToList();
+
+                DERMSCommon.WeatherForecast.WeatherForecast weatherForecast = new DERMSCommon.WeatherForecast.WeatherForecast(1001, 1, 1, 1, 1, DateTime.Now, "");
+                foreach (HourDataPoint hdr in hourDataPoints)
+                {
+                    if (hdr.Time.Hour.Equals(DateTime.Now.Hour))
+                        hourDataPoint = hdr;
+                }
                 float vrednost = 0;
 
-                GetWeatherForecastAsync(((Analog)kvp.Value).Latitude, ((Analog)kvp.Value).Longitude);
                 vrednost = CalculateHourAhead(((Analog)kvp.Value).Name, ((Analog)kvp.Value).NormalValue, ((Analog)kvp.Value).Latitude, ((Analog)kvp.Value).Latitude);
                 foreach (KeyValuePair<List<long>, ushort> gidoviNaAdresu in GidoviNaAdresu)
                 {
                     if (gidoviNaAdresu.Key[1] == (((Analog)kvp.Value).GlobalId) && ((Analog)kvp.Value).Description == "Simulation")
                     {
-  
 
-                            try
-                            {
-                                ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)vrednost, configuration);
-                                Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-                                commandExecutor.EnqueueCommand(fn);
-                             ((Analog)kvp.Value).NormalValue = vrednost;
-                                ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value-1), (ushort)vrednost, configuration);
-                                Common.IModbusFunction fn1 = FunctionFactory.CreateModbusFunction(p1);
-                                commandExecutor.EnqueueCommand(fn1);
-                            if(vrednost == 0)
+
+                        try
+                        {
+                            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)vrednost, configuration);
+                            Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
+                            commandExecutor.EnqueueCommand(fn);
+                            ((Analog)kvp.Value).NormalValue = vrednost;
+                            ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 1), (ushort)vrednost, configuration);
+                            Common.IModbusFunction fn1 = FunctionFactory.CreateModbusFunction(p1);
+                            commandExecutor.EnqueueCommand(fn1);
+                            if (vrednost == 0)
                             {
                                 ModbusWriteCommandParameters p12 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 2), (ushort)vrednost, configuration);
                                 Common.IModbusFunction fn12 = FunctionFactory.CreateModbusFunction(p12);
                                 commandExecutor.EnqueueCommand(fn12);
                             }
-                            }
-                            catch (Exception ex)
-                            {
-                                string message = $"{ex.TargetSite.ReflectedType.Name}.{ex.TargetSite.Name}: {ex.Message}";
-
-                            }
                         }
-                    
+                        catch (Exception ex)
+                        {
+                            string message = $"{ex.TargetSite.ReflectedType.Name}.{ex.TargetSite.Name}: {ex.Message}";
+
+                        }
+                    }
+
                 }
             }
 
@@ -93,23 +101,15 @@ namespace dCom.Simulation
 
 
         }
+    
 
 
-        public async void GetWeatherForecastAsync(double latitude, double longitude)
-        {
-            Forecast result = await darkSkyProxy.GetTimeMachineWeatherAsync(longitude, latitude, DateTime.Now, Unit.Auto);
-            List<HourDataPoint> hourDataPoints = result.Hourly.Hours.ToList();
 
-            DERMSCommon.WeatherForecast.WeatherForecast weatherForecast = new DERMSCommon.WeatherForecast.WeatherForecast(1001, 1, 1, 1, 1, DateTime.Now, "");
-            foreach(HourDataPoint hdr in hourDataPoints)
-            {
-                if (hdr.Time.Hour.Equals(DateTime.Now.Hour))
-                    hourDataPoint = hdr;
-            }
+  
             
 
 
-        }
+        
         public float CalculateHourAhead(string tip, float ConsiderP, float longitude, float latitude)
         {
 
