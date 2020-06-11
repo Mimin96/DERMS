@@ -34,6 +34,7 @@ namespace dCom.Configuration
 
                                     KeyValuePair<long,IdentifiedObject> a = analogniStari.ElementAt(gidoviNaAdresu.Value - 3000-1);
                                     float zbir = ((Analog)a.Value).NormalValue + (float)generator.Value * ((Analog)a.Value).NormalValue/100;
+                                    ((Analog)a.Value).NormalValue = zbir;
                                     zbir = (float)Math.Round(zbir);
                                     double vred = (generator.Value * ((Analog)a.Value).NormalValue / 100);
                                     vred = (double)Math.Round(vred);
