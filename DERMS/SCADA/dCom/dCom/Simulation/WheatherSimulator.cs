@@ -47,7 +47,7 @@ namespace dCom.Simulation
                 }
                 float vrednost = 0;
 
-                vrednost = CalculateHourAhead(((Analog)kvp.Value).Name, ((Analog)kvp.Value).NormalValue, ((Analog)kvp.Value).Latitude, ((Analog)kvp.Value).Latitude);
+                vrednost = CalculateHourAhead(((Analog)kvp.Value).Name, ((Analog)kvp.Value).NormalValue, ((Analog)kvp.Value).Latitude, ((Analog)kvp.Value).Longitude);
                 foreach (KeyValuePair<List<long>, ushort> gidoviNaAdresu in GidoviNaAdresu)
                 {
                     if (gidoviNaAdresu.Key[1] == (((Analog)kvp.Value).GlobalId) && ((Analog)kvp.Value).Description == "Simulation")
@@ -63,12 +63,11 @@ namespace dCom.Simulation
                             ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 1), (ushort)vrednost, configuration);
                             Common.IModbusFunction fn1 = FunctionFactory.CreateModbusFunction(p1);
                             commandExecutor.EnqueueCommand(fn1);
-                            if (vrednost == 0)
-                            {
-                                ModbusWriteCommandParameters p12 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 2), (ushort)vrednost, configuration);
+
+                                ModbusWriteCommandParameters p12 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 2), 0, configuration);
                                 Common.IModbusFunction fn12 = FunctionFactory.CreateModbusFunction(p12);
                                 commandExecutor.EnqueueCommand(fn12);
-                            }
+
                         }
                         catch (Exception ex)
                         {
