@@ -31,6 +31,7 @@ namespace CalculationEngineService
             Dictionary<long, DerForecastDayAhead> dicGener = new Dictionary<long, DerForecastDayAhead>();
             Dictionary<long, DerForecastDayAhead> tempDiffrence = new Dictionary<long, DerForecastDayAhead>();
             Dictionary<long, double> dicForScada = new Dictionary<long, double>();
+            List<long> changeFlexOfGen = new List<long>();
 
             IdentifiedObject io = networkModel[GidUi];
             var type = io.GetType();
@@ -196,47 +197,54 @@ namespace CalculationEngineService
                                             if (generatorType.Name.Equals("Generator"))
                                             {
                                                 Generator generator = (Generator)networkModel[item];
-                                                DerForecastDayAhead GeneratorderForecastDayAhead = prod[generator.GlobalId];
-                                                foreach (HourDataPoint generatorProduction in GeneratorderForecastDayAhead.Production.Hourly)
+                                                if (generator.Flexibility)
                                                 {
-                                                    if (generatorProduction.Time.Equals(hdpProduction.Time))
+                                                    DerForecastDayAhead GeneratorderForecastDayAhead = prod[generator.GlobalId];
+                                                    foreach (HourDataPoint generatorProduction in GeneratorderForecastDayAhead.Production.Hourly)
                                                     {
-                                                        if (generator.GeneratorType.Equals(GeneratorType.Solar))
+                                                        if (generatorProduction.Time.Equals(hdpProduction.Time))
                                                         {
-                                                            if (generatorProduction.ActivePower != 0)
-                                                                generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 - (tempDicProcentValues[generator.GlobalId] / 100)));
-                                                            if (dicGener.ContainsKey(generator.GlobalId))
+                                                            if (generator.GeneratorType.Equals(GeneratorType.Solar))
                                                             {
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                if (generatorProduction.ActivePower != 0)
+                                                                    generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 - (tempDicProcentValues[generator.GlobalId] / 100)));
+                                                                if (dicGener.ContainsKey(generator.GlobalId))
+                                                                {
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
+                                                                else
+                                                                {
+                                                                    dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
                                                             }
-                                                            else
+                                                            if (generator.GeneratorType.Equals(GeneratorType.Wind))
                                                             {
-                                                                dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                if (generatorProduction.ActivePower != 0)
+                                                                    generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 - (tempDicProcentValues[generator.GlobalId] / 100)));
+                                                                if (dicGener.ContainsKey(generator.GlobalId))
+                                                                {
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
+                                                                else
+                                                                {
+                                                                    dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
                                                             }
-                                                        }
-                                                        if (generator.GeneratorType.Equals(GeneratorType.Wind))
-                                                        {
-                                                            if (generatorProduction.ActivePower != 0)
-                                                                generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 - (tempDicProcentValues[generator.GlobalId] / 100)));
-                                                            if (dicGener.ContainsKey(generator.GlobalId))
-                                                            {
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
-                                                            }
-                                                            else
-                                                            {
-                                                                dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
-                                                            }
-                                                        }
 
-                                                        if (generatorProduction.Time.Hour.Equals(DateTime.Now.Hour))
-                                                        {
-                                                            dicForScada.Add(generator.GlobalId, -tempDicProcentValues[generator.GlobalId]);
+                                                            if (generatorProduction.Time.Hour.Equals(DateTime.Now.Hour))
+                                                            {
+                                                                dicForScada.Add(generator.GlobalId, -tempDicProcentValues[generator.GlobalId]);
+                                                            }
                                                         }
                                                     }
-                                                }
+                                                    if (!changeFlexOfGen.Contains(generator.GlobalId))
+                                                    {
+                                                        changeFlexOfGen.Add(generator.GlobalId);
+                                                    }
 
+                                                }
 
                                             }
 
@@ -251,46 +259,52 @@ namespace CalculationEngineService
                                             if (generatorType.Name.Equals("Generator"))
                                             {
                                                 Generator generator = (Generator)networkModel[item];
-                                                DerForecastDayAhead GeneratorderForecastDayAhead = prod[generator.GlobalId];
-                                                foreach (HourDataPoint generatorProduction in GeneratorderForecastDayAhead.Production.Hourly)
+                                                if (generator.Flexibility)
                                                 {
-                                                    if (generatorProduction.Time.Equals(hdpProduction.Time))
+                                                    DerForecastDayAhead GeneratorderForecastDayAhead = prod[generator.GlobalId];
+                                                    foreach (HourDataPoint generatorProduction in GeneratorderForecastDayAhead.Production.Hourly)
                                                     {
-                                                        if (generator.GeneratorType.Equals(GeneratorType.Solar))
+                                                        if (generatorProduction.Time.Equals(hdpProduction.Time))
                                                         {
-                                                            generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 - (generator.MinFlexibility / 100)));
-                                                            if (dicGener.ContainsKey(generator.GlobalId))
+                                                            if (generator.GeneratorType.Equals(GeneratorType.Solar))
                                                             {
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 - (generator.MinFlexibility / 100)));
+                                                                if (dicGener.ContainsKey(generator.GlobalId))
+                                                                {
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
+                                                                else
+                                                                {
+                                                                    dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
                                                             }
-                                                            else
+                                                            if (generator.GeneratorType.Equals(GeneratorType.Wind))
                                                             {
-                                                                dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 - (generator.MinFlexibility / 100)));
+                                                                if (dicGener.ContainsKey(generator.GlobalId))
+                                                                {
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
+                                                                else
+                                                                {
+                                                                    dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
                                                             }
-                                                        }
-                                                        if (generator.GeneratorType.Equals(GeneratorType.Wind))
-                                                        {
-                                                            generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 - (generator.MinFlexibility / 100)));
-                                                            if (dicGener.ContainsKey(generator.GlobalId))
+                                                            if (generatorProduction.Time.Hour.Equals(DateTime.Now.Hour))
                                                             {
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                dicForScada.Add(generator.GlobalId, -generator.MinFlexibility);
                                                             }
-                                                            else
-                                                            {
-                                                                dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
-                                                            }
-                                                        }
-                                                        if (generatorProduction.Time.Hour.Equals(DateTime.Now.Hour))
-                                                        {
-                                                            dicForScada.Add(generator.GlobalId, -generator.MinFlexibility);
-                                                        }
 
 
+                                                        }
+                                                    }
+                                                    if (!changeFlexOfGen.Contains(generator.GlobalId))
+                                                    {
+                                                        changeFlexOfGen.Add(generator.GlobalId);
                                                     }
                                                 }
-
 
                                             }
 
@@ -364,49 +378,56 @@ namespace CalculationEngineService
                                             if (generatorType.Name.Equals("Generator"))
                                             {
                                                 Generator generator = (Generator)networkModel[item];
-                                                DerForecastDayAhead GeneratorderForecastDayAhead = prod[generator.GlobalId];
-                                                foreach (HourDataPoint generatorProduction in GeneratorderForecastDayAhead.Production.Hourly)
+
+                                                if (generator.Flexibility)
                                                 {
-                                                    if (generatorProduction.Time.Equals(hdpProduction.Time))
+                                                    DerForecastDayAhead GeneratorderForecastDayAhead = prod[generator.GlobalId];
+                                                    foreach (HourDataPoint generatorProduction in GeneratorderForecastDayAhead.Production.Hourly)
                                                     {
-                                                        if (generator.GeneratorType.Equals(GeneratorType.Solar))
+                                                        if (generatorProduction.Time.Equals(hdpProduction.Time))
                                                         {
-                                                            if (generatorProduction.ActivePower != 0)
-                                                                generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 + (tempDicProcentValues[generator.GlobalId] / 100)));
-                                                            if (dicGener.ContainsKey(generator.GlobalId))
+                                                            if (generator.GeneratorType.Equals(GeneratorType.Solar))
                                                             {
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                if (generatorProduction.ActivePower != 0)
+                                                                    generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 + (tempDicProcentValues[generator.GlobalId] / 100)));
+                                                                if (dicGener.ContainsKey(generator.GlobalId))
+                                                                {
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
+                                                                else
+                                                                {
+                                                                    dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
                                                             }
-                                                            else
+                                                            if (generator.GeneratorType.Equals(GeneratorType.Wind))
                                                             {
-                                                                dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                if (generatorProduction.ActivePower != 0)
+                                                                    generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 + (tempDicProcentValues[generator.GlobalId] / 100)));
+                                                                if (dicGener.ContainsKey(generator.GlobalId))
+                                                                {
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
+                                                                else
+                                                                {
+                                                                    dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
                                                             }
-                                                        }
-                                                        if (generator.GeneratorType.Equals(GeneratorType.Wind))
-                                                        {
-                                                            if (generatorProduction.ActivePower != 0)
-                                                                generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 + (tempDicProcentValues[generator.GlobalId] / 100)));
-                                                            if (dicGener.ContainsKey(generator.GlobalId))
-                                                            {
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
-                                                            }
-                                                            else
-                                                            {
-                                                                dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
-                                                            }
-                                                        }
 
-                                                        if (generatorProduction.Time.Hour.Equals(DateTime.Now.Hour))
-                                                        {
-                                                            dicForScada.Add(generator.GlobalId, tempDicProcentValues[generator.GlobalId]);
+                                                            if (generatorProduction.Time.Hour.Equals(DateTime.Now.Hour))
+                                                            {
+                                                                dicForScada.Add(generator.GlobalId, tempDicProcentValues[generator.GlobalId]);
+                                                            }
+
+
                                                         }
-
-
+                                                    }
+                                                    if (!changeFlexOfGen.Contains(generator.GlobalId))
+                                                    {
+                                                        changeFlexOfGen.Add(generator.GlobalId);
                                                     }
                                                 }
-
 
                                             }
 
@@ -420,47 +441,54 @@ namespace CalculationEngineService
                                             var generatorType = networkModel[item].GetType();
                                             if (generatorType.Name.Equals("Generator"))
                                             {
-
+                                                
                                                 Generator generator = (Generator)networkModel[item];
-                                                DerForecastDayAhead GeneratorderForecastDayAhead = prod[generator.GlobalId];
-                                                foreach (HourDataPoint generatorProduction in GeneratorderForecastDayAhead.Production.Hourly)
+                                                
+                                                if (generator.Flexibility)
                                                 {
-                                                    if (generatorProduction.Time.Equals(hdpProduction.Time))
+                                                    DerForecastDayAhead GeneratorderForecastDayAhead = prod[generator.GlobalId];
+                                                    foreach (HourDataPoint generatorProduction in GeneratorderForecastDayAhead.Production.Hourly)
                                                     {
-                                                        if (generator.GeneratorType.Equals(GeneratorType.Solar))
+                                                        if (generatorProduction.Time.Equals(hdpProduction.Time))
                                                         {
-                                                            generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 + (generator.MaxFlexibility / 100)));
-                                                            if (dicGener.ContainsKey(generator.GlobalId))
+                                                            if (generator.GeneratorType.Equals(GeneratorType.Solar))
                                                             {
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 + (generator.MaxFlexibility / 100)));
+                                                                if (dicGener.ContainsKey(generator.GlobalId))
+                                                                {
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
+                                                                else
+                                                                {
+                                                                    dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
                                                             }
-                                                            else
+                                                            if (generator.GeneratorType.Equals(GeneratorType.Wind))
                                                             {
-                                                                dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 + (generator.MaxFlexibility / 100)));
+                                                                if (dicGener.ContainsKey(generator.GlobalId))
+                                                                {
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
+                                                                else
+                                                                {
+                                                                    dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                                                    dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                }
                                                             }
-                                                        }
-                                                        if (generator.GeneratorType.Equals(GeneratorType.Wind))
-                                                        {
-                                                            generatorProduction.ActivePower = (float)(generatorProduction.ActivePower * (1 + (generator.MaxFlexibility / 100)));
-                                                            if (dicGener.ContainsKey(generator.GlobalId))
+                                                            if (generatorProduction.Time.Hour.Equals(DateTime.Now.Hour))
                                                             {
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
+                                                                dicForScada.Add(generator.GlobalId, generator.MaxFlexibility);
                                                             }
-                                                            else
-                                                            {
-                                                                dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
-                                                                dicGener[generator.GlobalId].Production.Hourly.Add(generatorProduction);
-                                                            }
-                                                        }
-                                                        if (generatorProduction.Time.Hour.Equals(DateTime.Now.Hour))
-                                                        {
-                                                            dicForScada.Add(generator.GlobalId, generator.MaxFlexibility);
-                                                        }
 
+                                                        }
+                                                    }
+                                                    if (!changeFlexOfGen.Contains(generator.GlobalId))
+                                                    {
+                                                        changeFlexOfGen.Add(generator.GlobalId);
                                                     }
                                                 }
-
 
                                             }
 
@@ -560,8 +588,20 @@ namespace CalculationEngineService
                             Generator generator = (Generator)networkModel[item];
                             Substation substation = (Substation)networkModel[generator.Container];
                             DerForecastDayAhead tempGen = new DerForecastDayAhead();
-                            tempGen.Production = prod[generator.GlobalId].Production - dicGener[generator.GlobalId].Production;
-                            tempDiffrence.Add(generator.GlobalId, tempGen);
+                            if (!dicGener.ContainsKey(generator.GlobalId))
+                            {
+                                tempGen.Production = prod[generator.GlobalId].Production;
+                                tempDiffrence.Add(generator.GlobalId, tempGen);
+                                dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                dicGener[generator.GlobalId].Production = prod[generator.GlobalId].Production.Clone();
+                                dicGener[generator.GlobalId].Production -= dicGener[generator.GlobalId].Production;
+
+                            }
+                            else
+                            {
+                                tempGen.Production = prod[generator.GlobalId].Production - dicGener[generator.GlobalId].Production;
+                                tempDiffrence.Add(generator.GlobalId, tempGen);
+                            }
                         }
                     }
                     DerForecastDayAhead tempSubValue = new DerForecastDayAhead();
@@ -638,8 +678,20 @@ namespace CalculationEngineService
                                 Generator generator = (Generator)networkModel[item];
                                 Substation substation = (Substation)networkModel[generator.Container];
                                 DerForecastDayAhead tempGen = new DerForecastDayAhead();
-                                tempGen.Production = prod[generator.GlobalId].Production - dicGener[generator.GlobalId].Production;
-                                tempDiffrence.Add(generator.GlobalId, tempGen);
+                                if (!dicGener.ContainsKey(generator.GlobalId))
+                                {
+                                    tempGen.Production = prod[generator.GlobalId].Production;
+                                    tempDiffrence.Add(generator.GlobalId, tempGen);
+                                    dicGener.Add(generator.GlobalId, new DerForecastDayAhead());
+                                    dicGener[generator.GlobalId].Production = prod[generator.GlobalId].Production.Clone();
+                                    dicGener[generator.GlobalId].Production -= dicGener[generator.GlobalId].Production;
+
+                                }
+                                else
+                                {
+                                    tempGen.Production = prod[generator.GlobalId].Production - dicGener[generator.GlobalId].Production;
+                                    tempDiffrence.Add(generator.GlobalId, tempGen);
+                                }
                             }
                         }
                         DerForecastDayAhead tempSubValue = new DerForecastDayAhead();
@@ -694,6 +746,13 @@ namespace CalculationEngineService
                     }
                 }
             }
+            foreach(long gidOfGen in changeFlexOfGen)
+            {
+                Generator generator = (Generator)networkModel[gidOfGen];
+                
+                generator.Flexibility = false;
+                
+            }
             CalculationEngineCache.Instance.ListOfGenerators = dicForScada;
             ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(dicForScada);
             CalculationEngineCache.Instance.UpdateMinAndMaxFlexibilityForChangedGenerators();
@@ -730,6 +789,13 @@ namespace CalculationEngineService
             }
             return geoReg;
 
+        }
+
+        public bool AllowOptimization(long GidUi)
+        {
+            bool temp=false;
+
+            return temp;
         }
     }
 }

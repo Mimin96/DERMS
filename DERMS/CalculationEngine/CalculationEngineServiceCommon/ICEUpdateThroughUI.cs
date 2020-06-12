@@ -17,5 +17,7 @@ namespace CalculationEngineServiceCommon
         float BalanceNetworkModel();
         [OperationContract]
         List<long> AllGeoRegions();
+        [OperationContract]
+        bool AllowOptimization(long gid);
     }
 }
