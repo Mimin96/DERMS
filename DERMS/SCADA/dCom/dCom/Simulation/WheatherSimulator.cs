@@ -36,7 +36,7 @@ namespace dCom.Simulation
 
             foreach (KeyValuePair<long, IdentifiedObject> kvp in analogniStari)
             {
-                Forecast result = await darkSkyProxy.GetTimeMachineWeatherAsync(((Analog)kvp.Value).Latitude, ((Analog)kvp.Value).Longitude, DateTime.Now, Unit.Auto);
+                Forecast result = await darkSkyProxy.GetTimeMachineWeatherAsync(((Analog)kvp.Value).Longitude, ((Analog)kvp.Value).Latitude, DateTime.Now, Unit.Auto);
                 List<HourDataPoint> hourDataPoints = result.Hourly.Hours.ToList();
 
                 DERMSCommon.WeatherForecast.WeatherForecast weatherForecast = new DERMSCommon.WeatherForecast.WeatherForecast(1001, 1, 1, 1, 1, DateTime.Now, "");
