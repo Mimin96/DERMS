@@ -91,7 +91,26 @@ namespace CalculationEngineService
         }
         public void PopulateWeatherForecast(NetworkModelTransfer networkModel)
         {
+            DarkSkyAPISmartCache cache = new DarkSkyAPISmartCache();
             double lat, lon;
+
+            //MOCK_Start
+            derWeatherCached = cache.ReadFromFile();
+            if (derWeatherCached.Count > 0)
+            {
+                foreach (Forecast forecast in derWeatherCached.Values)
+                {
+                    DateTimeOffset timeOffset = DateTimeOffset.Parse("00:00 AM");
+                    foreach (DarkSkyApi.Models.HourDataPoint dataPoint in forecast.Hourly.Hours)
+                    {
+                        dataPoint.Time = timeOffset;
+                        timeOffset = timeOffset.AddHours(1);
+                    }
+                }
+                return;
+            }
+            //MOCK_End
+
             //KRUZNA REFERENCA PROBLEM!!!!!!!
             WeatherForecast.DarkSkyApi darkSkyApi = new WeatherForecast.DarkSkyApi();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
@@ -117,6 +136,10 @@ namespace CalculationEngineService
 
                 }
             }
+
+            //MOCK_Start
+            cache.WriteToFile(derWeatherCached);
+            //MOCK_End
         }
         public void PopulateProductionForecast(NetworkModelTransfer networkModel)
         {

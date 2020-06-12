@@ -21,10 +21,12 @@ namespace dCom.Simulation
 {
     public class WheaterSimulator : SCADACommunication
     {
+        DarkSkyAPISmartCache cache = new DarkSkyAPISmartCache();
         private HourDataPoint hourDataPoint = new HourDataPoint();
         private DarkSkyService darkSkyProxy;
         public WheaterSimulator()
         {
+            // 37076b047b44f229bd60d7bffb9a8c22
             // fa6d00664c0c9abf42654341ff91db31
             // e67254e31e12e23461c61e0fb0489142
             // ab42e06e054eb1164d36132c278edef9
@@ -33,11 +35,39 @@ namespace dCom.Simulation
 
         public async void GetWeatherForecastAsyncSimulate()
         {
+            //MOCK_Start
+            bool isFileFull = true;
+            //Dictionary<long, List<HourDataPoint>> keyValuePairs = new Dictionary<long, List<HourDataPoint>>();
+            Dictionary<long, List<HourDataPoint>> keyValuePairs = cache.ReadFromFileDataPoint();
+
+            if (keyValuePairs.Count == 0)
+                isFileFull = false;
+            //MOCK_End
 
             foreach (KeyValuePair<long, IdentifiedObject> kvp in analogniStari)
             {
-                Forecast result = await darkSkyProxy.GetTimeMachineWeatherAsync(((Analog)kvp.Value).Longitude, ((Analog)kvp.Value).Latitude, DateTime.Now, Unit.Auto);
-                List<HourDataPoint> hourDataPoints = result.Hourly.Hours.ToList();
+                List<HourDataPoint> hourDataPoints;
+                //MOCK_Start
+                if (!isFileFull)
+                {
+                    //MOCK_End
+                    Forecast result = await darkSkyProxy.GetTimeMachineWeatherAsync(((Analog)kvp.Value).Latitude, ((Analog)kvp.Value).Longitude, DateTime.Now, Unit.Auto);
+                    hourDataPoints = result.Hourly.Hours.ToList();
+                    //MOCK_Start
+                    keyValuePairs.Add(((Analog)kvp.Value).GlobalId, hourDataPoints);
+                }
+                else
+                {
+                    hourDataPoints = keyValuePairs[((Analog)kvp.Value).GlobalId];
+
+                    DateTimeOffset timeOffset = DateTimeOffset.Parse("00:00 AM");
+                    foreach (HourDataPoint dataPoint in hourDataPoints)
+                    {
+                        dataPoint.Time = timeOffset;
+                        timeOffset = timeOffset.AddHours(1);
+                    }
+                }
+                //MOCK_End
 
                 DERMSCommon.WeatherForecast.WeatherForecast weatherForecast = new DERMSCommon.WeatherForecast.WeatherForecast(1001, 1, 1, 1, 1, DateTime.Now, "");
                 foreach (HourDataPoint hdr in hourDataPoints)
@@ -79,6 +109,11 @@ namespace dCom.Simulation
                 }
             }
 
+            //MOCK_Start
+            if (!isFileFull)
+                cache.WriteToFile(keyValuePairs);
+            //MOCK_End
+
             //foreach (KeyValuePair<long, IdentifiedObject> kvp in digitalniStari)
             //{
             //    float vrednost = 0;
@@ -100,15 +135,15 @@ namespace dCom.Simulation
 
 
         }
-    
 
 
 
-  
-            
 
 
-        
+
+
+
+
         public float CalculateHourAhead(string tip, float ConsiderP, float longitude, float latitude)
         {
 
