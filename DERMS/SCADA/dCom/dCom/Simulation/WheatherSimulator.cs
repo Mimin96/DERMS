@@ -37,8 +37,8 @@ namespace dCom.Simulation
         {
             //MOCK_Start
             bool isFileFull = true;
-            //Dictionary<long, List<HourDataPoint>> keyValuePairs = new Dictionary<long, List<HourDataPoint>>();
-            Dictionary<long, List<HourDataPoint>> keyValuePairs = cache.ReadFromFileDataPoint();
+            Dictionary<long, List<HourDataPoint>> keyValuePairs = new Dictionary<long, List<HourDataPoint>>();
+            //Dictionary<long, List<HourDataPoint>> keyValuePairs = cache.ReadFromFileDataPoint();
 
             if (keyValuePairs.Count == 0)
                 isFileFull = false;
@@ -51,7 +51,7 @@ namespace dCom.Simulation
                 if (!isFileFull)
                 {
                     //MOCK_End
-                    Forecast result = await darkSkyProxy.GetTimeMachineWeatherAsync(((Analog)kvp.Value).Latitude, ((Analog)kvp.Value).Longitude, DateTime.Now, Unit.Auto);
+                    Forecast result = await darkSkyProxy.GetTimeMachineWeatherAsync(((Analog)kvp.Value).Longitude, ((Analog)kvp.Value).Latitude, DateTime.Now, Unit.Auto);
                     hourDataPoints = result.Hourly.Hours.ToList();
                     //MOCK_Start
                     keyValuePairs.Add(((Analog)kvp.Value).GlobalId, hourDataPoints);
@@ -77,7 +77,7 @@ namespace dCom.Simulation
                 }
                 float vrednost = 0;
 
-                vrednost = CalculateHourAhead(((Analog)kvp.Value).Name, ((Analog)kvp.Value).NormalValue, ((Analog)kvp.Value).Latitude, ((Analog)kvp.Value).Longitude);
+                vrednost = CalculateHourAhead(((Analog)kvp.Value).Name, ((Analog)kvp.Value).NormalValue, ((Analog)kvp.Value).Longitude, ((Analog)kvp.Value).Latitude);
                 foreach (KeyValuePair<List<long>, ushort> gidoviNaAdresu in GidoviNaAdresu)
                 {
                     if (gidoviNaAdresu.Key[1] == (((Analog)kvp.Value).GlobalId) && ((Analog)kvp.Value).Description == "Simulation")

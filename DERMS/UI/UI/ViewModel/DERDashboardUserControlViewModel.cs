@@ -526,17 +526,20 @@ namespace UI.ViewModel
         {
             if (GidForOptimization != 0 && GidForOptimization != -1)
             {
-
+                proxy = new CommunicationProxy();
+                proxy.Open2();
+                DisableAutomaticOptimization = proxy.sendToCE.ListOfDisabledGenerators();
 
                 if (!DisableAutomaticOptimization.Contains(GidForOptimization))
                 {
                     if (proxy == null)
                         proxy = new CommunicationProxy();
-                    proxy.Open2();
+                    //proxy.Open2();
                     energySourceOptimizedValue = 0;
                     float x = proxy.sendToCE.UpdateThroughUI(GidForOptimization);
                     energySourceOptimizedValue = CalculateDemand(GidForOptimization);
                     DisableOptimization(GidForOptimization);
+                    proxy.sendToCE.AllowOptimization(GidForOptimization);
                     canOptimizate = true;
                 }
                 else
@@ -549,15 +552,20 @@ namespace UI.ViewModel
             }
             else if (GidForOptimization == -1)
             {
+                proxy = new CommunicationProxy();
+                proxy.Open2();
+                DisableAutomaticOptimization = proxy.sendToCE.ListOfDisabledGenerators();
+
                 if (!DisableAutomaticOptimization.Contains(GidForOptimization))
                 {
                     if (proxy == null)
                         proxy = new CommunicationProxy();
                     energySourceOptimizedValue = 0;
-                    proxy.Open2();
+                    //proxy.Open2();
                     float x = proxy.sendToCE.BalanceNetworkModel();
                     energySourceOptimizedValue = CalculateDemandForSource();
                     DisableOptimization(GidForOptimization);
+                    proxy.sendToCE.AllowOptimization(GidForOptimization);
                 }
                 else
                 {

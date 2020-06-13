@@ -29,7 +29,8 @@ namespace CalculationEngineService
 
         private Dictionary<long, DerForecastDayAhead> copyOfProductionCached = new Dictionary<long, DerForecastDayAhead>();
         private Dictionary<long, double> listOfGeneratorsForScada = new Dictionary<long, double>();
-
+		private List<long> disableAutomaticOptimization = new List<long>();
+		
         private static CalculationEngineCache instance = null;
         public static CalculationEngineCache Instance
         {
@@ -43,6 +44,11 @@ namespace CalculationEngineService
                 return instance;
 
             }
+        }
+		public List<long> DisableAutomaticOptimization
+        {
+            get { return disableAutomaticOptimization; }
+            set { disableAutomaticOptimization = value; }
         }
         public Dictionary<long,double> ListOfGenerators
         {
@@ -95,7 +101,7 @@ namespace CalculationEngineService
             double lat, lon;
 
             //MOCK_Start
-            derWeatherCached = cache.ReadFromFile();
+            //derWeatherCached = cache.ReadFromFile();
             if (derWeatherCached.Count > 0)
             {
                 foreach (Forecast forecast in derWeatherCached.Values)

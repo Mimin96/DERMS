@@ -18,6 +18,8 @@ namespace CalculationEngineServiceCommon
         [OperationContract]
         List<long> AllGeoRegions();
         [OperationContract]
-        bool AllowOptimization(long gid);
+        List<long> AllowOptimization(long gid);
+        [OperationContract]
+        List<long> ListOfDisabledGenerators();
     }
 }

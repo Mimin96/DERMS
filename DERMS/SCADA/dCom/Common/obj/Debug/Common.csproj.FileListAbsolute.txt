@@ -230,14 +230,6 @@ C:\Users\Caki\Desktop\2603\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj
 C:\Users\Caki\Desktop\2603\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\Caki\Desktop\2603\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\Caki\Desktop\2603\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
-C:\Users\Djole\Desktop\PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.dll
-C:\Users\Djole\Desktop\PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
-C:\Users\Djole\Desktop\PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
-C:\Users\Djole\Desktop\PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
-C:\Users\Djole\Desktop\PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
-C:\Users\Djole\Desktop\PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
-C:\Users\Djole\Desktop\PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
-C:\Users\Djole\Desktop\PROJEKAT\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
 C:\Users\Nemanja\Desktop\Git3103\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.dll
 C:\Users\Nemanja\Desktop\Git3103\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
 C:\Users\Nemanja\Desktop\Git3103\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
@@ -421,3 +413,11 @@ C:\Users\Filip\Desktop\ToPush\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csp
 C:\Users\Filip\Desktop\ToPush\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\Filip\Desktop\ToPush\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\Filip\Desktop\ToPush\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.dll
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
+C:\Users\Djole\Desktop\Projekat\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
