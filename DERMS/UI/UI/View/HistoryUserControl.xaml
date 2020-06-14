@@ -127,14 +127,32 @@
                 </CheckBox>
             </Grid>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Visibility="{Binding IsDan}">
                 <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,-20,727,206">kW</Label>
                 <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom" Visibility="{Binding IsDan}">H</Label>
+                <lvc:CartesianChart Margin="0,0,0,24">
+                    <lvc:CartesianChart.Series>
+                        <lvc:ScatterSeries Values="{Binding ChartValues}" Visibility="{Binding IsDan}"  />
+                    </lvc:CartesianChart.Series>
+                </lvc:CartesianChart>
+            </Grid>
+
+            <Grid Grid.Row="1" Visibility="{Binding IsMesec}">
+                <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,-20,727,206">kW</Label>
                 <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom" Visibility="{Binding IsMesec}">D</Label>
+                <lvc:CartesianChart Margin="0,0,0,24">
+                    <lvc:CartesianChart.Series>
+                        <lvc:ScatterSeries Values="{Binding ChartValuesMonth}" Visibility="{Binding IsMesec}"  />
+                    </lvc:CartesianChart.Series>
+                </lvc:CartesianChart>
+            </Grid>
+
+            <Grid Grid.Row="1" Visibility="{Binding IsGodinaa}">
+                <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,-20,727,206">kW</Label>
                 <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom" Visibility="{Binding IsGodinaa}">M</Label>
                 <lvc:CartesianChart Margin="0,0,0,24">
                     <lvc:CartesianChart.Series>
-                        <lvc:ScatterSeries Values="{Binding ChartValues}" Visibility="{Binding IsVisible}"  />
+                        <lvc:ScatterSeries Values="{Binding ChartValuesYear}" Visibility="{Binding IsGodinaa}"  />
                     </lvc:CartesianChart.Series>
                 </lvc:CartesianChart>
             </Grid>

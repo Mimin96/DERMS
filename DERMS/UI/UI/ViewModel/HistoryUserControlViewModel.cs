@@ -26,6 +26,8 @@ namespace UI.ViewModel
         private Visibility _isGodinaa = Visibility.Hidden;
         private Visibility _isDan = Visibility.Hidden;
         private IChartValues _chartValues;
+        private IChartValues _chartValuesMonth;
+        private IChartValues _chartValuesYear;
         private long _selectedGID;
         private string _selectedPeriod;
         private string _selectedMesec;
@@ -48,10 +50,17 @@ namespace UI.ViewModel
             _itemsDay = new ObservableCollection<DayItem>();
             _itemsMonth = new ObservableCollection<MonthItem>();
             _itemsYear = new ObservableCollection<YearItem>();
-            SelectedPeriod = "";
+            SelectedPeriod = Period[0];
+            IsDan = Visibility.Visible;
             _chartValues = new ChartValues<double>();
-            for (int j = 0; j <= 31; j++)
+            for (int j = 0; j <= 24; j++)
                 _chartValues.Add(0.0);
+            _chartValuesMonth = new ChartValues<double>();
+            for (int j = 0; j <= 31; j++)
+                _chartValuesMonth.Add(0.0);
+            _chartValuesYear = new ChartValues<double>();
+            for (int j = 0; j <= 12; j++)
+                _chartValuesYear.Add(0.0);
             _min = false;
             _max = false;
             _avg = false;
@@ -75,6 +84,18 @@ namespace UI.ViewModel
         {
             get { return _chartValues; }
             set { _chartValues = value; }
+        }
+
+        public IChartValues ChartValuesMonth
+        {
+            get { return _chartValuesMonth; }
+            set { _chartValuesMonth = value; }
+        }
+
+        public IChartValues ChartValuesYear
+        {
+            get { return _chartValuesYear; }
+            set { _chartValuesYear = value; }
         }
 
         public Visibility IsVisible
@@ -244,9 +265,12 @@ namespace UI.ViewModel
         }
         public void SubstationElementCommandExecute(long gid)
         {
-            for (int j = 0; j <= 31; j++)
+            for (int j = 0; j <= 24; j++)
                 _chartValues[j] = -100.0;
-
+            for (int j = 0; j <= 31; j++)
+                _chartValuesMonth[j] = -100.0;
+            for (int j = 0; j <= 12; j++)
+                _chartValuesYear[j] = -100.0;
             int hour = 0;
             int day = 0;
             int month = 0;
@@ -309,7 +333,7 @@ namespace UI.ViewModel
                             day = l.Timestamp.Day;
                         }
                     }
-                    _chartValues[day] = min;
+                    _chartValuesMonth[day] = min;
                 }
                 else
                 {
@@ -328,11 +352,11 @@ namespace UI.ViewModel
                             month = l.Timestamp.Month;
                         }
                     }
-                    _chartValues[month] = min;
+                    _chartValuesYear[month] = min;
                 }
                 else
                 {
-                    MessageBox.Show("Data for that month doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Data for that year doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
 
@@ -369,7 +393,7 @@ namespace UI.ViewModel
                             day = l.Timestamp.Day;
                         }
                     }
-                    _chartValues[day] = max;
+                    _chartValuesMonth[day] = max;
                 }
                 else
                 {
@@ -388,11 +412,11 @@ namespace UI.ViewModel
                             month = l.Timestamp.Month;
                         }
                     }
-                    _chartValues[month] = max;
+                    _chartValuesYear[month] = max;
                 }
                 else
                 {
-                    MessageBox.Show("Data for that month doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Data for that year doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
 
@@ -423,7 +447,7 @@ namespace UI.ViewModel
                         counter++;
                     }
 
-                    _chartValues[0] = sum / counter;
+                    _chartValuesMonth[0] = sum / counter;
                 }
                 else
                 {
@@ -440,11 +464,11 @@ namespace UI.ViewModel
                         counter++;
                     }
 
-                    _chartValues[0] = sum / counter;
+                    _chartValuesYear[0] = sum / counter;
                 }
                 else
                 {
-                    MessageBox.Show("Data for that month doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Data for that year doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
