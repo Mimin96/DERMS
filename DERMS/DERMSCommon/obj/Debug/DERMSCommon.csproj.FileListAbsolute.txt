@@ -790,3 +790,5 @@ C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.c
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.dll
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\DERMSCommon\obj\Debug\DERMSCommon.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\DERMSCommon\bin\Debug\Polenter.SharpSerializer.dll
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\DERMSCommon\bin\Debug\Polenter.SharpSerializer.xml

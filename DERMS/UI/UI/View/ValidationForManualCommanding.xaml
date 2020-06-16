@@ -7,11 +7,10 @@
         xmlns:local="clr-namespace:UI.View"
         mc:Ignorable="d"
         Background="#FF303030"
-        Title="PopUpWindow" Height="246.993" Width="250">
+        Title="PopUpWindow" Height="246.993" Width="320">
 
 	<Grid Background="#FF303030">
-		<Button Content="Close" HorizontalAlignment="Left" Margin="87,129,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-		<Label Content="Value is not valid!" Foreground="White" HorizontalAlignment="Left" Margin="51,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.358,1.281" Height="41" Width="159" FontSize="18"/>
-
+		<Button Content="Close" Name="Button" HorizontalAlignment="Left" Margin="106,154,0,0" VerticalAlignment="Top" Width="94" Click="Button_Click"/>
+		<Label Name="Labela" Foreground="White" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.358,1.281" Height="79" Width="284" FontSize="18"/>
 	</Grid>
 </Window>

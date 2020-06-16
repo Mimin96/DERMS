@@ -42,20 +42,32 @@ namespace UI.View
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			if (Increase.IsChecked == true)
+			try
 			{
-				((ManualCommandingViewModel)DataContext).Command(Double.Parse(ValueKW.Text), FlexibilityIncDec.Increase, Gid);
+				if (Increase.IsChecked == true)
+				{
+					((ManualCommandingViewModel)DataContext).Command(Double.Parse(ValueKW.Text), FlexibilityIncDec.Increase, Gid);
+				}
+				else
+				{
+					((ManualCommandingViewModel)DataContext).Command((-1) * Double.Parse(ValueKW.Text), FlexibilityIncDec.Decrease, Gid);
+				}
+
+				((ManualCommandingViewModel)DataContext).CloseConnection();
+
+				Gid = 0;
+
+				Close();
 			}
-			else
+			catch(Exception es)
 			{
-				((ManualCommandingViewModel)DataContext).Command((-1) * Double.Parse(ValueKW.Text), FlexibilityIncDec.Decrease, Gid);
+				ValidationForManualCommanding vfmc = new ValidationForManualCommanding("Please enter only positive digits!");
+				((ManualCommandingViewModel)DataContext).CloseConnection();
+				Gid = 0;
+				Close();
+				vfmc.Show();
 			}
 
-			((ManualCommandingViewModel)DataContext).CloseConnection();
-
-			Gid = 0;
-
-			Close();
 		}
 	}
 }

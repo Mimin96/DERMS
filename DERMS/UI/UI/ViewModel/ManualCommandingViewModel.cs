@@ -32,30 +32,50 @@ namespace UI.ViewModel
 		public void Command(double valueKW, FlexibilityIncDec incdec, long gid)
 		{
 			//ProxyCE.UpdateThroughUI(valueKW, incOrDec);
+			string text = "";
+
 			try
 			{
 				bool canManualCommand = false;
 
 				if (incdec.Equals(FlexibilityIncDec.Increase))
 				{
-					if (valueKW > Inc)
+					if (valueKW > 0)
 					{
-						canManualCommand = false;
+						if (valueKW > Inc)
+						{
+							text = "    Please enter value between \n	  0 and " + String.Format("{0:0.00}", Inc);
+							canManualCommand = false;
+						}
+						else
+						{
+							canManualCommand = true;
+						}
 					}
 					else
 					{
-						canManualCommand = true;
+						text = "Please enter positive value.";
+						canManualCommand = false;
 					}
 				}
 				else
 				{
-					if (-1 * valueKW > Dec)
+					if (valueKW < 0)
 					{
-						canManualCommand = false;
+						if (-1 * valueKW > Dec)
+						{
+							text = "    Please enter value between \n	  0 and " + String.Format("{0:0.00}", Dec);
+							canManualCommand = false;
+						}
+						else
+						{
+							canManualCommand = true;
+						}
 					}
 					else
 					{
-						canManualCommand = true;
+						text = "Please enter positive value.";
+						canManualCommand = false;
 					}
 				}
 
@@ -69,7 +89,7 @@ namespace UI.ViewModel
 				}
 				else
 				{
-					ValidationForManualCommanding validationForManualCommanding = new ValidationForManualCommanding();
+					ValidationForManualCommanding validationForManualCommanding = new ValidationForManualCommanding(text);
 					validationForManualCommanding.ShowDialog();
 				}
 			}

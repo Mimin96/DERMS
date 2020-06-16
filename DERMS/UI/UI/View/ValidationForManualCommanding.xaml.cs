@@ -19,10 +19,11 @@ namespace UI.View
 	/// </summary>
 	public partial class ValidationForManualCommanding : Window
 	{
-		public ValidationForManualCommanding()
+		public ValidationForManualCommanding(string text)
 		{
 			InitializeComponent();
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+			Labela.Content = text;
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)

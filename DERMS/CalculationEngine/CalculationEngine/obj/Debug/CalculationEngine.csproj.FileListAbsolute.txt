@@ -1310,3 +1310,5 @@ C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\CalculationEngine\CalculationEngine
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.exe
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\CalculationEngine\CalculationEngine\obj\Debug\CalculationEngine.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\Polenter.SharpSerializer.dll
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\CalculationEngine\CalculationEngine\bin\Debug\Polenter.SharpSerializer.xml

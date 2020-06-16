@@ -3239,3 +3239,5 @@ C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CoreCompi
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\UI\UI\obj\Debug\UI.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\UI\UI\obj\Debug\UI.exe
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\UI\UI\obj\Debug\UI.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\Polenter.SharpSerializer.dll
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\Polenter.SharpSerializer.xml

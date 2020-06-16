@@ -785,6 +785,11 @@ namespace CalculationEngineService
 										substationElementTreeClass.P = (float)currentProd;
 										substationElementTreeClass.MaxFlexibility = (float)(((maxProd - currentProd) * 100) / currentProd);
 										substationElementTreeClass.MinFlexibility = (float)(((currentProd - minProd) * 100) / currentProd);
+
+										IdentifiedObject gen = nmsCache[substationElementTreeClass.GID];
+										((Generator)gen).ConsiderP = substationElementTreeClass.P;
+										((Generator)gen).MaxFlexibility = substationElementTreeClass.MaxFlexibility;
+										((Generator)gen).MinFlexibility = substationElementTreeClass.MinFlexibility;
 									}
 								}
 							}

@@ -881,3 +881,5 @@ C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherFo
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.dll
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\WeatherForecast\obj\Debug\WeatherForecast.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\WeatherForecast\bin\Debug\Polenter.SharpSerializer.dll
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\WeatherForecast\bin\Debug\Polenter.SharpSerializer.xml

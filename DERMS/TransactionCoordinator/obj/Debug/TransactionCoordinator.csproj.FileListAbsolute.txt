@@ -1441,3 +1441,5 @@ C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\TransactionCoordinator\obj\Debug\Tr
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.exe
 C:\Users\Nemanja\Desktop\Git1006\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\TransactionCoordinator\bin\Debug\Polenter.SharpSerializer.dll
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\TransactionCoordinator\bin\Debug\Polenter.SharpSerializer.xml
