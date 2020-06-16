@@ -30,7 +30,7 @@ namespace dCom.Simulation
             // fa6d00664c0c9abf42654341ff91db31
             // e67254e31e12e23461c61e0fb0489142
             // ab42e06e054eb1164d36132c278edef9
-            darkSkyProxy = new DarkSkyService("ab42e06e054eb1164d36132c278edef9");
+            darkSkyProxy = new DarkSkyService("37076b047b44f229bd60d7bffb9a8c22");
         }
 
         public async void GetWeatherForecastAsyncSimulate()
@@ -77,7 +77,7 @@ namespace dCom.Simulation
                 }
                 float vrednost = 0;
 
-                vrednost = CalculateHourAhead(((Analog)kvp.Value).Name, ((Analog)kvp.Value).NormalValue, ((Analog)kvp.Value).Longitude, ((Analog)kvp.Value).Latitude);
+                vrednost = CalculateHourAhead(((Analog)kvp.Value).Name, ((Analog)kvp.Value).NormalValue, ((Analog)kvp.Value).Latitude, ((Analog)kvp.Value).Longitude);
                 foreach (KeyValuePair<List<long>, ushort> gidoviNaAdresu in GidoviNaAdresu)
                 {
                     if (gidoviNaAdresu.Key[1] == (((Analog)kvp.Value).GlobalId) && ((Analog)kvp.Value).Description == "Simulation")
