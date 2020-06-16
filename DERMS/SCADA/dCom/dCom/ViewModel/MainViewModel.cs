@@ -427,7 +427,7 @@ namespace dCom.ViewModel
                 CurrentTime = DateTime.Now;
                 ElapsedTime = ElapsedTime.Add(new TimeSpan(0, 0, 1));
                 acquisitionTrigger.Set();
-                if (brojac % 25 == 0 && nes < 2)
+                if (brojac % 30 == 0 && nes < 2)
                 {
                     ws.GetWeatherForecastAsyncSimulate();
                     nes++;

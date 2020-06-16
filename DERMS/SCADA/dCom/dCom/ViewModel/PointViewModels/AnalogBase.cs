@@ -94,7 +94,7 @@ namespace dCom.ViewModel
         {
             // TODO implement samo otkomentarisati
             EguValue = EGUConverter.ConvertToEGU(configItem.ScaleFactor, configItem.Deviation, newValue);
-            ProcessAlarm(EguValue);
+            ProcessAlarm(newValue);
         }
 
         private void ProcessAlarm(double eguValue)
