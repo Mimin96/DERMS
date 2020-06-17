@@ -135,10 +135,10 @@ namespace dCom.Configuration
 
                 configItem.ScaleFactor = 5;
                 configItem.Deviation = 2;
-                configItem.EGU_Min = 50;
-                configItem.EGU_Max = 400;
-                configItem.HighAlarm = 350;
-                configItem.LowAlarm = 60;
+                configItem.EGU_Min = (Int32)((Analog)analog.Value).MinValue - 5;
+                configItem.EGU_Max = (Int32)((Analog)analog.Value).MaxValue + 30;
+                configItem.HighAlarm = (Int32)((Analog)analog.Value).MaxValue;
+                configItem.LowAlarm = (Int32)((Analog)analog.Value).MinValue;
                 configItem.Gid = analog.Value.GlobalId;
                 configItem.GidGeneratora = ((Analog)analog.Value).PowerSystemResource;
                 configItem.NumberOfRegisters = 0;
