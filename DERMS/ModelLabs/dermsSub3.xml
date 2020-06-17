@@ -481,8 +481,8 @@
 		<cim:IdentifiedObject.mRID>a_27</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>Solar</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
-		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>			
+		<cim:Analog.maxValue>250</cim:Analog.maxValue>			
+		<cim:Analog.minValue>50</cim:Analog.minValue>			
 		<cim:Measurement.powerSystemResource rdf:resource="g_7"/>			
 	</cim:Analog>
 	
@@ -491,8 +491,8 @@
 		<cim:IdentifiedObject.mRID>a_273</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>Solar</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
-		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>			
+		<cim:Analog.maxValue>250</cim:Analog.maxValue>			
+		<cim:Analog.minValue>50</cim:Analog.minValue>		
 		<cim:Measurement.powerSystemResource rdf:resource="g_7"/>			
 	</cim:Analog>
 	
@@ -502,8 +502,8 @@
 		<cim:IdentifiedObject.name>Solar</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
 		<cim:Analog.normalValue>0</cim:Analog.normalValue>	
-		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>			
+		<cim:Analog.maxValue>250</cim:Analog.maxValue>			
+		<cim:Analog.minValue>50</cim:Analog.minValue>			
 		<cim:Measurement.powerSystemResource rdf:resource="g_7"/>			
 	</cim:Analog>
 	
@@ -806,8 +806,8 @@
 		<cim:IdentifiedObject.mRID>a_126</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>Wind</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
-		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>			
+		<cim:Analog.maxValue>20</cim:Analog.maxValue>			
+		<cim:Analog.minValue>10</cim:Analog.minValue>			
 		<!-- <cim:Analog.normalValue>3</cim:Analog.normalValue>	 -->
 		<cim:Measurement.powerSystemResource rdf:resource="g_26"/>	
 		
@@ -818,8 +818,8 @@
 		<cim:IdentifiedObject.mRID>a_226</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>Wind</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
-		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>			
+		<cim:Analog.maxValue>20</cim:Analog.maxValue>			
+		<cim:Analog.minValue>10</cim:Analog.minValue>			
 		<!-- <cim:Analog.normalValue>3</cim:Analog.normalValue>	 -->
 		<cim:Measurement.powerSystemResource rdf:resource="g_26"/>	
 		
@@ -830,8 +830,8 @@
 		<cim:IdentifiedObject.mRID>a_26</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>Wind</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
-		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>			
+		<cim:Analog.maxValue>20</cim:Analog.maxValue>			
+		<cim:Analog.minValue>10</cim:Analog.minValue>			
 		<cim:Analog.normalValue>0</cim:Analog.normalValue>	
 		<cim:Measurement.powerSystemResource rdf:resource="g_26"/>	
 		

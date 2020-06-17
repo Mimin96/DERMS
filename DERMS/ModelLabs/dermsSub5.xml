@@ -471,8 +471,8 @@
 		<cim:IdentifiedObject.mRID>a_275</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>A275</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
-		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>			
+		<cim:Analog.maxValue>250</cim:Analog.maxValue>			
+		<cim:Analog.minValue>50</cim:Analog.minValue>			
 		<cim:Measurement.powerSystemResource rdf:resource="g_75"/>			
 	</cim:Analog>
 	
@@ -481,8 +481,8 @@
 		<cim:IdentifiedObject.mRID>a_2735</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>A2735</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
-		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>			
+		<cim:Analog.maxValue>250</cim:Analog.maxValue>			
+		<cim:Analog.minValue>50</cim:Analog.minValue>			
 		<cim:Measurement.powerSystemResource rdf:resource="g_75"/>			
 	</cim:Analog>
 	
@@ -491,8 +491,8 @@
 		<cim:IdentifiedObject.mRID>a_27335</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>A27335</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
-		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>			
+		<cim:Analog.maxValue>250</cim:Analog.maxValue>			
+		<cim:Analog.minValue>50</cim:Analog.minValue>			
 		<cim:Measurement.powerSystemResource rdf:resource="g_75"/>			
 	</cim:Analog>
 	
@@ -921,8 +921,8 @@
 		<cim:IdentifiedObject.mRID>a_1265</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>A1265</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
-		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>			
+		<cim:Analog.maxValue>20</cim:Analog.maxValue>			
+		<cim:Analog.minValue>10</cim:Analog.minValue>			
 		<!-- <cim:Analog.normalValue>3</cim:Analog.normalValue>	 -->
 		<cim:Measurement.powerSystemResource rdf:resource="g_265"/>	
 		
@@ -933,8 +933,8 @@
 		<cim:IdentifiedObject.mRID>a_2265</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>A2265</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
-		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>
+		<cim:Analog.maxValue>20</cim:Analog.maxValue>			
+		<cim:Analog.minValue>10</cim:Analog.minValue>
 		<cim:Measurement.powerSystemResource rdf:resource="g_265"/>			
 	</cim:Analog>
 	
@@ -943,8 +943,8 @@
 		<cim:IdentifiedObject.mRID>a_265</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>A265</cim:IdentifiedObject.name>
 		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
-		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
-		<cim:Analog.minValue>2</cim:Analog.minValue>	
+		<cim:Analog.maxValue>20</cim:Analog.maxValue>			
+		<cim:Analog.minValue>10</cim:Analog.minValue>	
 		<cim:Measurement.powerSystemResource rdf:resource="g_265"/>			
 	</cim:Analog>
 	

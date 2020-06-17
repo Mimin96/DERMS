@@ -65,10 +65,7 @@ namespace UI.ViewModel
             _max = false;
             _avg = false;
             _selectedGID = 0;
-            string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SCADA;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            ReadFromDayTable(connectionString);
-            ReadFromMonthTable(connectionString);
-            ReadFromYearTable(connectionString);
+            
         }
 
         #region Properties
@@ -265,6 +262,11 @@ namespace UI.ViewModel
         }
         public void SubstationElementCommandExecute(long gid)
         {
+            string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SCADA;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+            ReadFromDayTable(connectionString);
+            ReadFromMonthTable(connectionString);
+            ReadFromYearTable(connectionString);
             for (int j = 0; j <= 24; j++)
                 _chartValues[j] = -100.0;
             for (int j = 0; j <= 31; j++)
@@ -366,7 +368,7 @@ namespace UI.ViewModel
                 {
                     foreach (var l in listDayItems)
                     {
-                        if (l.PMax > max)
+                        if (l.PMax >= max)
                         {
                             max = l.PMax;
                             hour = l.Timestamp.Hour;
@@ -387,7 +389,7 @@ namespace UI.ViewModel
                 {
                     foreach (var l in listMonthItems)
                     {
-                        if (l.PMax > max)
+                        if (l.PMax >= max)
                         {
                             max = l.PMax;
                             day = l.Timestamp.Day;
@@ -406,7 +408,7 @@ namespace UI.ViewModel
                 {
                     foreach (var l in listYearItems)
                     {
-                        if (l.PMax > max)
+                        if (l.PMax >= max)
                         {
                             max = l.PMax;
                             month = l.Timestamp.Month;

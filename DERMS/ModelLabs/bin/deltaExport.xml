@@ -1,365 +1,387 @@
 ﻿<delta id="0">
   <operations>
     <operation type="update">
-      <ResourceDescriptions count="90">
+      <ResourceDescriptions count="91">
         <ResourceDescription>
           <id gid="0x0000000100000001" type="GEOGRAPHICALREGION" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000b00000001" type="SUBGEOGRAPHICALREGION" />
+          <id gid="0x0000000b00000002" type="SUBGEOGRAPHICALREGION" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000a00000002" type="SUBSTATION" />
+          <id gid="0x0000000a00000003" type="SUBSTATION" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000200000003" type="BREAKER" />
+          <id gid="0x0000000200000005" type="BREAKER" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000200000004" type="BREAKER" />
+          <id gid="0x0000000200000006" type="BREAKER" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000500000003" type="GENERATOR" />
+          <id gid="0x0000000500000005" type="GENERATOR" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000500000004" type="GENERATOR" />
+          <id gid="0x0000000500000006" type="GENERATOR" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000040000000c" type="ENERGYCONSUMER" />
+          <id gid="0x0000000400000015" type="ENERGYCONSUMER" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000040000000d" type="ENERGYCONSUMER" />
+          <id gid="0x0000000400000016" type="ENERGYCONSUMER" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000040000000e" type="ENERGYCONSUMER" />
+          <id gid="0x0000000400000017" type="ENERGYCONSUMER" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000040000000f" type="ENERGYCONSUMER" />
+          <id gid="0x0000000400000018" type="ENERGYCONSUMER" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000400000010" type="ENERGYCONSUMER" />
+          <id gid="0x0000000400000019" type="ENERGYCONSUMER" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000400000011" type="ENERGYCONSUMER" />
+          <id gid="0x000000040000001a" type="ENERGYCONSUMER" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000400000012" type="ENERGYCONSUMER" />
+          <id gid="0x000000040000001b" type="ENERGYCONSUMER" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000400000013" type="ENERGYCONSUMER" />
+          <id gid="0x000000040000001c" type="ENERGYCONSUMER" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000400000014" type="ENERGYCONSUMER" />
+          <id gid="0x000000040000001d" type="ENERGYCONSUMER" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000900000002" type="ENEGRYSOURCE" />
+          <id gid="0x0000000900000003" type="ENEGRYSOURCE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000c00000005" type="ACLINESEGMENT" />
+          <id gid="0x0000000c00000009" type="ACLINESEGMENT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000c00000006" type="ACLINESEGMENT" />
+          <id gid="0x0000000c0000000a" type="ACLINESEGMENT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000c00000007" type="ACLINESEGMENT" />
+          <id gid="0x0000000c0000000b" type="ACLINESEGMENT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000c00000008" type="ACLINESEGMENT" />
+          <id gid="0x0000000c0000000c" type="ACLINESEGMENT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d00000015" type="POINT" />
+          <id gid="0x0000000d00000026" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d00000016" type="POINT" />
+          <id gid="0x0000000d00000027" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d00000017" type="POINT" />
+          <id gid="0x0000000d00000028" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d00000018" type="POINT" />
+          <id gid="0x0000000d00000029" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d00000019" type="POINT" />
+          <id gid="0x0000000d0000002a" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d0000001a" type="POINT" />
+          <id gid="0x0000000d0000002b" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d0000001b" type="POINT" />
+          <id gid="0x0000000d0000002c" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d0000001c" type="POINT" />
+          <id gid="0x0000000d0000002d" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d0000001d" type="POINT" />
+          <id gid="0x0000000d0000002e" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d0000001e" type="POINT" />
+          <id gid="0x0000000d0000002f" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d0000001f" type="POINT" />
+          <id gid="0x0000000d00000030" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d00000020" type="POINT" />
+          <id gid="0x0000000d00000031" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d00000021" type="POINT" />
+          <id gid="0x0000000d00000032" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d00000022" type="POINT" />
+          <id gid="0x0000000d00000033" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d00000023" type="POINT" />
+          <id gid="0x0000000d00000034" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d00000024" type="POINT" />
+          <id gid="0x0000000d00000035" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000d00000025" type="POINT" />
+          <id gid="0x0000000d00000036" type="POINT" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000300000011" type="CONNECTIVITYNODE" />
+          <id gid="0x000000030000001f" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000300000012" type="CONNECTIVITYNODE" />
+          <id gid="0x0000000300000020" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000300000013" type="CONNECTIVITYNODE" />
+          <id gid="0x0000000300000021" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000300000014" type="CONNECTIVITYNODE" />
+          <id gid="0x0000000300000022" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000300000015" type="CONNECTIVITYNODE" />
+          <id gid="0x0000000300000023" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000300000016" type="CONNECTIVITYNODE" />
+          <id gid="0x0000000300000024" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000300000017" type="CONNECTIVITYNODE" />
+          <id gid="0x0000000300000025" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000300000018" type="CONNECTIVITYNODE" />
+          <id gid="0x0000000300000026" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000300000019" type="CONNECTIVITYNODE" />
+          <id gid="0x0000000300000027" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000030000001a" type="CONNECTIVITYNODE" />
+          <id gid="0x0000000300000028" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000030000001b" type="CONNECTIVITYNODE" />
+          <id gid="0x0000000300000029" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000030000001c" type="CONNECTIVITYNODE" />
+          <id gid="0x000000030000002a" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000030000001d" type="CONNECTIVITYNODE" />
+          <id gid="0x000000030000002b" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000030000001e" type="CONNECTIVITYNODE" />
+          <id gid="0x000000030000002c" type="CONNECTIVITYNODE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000024" type="TERMINAL" />
+          <id gid="0x0000000600000042" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000025" type="TERMINAL" />
+          <id gid="0x0000000600000043" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000026" type="TERMINAL" />
+          <id gid="0x0000000600000044" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000027" type="TERMINAL" />
+          <id gid="0x0000000600000045" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000028" type="TERMINAL" />
+          <id gid="0x0000000600000046" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000029" type="TERMINAL" />
+          <id gid="0x0000000600000047" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000060000002a" type="TERMINAL" />
+          <id gid="0x0000000600000048" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000060000002b" type="TERMINAL" />
+          <id gid="0x0000000600000049" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000060000002c" type="TERMINAL" />
+          <id gid="0x000000060000004a" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000060000002d" type="TERMINAL" />
+          <id gid="0x000000060000004b" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000060000002e" type="TERMINAL" />
+          <id gid="0x000000060000004c" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000060000002f" type="TERMINAL" />
+          <id gid="0x000000060000004d" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000030" type="TERMINAL" />
+          <id gid="0x000000060000004e" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000031" type="TERMINAL" />
+          <id gid="0x000000060000004f" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000032" type="TERMINAL" />
+          <id gid="0x0000000600000050" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000033" type="TERMINAL" />
+          <id gid="0x0000000600000051" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000034" type="TERMINAL" />
+          <id gid="0x0000000600000052" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000035" type="TERMINAL" />
+          <id gid="0x0000000600000053" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000036" type="TERMINAL" />
+          <id gid="0x0000000600000054" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000037" type="TERMINAL" />
+          <id gid="0x0000000600000055" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000038" type="TERMINAL" />
+          <id gid="0x0000000600000056" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000039" type="TERMINAL" />
+          <id gid="0x0000000600000057" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000060000003a" type="TERMINAL" />
+          <id gid="0x0000000600000058" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000060000003b" type="TERMINAL" />
+          <id gid="0x0000000600000059" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000060000003c" type="TERMINAL" />
+          <id gid="0x000000060000005a" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000060000003d" type="TERMINAL" />
+          <id gid="0x000000060000005b" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000060000003e" type="TERMINAL" />
+          <id gid="0x000000060000005c" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000060000003f" type="TERMINAL" />
+          <id gid="0x000000060000005d" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000040" type="TERMINAL" />
+          <id gid="0x000000060000005e" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000600000041" type="TERMINAL" />
+          <id gid="0x000000060000005f" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000700000007" type="ANALOG" />
+          <id gid="0x0000000600000060" type="TERMINAL" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000700000008" type="ANALOG" />
-          <Properties />
+          <id gid="0x000000070000000d" type="ANALOG" />
+          <Properties>
+            <Property id="ANALOG_MAX_VALUE" value="20" />
+            <Property id="ANALOG_MIN_VALUE" value="10" />
+          </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000700000009" type="ANALOG" />
-          <Properties />
+          <id gid="0x000000070000000e" type="ANALOG" />
+          <Properties>
+            <Property id="ANALOG_MAX_VALUE" value="20" />
+            <Property id="ANALOG_MIN_VALUE" value="10" />
+          </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000070000000a" type="ANALOG" />
-          <Properties />
+          <id gid="0x000000070000000f" type="ANALOG" />
+          <Properties>
+            <Property id="ANALOG_MAX_VALUE" value="20" />
+            <Property id="ANALOG_MIN_VALUE" value="10" />
+          </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000070000000b" type="ANALOG" />
-          <Properties />
+          <id gid="0x0000000700000010" type="ANALOG" />
+          <Properties>
+            <Property id="ANALOG_MAX_VALUE" value="250" />
+            <Property id="ANALOG_MIN_VALUE" value="50" />
+          </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x000000070000000c" type="ANALOG" />
-          <Properties />
+          <id gid="0x0000000700000011" type="ANALOG" />
+          <Properties>
+            <Property id="ANALOG_MAX_VALUE" value="250" />
+            <Property id="ANALOG_MIN_VALUE" value="50" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x0000000700000012" type="ANALOG" />
+          <Properties>
+            <Property id="ANALOG_MAX_VALUE" value="250" />
+            <Property id="ANALOG_MIN_VALUE" value="50" />
+          </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000800000003" type="DISCRETE" />
+          <id gid="0x0000000800000005" type="DISCRETE" />
           <Properties />
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x0000000800000004" type="DISCRETE" />
+          <id gid="0x0000000800000006" type="DISCRETE" />
           <Properties />
         </ResourceDescription>
       </ResourceDescriptions>
