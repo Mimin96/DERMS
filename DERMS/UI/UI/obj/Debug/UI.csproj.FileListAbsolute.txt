@@ -3243,3 +3243,7 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\Polenter.S
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\UI\UI\bin\Debug\Polenter.SharpSerializer.xml
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Polenter.SharpSerializer.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Polenter.SharpSerializer.xml
+C:\Users\Filip\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Polenter.SharpSerializer.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Polenter.SharpSerializer.xml
+C:\Users\Filip\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\ValidationForManualCommanding.g.cs
+C:\Users\Filip\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\ValidationForManualCommanding.baml

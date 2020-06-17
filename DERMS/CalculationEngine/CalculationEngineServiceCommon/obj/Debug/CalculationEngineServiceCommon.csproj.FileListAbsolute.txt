@@ -934,3 +934,5 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\CalculationEngine\Calculat
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\Polenter.SharpSerializer.xml
 C:\Users\Andrej\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\Polenter.SharpSerializer.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\Polenter.SharpSerializer.xml
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\Polenter.SharpSerializer.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\CalculationEngine\CalculationEngineServiceCommon\bin\Debug\Polenter.SharpSerializer.xml

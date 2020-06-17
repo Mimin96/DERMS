@@ -794,3 +794,5 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\DERMSCommon\bin\Debug\Pole
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\DERMS\DERMSCommon\bin\Debug\Polenter.SharpSerializer.xml
 C:\Users\Andrej\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\Polenter.SharpSerializer.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\Polenter.SharpSerializer.xml
+C:\Users\Filip\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\Polenter.SharpSerializer.dll
+C:\Users\Filip\Desktop\DERMS\DERMS\DERMSCommon\bin\Debug\Polenter.SharpSerializer.xml
