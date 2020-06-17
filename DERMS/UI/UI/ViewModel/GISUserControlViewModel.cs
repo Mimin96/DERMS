@@ -268,8 +268,6 @@ namespace UI.ViewModel
                     Generator generator = (Generator)selected.Data.IdentifiedObject;
                     stringBuilder.AppendFormat("Type: {0}{1}", generator.GeneratorType.ToString(), Environment.NewLine);
                     stringBuilder.AppendFormat("Consider P: {0}{1}", generator.ConsiderP, Environment.NewLine);
-                    stringBuilder.AppendFormat("Min Q: {0}     ", generator.MinQ);
-                    stringBuilder.AppendFormat("Max Q: {0}{1}", generator.MaxQ, Environment.NewLine);
                     substationGID = generator.Container;
                     measurementGIDs = generator.Measurements;
                     break;

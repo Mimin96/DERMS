@@ -382,8 +382,6 @@ namespace UI.ViewModel
                 data += "Position: " + generator.Latitude + ", " + generator.Longitude + "\n";
                 data += "Name: " + generator.Name + "\n";
                 data += "Type: " + generator.GeneratorType.ToString() + "\n";
-                data += "MaxQ: " + generator.MaxQ + "\n";
-                data += "MinQ: " + generator.MinQ + "\n";
 
                 foreach (long gid in generator.Measurements)
                 {
