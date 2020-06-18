@@ -51,11 +51,12 @@ namespace UI.ViewModel
         private IChartValues chartValues2;
         private IChartValues chartValues3;
         private List<long> OptimizatedElements;
+        //private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
+        #region Properties
         private Dictionary<long, DerForecastDayAhead> ProductionDerForecastDayAhead { get; set; }
         private List<long> DisableAutomaticOptimization { get; set; }
         private ClientSideProxy ClientSideProxy { get; set; }
-        private CalculationEnginePubSub CalculationEnginePubSub { get; set; }
-        #region Properties
+        public ObservableCollection<NetworkModelViewClass> NetworkModelItems { get; set; }
         public string CurrentTime
         {
             get
@@ -229,6 +230,9 @@ namespace UI.ViewModel
             }
         }
 
+        public ChartValues<ObservableValue> Values1 { get; set; }
+        public ChartValues<ObservableValue> Values2 { get; set; }
+
         public Visibility VisibilityConsumption { get { return visibilityConsumption; } set { visibilityConsumption = value; OnPropertyChanged("VisibilityConsumption"); } }
         public Visibility VisibilityDERProduction { get { return visibilityDERProduction; } set { visibilityDERProduction = value; OnPropertyChanged("VisibilityDERProduction"); } }
         public Visibility VisibilityGridDemands { get { return visibilityGridDemands; } set { visibilityGridDemands = value; OnPropertyChanged("VisibilityGridDemands"); } }
@@ -343,8 +347,6 @@ namespace UI.ViewModel
         }
         #endregion
 
-        public ObservableCollection<NetworkModelViewClass> NetworkModelItems { get; set; }
-
         public DERDashboardUserControlViewModel(DERDashboardUserControl dERDashboardUserControl)
         {
             //Consumption = "";
@@ -366,15 +368,15 @@ namespace UI.ViewModel
 
             this.dERDashboardUserControl = dERDashboardUserControl;
 
-            Mediator.Register("DerForecastDayAhead", DERDashboardDerForecastDayAhead);
-            Mediator.Register("Flexibility", DERDashboardFlexibility);
+           // Mediator.Register("DerForecastDayAhead", DERDashboardDerForecastDayAhead);
+            //Mediator.Register("Flexibility", DERDashboardFlexibility);
 
             CurrentSelectedGid = 0;
 
-            ClientSideProxy = new ClientSideProxy();
-            CalculationEnginePubSub = new CalculationEnginePubSub();
-            ClientSideProxy.StartServiceHost(CalculationEnginePubSub);
-            ClientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
+           // ClientSideProxy =  ClientSideProxy.Instance;
+            //CalculationEnginePubSub = new CalculationEnginePubSub();
+            //ClientSideProxy.StartServiceHost(CalculationEnginePubSub);
+            //ClientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
             dERDashboardUserControl.ManualCommanding.IsEnabled = false;
 
             timerWorker = new Thread(TimerWorker_DoWork);
@@ -602,9 +604,6 @@ namespace UI.ViewModel
 
             //
         }
-
-        public ChartValues<ObservableValue> Values1 { get; set; }
-        public ChartValues<ObservableValue> Values2 { get; set; }
 
         private void MoveOnClick(object sender, RoutedEventArgs e)
         {

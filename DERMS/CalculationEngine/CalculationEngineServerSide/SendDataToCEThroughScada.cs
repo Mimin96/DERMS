@@ -1,4 +1,5 @@
 ﻿using CalculationEngineServiceCommon;
+using DERMSCommon;
 using DERMSCommon.SCADACommon;
 using DERMSCommon.SmartCache;
 using System;
@@ -18,8 +19,11 @@ namespace CalculationEngineService
             //smartCache.WriteToFile(data);
             //CAKI
             CalculationEngineCache.Instance.UpdateGraphWithScadaValues(data);
-            ClientSideCE.Instance.ProxyUI_NM.SendDataUI(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass);
-            ClientSideCE.Instance.ProxyUI.SendScadaDataToUI(data);
+
+            PubSubCalculatioEngine.Instance.Notify(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
+            PubSubCalculatioEngine.Instance.Notify(data, (int)Enums.Topics.DataPoints);
+            //ClientSideCE.Instance.ProxyUI_NM.SendDataUI(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass);
+            //ClientSideCE.Instance.ProxyUI.SendScadaDataToUI(data);
         }
     }
 }

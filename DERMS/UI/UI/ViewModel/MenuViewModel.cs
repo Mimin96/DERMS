@@ -29,10 +29,12 @@ namespace UI.ViewModel
         private UserControl _userControlPresenter;
         private Button _selectedMenuItem;
         private RelayCommand<object> _menuSelectCommand;
-        private CommunicationProxy _proxy;
+        //private CommunicationProxy _proxy;
         private ClientSideProxy _clientSideProxy;
-        private CalculationEnginePubSub _calculationEnginePubSub;
+        //private CalculationEnginePubSub _calculationEnginePubSub;
         private List<DataPoint> _SCADAData;
+        private object _dERDashboardDerForecastDayAhead;
+        private object _dERDashboardFlexibility;
         #endregion
 
         public MenuViewModel()
@@ -40,15 +42,20 @@ namespace UI.ViewModel
             Mediator.Register("SCADADataPoint", GetSCADAData);
             Mediator.Register("NMSNetworkModelData", GetNetworkModelFromProxy);
             Mediator.Register("NetworkModelTreeClass", NetworkModelTreeClassChangedMenu);
+            Mediator.Register("Flexibility", DERDashboardFlexibility);
+            Mediator.Register("DerForecastDayAhead", DERDashboardDerForecastDayAhead);
 
-            _clientSideProxy = new ClientSideProxy();
-            _calculationEnginePubSub = new CalculationEnginePubSub();
-            _clientSideProxy.StartServiceHost(_calculationEnginePubSub);
+            _clientSideProxy = ClientSideProxy.Instance;
+            
             _clientSideProxy.Subscribe((int)Enums.Topics.DerForecastDayAhead);
             _clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass);
 
-            _proxy = new CommunicationProxy();
-            _proxy.Open();
+            _clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass_NodeData);
+            _clientSideProxy.Subscribe((int)Enums.Topics.DataPoints);
+
+            _clientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
+            //_proxy = new CommunicationProxy();
+            //_proxy.Open();
 
             Logger.Log("UI is started.", Enums.Component.UI, Enums.LogLevel.Info);
         }
@@ -136,6 +143,22 @@ namespace UI.ViewModel
             if (UserControlPresenter.GetType().Name == "GISUserControl")
                 ((GISUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
             //SetUserContro("GIS");
+        }
+
+        public void DERDashboardFlexibility(object parameter) 
+        {
+            _dERDashboardFlexibility = parameter;
+
+            if (UserControlPresenter.GetType().Name == "DERDashboardUserControl")
+                ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).DERDashboardFlexibility(parameter);
+        }
+
+        public void DERDashboardDerForecastDayAhead(object parameter) 
+        {
+            _dERDashboardDerForecastDayAhead = parameter;
+
+            if (UserControlPresenter.GetType().Name == "DERDashboardUserControl")
+                ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).DERDashboardDerForecastDayAhead(parameter);
         }
         public void NetworkModelTreeClassChangedMenu(object parameter)
         {
@@ -234,6 +257,9 @@ namespace UI.ViewModel
                     UserControlPresenter = new DERDashboardUserControl();
                     ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
                     ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;
+                    if(_dERDashboardFlexibility != null)
+                        ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).DERDashboardFlexibility(_dERDashboardFlexibility);
+                    ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).DERDashboardDerForecastDayAhead(_dERDashboardDerForecastDayAhead);
                     break;
                 case "NetworkModel":
                     UserControlPresenter = new NetworkModelUserControl();

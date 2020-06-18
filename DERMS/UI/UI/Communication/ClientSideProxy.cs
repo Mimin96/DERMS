@@ -18,8 +18,27 @@ namespace UI.Communication
         private IPubSubCalculateEngine proxy = null;
         private ChannelFactory<IPubSubCalculateEngine> factory;
         private ServiceHost serviceHost;
+        private static CalculationEnginePubSub _calculationEnginePubSub;
 
-        public ClientSideProxy()
+        private static ClientSideProxy instance = null;
+        public static ClientSideProxy Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new ClientSideProxy();
+
+                    _calculationEnginePubSub = new CalculationEnginePubSub();
+                    instance.StartServiceHost(_calculationEnginePubSub);
+                }
+
+                return instance;
+
+            }
+        }
+
+        private ClientSideProxy()
         {
             string ipAddress = GetLocalIPAddress();
             int port = GetAvailablePort();

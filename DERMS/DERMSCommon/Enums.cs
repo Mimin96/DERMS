@@ -29,9 +29,11 @@ namespace DERMSCommon
         {
             DerForecastDayAhead = 1,
             Flexibility,
-			NetworkModelTreeClass
-			//TREBA VIDETI SA CAVICEM KO SE SVE PRETPLACUJE NA PUBSUB
-		}
+			NetworkModelTreeClass,
+            DataPoints,
+            NetworkModelTreeClass_NodeData
+            //TREBA VIDETI SA CAVICEM KO SE SVE PRETPLACUJE NA PUBSUB
+        }
 
 		public enum FlexibilityIncDec
 		{

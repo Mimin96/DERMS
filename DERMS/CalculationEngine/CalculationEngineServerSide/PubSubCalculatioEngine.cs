@@ -1,5 +1,7 @@
 ﻿using CalculationEngineServiceCommon;
 using DERMSCommon;
+using DERMSCommon.SCADACommon;
+using DERMSCommon.UIModel.ThreeViewModel;
 using DERMSCommon.WeatherForecast;
 using System;
 using System.Collections.Generic;
@@ -59,6 +61,102 @@ namespace CalculationEngineService
                     try
                     {
                         subscriber.Proxy.SendScadaDataToUI(data);
+                    }
+                    catch (CommunicationException)
+                    {
+                        subscriber.Abort();
+                        subscriber.Connect();
+                    }
+                    catch (TimeoutException)
+                    {
+                        subscriber.Abort();
+                        subscriber.Connect();
+                    }
+                }
+                else
+                {
+                    deadSubscribers.Add(subscriberAddress);
+                }
+
+                topicSubscriptions.RemoveDeadSubscribers(gidOfTopic, deadSubscribers);
+            }
+
+            RemoveDeadClients(deadClients);
+        }
+
+        public void Notify(List<DataPoint> data, int gidOfTopic) 
+        {
+            if (data == null || subscribers.Count == 0)
+            {
+                return;
+            }
+
+            Dictionary<string, ServerSideProxy> subscribersCopy;
+            List<string> deadClients = new List<string>();
+            lock (subscribersLock)
+            {
+                subscribersCopy = new Dictionary<string, ServerSideProxy>(subscribers);
+            }
+
+            List<string> topicSubscribers = topicSubscriptions.GetSubscribers(gidOfTopic);
+            List<string> deadSubscribers = new List<string>();
+            foreach (string subscriberAddress in topicSubscribers)
+            {
+                if (subscribersCopy.ContainsKey(subscriberAddress))
+                {
+                    ServerSideProxy subscriber = subscribersCopy[subscriberAddress];
+
+                    try
+                    {
+                        subscriber.Proxy.SendScadaDataToUIDataPoint(data);
+                    }
+                    catch (CommunicationException)
+                    {
+                        subscriber.Abort();
+                        subscriber.Connect();
+                    }
+                    catch (TimeoutException)
+                    {
+                        subscriber.Abort();
+                        subscriber.Connect();
+                    }
+                }
+                else
+                {
+                    deadSubscribers.Add(subscriberAddress);
+                }
+
+                topicSubscriptions.RemoveDeadSubscribers(gidOfTopic, deadSubscribers);
+            }
+
+            RemoveDeadClients(deadClients);
+        }
+
+        public void Notify(TreeNode<NodeData> data, List<NetworkModelTreeClass> NetworkModelTreeClass, int gidOfTopic) 
+        {
+            if (data == null || NetworkModelTreeClass == null || subscribers.Count == 0)
+            {
+                return;
+            }
+
+            Dictionary<string, ServerSideProxy> subscribersCopy;
+            List<string> deadClients = new List<string>();
+            lock (subscribersLock)
+            {
+                subscribersCopy = new Dictionary<string, ServerSideProxy>(subscribers);
+            }
+
+            List<string> topicSubscribers = topicSubscriptions.GetSubscribers(gidOfTopic);
+            List<string> deadSubscribers = new List<string>();
+            foreach (string subscriberAddress in topicSubscribers)
+            {
+                if (subscribersCopy.ContainsKey(subscriberAddress))
+                {
+                    ServerSideProxy subscriber = subscribersCopy[subscriberAddress];
+
+                    try
+                    {
+                        subscriber.Proxy.SendDataUI(data, NetworkModelTreeClass);
                     }
                     catch (CommunicationException)
                     {

@@ -1,4 +1,5 @@
-﻿using DERMSCommon.NMSCommuication;
+﻿using DERMSCommon;
+using DERMSCommon.NMSCommuication;
 using DERMSCommon.WeatherForecast;
 using FTN.Common;
 
@@ -45,7 +46,8 @@ namespace CalculationEngineService
             // POZIV FLEXIBILITYA RADI TESTA
             //CalculationEngineCache.Instance.PopulateFlexibility(networkModel); 
 
-            ClientSideCE.Instance.ProxyUI_NM.SendDataUI(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass);
+            //ClientSideCE.Instance.ProxyUI_NM.SendDataUI(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass);
+            PubSubCalculatioEngine.Instance.Notify(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass,(int)Enums.Topics.NetworkModelTreeClass_NodeData);
             if (networkModel != null)
                 return true;
             else
