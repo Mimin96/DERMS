@@ -37,8 +37,8 @@ namespace dCom.Simulation
         {
             //MOCK_Start
             bool isFileFull = true;
-            Dictionary<long, List<HourDataPoint>> keyValuePairs = new Dictionary<long, List<HourDataPoint>>();
-            //Dictionary<long, List<HourDataPoint>> keyValuePairs = cache.ReadFromFileDataPoint();
+            //Dictionary<long, List<HourDataPoint>> keyValuePairs = new Dictionary<long, List<HourDataPoint>>();
+            Dictionary<long, List<HourDataPoint>> keyValuePairs = cache.ReadFromFileDataPoint();
 
             if (keyValuePairs.Count == 0)
                 isFileFull = false;

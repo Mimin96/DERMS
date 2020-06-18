@@ -49,11 +49,10 @@ namespace UI.ViewModel
             
             _clientSideProxy.Subscribe((int)Enums.Topics.DerForecastDayAhead);
             _clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass);
-
-            _clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass_NodeData);
-            _clientSideProxy.Subscribe((int)Enums.Topics.DataPoints);
-
             _clientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
+
+            _clientSideProxy.Subscribe((int)Enums.Topics.DataPoints);
+            _clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass_NodeData);
             //_proxy = new CommunicationProxy();
             //_proxy.Open();
 

@@ -26,6 +26,7 @@ namespace CalculationEngineService
         private Dictionary<long, Forecast> derWeatherCached = new Dictionary<long, Forecast>();
         private Dictionary<long, DerForecastDayAhead> productionCached = new Dictionary<long, DerForecastDayAhead>();
         private TreeNode<NodeData> graphCached;
+        public List<DataPoint> DataPoints { get; set; }
 
         private Dictionary<long, DerForecastDayAhead> copyOfProductionCached = new Dictionary<long, DerForecastDayAhead>();
         private Dictionary<long, double> listOfGeneratorsForScada = new Dictionary<long, double>();
@@ -101,7 +102,7 @@ namespace CalculationEngineService
             double lat, lon;
 
             //MOCK_Start
-            //derWeatherCached = cache.ReadFromFile();
+            derWeatherCached = cache.ReadFromFile();
             if (derWeatherCached.Count > 0)
             {
                 foreach (Forecast forecast in derWeatherCached.Values)
@@ -1354,6 +1355,28 @@ namespace CalculationEngineService
             }
         }
         #endregion
+
+        public void UpdateNewDataPoitns(List<DataPoint> points) 
+        {
+            if (DataPoints == null)
+                DataPoints = new List<DataPoint>();
+
+            foreach (DataPoint data in points)
+            {
+                if (DataPoints.Where(x => x.Gid == data.Gid).Count() == 0)
+                {
+                    DataPoints.Add(data);
+                }
+                else 
+                {
+                    //DataPoint point = DataPoints.Where(x => x.Gid == data.Gid).FirstOrDefault();
+                    DataPoints[DataPoints.FindIndex(ind => ind.Gid == data.Gid)] = data;
+
+                    //DataPoints.Remove(point);
+                   // DataPoints.Add(data);
+                }
+            }
+        }
 
         #region Update Tree From SCADA
         public void UpdateGraphWithScadaValues(List<DataPoint> data)

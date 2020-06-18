@@ -20,6 +20,8 @@ namespace CalculationEngineService
             //CAKI
             CalculationEngineCache.Instance.UpdateGraphWithScadaValues(data);
 
+            CalculationEngineCache.Instance.UpdateNewDataPoitns(data);
+
             PubSubCalculatioEngine.Instance.Notify(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
             PubSubCalculatioEngine.Instance.Notify(data, (int)Enums.Topics.DataPoints);
             //ClientSideCE.Instance.ProxyUI_NM.SendDataUI(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass);

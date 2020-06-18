@@ -18,7 +18,7 @@ namespace CalculationEngineService
         private Dictionary<string, ServerSideProxy> subscribers = new Dictionary<string, ServerSideProxy>();
         private TopicSubscriptions topicSubscriptions = new TopicSubscriptions();
         private object subscribersLock = new object();
-
+        private static bool notFirstTime;
         private static PubSubCalculatioEngine instance = null;
 
         public static PubSubCalculatioEngine Instance
@@ -28,6 +28,7 @@ namespace CalculationEngineService
                 if (instance == null)
                 {
                     instance = new PubSubCalculatioEngine();
+                    notFirstTime = false;
                 }
 
                 return instance;
@@ -190,6 +191,15 @@ namespace CalculationEngineService
                 }
                 topicSubscriptions.Subscribe(clientAddress, gidOfTopic);
             }
+
+            if (notFirstTime && (int)Enums.Topics.NetworkModelTreeClass_NodeData == gidOfTopic)
+            {
+                Notify(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
+                Notify(CalculationEngineCache.Instance.DataPoints, (int)Enums.Topics.DataPoints);      
+            }
+
+            if((int)Enums.Topics.NetworkModelTreeClass_NodeData == gidOfTopic)
+                notFirstTime = true;
         }
 
         public void Unsubscribe(string clientAddress, int gidOfTopic, bool disconnect)
