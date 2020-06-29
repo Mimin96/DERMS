@@ -723,12 +723,14 @@ namespace UI.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Element with selected name does not exist.", "Element not found", MessageBoxButton.OK);
+                    PopUpWindow popUpWindow = new PopUpWindow("Element with selected name does not exist.");
+                    popUpWindow.ShowDialog();
                 }
             }
             catch
             {
-                MessageBox.Show("Element with selected name does not exist.", "Element not found", MessageBoxButton.OK);
+                PopUpWindow popUpWindow = new PopUpWindow("Element with selected name does not exist.");
+                popUpWindow.ShowDialog();
             }
 
 

@@ -3245,8 +3245,6 @@ C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Polenter.SharpSerializer.dll
 C:\Users\Andrej\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Polenter.SharpSerializer.xml
 C:\Users\Filip\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Polenter.SharpSerializer.dll
 C:\Users\Filip\Desktop\DERMS\DERMS\UI\UI\bin\Debug\Polenter.SharpSerializer.xml
-C:\Users\Filip\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\ValidationForManualCommanding.g.cs
-C:\Users\Filip\Desktop\DERMS\DERMS\UI\UI\obj\Debug\View\ValidationForManualCommanding.baml
 C:\Users\Nemanja\Desktop\Git1606\DERMS\DERMS\UI\UI\bin\Debug\RtuCfg.txt
 C:\Users\Nemanja\Desktop\Git1606\DERMS\DERMS\UI\UI\bin\Debug\UI.exe.config
 C:\Users\Nemanja\Desktop\Git1606\DERMS\DERMS\UI\UI\bin\Debug\UI.exe

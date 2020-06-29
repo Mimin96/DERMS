@@ -19,9 +19,10 @@ namespace UI.View
     /// </summary>
     public partial class PopUpWindow : Window
     {
-        public PopUpWindow()
+        public PopUpWindow(string message)
         {
             InitializeComponent();
+            Message.Text = message;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 

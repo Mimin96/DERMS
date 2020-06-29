@@ -546,7 +546,7 @@ namespace UI.ViewModel
                 }
                 else
                 {
-                    PopUpWindow popUpWindow = new PopUpWindow();
+                    PopUpWindow popUpWindow = new PopUpWindow("This part of the network is already in optimal condition.");
                     popUpWindow.ShowDialog();
                     canOptimizate = false;
                 }
@@ -571,7 +571,7 @@ namespace UI.ViewModel
                 }
                 else
                 {
-                    PopUpWindow popUpWindow = new PopUpWindow();
+                    PopUpWindow popUpWindow = new PopUpWindow("This part of the network is already in optimal condition.");
                     popUpWindow.ShowDialog();
                 }
 

@@ -61,11 +61,11 @@ namespace UI.View
 			}
 			catch(Exception es)
 			{
-				ValidationForManualCommanding vfmc = new ValidationForManualCommanding("Please enter only positive digits!");
+				PopUpWindow popUpWindow = new PopUpWindow("Please enter only numbers!");
 				((ManualCommandingViewModel)DataContext).CloseConnection();
 				Gid = 0;
 				Close();
-				vfmc.Show();
+				popUpWindow.ShowDialog();
 			}
 
 		}

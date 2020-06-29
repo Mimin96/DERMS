@@ -139,9 +139,6 @@
     <Compile Include="View\SignalsSummaryUserControl.xaml.cs">
       <DependentUpon>SignalsSummaryUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ValidationForManualCommanding.xaml.cs">
-      <DependentUpon>ValidationForManualCommanding.xaml</DependentUpon>
-    </Compile>
     <Page Include="Resources\AppDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -195,10 +192,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SignalsSummaryUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ValidationForManualCommanding.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
