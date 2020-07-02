@@ -13,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using UI.Resources;
+using UI.View;
 
 namespace UI.ViewModel
 {
@@ -36,6 +37,7 @@ namespace UI.ViewModel
         private ObservableCollection<DayItem> _itemsDay;
         private ObservableCollection<MonthItem> _itemsMonth;
         private ObservableCollection<YearItem> _itemsYear;
+
         #endregion
 
         public HistoryUserControlViewModel()
@@ -65,7 +67,7 @@ namespace UI.ViewModel
             _max = false;
             _avg = false;
             _selectedGID = 0;
-            
+
         }
 
         #region Properties
@@ -154,6 +156,18 @@ namespace UI.ViewModel
                 _isDan = value; OnPropertyChanged("IsDan");
             }
         }
+        public ICommand ApplyFiltersCommand
+        {
+            get
+            {
+                if (_applyFilterCommand == null)
+                {
+                    _applyFilterCommand = new RelayCommand<object>(ApplyFilter);
+                }
+
+                return _applyFilterCommand;
+            }
+        }
         #endregion
 
         #region TreeView Data adn Commands
@@ -163,6 +177,7 @@ namespace UI.ViewModel
         private RelayCommand<long> _substationCommand;
         private RelayCommand<long> _substationElementCommand;
         private List<NetworkModelTreeClass> _networkModel;
+        private RelayCommand<object> _applyFilterCommand;
 
         public List<NetworkModelTreeClass> NetworkModel
         {
@@ -245,234 +260,24 @@ namespace UI.ViewModel
 
         #region TreeView Commands Execute
         public void NetworkModelCommandExecute(long gid)
-        {
-            _selectedGID = gid;
+        { 
+            _selectedGID = 0; 
         }
         public void GeographicalRegionCommandExecute(long gid)
         {
-            _selectedGID = gid;
+            _selectedGID = 0;
         }
         public void GeographicalSubRegionCommandExecute(long gid)
         {
-            _selectedGID = gid;
+            _selectedGID = 0;
         }
         public void SubstationCommandExecute(long gid)
         {
-            _selectedGID = gid;
+            _selectedGID = 0;
         }
         public void SubstationElementCommandExecute(long gid)
         {
-            string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SCADA;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
-            ReadFromDayTable(connectionString);
-            ReadFromMonthTable(connectionString);
-            ReadFromYearTable(connectionString);
-            for (int j = 0; j <= 24; j++)
-                _chartValues[j] = -100.0;
-            for (int j = 0; j <= 31; j++)
-                _chartValuesMonth[j] = -100.0;
-            for (int j = 0; j <= 12; j++)
-                _chartValuesYear[j] = -100.0;
-            int hour = 0;
-            int day = 0;
-            int month = 0;
-            int counter = 0;
-            double sum = 0.0;
-            double min = Double.MaxValue;
-            double max = Double.MinValue;
             _selectedGID = gid;
-            List<DayItem> listDayItems = new List<DayItem>();
-            List<MonthItem> listMonthItems = new List<MonthItem>();
-            List<YearItem> listYearItems = new List<YearItem>();
-
-            foreach (var i in _itemsDay)
-            {
-                if (i.Gid == _selectedGID && SelectedDan == i.Timestamp.Date.ToString())
-                    listDayItems.Add(i);
-            }
-
-            foreach (var i in _itemsYear)
-            {
-                if (i.Gid == _selectedGID && SelectedGodina == i.Timestamp.Year.ToString())
-                    listYearItems.Add(i);
-            }
-
-            foreach (var i in _itemsMonth)
-            {
-                if (i.Gid == _selectedGID && SelectedMesec == i.Timestamp.Month.ToString() && SelectedGodina == i.Timestamp.Year.ToString())
-                    listMonthItems.Add(i);
-            }
-
-            if (_min && IsDan == Visibility.Visible)
-            {
-                if (listDayItems.Count > 0)
-                {
-                    foreach (var l in listDayItems)
-                    {
-                        if (l.PMin < min)
-                        {
-                            min = l.PMin;
-                            hour = l.Timestamp.Hour;
-                        }
-                    }
-                    _chartValues[hour] = min;
-                }
-                else
-                {
-                    MessageBox.Show("Data for that day doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-
-            }
-            else if (_min && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
-            {
-                if (listMonthItems.Count > 0)
-                {
-                    foreach (var l in listMonthItems)
-                    {
-                        if (l.PMin < min)
-                        {
-                            min = l.PMin;
-                            day = l.Timestamp.Day;
-                        }
-                    }
-                    _chartValuesMonth[day] = min;
-                }
-                else
-                {
-                    MessageBox.Show("Data for that month doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            else if (_min && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
-            {
-                if (listYearItems.Count > 0)
-                {
-                    foreach (var l in listYearItems)
-                    {
-                        if (l.PMin < min)
-                        {
-                            min = l.PMin;
-                            month = l.Timestamp.Month;
-                        }
-                    }
-                    _chartValuesYear[month] = min;
-                }
-                else
-                {
-                    MessageBox.Show("Data for that year doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-
-            if (_max && IsDan == Visibility.Visible)
-            {
-                if (listDayItems.Count > 0)
-                {
-                    foreach (var l in listDayItems)
-                    {
-                        if (l.PMax >= max)
-                        {
-                            max = l.PMax;
-                            hour = l.Timestamp.Hour;
-                        }
-
-                    }
-                    _chartValues[hour] = max;
-                }
-                else
-                {
-                    MessageBox.Show("Data for that day doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-
-            }
-            else if (_max && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
-            {
-                if (listMonthItems.Count > 0)
-                {
-                    foreach (var l in listMonthItems)
-                    {
-                        if (l.PMax >= max)
-                        {
-                            max = l.PMax;
-                            day = l.Timestamp.Day;
-                        }
-                    }
-                    _chartValuesMonth[day] = max;
-                }
-                else
-                {
-                    MessageBox.Show("Data for that month doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            else if (_max && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
-            {
-                if (listYearItems.Count > 0)
-                {
-                    foreach (var l in listYearItems)
-                    {
-                        if (l.PMax >= max)
-                        {
-                            max = l.PMax;
-                            month = l.Timestamp.Month;
-                        }
-                    }
-                    _chartValuesYear[month] = max;
-                }
-                else
-                {
-                    MessageBox.Show("Data for that year doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-
-            if (_avg && IsDan == Visibility.Visible)
-            {
-                if (listDayItems.Count > 0)
-                {
-                    foreach (var l in listDayItems)
-                    {
-                        sum += l.PAvg;
-                        counter++;
-                    }
-
-                    _chartValues[0] = sum / counter;
-                }
-                else
-                {
-                    MessageBox.Show("Data for that day doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            else if (_avg && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
-            {
-                if (listMonthItems.Count > 0)
-                {
-                    foreach (var l in listMonthItems)
-                    {
-                        sum += l.PAvg;
-                        counter++;
-                    }
-
-                    _chartValuesMonth[0] = sum / counter;
-                }
-                else
-                {
-                    MessageBox.Show("Data for that month doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            else if (_avg && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
-            {
-                if (listYearItems.Count > 0)
-                {
-                    foreach (var l in listYearItems)
-                    {
-                        sum += l.PAvg;
-                        counter++;
-                    }
-
-                    _chartValuesYear[0] = sum / counter;
-                }
-                else
-                {
-                    MessageBox.Show("Data for that year doesnt exist.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
         }
         #endregion
 
@@ -712,6 +517,254 @@ namespace UI.ViewModel
             return yearItemsData;
         }
 
+        private void ApplyFilter(object obj)
+        {
+            if (_selectedGID != 0)
+            {
+                if (_min || _max || _avg)
+                {
+                    if (SelectedDan == null && SelectedMesec == null && SelectedGodina == null)
+                    {
+                        PopUpWindow popUpWindow = new PopUpWindow("You must select time period.");
+                        popUpWindow.ShowDialog();
+                        return;
+                    }
+
+                    string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SCADA;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+                    ReadFromDayTable(connectionString);
+                    ReadFromMonthTable(connectionString);
+                    ReadFromYearTable(connectionString);
+                    for (int j = 0; j <= 24; j++)
+                        _chartValues[j] = -100.0;
+                    for (int j = 0; j <= 31; j++)
+                        _chartValuesMonth[j] = -100.0;
+                    for (int j = 0; j <= 12; j++)
+                        _chartValuesYear[j] = -100.0;
+                    int hour = 0;
+                    int day = 0;
+                    int month = 0;
+                    int counter = 0;
+                    double sum = 0.0;
+                    double min = Double.MaxValue;
+                    double max = Double.MinValue;
+
+                    List<DayItem> listDayItems = new List<DayItem>();
+                    List<MonthItem> listMonthItems = new List<MonthItem>();
+                    List<YearItem> listYearItems = new List<YearItem>();
+
+                    foreach (var i in _itemsDay)
+                    {
+                        if (i.Gid == _selectedGID && SelectedDan == i.Timestamp.Date.ToString())
+                            listDayItems.Add(i);
+                    }
+
+                    foreach (var i in _itemsYear)
+                    {
+                        if (i.Gid == _selectedGID && SelectedGodina == i.Timestamp.Year.ToString())
+                            listYearItems.Add(i);
+                    }
+
+                    foreach (var i in _itemsMonth)
+                    {
+                        if (i.Gid == _selectedGID && SelectedMesec == i.Timestamp.Month.ToString() && SelectedGodina == i.Timestamp.Year.ToString())
+                            listMonthItems.Add(i);
+                    }
+                    //
+                    //
+
+                    if (_min && IsDan == Visibility.Visible)
+                    {
+                        if (listDayItems.Count > 0)
+                        {
+                            foreach (var l in listDayItems)
+                            {
+                                if (l.PMin < min)
+                                {
+                                    min = l.PMin;
+                                    hour = l.Timestamp.Hour;
+                                }
+                            }
+                            _chartValues[hour] = min;
+                        }
+                        else
+                        {
+                            PopUpWindow popUpWindow = new PopUpWindow("Data for that day doesnt exist.");
+                            popUpWindow.ShowDialog();
+                        }
+
+                    }
+                    else if (_min && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
+                    {
+                        if (listMonthItems.Count > 0)
+                        {
+                            foreach (var l in listMonthItems)
+                            {
+                                if (l.PMin < min)
+                                {
+                                    min = l.PMin;
+                                    day = l.Timestamp.Day;
+                                }
+                            }
+                            _chartValuesMonth[day] = min;
+                        }
+                        else
+                        {
+                            PopUpWindow popUpWindow = new PopUpWindow("Data for that month doesnt exist.");
+                            popUpWindow.ShowDialog();
+                        }
+                    }
+                    else if (_min && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
+                    {
+                        if (listYearItems.Count > 0)
+                        {
+                            foreach (var l in listYearItems)
+                            {
+                                if (l.PMin < min)
+                                {
+                                    min = l.PMin;
+                                    month = l.Timestamp.Month;
+                                }
+                            }
+                            _chartValuesYear[month] = min;
+                        }
+                        else
+                        {
+                            PopUpWindow popUpWindow = new PopUpWindow("Data for that year doesnt exist.");
+                            popUpWindow.ShowDialog();
+                        }
+                    }
+
+                    if (_max && IsDan == Visibility.Visible)
+                    {
+                        if (listDayItems.Count > 0)
+                        {
+                            foreach (var l in listDayItems)
+                            {
+                                if (l.PMax >= max)
+                                {
+                                    max = l.PMax;
+                                    hour = l.Timestamp.Hour;
+                                }
+
+                            }
+                            _chartValues[hour] = max;
+                        }
+                        else
+                        {
+                            PopUpWindow popUpWindow = new PopUpWindow("Data for that day doesnt exist.");
+                            popUpWindow.ShowDialog();
+                        }
+
+                    }
+                    else if (_max && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
+                    {
+                        if (listMonthItems.Count > 0)
+                        {
+                            foreach (var l in listMonthItems)
+                            {
+                                if (l.PMax >= max)
+                                {
+                                    max = l.PMax;
+                                    day = l.Timestamp.Day;
+                                }
+                            }
+                            _chartValuesMonth[day] = max;
+                        }
+                        else
+                        {
+                            PopUpWindow popUpWindow = new PopUpWindow("Data for that month doesnt exist.");
+                            popUpWindow.ShowDialog();
+                        }
+                    }
+                    else if (_max && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
+                    {
+                        if (listYearItems.Count > 0)
+                        {
+                            foreach (var l in listYearItems)
+                            {
+                                if (l.PMax >= max)
+                                {
+                                    max = l.PMax;
+                                    month = l.Timestamp.Month;
+                                }
+                            }
+                            _chartValuesYear[month] = max;
+                        }
+                        else
+                        {
+                            PopUpWindow popUpWindow = new PopUpWindow("Data for that year doesnt exist.");
+                            popUpWindow.ShowDialog();
+                        }
+                    }
+
+                    if (_avg && IsDan == Visibility.Visible)
+                    {
+                        if (listDayItems.Count > 0)
+                        {
+                            foreach (var l in listDayItems)
+                            {
+                                sum += l.PAvg;
+                                counter++;
+                            }
+
+                            _chartValues[0] = sum / counter;
+                        }
+                        else
+                        {
+                            PopUpWindow popUpWindow = new PopUpWindow("Data for that day doesnt exist.");
+                            popUpWindow.ShowDialog();
+                        }
+                    }
+                    else if (_avg && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
+                    {
+                        if (listMonthItems.Count > 0)
+                        {
+                            foreach (var l in listMonthItems)
+                            {
+                                sum += l.PAvg;
+                                counter++;
+                            }
+
+                            _chartValuesMonth[0] = sum / counter;
+                        }
+                        else
+                        {
+                            PopUpWindow popUpWindow = new PopUpWindow("Data for that month doesnt exist.");
+                            popUpWindow.ShowDialog();
+                        }
+                    }
+                    else if (_avg && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
+                    {
+                        if (listYearItems.Count > 0)
+                        {
+                            foreach (var l in listYearItems)
+                            {
+                                sum += l.PAvg;
+                                counter++;
+                            }
+
+                            _chartValuesYear[0] = sum / counter;
+                        }
+                        else
+                        {
+                            PopUpWindow popUpWindow = new PopUpWindow("Data for that year doesnt exist.");
+                            popUpWindow.ShowDialog();
+                        }
+                    }
+                }
+                else
+                {
+                    PopUpWindow popUpWindow = new PopUpWindow("You must select min/max/average box.");
+                    popUpWindow.ShowDialog();
+                }
+            }
+            else
+            {
+                PopUpWindow popUpWindow = new PopUpWindow("Element in tree not selected.");
+                popUpWindow.ShowDialog();
+            }
+        }
         #endregion
     }
 }
