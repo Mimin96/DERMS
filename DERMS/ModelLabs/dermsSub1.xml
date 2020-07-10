@@ -175,7 +175,7 @@
 	</cim:Terminal>
 	
 	<cim:Breaker rdf:ID="b_281">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_281</cim:IdentifiedObject.mRID>
@@ -460,7 +460,7 @@
 		<cim:Measurement.measurementType>Discrete</cim:Measurement.measurementType>
 		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>			
 		<cim:Discrete.minValue>0</cim:Discrete.minValue>			
-		<cim:Discrete.normalValue>1</cim:Discrete.normalValue>
+		<cim:Discrete.normalValue>0</cim:Discrete.normalValue>
 		<cim:Measurement.powerSystemResource rdf:resource="b_281"/>		
 	</cim:Discrete>
 	
@@ -849,7 +849,7 @@
 	</cim:ConnectivityNode>		
 	
 	<cim:Breaker rdf:ID="b_22">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_22</cim:IdentifiedObject.mRID>
@@ -875,7 +875,7 @@
 		<cim:Measurement.measurementType>Discrete</cim:Measurement.measurementType>
 		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>			
 		<cim:Discrete.minValue>0</cim:Discrete.minValue>			
-		<cim:Discrete.normalValue>1</cim:Discrete.normalValue>
+		<cim:Discrete.normalValue>0</cim:Discrete.normalValue>
 		<cim:Measurement.powerSystemResource rdf:resource="b_22"/>		
 	</cim:Discrete>
 	

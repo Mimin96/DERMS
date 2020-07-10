@@ -124,7 +124,7 @@
 	<!-- grana1 start (source, breaker, consumer, acl, solar generator)-->	
 	
 	<cim:Breaker rdf:ID="b_281">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_281</cim:IdentifiedObject.mRID>
@@ -788,7 +788,7 @@
 	</cim:ConnectivityNode>		
 	
 	<cim:Breaker rdf:ID="b_22">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_22</cim:IdentifiedObject.mRID>
@@ -1110,7 +1110,7 @@
 	</cim:ConnectivityNode>		
 	
 	<cim:Breaker rdf:ID="b_29">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_29</cim:IdentifiedObject.mRID>
@@ -1192,7 +1192,7 @@
 	<!-- grana2 start (source, breaker, consumer, acl, wind generator)-->	
 	
 	<cim:Breaker rdf:ID="b_28">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_28</cim:IdentifiedObject.mRID>
@@ -1863,7 +1863,7 @@
 	</cim:ConnectivityNode>		
 	
 	<cim:Breaker rdf:ID="b_27">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_27</cim:IdentifiedObject.mRID>
@@ -1963,7 +1963,7 @@
 	<!-- grana2 start (source, breaker, consumer, acl, wind generator)-->	
 	
 	<cim:Breaker rdf:ID="b_26">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_26</cim:IdentifiedObject.mRID>
@@ -2569,7 +2569,7 @@
 	</cim:ConnectivityNode>		
 	
 	<cim:Breaker rdf:ID="b_274">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_274</cim:IdentifiedObject.mRID>
@@ -2669,7 +2669,7 @@
 	<!-- grana2 start (source, breaker, consumer, acl, wind generator)-->	
 	
 	<cim:Breaker rdf:ID="b_264">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_264</cim:IdentifiedObject.mRID>

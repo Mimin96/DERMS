@@ -397,7 +397,7 @@
 		<cim:Measurement.measurementType>Discrete</cim:Measurement.measurementType>
 		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>			
 		<cim:Discrete.minValue>0</cim:Discrete.minValue>			
-		<cim:Discrete.normalValue>1</cim:Discrete.normalValue>
+		<cim:Discrete.normalValue>0</cim:Discrete.normalValue>
 		<cim:Measurement.powerSystemResource rdf:resource="b_27"/>		
 	</cim:Discrete>
 	
@@ -592,7 +592,7 @@
 		<cim:Measurement.measurementType>Discrete</cim:Measurement.measurementType>
 		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>			
 		<cim:Discrete.minValue>0</cim:Discrete.minValue>			
-		<cim:Discrete.normalValue>1</cim:Discrete.normalValue>
+		<cim:Discrete.normalValue>0</cim:Discrete.normalValue>
 		<cim:Measurement.powerSystemResource rdf:resource="b_426"/>		
 	</cim:Discrete>
 	

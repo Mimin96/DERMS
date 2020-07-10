@@ -362,7 +362,7 @@
 	</cim:ConnectivityNode>		
 	
 	<cim:Breaker rdf:ID="b_274">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_274</cim:IdentifiedObject.mRID>
@@ -565,7 +565,7 @@
 	</cim:Terminal>
 	
 	<cim:Breaker rdf:ID="b_264">
-		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
 		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
 		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
 		<cim:IdentifiedObject.mRID>b_264</cim:IdentifiedObject.mRID>

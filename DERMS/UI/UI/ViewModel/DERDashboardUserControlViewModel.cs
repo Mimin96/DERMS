@@ -1,4 +1,5 @@
 ﻿using DERMSCommon;
+using DERMSCommon.DataModel.Core;
 using DERMSCommon.UIModel;
 using DERMSCommon.UIModel.ThreeViewModel;
 using DERMSCommon.WeatherForecast;
@@ -55,6 +56,7 @@ namespace UI.ViewModel
         #region Properties
         private Dictionary<long, DerForecastDayAhead> ProductionDerForecastDayAhead { get; set; }
         private List<long> DisableAutomaticOptimization { get; set; }
+        private List<Generator> TurnedOffGenerators { get; set; }
         private ClientSideProxy ClientSideProxy { get; set; }
         public ObservableCollection<NetworkModelViewClass> NetworkModelItems { get; set; }
         public string CurrentTime
@@ -365,6 +367,7 @@ namespace UI.ViewModel
             Color2 = new SolidColorBrush(Colors.Purple);
             OptimizatedElements = new List<long>();
             DisableAutomaticOptimization = new List<long>();
+            TurnedOffGenerators = new List<Generator>();
 
             this.dERDashboardUserControl = dERDashboardUserControl;
 
@@ -479,7 +482,17 @@ namespace UI.ViewModel
         public void SubstationElementCommandExecute(long gid)
         {
             CurrentSelectedGid = gid;
-
+            proxy = new CommunicationProxy();
+            proxy.Open2();
+            TurnedOffGenerators = proxy.sendToCE.ListOffTurnedOffGenerators();
+            foreach (Generator g in TurnedOffGenerators)
+            {
+                if (g.GlobalId.Equals(gid))
+                {
+                    dERDashboardUserControl.ManualCommanding.IsEnabled = false;
+                    return;
+                }
+            }
 
             foreach (NetworkModelTreeClass networkModelTreeClass in NetworkModel)
             {
@@ -505,6 +518,7 @@ namespace UI.ViewModel
                     }
                 }
             }
+            
         }
         public void OptimizationCommandExecute()
         {
@@ -530,8 +544,9 @@ namespace UI.ViewModel
             {
                 proxy = new CommunicationProxy();
                 proxy.Open2();
+                TurnedOffGenerators = proxy.sendToCE.ListOffTurnedOffGenerators();
                 DisableAutomaticOptimization = proxy.sendToCE.ListOfDisabledGenerators();
-
+                
                 if (!DisableAutomaticOptimization.Contains(GidForOptimization))
                 {
                     if (proxy == null)
@@ -556,6 +571,7 @@ namespace UI.ViewModel
             {
                 proxy = new CommunicationProxy();
                 proxy.Open2();
+                TurnedOffGenerators = proxy.sendToCE.ListOffTurnedOffGenerators();
                 DisableAutomaticOptimization = proxy.sendToCE.ListOfDisabledGenerators();
 
                 if (!DisableAutomaticOptimization.Contains(GidForOptimization))

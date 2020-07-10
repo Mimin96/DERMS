@@ -31,7 +31,11 @@ namespace CalculationEngineService
         private Dictionary<long, DerForecastDayAhead> copyOfProductionCached = new Dictionary<long, DerForecastDayAhead>();
         private Dictionary<long, double> listOfGeneratorsForScada = new Dictionary<long, double>();
 		private List<long> disableAutomaticOptimization = new List<long>();
-		
+        private List<long> turnedOffGenerators = new List<long>();
+        private List<long> turnedOnGenerators = new List<long>();
+        private Dictionary<long, DerForecastDayAhead> tempProductionCached = new Dictionary<long, DerForecastDayAhead>();
+
+
         private static CalculationEngineCache instance = null;
         public static CalculationEngineCache Instance
         {
@@ -46,7 +50,22 @@ namespace CalculationEngineService
 
             }
         }
-		public List<long> DisableAutomaticOptimization
+        public Dictionary<long, DerForecastDayAhead> TempProductionCached
+        {
+            get { return tempProductionCached; }
+            set { tempProductionCached = value; }
+        }
+        public List<long> TurnedOnGenerators
+        {
+            get { return turnedOnGenerators; }
+            set { turnedOnGenerators = value; }
+        }
+        public List<long> TurnedOffGenerators
+        {
+            get { return turnedOffGenerators; }
+            set { turnedOffGenerators = value; }
+        }
+        public List<long> DisableAutomaticOptimization
         {
             get { return disableAutomaticOptimization; }
             set { disableAutomaticOptimization = value; }

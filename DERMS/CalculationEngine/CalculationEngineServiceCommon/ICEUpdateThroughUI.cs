@@ -1,4 +1,5 @@
-﻿using DERMSCommon.SCADACommon;
+﻿using DERMSCommon.DataModel.Core;
+using DERMSCommon.SCADACommon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,7 @@ namespace CalculationEngineServiceCommon
         List<long> AllowOptimization(long gid);
         [OperationContract]
         List<long> ListOfDisabledGenerators();
+        [OperationContract]
+        List<Generator> ListOffTurnedOffGenerators();
     }
 }

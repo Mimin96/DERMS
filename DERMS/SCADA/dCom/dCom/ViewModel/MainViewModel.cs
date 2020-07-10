@@ -417,7 +417,7 @@ namespace dCom.ViewModel
         /// </summary>
         private void TimerWorker_DoWork()
         {
-            int nes = 0;
+            int nes = 1;
             while (timerThreadStopSignal)
             {
                 if (disposed)

@@ -149,7 +149,7 @@ namespace UI.ViewModel
                 if (discrete.NormalValue == 0)
                     ((BreakerControlThroughGISWindowViewModel)window.DataContext).Close = true;
                 else
-                ((BreakerControlThroughGISWindowViewModel)window.DataContext).Open = true;
+                    ((BreakerControlThroughGISWindowViewModel)window.DataContext).Open = true;
 
                 ((BreakerControlThroughGISWindowViewModel)window.DataContext).GID = breaker.GlobalId;
 

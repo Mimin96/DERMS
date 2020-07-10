@@ -336,53 +336,39 @@
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x000000070000000d" type="ANALOG" />
-          <Properties>
-            <Property id="ANALOG_MAX_VALUE" value="20" />
-            <Property id="ANALOG_MIN_VALUE" value="10" />
-          </Properties>
+          <Properties />
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x000000070000000e" type="ANALOG" />
-          <Properties>
-            <Property id="ANALOG_MAX_VALUE" value="20" />
-            <Property id="ANALOG_MIN_VALUE" value="10" />
-          </Properties>
+          <Properties />
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x000000070000000f" type="ANALOG" />
-          <Properties>
-            <Property id="ANALOG_MAX_VALUE" value="20" />
-            <Property id="ANALOG_MIN_VALUE" value="10" />
-          </Properties>
+          <Properties />
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000700000010" type="ANALOG" />
-          <Properties>
-            <Property id="ANALOG_MAX_VALUE" value="250" />
-            <Property id="ANALOG_MIN_VALUE" value="50" />
-          </Properties>
+          <Properties />
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000700000011" type="ANALOG" />
-          <Properties>
-            <Property id="ANALOG_MAX_VALUE" value="250" />
-            <Property id="ANALOG_MIN_VALUE" value="50" />
-          </Properties>
+          <Properties />
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000700000012" type="ANALOG" />
-          <Properties>
-            <Property id="ANALOG_MAX_VALUE" value="250" />
-            <Property id="ANALOG_MIN_VALUE" value="50" />
-          </Properties>
+          <Properties />
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000800000005" type="DISCRETE" />
-          <Properties />
+          <Properties>
+            <Property id="DISCRETE_NORMAL_VALUE" value="0" />
+          </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000800000006" type="DISCRETE" />
-          <Properties />
+          <Properties>
+            <Property id="DISCRETE_NORMAL_VALUE" value="0" />
+          </Properties>
         </ResourceDescription>
       </ResourceDescriptions>
     </operation>
