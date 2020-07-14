@@ -12,7 +12,8 @@ namespace UI.Communication
     {
         public void ReceiveEventsFromCE(string rec)
         {
-            MessageBox.Show("dobijena rec od CE" + rec);
+            MessageBox.Show("test : " + rec);
+
         }
     }
 }

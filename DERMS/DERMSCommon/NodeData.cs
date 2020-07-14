@@ -37,7 +37,7 @@ namespace DERMSCommon
             this.idenetifiedObj = identified;
             this.isRoot = isroot;
             this.energized = Energized.NotEnergized;
-            this.type = DMSType.GEOGRAPHICALREGION; // Filip dodao
+            this.type = DMSType.GEOGRAPHICALREGION;
         }
 
         public IdentifiedObject IdentifiedObject { get { return idenetifiedObj; } set { idenetifiedObj = value; } }

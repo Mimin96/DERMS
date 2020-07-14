@@ -45,6 +45,7 @@ namespace dCom.Configuration
 
         private bool timerThreadStopSignal = true;
         private bool disposed = false;
+
         //private DERMSCommon.SCADACommon.ScadaDB scadaDB = new DERMSCommon.SCADACommon.ScadaDB();
 
         public ConnectionState ConnectionState

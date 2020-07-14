@@ -530,12 +530,10 @@ namespace UI.ViewModel
                 EnergySourceValue = temp;
                 CheckOptimizedDER(GidForOptimization);
 
-                Event e = new Event("Automatic optimization is executed", Enums.Component.CalculationEngine, DateTime.Now);
+                Event e = new Event("Automatic optimization is executed. ", Enums.Component.CalculationEngine, DateTime.Now);
                 EventsLogger el = new EventsLogger();
                 el.WriteToFile(e);
             }
-
-            //GetAllGeoRegions();
 
         }
         public float Optimization()
@@ -616,9 +614,6 @@ namespace UI.ViewModel
         {
             disposed = true;
             timerThreadStopSignal = false;
-            //
-
-            //
         }
 
         private void MoveOnClick(object sender, RoutedEventArgs e)
@@ -864,7 +859,7 @@ namespace UI.ViewModel
             foreach (HourDataPoint hc in tempList)
             {
                 ChartValues2.Add((double)hc.ActivePower);
-                // ChartValues3.Add((double)hc.ActivePower);
+               
 
             }
             foreach (HourDataPoint hdpProduction in tempListProduction)
@@ -964,7 +959,6 @@ namespace UI.ViewModel
                 }
             }
 
-
             ChartValues1 = new ChartValues<double>();
             ChartValues2 = new ChartValues<double>();
             ChartValues3 = new ChartValues<double>();
@@ -975,7 +969,6 @@ namespace UI.ViewModel
             foreach (HourDataPoint hc in tempList)
             {
                 ChartValues2.Add((double)hc.ActivePower);
-                //ChartValues1.Add((double)hc.ActivePower);
 
             }
             foreach (HourDataPoint hc in tempListProduction)
@@ -1231,8 +1224,6 @@ namespace UI.ViewModel
 
                     }
 
-
-
                 }
 
             }
@@ -1267,11 +1258,9 @@ namespace UI.ViewModel
                                 }
 
                             }
-
                         }
                     }
                 }
-
 
                 foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
                 {
@@ -1395,8 +1384,6 @@ namespace UI.ViewModel
                         }
 
                     }
-
-
                 }
                 foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
                 {

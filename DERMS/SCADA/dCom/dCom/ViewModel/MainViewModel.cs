@@ -117,9 +117,6 @@ namespace dCom.ViewModel
             Console.WriteLine("Connected: net.tcp://localhost:20508/ITransactionListing");
             ProxyTM.Enlist("net.tcp://localhost:19518/ITransactionCheck");
 
-            //configuration = new ConfigReader();
-            //commandExecutor = new FunctionExecutor(this, configuration);
-            //this.acquisitor = new Acquisitor(acquisitionTrigger, this.commandExecutor, this, configuration);
             openConnection();
             //InitializePointCollection();
             InitializeAndStartThreads();
@@ -194,13 +191,13 @@ namespace dCom.ViewModel
 
             collectItems = ConvertDataPoints(datapoints);
 
-            string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SCADA;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            string queryStmt1 = "INSERT INTO dbo.Collect(Timestamp, Gid, Production) VALUES(@Timestamp, @Gid, @Production)";
-            //InsertInCollectTable(collectItems, queryStmt1, connectionString);
+            //string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SCADA;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            //string queryStmt1 = "INSERT INTO dbo.Collect(Timestamp, Gid, Production) VALUES(@Timestamp, @Gid, @Production)";
+            ////InsertInCollectTable(collectItems, queryStmt1, connectionString);
 
-            //dayItems = ReadFromCollectTable(connectionString1);
-            string queryStmt2 = "INSERT INTO dbo.Day(Gid, Pmin, Pmax, Pavg, E, Timestamp) VALUES(@Gid, @Pmin, @Pmax, @Pavg, @E, @Timestamp)";
-            //InsertInDayTable(dayItems, queryStmt2, connectionString);
+            ////dayItems = ReadFromCollectTable(connectionString1);
+            //string queryStmt2 = "INSERT INTO dbo.Day(Gid, Pmin, Pmax, Pavg, E, Timestamp) VALUES(@Gid, @Pmin, @Pmax, @Pavg, @E, @Timestamp)";
+            ////InsertInDayTable(dayItems, queryStmt2, connectionString);
 
             ProxyUI.ReceiveFromScada(datapoints);
         }

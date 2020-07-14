@@ -23,13 +23,10 @@ namespace dCom.Configuration
         private int DigitalPoints = 0;
         private ServiceHost serviceHostForNMS;
         private ushort transactionId = 0;
-
         private byte unitAddress;
         private int tcpPort;
         private ConfigItemEqualityComparer confItemEqComp = new ConfigItemEqualityComparer();
-        
         private Dictionary<string, IConfigItem> pointTypeToConfiguration = new Dictionary<string, IConfigItem>(30);
-
         private string path = "RtuCfg.txt";
 
         public ConfigReader(Dictionary<long, IdentifiedObject> analogni, Dictionary<long, IdentifiedObject> digitalni)
@@ -215,13 +212,6 @@ namespace dCom.Configuration
             //{
             //    throw ex;
             //}
-
-
-
-
-            //
-
-
         }
 
         public ushort GetTransactionId()

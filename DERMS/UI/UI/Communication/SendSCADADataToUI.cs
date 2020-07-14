@@ -16,6 +16,7 @@ namespace UI.Communication
         public void SendScadaDataToUI(List<DataPoint> data)
         {
             Mediator.NotifyColleagues("SCADADataPoint", data);
+
         }
     }
 }

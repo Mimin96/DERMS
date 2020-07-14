@@ -50,17 +50,18 @@ namespace UI.ViewModel
 
         private void BreakerOnOff(object obj)
         {
-            //NormalOpen == true znaci da je breaker otvoren
 
             try
             {
                 bool NormalOpen = Open ? true : false;
+
                 ProxyCE.ChangeBreakerStatus(GID, NormalOpen);
 
                 if(NormalOpen == true)
                     e = new Event("Breaker is opened", Enums.Component.SCADA, DateTime.Now);
                 else
                     e = new Event("Breaker is closed", Enums.Component.SCADA, DateTime.Now);
+
 
                 events.WriteToFile(e);
 
@@ -77,7 +78,6 @@ namespace UI.ViewModel
                         break;
                     }
                 }
-
 
             }
             catch (Exception e)

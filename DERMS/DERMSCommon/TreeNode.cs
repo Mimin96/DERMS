@@ -21,7 +21,6 @@ namespace DERMSCommon
         [DataMember]
         private int _level;
 
-        //Data ce biti identified obj
         public T Data { get { return _data; } set { _data = value; } }
         public TreeNode<T> Parent { get { return _parent; } set { _parent = value; } }
         public ICollection<TreeNode<T>> Children { get { return _children; } set { _children = value; } }

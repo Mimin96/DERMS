@@ -45,7 +45,6 @@ namespace UI.Communication
 
             clientAddress = String.Format("net.tcp://{0}:{1}/ICalculationEnginePubSub", ipAddress, port);
             ConnectToService();
-
         }
 
         public void StartServiceHost(ICalculationEnginePubSub observerInstance)
