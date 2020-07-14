@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="DermsUI.View.CELoggs"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DermsUI.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="530" d:DesignWidth="754">
+    <Grid>
+        <DataGrid Name="dgUsers" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Height="470">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Content" Binding="{Binding Name}" Width="*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Content type" Binding="{Binding Birthday}" Width="150"/>
+                <DataGridTextColumn Header="Date time" Binding="{Binding Birthday}" Width="200" />
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Details}" Margin="10" />
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+        <Label Content="Calculation Engine Log" FontSize="16" FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" VerticalAlignment="Top" Width="379"/>
+    </Grid>
+</UserControl>

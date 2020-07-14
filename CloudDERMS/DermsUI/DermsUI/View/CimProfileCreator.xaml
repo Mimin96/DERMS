@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="DermsUI.View.CimProfileCreator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ViewModel="clr-namespace:DermsUI.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="530" d:DesignWidth="754">
+
+    <!--UserControl.DataContext>
+        <ViewModel:AddNewTerminalViewModel></ViewModel:AddNewTerminalViewModel>
+    </!-->
+
+    <Grid>
+        <Label Content="Select Cim Profile definition in RDFS format" FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Left" FontSize="16" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Cim profile"  FontSize="14" HorizontalAlignment="Left" Height="32" Margin="10,46,0,0" VerticalAlignment="Top" Width="93"/>
+        <Label Content="Namespace"  FontSize="14" HorizontalAlignment="Left" Height="32" Margin="10,123,0,0" VerticalAlignment="Top" Width="135"/>
+        <Label Content="Product Name" FontSize="14"  HorizontalAlignment="Left" Height="32" Margin="10,197,0,0" VerticalAlignment="Top" Width="135"/>
+        <Label Content="File Name" FontSize="14"  HorizontalAlignment="Left" Height="32" Margin="10,160,0,0" VerticalAlignment="Top" Width="135"/>
+        <Label Content="Version" FontSize="14"  HorizontalAlignment="Left" Height="32" Margin="10,234,0,0" VerticalAlignment="Top" Width="135"/>
+        <TextBox Margin="150,46,0,0" TextWrapping="Wrap" Text="{Binding CimLocationString}" HorizontalAlignment="Left" Width="432" Height="32" VerticalAlignment="Top"/>
+        <Button Content="Search..." Command="{Binding SearchCommand}"  Margin="615,46,0,0" VerticalAlignment="Top" FontSize="12" HorizontalAlignment="Left" Width="129" />
+        <Button Content="Load profile"  Command="{Binding LoadCommand}" FontSize="12" Margin="615,89,0,0" HorizontalAlignment="Left" Width="129" VerticalAlignment="Top"/>
+        <TextBox Height="32" Margin="150,123,0,0" TextWrapping="Wrap" Text="{Binding CimNamespaceString}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="432"/>
+        <TextBox Height="32" Margin="150,160,0,0" TextWrapping="Wrap" Text="{Binding CimFileNameString}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="432"/>
+        <TextBox Height="32" Margin="150,197,0,0" TextWrapping="Wrap" Text="{Binding CimProductNameString}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="432"/>
+        <TextBox Height="32" Margin="150,234,0,0" TextWrapping="Wrap" Text="{Binding CimVersionString}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="432"/>
+        <Button Content="Generate DLL" Command="{Binding GenerateCommand}" FontSize="12" Margin="615,234,0,0" HorizontalAlignment="Left" Width="129" VerticalAlignment="Top"/>
+        <TextBox VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" IsReadOnly="True"  Margin="150,271,182,10" TextWrapping="Wrap" Text="{Binding LogResultString}"/>
+
+    </Grid>
+</UserControl>

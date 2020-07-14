@@ -1,0 +1,3 @@
+C:\Users\Caki\Desktop\Current\DERMS\CloudDERMS\SCADATransactionMicroservice\obj\Debug\netcoreapp3.1\win7-x64\SCADATransactionMicroservice.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\Current\DERMS\CloudDERMS\SCADATransactionMicroservice\obj\Debug\netcoreapp3.1\win7-x64\SCADATransactionMicroservice.AssemblyInfoInputs.cache
+C:\Users\Caki\Desktop\Current\DERMS\CloudDERMS\SCADATransactionMicroservice\obj\Debug\netcoreapp3.1\win7-x64\SCADATransactionMicroservice.AssemblyInfo.cs

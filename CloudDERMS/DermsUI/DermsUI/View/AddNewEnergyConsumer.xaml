@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="DermsUI.View.AddNewEnergyConsumer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DermsUI.View"
+             xmlns:ViewModel="clr-namespace:DermsUI.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="530" d:DesignWidth="754">
+
+    <UserControl.DataContext>
+        <ViewModel:AddNewEnergyConsumerViewModel></ViewModel:AddNewEnergyConsumerViewModel>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Label Content="Create New Energy Consumer" FontSize="16" FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
+        <Label Content="Description" HorizontalAlignment="Left" FontSize="14" Margin="10,182,0,0" VerticalAlignment="Top"/>
+        <Label Content="Custom type" HorizontalAlignment="Left" FontSize="14" Margin="10,80,0,0" VerticalAlignment="Top"/>
+        <Label Content="Consumer Counts" HorizontalAlignment="Left" FontSize="14" Margin="10,114,0,0" VerticalAlignment="Top"/>
+        <Label Content="Private" HorizontalAlignment="Left" FontSize="14" Margin="10,148,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.462,1.448"/>
+        <Button Content="Create" Command="{Binding AddCommand}" HorizontalAlignment="Left" Margin="318,484,0,0" VerticalAlignment="Top" Width="129" Height="36"/>
+        <Label Content="{Binding ErrorString}" Foreground="Red" HorizontalAlignment="Left" Margin="272,444,0,0" VerticalAlignment="Top" Width="295" Height="35"/>
+        <TextBox HorizontalAlignment="Left" FontSize="14" Height="29" Margin="198,80,0,0" TextWrapping="Wrap" Text="{Binding CustomType}" VerticalAlignment="Top" Width="505"/>
+        <TextBox HorizontalAlignment="Left" FontSize="14" Height="29" Margin="198,114,0,0" TextWrapping="Wrap" Text="{Binding ConsumerCount}" VerticalAlignment="Top" Width="505"/>
+        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding Bools}" FontSize="14" SelectedValue="{Binding SelectedBool}" Margin="198,148,0,0" VerticalAlignment="Top" Width="505" Height="29"/>
+        <TextBox HorizontalAlignment="Left" FontSize="14" Height="257" Margin="198,182,0,0" TextWrapping="Wrap" Text="{Binding Description}" VerticalAlignment="Top" Width="505"/>
+        <Label Content="Name" FontSize="14" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="29" Margin="198,46,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="505"/>
+    </Grid>
+</UserControl>

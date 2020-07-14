@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{776EB305-B428-4D01-B4A7-0B05FA59F9B9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DERMSCommon</RootNamespace>
+    <AssemblyName>DERMSCommon</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DarkSkyApi, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DarkSkyApi.3.3\lib\netstandard1.1\DarkSkyApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Innovative.Geometry.Angle, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Angle.3.0.1\lib\net461\Innovative.Geometry.Angle.dll</HintPath>
+    </Reference>
+    <Reference Include="Innovative.SolarCalculator, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SolarCalculator.3.0.1\lib\net461\Innovative.SolarCalculator.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.2.2.920, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.2.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=3.0.1.920, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.3.0.1\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Polenter.SharpSerializer, Version=3.0.1.0, Culture=neutral, PublicKeyToken=8f4f20011571ee5f, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpSerializer.3.0.1\lib\net452\Polenter.SharpSerializer.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DarkSkyAPISmartCache.cs" />
+    <Compile Include="DataModel\Core\ConductingEquipment.cs" />
+    <Compile Include="DataModel\Core\ConnectivityNode.cs" />
+    <Compile Include="DataModel\Core\ConnectivityNodeContainer.cs" />
+    <Compile Include="DataModel\Core\EnergyConsumer.cs" />
+    <Compile Include="DataModel\Core\EnergySource.cs" />
+    <Compile Include="DataModel\Core\Equipment.cs" />
+    <Compile Include="DataModel\Core\EquipmentContainer.cs" />
+    <Compile Include="DataModel\Core\FeederObject.cs" />
+    <Compile Include="DataModel\Core\GeographicalRegion.cs" />
+    <Compile Include="DataModel\Core\IdentifiedObject.cs" />
+    <Compile Include="DataModel\Core\Point.cs" />
+    <Compile Include="DataModel\Core\PowerSystemResource.cs" />
+    <Compile Include="DataModel\Core\RegulatingCondEq.cs" />
+    <Compile Include="DataModel\Core\SubGeographicalRegion.cs" />
+    <Compile Include="DataModel\Core\Substation.cs" />
+    <Compile Include="DataModel\Core\SynchronousMachine.cs" />
+    <Compile Include="DataModel\Core\Terminal.cs" />
+    <Compile Include="DataModel\Meas\Analog.cs" />
+    <Compile Include="DataModel\Meas\Discrete.cs" />
+    <Compile Include="DataModel\Meas\Measurement.cs" />
+    <Compile Include="DataModel\Wires\ACLineSegment.cs" />
+    <Compile Include="DataModel\Wires\Breaker.cs" />
+    <Compile Include="DataModel\Wires\Conductor.cs" />
+    <Compile Include="DataModel\Wires\ProtectedSwitch.cs" />
+    <Compile Include="DataModel\Wires\Switch.cs" />
+    <Compile Include="DataToUI.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Event.cs" />
+    <Compile Include="EventsLogger.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="NMSCommuication\ISendDataFromNMSToCE.cs" />
+    <Compile Include="NMSCommuication\ISendDataFromNMSToScada.cs" />
+    <Compile Include="NMSCommuication\NetworkModelTransfer.cs" />
+    <Compile Include="NMSCommuication\SignalsTransfer.cs" />
+    <Compile Include="NodeData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SCADACommon\CollectItem.cs" />
+    <Compile Include="SCADACommon\DataPoint.cs" />
+    <Compile Include="SCADACommon\DayItem.cs" />
+    <Compile Include="SCADACommon\Enums.cs" />
+    <Compile Include="SCADACommon\IConfigItem.cs" />
+    <Compile Include="SCADACommon\IConfiguration.cs" />
+    <Compile Include="SCADACommon\IFunctionExecutor.cs" />
+    <Compile Include="SCADACommon\IModbusFunction.cs" />
+    <Compile Include="SCADACommon\IStateUpdater.cs" />
+    <Compile Include="SCADACommon\MonthItem.cs" />
+    <Compile Include="SCADACommon\SCADACommanding.cs" />
+    <Compile Include="SCADACommon\ScadaDB.cs" />
+    <Compile Include="SCADACommon\YearItem.cs" />
+    <Compile Include="SmartCache\SCADADataPointSmartCache.cs" />
+    <Compile Include="SmartCache\WeatherForecastSmartCache.cs" />
+    <Compile Include="TransactionManager\ITransactionCheck.cs" />
+    <Compile Include="TransactionManager\ITransactionListing.cs" />
+    <Compile Include="TreeNode.cs" />
+    <Compile Include="UIModel\BindableBase.cs" />
+    <Compile Include="UIModel\ThreeViewModel\GeographicalRegionTreeClass.cs" />
+    <Compile Include="UIModel\ThreeViewModel\GeographicalSubRegionTreeClass.cs" />
+    <Compile Include="UIModel\ThreeViewModel\NetworkModelTreeClass.cs" />
+    <Compile Include="UIModel\ThreeViewModel\SubstationElementTreeClass.cs" />
+    <Compile Include="UIModel\ThreeViewModel\SubstationTreeClass.cs" />
+    <Compile Include="WeatherForecast\ConsumerCharacteristics.cs" />
+    <Compile Include="WeatherForecast\DayAhead.cs" />
+    <Compile Include="WeatherForecast\DerForecastDayAhead.cs" />
+    <Compile Include="WeatherForecast\HourDataPoint.cs" />
+    <Compile Include="WeatherForecast\WeatherForecast.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelLabs\Common\Common.csproj">
+      <Project>{B1E36476-2A09-4271-B336-3158CBD9DF2F}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets'))" />
+  </Target>
+</Project>

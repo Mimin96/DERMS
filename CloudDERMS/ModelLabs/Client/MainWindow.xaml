@@ -1,0 +1,71 @@
+﻿<Window x:Class="Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="460" Width="810">
+    <Grid Margin="0,0,399.6,12">
+        <TabControl HorizontalAlignment="Left" Height="398" Margin="10,10,0,0" VerticalAlignment="Top" Width="384">
+            <TabItem Header="Get Values">
+                <Grid Background="#FFE5E5E5" Margin="0,1,-2.6,-1.6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="47*"/>
+                        <ColumnDefinition Width="144*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--<Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="39*"/>
+                        <ColumnDefinition Width="215*"/>
+                    </Grid.ColumnDefinitions>-->
+                    <ComboBox Name="cb1" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2"/>
+                    <Label Content="GID" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
+                    <ComboBox Name="cb12" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Cb12_SelectionChanged" Grid.ColumnSpan="2"/>
+                    <Label Content="Property" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Izabrani property" HorizontalAlignment="Left" Margin="68.5,5,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <ListBox Name="lb1" HorizontalAlignment="Left" Height="116" Margin="68.5,34,0,0" VerticalAlignment="Top" Width="183" Grid.Column="1"/>
+                    <Button Content="GetValues" HorizontalAlignment="Left" Margin="10,216,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click" Height="22" Grid.ColumnSpan="2"/>
+                    <TextBlock Name="tb1" IsEnabled="False" Background="White" HorizontalAlignment="Left" Margin="68.5,216,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="183" Height="22" Grid.Column="1"/>
+                    <Label Content="GID as Long" HorizontalAlignment="Left" Margin="68.5,185,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="GetExtentValues">
+                <Grid Background="#FFE5E5E5" Margin="0,0,-1.6,0">
+                    <ComboBox Name="cb2" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Cb2_SelectionChanged"/>
+                    <Label Content="ModelCode" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
+                    <ComboBox Name="cb22" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Cb22_SelectionChanged"/>
+                    <Label Content="Property" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Izabrani property" HorizontalAlignment="Left" Margin="158,6,0,0" VerticalAlignment="Top"/>
+                    <Button Content="GetExtentValues" HorizontalAlignment="Left" Margin="10,234,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click_1"/>
+                    <ListBox Name="lb2" HorizontalAlignment="Left" Height="118" Margin="158,32,0,0" VerticalAlignment="Top" Width="183"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="GetRelatedValues">
+                <Grid Background="#FFE5E5E5" Margin="0,0,-1.6,0">
+                    <!--<Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="37*"/>
+                        <ColumnDefinition Width="217*"/>
+                    </Grid.ColumnDefinitions>-->
+                    <ComboBox Name="cb3" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Cb3_SelectionChanged" Grid.ColumnSpan="2"/>
+                    <Label Content="GID" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
+                    <ComboBox Name="cb32" HorizontalAlignment="Left" Margin="130,32,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Cb32_SelectionChanged"/>
+                    <Label Content="Association propId" HorizontalAlignment="Left" Margin="130,5,0,0" VerticalAlignment="Top"/>
+                    <TextBlock Name="cb33" Background="White" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="120" Height="22" Grid.ColumnSpan="2"/>
+                    <Label Content="Association type" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
+                    <ComboBox Name="cb34" HorizontalAlignment="Left" Margin="130,101,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Cb34_SelectionChanged"/>
+                    <Label Content="Property" HorizontalAlignment="Left" Margin="130,70,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Izabrani property" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top"/>
+                    <ListBox Name="lb3" HorizontalAlignment="Left" Height="116" Margin="10,184,0,0" VerticalAlignment="Top" Width="240"/>
+                    <Button Content="GetRelatedValues" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="101" Click="Button_Click_2"/>
+                    <TextBlock Name="tb3" IsEnabled="False" Background="White" HorizontalAlignment="Left" Margin="132,332,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="118" Height="22"/>
+                    <Label Content="GID as Long" HorizontalAlignment="Left" Margin="132,306,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="74">
+
+                    </Label>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <TextBox Name="tb" HorizontalAlignment="Left" Height="375" Margin="414,33,-380.4,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="370"/>
+
+
+    </Grid>
+</Window>

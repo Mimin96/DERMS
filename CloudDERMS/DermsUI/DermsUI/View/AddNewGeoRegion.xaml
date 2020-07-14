@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="DermsUI.View.AddNewGeoRegion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ViewModel="clr-namespace:DermsUI.ViewModel"
+             mc:Ignorable="d" 
+              d:DesignHeight="530" d:DesignWidth="754">
+    <UserControl.DataContext>
+        <ViewModel:AddNewGeoRegion></ViewModel:AddNewGeoRegion>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Label Content="Add new Geographical region" FontSize="16" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Description" FontSize="14" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Width="136"/>
+        <TextBox HorizontalAlignment="Left" Height="359" Margin="151,80,0,0" TextWrapping="Wrap" Text="{Binding DescriptionString}" VerticalAlignment="Top" Width="571"/>
+        <Button Content="Create" Command="{Binding AddCommand}" HorizontalAlignment="Left" Margin="318,484,0,0" VerticalAlignment="Top" Width="129" Height="36" />
+        <Label Content="{Binding ErrorString}" Foreground="Red" HorizontalAlignment="Left" Margin="252,444,0,0" VerticalAlignment="Top" Width="295" Height="35"/>
+        <Label Content="Name" FontSize="14" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="29" Margin="151,46,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="571"/>
+    </Grid>
+</UserControl>

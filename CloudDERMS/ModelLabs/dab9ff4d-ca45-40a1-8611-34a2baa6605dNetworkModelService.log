@@ -1,0 +1,8 @@
+5/18/2020 2:37:23 PM : Starting Network Model Serivice...
+5/18/2020 2:37:25 PM : The communication object, System.ServiceModel.ServiceHost, cannot be used for communication because it is in the Faulted state.
+5/18/2020 2:37:25 PM : NetworkModelService failed.
+5/18/2020 2:37:25 PM :    at System.ServiceModel.Channels.CommunicationObject.Close(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Close()
+   at FTN.Services.NetworkModelService.NetworkModelService.CloseHosts() in C:\Users\Caki\Desktop\1605\DERMS\DERMS\ModelLabs\NetworkModelService\NetworkModelService.cs:line 112
+   at FTN.Services.NetworkModelService.NetworkModelService.Dispose() in C:\Users\Caki\Desktop\1605\DERMS\DERMS\ModelLabs\NetworkModelService\NetworkModelService.cs:line 36
+   at FTN.Services.NetworkModelService.Program.Main(String[] args) in C:\Users\Caki\Desktop\1605\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\Program.cs:line 30

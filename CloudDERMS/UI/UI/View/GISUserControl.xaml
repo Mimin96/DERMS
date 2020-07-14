@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="UI.View.GISUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="533" d:DesignWidth="1024">
+    <Grid>
+        <Border Margin="5,2,5,131" BorderThickness="1" BorderBrush="#FF0398E2">
+            <m:Map x:Name="Map" CredentialsProvider="ghV2tH3euIcFS6PJc15d~LzFfZi11UyYhzBE6DbxtgQ~AstUsgFCapPH3oNisYL2azqlLp0ImbaticuKzrTKjts-U-4q7Ii4OuGWx23lEBqI"
+                   Culture="en-au">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                        <i:CallMethodAction MethodName="OnMouseClick" TargetObject="{Binding}" />
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:CallMethodAction MethodName="GetCoordinatesOnMouseClick" TargetObject="{Binding}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </m:Map>
+        </Border>
+        <Expander VerticalAlignment="Top" ExpandDirection="Down" Margin="0,3,7,0" Header="Legend" FontSize="14" FontWeight="Bold" Foreground="#FF007ACC" FontStyle="Italic" Background="#FF303030" HorizontalAlignment="Right" Width="280">
+            <Border Height="320" Background="White">
+                <Grid>
+                    <CheckBox x:Name="EnergySource" Margin="10,6,250,289" Height="20" Width="20" IsChecked="{Binding VisibilityOfElements[EnergySource]}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                <i:CallMethodAction MethodName="ExecuteVisibilityOfElements" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
+                    <Image Source="../Resources/Images/EnergySource.png" Margin="30,6,210,289"/>
+                    <Label Content="Energy Source" HorizontalAlignment="Left" Margin="63,6,0,0" VerticalAlignment="Top" FontFamily="Champagne &amp; Limousines" Foreground="#FF007ACC" FontWeight="Bold" FontStyle="Italic" FontSize="14"/>
+                    <CheckBox x:Name="SolarPanel" Margin="10,36,250,259" Height="20" Width="20" IsChecked="{Binding VisibilityOfElements[SolarPanel]}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                <i:CallMethodAction MethodName="ExecuteVisibilityOfElements" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
+                    <Image Source="../Resources/Images/SolarPanel.png" Margin="30,36,210,259"/>
+                    <Label Content="Solar Panel" HorizontalAlignment="Left" Margin="63,36,0,0" VerticalAlignment="Top" FontFamily="Champagne &amp; Limousines" Foreground="#FF007ACC" FontWeight="Bold" FontStyle="Italic" FontSize="14"/>
+                    <CheckBox x:Name="WindTurbine" Margin="10,66,250,229"  Height="20" Width="20" IsChecked="{Binding VisibilityOfElements[WindTurbine]}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                <i:CallMethodAction MethodName="ExecuteVisibilityOfElements" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
+                    <Image Source="../Resources/Images/WindTurbine.png" Margin="30,66,210,229" RenderTransformOrigin="0.52,0.89"/>
+                    <Label Content="Wind Turbine" HorizontalAlignment="Left" Margin="63,66,0,0" VerticalAlignment="Top" FontFamily="Champagne &amp; Limousines" Foreground="#FF007ACC" FontWeight="Bold" FontStyle="Italic" FontSize="14"/>
+                    <CheckBox x:Name="EnergyConsumer" Margin="10,96,250,199"  Height="20" Width="20" IsChecked="{Binding VisibilityOfElements[EnergyConsumer]}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                <i:CallMethodAction MethodName="ExecuteVisibilityOfElements" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
+                    <Image Source="../Resources/Images/EnergyConsumer.png" Margin="30,96,210,199"/>
+                    <Label Content="Energy Consumer" HorizontalAlignment="Left" Margin="63,96,0,0" VerticalAlignment="Top" FontFamily="Champagne &amp; Limousines" Foreground="#FF007ACC" FontWeight="Bold" FontStyle="Italic" FontSize="14"/>
+                    <CheckBox x:Name="DERBlue" Margin="10,126,250,169"  Height="20" Width="20" IsChecked="{Binding VisibilityOfElements[DERBlue]}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                <i:CallMethodAction MethodName="ExecuteVisibilityOfElements" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
+                    <Image Source="../Resources/Images/Breaker.png" Margin="30,126,210,169"/>
+                    <Label Content="DER powered breaker" HorizontalAlignment="Left" Margin="63,126,0,0" VerticalAlignment="Top" FontFamily="Champagne &amp; Limousines" Foreground="#FF007ACC" FontWeight="Bold" FontStyle="Italic" FontSize="14"/>
+                    <CheckBox  x:Name="DERGreen" Margin="10,156,250,139" Height="20" Width="20" IsChecked="{Binding VisibilityOfElements[DERGreen]}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                <i:CallMethodAction MethodName="ExecuteVisibilityOfElements" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
+                    <Image Source="../Resources/Images/Breaker2.png" Margin="30,156,210,139"/>
+                    <Label Content="Energy Source powered breaker" HorizontalAlignment="Left" Margin="63,156,0,0" VerticalAlignment="Top" FontFamily="Champagne &amp; Limousines" Foreground="#FF007ACC" FontWeight="Bold" FontStyle="Italic" FontSize="14"/>
+                    <CheckBox x:Name="DERRed" Margin="10,186,250,109"  Height="20" Width="20" IsChecked="{Binding VisibilityOfElements[DERRed]}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                <i:CallMethodAction MethodName="ExecuteVisibilityOfElements" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
+                    <Image Source="../Resources/Images/Breaker3.png" Margin="30,186,210,109"/>
+                    <Label Content="Not powered breaker" HorizontalAlignment="Left" Margin="63,186,0,0" VerticalAlignment="Top" FontFamily="Champagne &amp; Limousines" Foreground="#FF007ACC" FontWeight="Bold" FontStyle="Italic" FontSize="14"/>
+                    <CheckBox x:Name="LineBlue" Margin="10,216,250,79"  Height="20" Width="20" IsChecked="{Binding VisibilityOfElements[LineBlue]}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                <i:CallMethodAction MethodName="ExecuteVisibilityOfElements" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
+                    <Image Source="../Resources/Images/ACLine.png" Margin="30,216,210,79"/>
+                    <Label Content="DER powered AC Line Segment" HorizontalAlignment="Left" Margin="63,216,0,0" VerticalAlignment="Top" FontFamily="Champagne &amp; Limousines" Foreground="#FF007ACC" FontWeight="Bold" FontStyle="Italic" FontSize="14"/>
+                    <CheckBox x:Name="LineGreen" Margin="10,246,250,49"  Height="20" Width="20" IsChecked="{Binding VisibilityOfElements[LineGreen]}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                <i:CallMethodAction MethodName="ExecuteVisibilityOfElements" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
+                    <Image Source="../Resources/Images/ACLine2.png" Margin="30,246,210,49"/>
+                    <Label HorizontalAlignment="Left" Margin="63,246,0,0" VerticalAlignment="Top" FontFamily="Champagne &amp; Limousines" Foreground="#FF007ACC" FontWeight="Bold" FontStyle="Italic" FontSize="14">
+                        <TextBlock> Energy Source powered <LineBreak/> AC Line Segment</TextBlock>
+                    </Label>
+                    <CheckBox x:Name="LineRed" Margin="10,290,250,0"  Height="20" Width="20" IsChecked="{Binding VisibilityOfElements[LineRed]}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                <i:CallMethodAction MethodName="ExecuteVisibilityOfElements" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </CheckBox>
+                    <Image Source="../Resources/Images/ACLine3.png" Margin="30,293,210,2"/>
+                    <Label Content="Not powered AC Line Segment" HorizontalAlignment="Left" Margin="63,293,0,0" VerticalAlignment="Top" FontFamily="Champagne &amp; Limousines" Foreground="#FF007ACC" FontWeight="Bold" FontStyle="Italic" FontSize="14"/>
+                </Grid>
+            </Border>
+        </Expander>
+        <TextBox Margin="10,10,0,0" Width="200" Height="30" VerticalAlignment="Top" Text="{Binding SearchParameter}" Foreground="#FF0398E2" Background="Gainsboro" HorizontalAlignment="Left">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="GotFocus">
+                    <i:CallMethodAction MethodName="OnFocusSearchParameter" TargetObject="{Binding}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:CallMethodAction MethodName="OnOffFocusSearchParameter" TargetObject="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <Button Margin="215,10,0,0" HorizontalAlignment="Left" Width="100" VerticalAlignment="Top" Command="{Binding Path=SearchCommand}">Search</Button>
+        <Border Margin="5,0,5,10" BorderThickness="1" BorderBrush="#FF007ACC" Height="116" VerticalAlignment="Bottom">
+            <TextBox x:Name="GISTextBlock" IsReadOnly="True" TextWrapping="Wrap" Text="" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="14"/>
+        </Border>
+    </Grid>
+</UserControl>

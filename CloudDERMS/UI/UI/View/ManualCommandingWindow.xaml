@@ -1,0 +1,29 @@
+﻿<Window x:Class="UI.View.ManualCommandingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI.View"
+		xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        Title="Manual Commanding" Height="460" Width="400">
+    <Grid Grid.Row="1" Background="#FF303030">
+        <TextBlock Text="Flexibility" FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="ForestGreen" Margin="149,192,117,204"/>
+        <TextBox Name="ValueKW" TextAlignment="Center" FontSize="18" Height="30" Margin="160,230,160,0" Text="0" TextWrapping="Wrap" Foreground="ForestGreen" VerticalAlignment="Top"/>
+        <AccessText Text="%" FontSize="18" VerticalAlignment="Bottom" Foreground="ForestGreen" Margin="232,0,122,169"/>
+        <RadioButton Content="Increase" Name="Increase" IsChecked="True" HorizontalAlignment="Left" Height="20" Margin="159,288,0,0" Foreground="ForestGreen" VerticalAlignment="Top" Width="120"/>
+        <RadioButton Content="Decrease" Name="Decrease" HorizontalAlignment="Left" Height="20" Margin="159,324,0,0" Foreground="ForestGreen" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Manual Commanding" HorizontalAlignment="Left" Margin="120,375,0,0" VerticalAlignment="Top" Width="150" Command="{Binding Command}" Click="Button_Click"/>
+        <Grid Grid.Column="0" Margin="10,15,10,0" Height="172" VerticalAlignment="Top">
+            <lvc:PieChart Grid.Column="0" LegendLocation="Left" Margin="10,0,184,0" Foreground="ForestGreen" Name="IncreaseGauge">
+                <lvc:PieChart.Series>
+                    <lvc:PieSeries Title="Maximum Increase Flexibility" Values="14" DataLabels="True"
+                               />
+                    <lvc:PieSeries Title="Maximum Decrease Flexibility" Values="4" DataLabels="True" 
+                               />
+                </lvc:PieChart.Series>
+            </lvc:PieChart>
+
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,120 @@
+﻿<Window x:Class="UI.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:ViewModel="clr-namespace:UI.ViewModel"
+        x:Name="root" 
+        mc:Ignorable="d" 
+        MinHeight="600" Height="600" MinWidth="1024" Width="1024" 
+        WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip" BorderThickness="0.8" BorderBrush="#FF0398E2">
+    <Grid Background="#FF303030">
+        <Grid.DataContext>
+            <ViewModel:MenuViewModel/>
+        </Grid.DataContext>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#FF303030"  MouseDown="DragWindow">
+            <Image Margin="5,5,0,0" Source="../Resources/Images/icon.png" Stretch="Fill" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="30"/>
+            <Label HorizontalAlignment="Center" IsEnabled="False" Foreground="#FF0398E2" VerticalAlignment="Bottom" FontSize="15" FontFamily="Bookman Old Style" FontWeight="Bold">Distributed Energy Resources Management System</Label>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,0">
+                <Button Cursor="Hand" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="28" Height="28" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="WindowMinimize">
+                    <materialDesign:PackIcon Kind="WindowMinimize" Margin="0,7,0,0">
+                        <materialDesign:PackIcon.LayoutTransform>
+                            <ScaleTransform CenterX="0" CenterY="0" ScaleX="1.2" ScaleY="1.2"/>
+                        </materialDesign:PackIcon.LayoutTransform>
+                    </materialDesign:PackIcon>
+                </Button>
+                <Button Cursor="Hand" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="28" Height="28" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"  Click="WindowResize">
+                    <materialDesign:PackIcon x:Name="WindowSize" Kind="WindowMaximize">
+                        <materialDesign:PackIcon.LayoutTransform>
+                            <ScaleTransform CenterX="0" CenterY="0" ScaleX="1.2" ScaleY="1.2"/>
+                        </materialDesign:PackIcon.LayoutTransform>
+                    </materialDesign:PackIcon>
+                </Button>
+                <Button Cursor="Hand" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="28" Height="28" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="WindowClose">
+                    <materialDesign:PackIcon Kind="WindowClose">
+                        <materialDesign:PackIcon.LayoutTransform>
+                            <ScaleTransform CenterX="0" CenterY="0" ScaleX="1.2" ScaleY="1.2"/>
+                        </materialDesign:PackIcon.LayoutTransform>
+                    </materialDesign:PackIcon>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="Menu" Grid.Row="1" Background="#FF303030">
+            <Border BorderThickness="0,0,0,1" BorderBrush="#FF0398E2">
+                <StackPanel Margin="0,0,0,1" HorizontalAlignment="Left" Orientation="Horizontal">
+                    <Button Cursor="Hand" x:Name="GIS" Width="Auto" Height="Auto" Background="#484a48" BorderBrush="Transparent" Foreground="#FF0398E2"
+                            Command="{Binding Path=MenuSelectCommand}" CommandParameter="{Binding ElementName=root, Path=(FocusManager.FocusedElement)}">
+                        <Grid Width="65">
+                        <materialDesign:PackIcon Kind="MapLegend" VerticalAlignment="Center"/>
+                        <TextBlock HorizontalAlignment="Center" Text="GIS" FontFamily="Champagne &amp; Limousines"/>
+                        </Grid>
+                    </Button>
+                    <Button Cursor="Hand" x:Name="DERDashboard" Width="Auto" Height="Auto" Background="Transparent" BorderBrush="Transparent" Foreground="#FF0398E2"
+                            Command="{Binding Path=MenuSelectCommand}" CommandParameter="{Binding ElementName=root, Path=(FocusManager.FocusedElement)}">
+                        <Grid Width="155">
+                            <materialDesign:PackIcon Kind="ChartAreaspline" VerticalAlignment="Center"/>
+                            <TextBlock HorizontalAlignment="Center" Text="DER Dashboard" FontFamily="Champagne &amp; Limousines"/>
+                        </Grid>
+                    </Button>
+                    <Button Cursor="Hand" x:Name="NetworkModel" Width="Auto" Height="Auto" Background="Transparent" BorderBrush="Transparent" Foreground="#FF0398E2"
+                            Command="{Binding Path=MenuSelectCommand}" CommandParameter="{Binding ElementName=root, Path=(FocusManager.FocusedElement)}">
+                        <Grid Width="145">
+                            <materialDesign:PackIcon Kind="GraphOutline" VerticalAlignment="Center"/>
+                            <TextBlock HorizontalAlignment="Center" Text="Network Model" FontFamily="Champagne &amp; Limousines"/>
+                        </Grid>
+                    </Button>
+                    <Button Cursor="Hand" x:Name="History" Width="Auto" Height="Auto" Background="Transparent" BorderBrush="Transparent" Foreground="#FF0398E2"
+                            Command="{Binding Path=MenuSelectCommand}" CommandParameter="{Binding ElementName=root, Path=(FocusManager.FocusedElement)}">
+                        <Grid Width="145">
+                            <materialDesign:PackIcon Kind="History" VerticalAlignment="Center"/>
+                            <TextBlock HorizontalAlignment="Center" Text="History" FontFamily="Champagne &amp; Limousines"/>
+                        </Grid>
+                    </Button>
+                    <Menu Cursor="Hand" Opacity="0.9" FontSize="14" VerticalAlignment="Center" Background="#FF303030" FontFamily="Champagne &amp; Limousines" Foreground="#FF0398E2" HorizontalAlignment="Center" Height="28" FontWeight="Bold">
+                        <MenuItem Background="#FF303030" Height="28" Width="Auto">
+                            <MenuItem.Header>
+                                <Grid Width="Auto">
+                                    <materialDesign:PackIcon Kind="ViewGrid" VerticalAlignment="Center"/>
+                                    <TextBlock Width="Auto" Text="Summaries" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,0,0"/>
+                                </Grid>
+                            </MenuItem.Header>
+                            <Button Cursor="Hand" x:Name="SignalsSummary" Width="Auto" Height="Auto" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Foreground="#FF0398E2">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                        <i:CallMethodAction MethodName="OnMouseClick" TargetObject="{Binding}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <Grid Width="145">
+                                    <TextBlock HorizontalAlignment="Center" Text="Signals Summary" FontFamily="Champagne &amp; Limousines"/>
+                                </Grid>
+                            </Button>
+                            <Button Cursor="Hand" x:Name="EventSummary" Width="Auto" Height="Auto" Background="Transparent"  BorderBrush="Transparent" Foreground="#FF0398E2">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                        <i:CallMethodAction MethodName="OnMouseClick" TargetObject="{Binding}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <Grid Width="145">
+                                    <TextBlock HorizontalAlignment="Center" Text="Event Summary" FontFamily="Champagne &amp; Limousines"/>
+                                </Grid>
+                            </Button>
+                        </MenuItem>
+                    </Menu>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Border BorderThickness="0" Margin="1,1,1,1">
+                <ContentPresenter Content="{Binding UserControlPresenter}"/>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,147 @@
+﻿<UserControl x:Class="UI.View.DERDashboardUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ViewModel="clr-namespace:UI.ViewModel"
+             xmlns:TreeView="clr-namespace:DERMSCommon.UIModel.ThreeViewModel;assembly=DERMSCommon"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="533" d:DesignWidth="1024">
+    <Grid>
+        <Label FontWeight="Bold" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="260,200,662,309">Current Time:</Label>
+        <TextBlock Text="{Binding CurrentTime}" TextBlock.FontWeight="Bold" TextBlock.FontFamily="Cambria" TextBlock.FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="362,204,0,305" HorizontalAlignment="Left" Width="146" />
+        <Border Background="Transparent" Width="250" HorizontalAlignment="Left">
+            <TreeView BorderThickness="1" BorderBrush="#FF0398E2" x:Name="MainTreeView"  HorizontalAlignment="Stretch" Margin="10" ItemsSource="{Binding NetworkModel}">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding GeographicalRegions}"  DataType="{x:Type TreeView:NetworkModelTreeClass}">
+                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.NetworkModelCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}">
+                            <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
+                        </Button>
+                        <HierarchicalDataTemplate.ItemTemplate>
+
+                            <HierarchicalDataTemplate ItemsSource="{Binding GeographicalSubRegions}"  DataType="{x:Type TreeView:GeographicalRegionTreeClass}">
+                                <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalRegionCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                    <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
+                                </Button>
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding Substations}" DataType="{x:Type TreeView:GeographicalSubRegionTreeClass}">
+                                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.GeographicalSubRegionCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                            <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
+                                        </Button>
+                                        <HierarchicalDataTemplate.ItemTemplate>
+                                            <HierarchicalDataTemplate ItemsSource="{Binding SubstationElements}" DataType="{x:Type TreeView:SubstationTreeClass}">
+                                                <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.SubstationCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                                    <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
+                                                </Button>
+                                                <HierarchicalDataTemplate.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type TreeView:SubstationElementTreeClass}">
+                                                        <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.SubstationElementCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}" >
+                                                            <Label Foreground="#FF0398E2" Content="{Binding Name}"/>
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </HierarchicalDataTemplate.ItemTemplate>
+                                            </HierarchicalDataTemplate>
+                                        </HierarchicalDataTemplate.ItemTemplate>
+                                    </HierarchicalDataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Border>
+
+        <!--standard gauge1-->
+        <Grid Margin="250,0,2,274" HorizontalAlignment="Center" Width="767">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="30" Height="127" VerticalAlignment="Top">
+                <lvc:Gauge Grid.Column="0" Margin="10,10,0,25"
+                   From="0" To="3000"  Name="EnergySource" Value="{Binding Consumption,StringFormat=N2}"  Foreground="DeepSkyBlue" HorizontalAlignment="Left" Width="169">
+                    <lvc:Gauge.GaugeActiveFill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="DeepSkyBlue" Offset="0.0" />
+                            <GradientStop Color="Blue" Offset="0.5" />
+                            <GradientStop Color="DodgerBlue" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </lvc:Gauge.GaugeActiveFill>
+                </lvc:Gauge>
+                <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="DeepSkyBlue" Margin="83,107,74,0"/>
+                <TextBlock Margin="24,-5,42,0" Text="Current Consumption" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="DeepSkyBlue" TextWrapping="Wrap" />
+            </Grid>
+            <Grid Grid.Column="1" Margin="30" Height="127" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="155*"/>
+                    <ColumnDefinition Width="26*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock  Margin="0,-3,0,0" TextWrapping="Wrap" Text="Production from generators"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Tomato" VerticalAlignment="Top" Height="80" Grid.ColumnSpan="2"/>
+                <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="ProductionFromGenerators"
+                   From="0" To="2500" Value="{Binding ProductionGenerators,StringFormat={}{0:N2}}" Foreground="Tomato" HorizontalAlignment="Left" Width="169" Grid.ColumnSpan="2">
+                    <lvc:Gauge.GaugeActiveFill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="Tomato" Offset="0.0" />
+                            <GradientStop Color="Orange" Offset="0.5" />
+                            <GradientStop Color="DarkRed" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </lvc:Gauge.GaugeActiveFill>
+                </lvc:Gauge>
+                <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Tomato" Margin="83,107,48,0" RenderTransformOrigin="1.053,0.4"/>
+            </Grid>
+            <Grid Grid.Column="2" Margin="30" Height="127" VerticalAlignment="Top">
+                <TextBlock  Margin="20,-6,10,0" TextWrapping="Wrap" Text="Exchange with Sources"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Yellow" VerticalAlignment="Top" Height="108"/>
+                <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="EnergyFromSources"
+                   From="-2500" To="2500" Value="{Binding EnergySourceValue,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="Yellow" HorizontalAlignment="Left" Width="169">
+                    <lvc:Gauge.GaugeActiveFill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="Yellow" Offset="0.0" />
+                            <GradientStop Color="LightGoldenrodYellow" Offset="0.5" />
+                            <GradientStop Color="DarkGoldenrod" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </lvc:Gauge.GaugeActiveFill>
+                </lvc:Gauge>
+                <TextBlock Text="kW" FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Yellow" Margin="83,107,74,0" RenderTransformOrigin="1.053,0.4"/>
+            </Grid>
+
+        </Grid>
+
+        <Grid Margin="255,217,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Label HorizontalContentAlignment="Center" Margin="236,8,221,0"  Content="Consumption and production"  FontFamily="Cambria" FontSize="20" FontWeight="Bold" Foreground="DeepSkyBlue" Height="31" VerticalAlignment="Top"/>
+                <Button Content="Manual Commanding" Name="ManualCommanding" Margin="36,10,0,8" Click="Button_Click_1" Height="Auto" HorizontalAlignment="Left" Width="195"/>
+                <Button Content="Automatic Optimization" Command="{Binding OptimizationCommand}"  Margin="0,10,21,8"  Height="Auto" HorizontalAlignment="Right" Width="195"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,-20,727,206">kW</Label>
+                <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom">H</Label>
+                <lvc:CartesianChart x:Name="cartesianChart" Margin="0,0,5,24">
+                    <lvc:CartesianChart.Series>
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Fill="{Binding Color1}"  Values="{Binding ChartValues2}" Visibility="{Binding VisibilityConsumption}" />
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Fill="{Binding Color2}" Values="{Binding ChartValues3}" Visibility="{Binding VisibilityDERProduction}" />
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Fill="Aqua" Values="{Binding ChartValues1}" Visibility="{Binding VisibilityGridDemands}" />
+                    </lvc:CartesianChart.Series>
+                </lvc:CartesianChart>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <CheckBox Background="DeepSkyBlue" Content="Consumption" FontSize="14" Foreground="DeepSkyBlue" IsChecked="{Binding ShowConsumption}" HorizontalAlignment="Left" Margin="67,0,0,0" VerticalAlignment="Top"/>
+                <CheckBox Background="Tomato" Content="DER Production" FontSize="14" Foreground="Tomato" IsChecked="{Binding ShowDerProduction}" HorizontalAlignment="Left" Height="20" Margin="227,0,0,0" VerticalAlignment="Top"/>
+                <CheckBox Background="Yellow" Content="Exchange with source" FontSize="14" Foreground="Yellow" IsChecked="{Binding ShowGridDemands}" HorizontalAlignment="Left" Height="20" Margin="397,0,0,0" VerticalAlignment="Top"/>
+                <materialDesign:PackIcon Kind="Circle" Margin="576,1,163,9" Foreground="Green"/>
+                <Label Content="Current time" Foreground="Green" FontSize="15" Margin="601,-2,35,2"/>
+            </Grid>
+        </Grid>
+
+
+    </Grid>
+</UserControl>
