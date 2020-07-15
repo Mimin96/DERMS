@@ -892,6 +892,7 @@ namespace FTN.Common
             notSettablePropertyIds.Add(ModelCode.GEOGRAPHICALREGION_SUBGEOREGS);
             notSettablePropertyIds.Add(ModelCode.SUBGEOGRAPHICALREGION_SUBSTATIONS);
             notSettablePropertyIds.Add(ModelCode.ACLINESEGMENT_POINTS);
+            notSettablePropertyIds.Add(ModelCode.BREAKER_GENERATORS);
         }
 	
 		# endregion Initialization of metadata

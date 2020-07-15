@@ -11,6 +11,11 @@ namespace DERMSCommon.DataModel.Wires
     [DataContract]
     public class Breaker : PROTECTED_SWITCH
     {
+        [DataMember]
+        private List<long> generators = new List<long>();
+
+        public List<long> Generators { get => generators; set => generators = value; }
+
         public Breaker(long globalId) : base(globalId)
         {
         }
@@ -19,7 +24,8 @@ namespace DERMSCommon.DataModel.Wires
         {
             if (base.Equals(obj))
             {
-                return true;
+                Breaker x = (Breaker)obj;
+                return (CompareHelper.CompareLists(x.Generators, this.Generators, true));
             }
             else
             {
@@ -42,8 +48,8 @@ namespace DERMSCommon.DataModel.Wires
                 //case ModelCode.SWITCH_RATED_CURRENT:
                 //case ModelCode.SWITCH_RETAINED:
                 //case ModelCode.SWITCH_SWITCH_ON_COUNT:
-                //case ModelCode.SWITCH_SWITCH_ON_DATE:
-                //    return true;
+                case ModelCode.BREAKER_GENERATORS:
+                    return true;
 
                 default:
                     return base.HasProperty(property);
@@ -68,9 +74,9 @@ namespace DERMSCommon.DataModel.Wires
                 //case ModelCode.SWITCH_SWITCH_ON_COUNT:
                 //    prop.SetValue(switchOnCount);
                 //    break;
-                //case ModelCode.SWITCH_SWITCH_ON_DATE:
-                //    prop.SetValue(switchOnDate);
-                //    break;
+                case ModelCode.BREAKER_GENERATORS:
+                    prop.SetValue(generators);
+                    break;
 
                 default:
                     base.GetProperty(prop);
@@ -96,9 +102,9 @@ namespace DERMSCommon.DataModel.Wires
                 //case ModelCode.SWITCH_SWITCH_ON_COUNT:
                 //    switchOnCount = property.AsInt();
                 //    break;
-                //case ModelCode.SWITCH_SWITCH_ON_DATE:
-                //    switchOnDate = property.AsDateTime();
-                //    break;
+                case ModelCode.BREAKER_GENERATORS:
+                    generators = property.AsReferences();
+                    break;
 
                 default:
                     base.SetProperty(property);
@@ -110,15 +116,58 @@ namespace DERMSCommon.DataModel.Wires
 
         #region IReference implementation
 
+        public override bool IsReferenced
+        {
+            get
+            {
+                return (generators.Count > 0) || base.IsReferenced;
+            }
+        }
+
         public override void GetReferences(Dictionary<ModelCode, List<long>> references, TypeOfReference refType)
         {
-            //if (baseVoltage != 0 && (refType == TypeOfReference.Reference || refType == TypeOfReference.Both))
-            //{
-            //	references[ModelCode.CONDEQ_BASVOLTAGE] = new List<long>();
-            //	references[ModelCode.CONDEQ_BASVOLTAGE].Add(baseVoltage);
-            //}
+            if (generators != null && generators.Count > 0 && (refType == TypeOfReference.Target || refType == TypeOfReference.Both))
+            {
+                references[ModelCode.BREAKER_GENERATORS] = generators.GetRange(0, generators.Count);
+            }
 
             base.GetReferences(references, refType);
+        }
+
+        public override void AddReference(ModelCode referenceId, long globalId)
+        {
+            switch (referenceId)
+            {
+                case ModelCode.GENERATOR_BREAKER:
+                    generators.Add(globalId);
+                    break;
+
+                default:
+                    base.AddReference(referenceId, globalId);
+                    break;
+            }
+        }
+
+        public override void RemoveReference(ModelCode referenceId, long globalId)
+        {
+            switch (referenceId)
+            {
+                case ModelCode.GENERATOR_BREAKER:
+
+                    if (generators.Contains(globalId))
+                    {
+                        generators.Remove(globalId);
+                    }
+                    else
+                    {
+                        CommonTrace.WriteTrace(CommonTrace.TraceWarning, "Entity (GID = 0x{0:x16}) doesn't contain reference 0x{1:x16}.", this.GlobalId, globalId);
+                    }
+
+                    break;
+                default:
+                    base.RemoveReference(referenceId, globalId);
+                    break;
+            }
         }
 
         #endregion IReference implementation

@@ -14,6 +14,8 @@ namespace DERMSCommon.DataModel.Core
     public class Generator : RegulatingCondEq
     {
         [DataMember]
+        private long breaker = 0;
+        [DataMember]
         private float maxQ;
         [DataMember]
         private float minQ;
@@ -35,6 +37,7 @@ namespace DERMSCommon.DataModel.Core
         public bool Flexibility { get => flexibility; set => flexibility = value; }
         public float MaxFlexibility { get => maxFlexibility; set => maxFlexibility = value; }
         public float MinFlexibility { get => minFlexibility; set => minFlexibility = value; }
+        public long Breaker { get => breaker; set => breaker = value; }
 
         public Generator(long globalId) : base(globalId)
         {
@@ -124,7 +127,7 @@ namespace DERMSCommon.DataModel.Core
             if (base.Equals(obj))
             {
                 Generator x = (Generator)obj;
-                return (x.maxQ == this.maxQ && x.minQ == this.minQ && x.considerP == this.considerP && x.generatorType == this.generatorType && x.flexibility == this.flexibility && x.minFlexibility == this.minFlexibility && x.maxFlexibility == this.maxFlexibility);
+                return (x.Breaker == this.Breaker && x.maxQ == this.maxQ && x.minQ == this.minQ && x.considerP == this.considerP && x.generatorType == this.generatorType && x.flexibility == this.flexibility && x.minFlexibility == this.minFlexibility && x.maxFlexibility == this.maxFlexibility);
             }
             else
             {
@@ -150,6 +153,7 @@ namespace DERMSCommon.DataModel.Core
                 case ModelCode.GENERATOR_FLEXIBILITY:
                 case ModelCode.GENERATOR_MAXFLEX:
                 case ModelCode.GENERATOR_MINFLEX:
+                case ModelCode.GENERATOR_BREAKER:
                     return true;
 
                 default:
@@ -187,6 +191,10 @@ namespace DERMSCommon.DataModel.Core
 
                 case ModelCode.GENERATOR_CONSIDERP:
                     prop.SetValue(considerP);
+                    break;
+
+                case ModelCode.GENERATOR_BREAKER:
+                    prop.SetValue(breaker);
                     break;
 
                 default:
@@ -227,6 +235,10 @@ namespace DERMSCommon.DataModel.Core
                     considerP = property.AsFloat();
                     break;
 
+                case ModelCode.GENERATOR_BREAKER:
+                    breaker = property.AsReference();
+                    break;
+
                 default:
                     base.SetProperty(property);
                     break;
@@ -239,11 +251,11 @@ namespace DERMSCommon.DataModel.Core
 
         public override void GetReferences(Dictionary<ModelCode, List<long>> references, TypeOfReference refType)
         {
-            //if (powerSystemResource != 0 && (refType != TypeOfReference.Reference || refType != TypeOfReference.Both))
-            //{
-            //    references[ModelCode.MEASUREMENT_PSR] = new List<long>();
-            //    references[ModelCode.MEASUREMENT_PSR].Add(powerSystemResource);
-            //}
+            if (breaker != 0 && (refType != TypeOfReference.Reference || refType != TypeOfReference.Both))
+            {
+                references[ModelCode.GENERATOR_BREAKER] = new List<long>();
+                references[ModelCode.GENERATOR_BREAKER].Add(breaker);
+            }
 
             base.GetReferences(references, refType);
         }
