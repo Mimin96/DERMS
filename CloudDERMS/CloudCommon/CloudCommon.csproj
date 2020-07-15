@@ -44,9 +44,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CalculateEngine\" />
-    <Folder Include="NMS\" />
-    <Folder Include="SCADA\" />
+    <Folder Include="CalculateEngine\CECacheMicroservice\Communication\" />
+    <Folder Include="CalculateEngine\CECalculationMicroservice\Communication\" />
+    <Folder Include="CalculateEngine\CECommandMicroservice\Communication\" />
+    <Folder Include="CalculateEngine\CEPubSubMicroservice\Communication\" />
+    <Folder Include="CalculateEngine\CETransactionMicroservice\Communication\" />
+    <Folder Include="CalculateEngine\CEWeatherForecastMicroservice\Communication\" />
+    <Folder Include="NMS\NMSGDAMicroservice\Communication\" />
+    <Folder Include="NMS\NMSTransactionMicroservice\Communication\" />
+    <Folder Include="SCADA\SCADACacheMicroservice\Communication\" />
+    <Folder Include="SCADA\SCADACommandMicroservice\Communication\" />
+    <Folder Include="SCADA\SCADATransactionMicroservice\Communication\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
