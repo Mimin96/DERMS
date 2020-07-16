@@ -1,5 +1,7 @@
 ﻿using CalculationEngineServiceCommon;
 using DERMSCommon;
+using DERMSCommon.DataModel.Core;
+using DERMSCommon.DataModel.Wires;
 using DERMSCommon.WeatherForecast;
 using System;
 using System.Collections.Generic;
@@ -19,6 +21,9 @@ namespace CalculationEngineService
             Dictionary<long, double> keyValues = new Dictionary<long, double>();
             keyValues[GID] = NormalOpen ? 1 : 0;
 
+            Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
+            networkModel = CalculationEngineCache.Instance.GetNMSModel();
+            Breaker breaker = (Breaker)networkModel[GID];
             Dictionary<long, DerForecastDayAhead> prod = new Dictionary<long, DerForecastDayAhead>();
             prod = CalculationEngineCache.Instance.GetAllDerForecastDayAhead();
             IslandCalculations islandCalculations = new IslandCalculations();

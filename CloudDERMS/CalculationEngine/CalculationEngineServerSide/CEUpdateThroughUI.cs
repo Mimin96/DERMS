@@ -15,9 +15,6 @@ namespace CalculationEngineService
 {
     public class CEUpdateThroughUI : ICEUpdateThroughUI
     {
-        private Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
-        private Dictionary<long, double> batteryStorage = new Dictionary<long, double>();
-   
         public float UpdateThroughUI(long data)
         {
             float energyFromSource = CalculationEngineCache.Instance.PopulateBalance(data);
@@ -25,6 +22,7 @@ namespace CalculationEngineService
         }
         public float Balance(Dictionary<long, DerForecastDayAhead> prod, long GidUi)
         {
+            Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             networkModel = CalculationEngineCache.Instance.GetNMSModel();
             Dictionary<long, double> battery = new Dictionary<long, double>();
             Dictionary<long, List<long>> energySources = new Dictionary<long, List<long>>();
@@ -803,6 +801,7 @@ namespace CalculationEngineService
         public float BalanceNetworkModel()
         {
             float energyFromSource = 0;
+            Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             networkModel = CalculationEngineCache.Instance.GetNMSModel();
             foreach (KeyValuePair<long, IdentifiedObject> kvp in networkModel)
             {
@@ -818,6 +817,7 @@ namespace CalculationEngineService
 
         public List<long> AllGeoRegions()
         {
+            Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             networkModel = CalculationEngineCache.Instance.GetNMSModel();
             List<long> geoReg = new List<long>();
             foreach (KeyValuePair<long, IdentifiedObject> kvp in networkModel)
@@ -1096,6 +1096,7 @@ namespace CalculationEngineService
         }
         public List<Generator> ListOffTurnedOffGenerators()
         {
+            Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             networkModel = CalculationEngineCache.Instance.GetNMSModel();
             List<Generator> generators = new List<Generator>();
             foreach(long gid in CalculationEngineCache.Instance.TurnedOnGenerators)

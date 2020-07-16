@@ -1124,5 +1124,16 @@ namespace CalculationEngineService
             
             return generators;
         }
+        public List<Generator> GeneratorOffCheck()
+        {
+            networkModel = CalculationEngineCache.Instance.GetNMSModel();
+            List<Generator> generators = new List<Generator>();
+            foreach(long genGid in CalculationEngineCache.Instance.TurnedOffGenerators)
+            {
+                Generator generator = (Generator)networkModel[genGid];
+                generators.Add(generator);
+            }
+            return generators;
+        }
     }
 }

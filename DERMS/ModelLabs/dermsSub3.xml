@@ -473,7 +473,7 @@
 		<cim:ConductingEquipment.longitude>45.271670</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.839416</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Solar</cim:Generator.generatorType>
-		<cim:Generator.Breaker rdf:resource="#b_27"/>
+		<cim:Generator.breaker rdf:resource="#b_27"/>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_3"/>		
 	</cim:Generator>
 	

@@ -20,6 +20,7 @@ using FTN.Common;
 using UI.View;
 using UI.Resources.MediatorPattern;
 using DERMSCommon.UIModel.ThreeViewModel;
+using UI.Communication;
 
 namespace UI.ViewModel
 {
@@ -32,13 +33,16 @@ namespace UI.ViewModel
         private Dictionary<string, bool> _visibilityOfElements;
         private RelayCommand<object> _searchCommand;
         private string _searchParam;
+        CommunicationProxy proxy;
+        private List<Generator> TurnedOffGenerators { get; set; }
         #endregion
 
         public GISUserControlViewModel(Map map, TextBox gisTextBlock)
         {
             Mediator.Register("NMSNetworkModelDataGIS", NMSNetworkModelDataGIS);
+            TurnedOffGenerators = new List<Generator>();
 
-			VisibilityOfElements = new Dictionary<string, bool>();
+            VisibilityOfElements = new Dictionary<string, bool>();
             VisibilityOfElementPopulate();
             SearchParameter = "Element Name";
 
@@ -157,9 +161,32 @@ namespace UI.ViewModel
             }
             else if (selected.Data.Type == DMSType.GENERATOR)
             {
+                bool canManualCommand = true;
+                string text = "";
                 Generator generator = (Generator)selected.Data.IdentifiedObject;
-                Window w = new ManualCommandingWindow(generator.MaxFlexibility, generator.MinFlexibility, selected.Data.IdentifiedObject.GlobalId);
-                w.Show();
+                proxy = new CommunicationProxy();
+                proxy.Open2();
+                TurnedOffGenerators = proxy.sendToCE.GeneratorOffCheck();
+                foreach (Generator g in TurnedOffGenerators)
+                {
+                    if (g.GlobalId.Equals(generator.GlobalId))
+                    {
+                        canManualCommand = false;
+                        //return;
+                    }
+                }
+                if (canManualCommand)
+                {
+                    Window w = new ManualCommandingWindow(generator.MaxFlexibility, generator.MinFlexibility, selected.Data.IdentifiedObject.GlobalId);
+                    w.Show();
+                }
+                else
+                {
+                    text = "Generator is disconnected from network";
+                    PopUpWindow popUpWindow = new PopUpWindow(text);
+                    popUpWindow.ShowDialog();
+                }
+            
             }
         }
         public void OnMouseClick(object sender, MouseButtonEventArgs e)

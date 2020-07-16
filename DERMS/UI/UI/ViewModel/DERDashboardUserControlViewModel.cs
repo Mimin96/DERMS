@@ -484,7 +484,7 @@ namespace UI.ViewModel
             CurrentSelectedGid = gid;
             proxy = new CommunicationProxy();
             proxy.Open2();
-            TurnedOffGenerators = proxy.sendToCE.ListOffTurnedOffGenerators();
+            TurnedOffGenerators = proxy.sendToCE.GeneratorOffCheck();
             foreach (Generator g in TurnedOffGenerators)
             {
                 if (g.GlobalId.Equals(gid))

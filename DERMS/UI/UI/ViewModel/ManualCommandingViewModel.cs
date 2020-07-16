@@ -1,5 +1,6 @@
 ﻿using CalculationEngineServiceCommon;
 using DERMSCommon;
+using DERMSCommon.DataModel.Core;
 using DERMSCommon.UIModel;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using UI.Communication;
 using UI.View;
 using static DERMSCommon.Enums;
 
@@ -17,14 +19,15 @@ namespace UI.ViewModel
 	{
 		#region Variables
 		private IFlexibilityFromUIToCE ProxyCE { get; set; }
-		private ChannelFactory<IFlexibilityFromUIToCE> factoryCE;
+        private ChannelFactory<IFlexibilityFromUIToCE> factoryCE;
 		private Double Inc { get; set; }
 		private Double Dec { get; set; }
-		#endregion
+        #endregion
 
-		public ManualCommandingViewModel(Double inc, Double dec)
+        public ManualCommandingViewModel(Double inc, Double dec)
 		{
-			Inc = inc;
+           
+            Inc = inc;
 			Dec = dec;
 			Connect();
 		}
@@ -84,8 +87,9 @@ namespace UI.ViewModel
 						canManualCommand = false;
 					}
 				}
+                
 
-				if (canManualCommand)
+                if (canManualCommand)
 				{
 					ProxyCE.UpdateFlexibilityFromUIToCE(valueKW, incdec, gid);
 

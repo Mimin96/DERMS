@@ -1,5 +1,7 @@
 ﻿using CalculationEngineServiceCommon;
 using DERMSCommon;
+using DERMSCommon.DataModel.Core;
+using DERMSCommon.DataModel.Wires;
 using DERMSCommon.WeatherForecast;
 using System;
 using System.Collections.Generic;
@@ -19,34 +21,43 @@ namespace CalculationEngineService
             Dictionary<long, double> keyValues = new Dictionary<long, double>();
             keyValues[GID] = NormalOpen ? 1 : 0;
 
+            Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
+            networkModel = CalculationEngineCache.Instance.GetNMSModel();
+            Breaker breaker = (Breaker)networkModel[GID];
             Dictionary<long, DerForecastDayAhead> prod = new Dictionary<long, DerForecastDayAhead>();
             prod = CalculationEngineCache.Instance.GetAllDerForecastDayAhead();
             IslandCalculations islandCalculations = new IslandCalculations();
             if (NormalOpen)
             {
-                if (!CalculationEngineCache.Instance.TurnedOffGenerators.Contains(21474836483))
+                foreach (long generatorGid in breaker.Generators)
                 {
-                    CalculationEngineCache.Instance.TurnedOffGenerators.Add(21474836483);
-                    islandCalculations.GeneratorOff(21474836483, prod);
-                    CalculationEngineCache.Instance.TempProductionCached.Add(21474836483, prod[21474836483]);
-                    prod.Remove(21474836483);
-                    if (CalculationEngineCache.Instance.TurnedOnGenerators.Contains(21474836483))
-                        CalculationEngineCache.Instance.TurnedOnGenerators.Remove(21474836483);
-                    CalculationEngineCache.Instance.SendDerForecastDayAhead();
+                    if (!CalculationEngineCache.Instance.TurnedOffGenerators.Contains(generatorGid))
+                    {
+                        CalculationEngineCache.Instance.TurnedOffGenerators.Add(generatorGid);
+                        islandCalculations.GeneratorOff(generatorGid, prod);
+                        CalculationEngineCache.Instance.TempProductionCached.Add(generatorGid, prod[generatorGid]);
+                        prod.Remove(generatorGid);
+                        if (CalculationEngineCache.Instance.TurnedOnGenerators.Contains(generatorGid))
+                            CalculationEngineCache.Instance.TurnedOnGenerators.Remove(generatorGid);
+                        CalculationEngineCache.Instance.SendDerForecastDayAhead();
+                    }
                 }
             }
             else
             {
-                if (CalculationEngineCache.Instance.TurnedOffGenerators.Contains(21474836483))
+                foreach (long generatorGid in breaker.Generators)
                 {
-                    CalculationEngineCache.Instance.TurnedOffGenerators.Remove(21474836483);
-                    
-                    prod.Add(21474836483,CalculationEngineCache.Instance.TempProductionCached[21474836483]);
-                    CalculationEngineCache.Instance.TempProductionCached.Remove(21474836483);
-                    islandCalculations.GeneratorOn(21474836483, prod);
-                    if (!CalculationEngineCache.Instance.TurnedOnGenerators.Contains(21474836483))
-                        CalculationEngineCache.Instance.TurnedOnGenerators.Add(21474836483);
-                    CalculationEngineCache.Instance.SendDerForecastDayAhead();
+                    if (CalculationEngineCache.Instance.TurnedOffGenerators.Contains(generatorGid))
+                    {
+                        CalculationEngineCache.Instance.TurnedOffGenerators.Remove(generatorGid);
+
+                        prod.Add(generatorGid, CalculationEngineCache.Instance.TempProductionCached[generatorGid]);
+                        CalculationEngineCache.Instance.TempProductionCached.Remove(generatorGid);
+                        islandCalculations.GeneratorOn(generatorGid, prod);
+                        if (!CalculationEngineCache.Instance.TurnedOnGenerators.Contains(generatorGid))
+                            CalculationEngineCache.Instance.TurnedOnGenerators.Add(generatorGid);
+                        CalculationEngineCache.Instance.SendDerForecastDayAhead();
+                    }
                 }
             }
             ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(keyValues);
