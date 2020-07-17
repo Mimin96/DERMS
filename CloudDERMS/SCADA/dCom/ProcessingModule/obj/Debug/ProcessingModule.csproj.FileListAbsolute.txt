@@ -554,3 +554,12 @@ C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\obj
 C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
 C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
 C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb
+C:\Users\Djole\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.dll
+C:\Users\Djole\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.pdb
+C:\Users\Djole\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\bin\Debug\Common.dll
+C:\Users\Djole\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\bin\Debug\Common.pdb
+C:\Users\Djole\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csprojAssemblyReference.cache
+C:\Users\Djole\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CoreCompileInputs.cache
+C:\Users\Djole\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
+C:\Users\Djole\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
+C:\Users\Djole\Desktop\DERMS\CloudDERMS\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb
