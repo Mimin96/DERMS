@@ -183,3 +183,8 @@ C:\Users\boske\Desktop\last2\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIM
 C:\Users\boske\Desktop\last2\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache
 C:\Users\boske\Desktop\last2\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.dll
 C:\Users\boske\Desktop\last2\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.pdb
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\DermsUI\CIMProfileCreator\bin\Debug\CIMProfileCreator.dll
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\DermsUI\CIMProfileCreator\bin\Debug\CIMProfileCreator.pdb
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.dll
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.pdb

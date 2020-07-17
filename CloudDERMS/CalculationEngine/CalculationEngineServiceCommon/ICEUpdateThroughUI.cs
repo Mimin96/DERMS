@@ -24,5 +24,7 @@ namespace CalculationEngineServiceCommon
         List<long> ListOfDisabledGenerators();
         [OperationContract]
         List<Generator> ListOffTurnedOffGenerators();
+        [OperationContract]
+        List<Generator> GeneratorOffCheck();
     }
 }

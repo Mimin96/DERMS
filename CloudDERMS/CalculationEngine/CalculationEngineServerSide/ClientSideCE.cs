@@ -90,10 +90,10 @@ namespace CalculationEngineService
 
             Console.WriteLine("Connected: net.tcp://localhost:20505/ITransactionListing");
 
-          //  NetTcpBinding binding6 = new NetTcpBinding();
-           // factoryUI_CE = new ChannelFactory<ISendEventsToUI>(binding6, new EndpointAddress("net.tcp://localhost:27777/ISendEventsToUI"));
-           // ProxyUI_CE = factoryUI_CE.CreateChannel();
-           // Console.WriteLine("Connected: net.tcp://localhost:27777/ISendEventsToUI");
+            //  NetTcpBinding binding6 = new NetTcpBinding();
+            // factoryUI_CE = new ChannelFactory<ISendEventsToUI>(binding6, new EndpointAddress("net.tcp://localhost:27777/ISendEventsToUI"));
+            // ProxyUI_CE = factoryUI_CE.CreateChannel();
+            // Console.WriteLine("Connected: net.tcp://localhost:27777/ISendEventsToUI");
 
         }
 
@@ -102,7 +102,7 @@ namespace CalculationEngineService
             factoryUI.Abort();
             factoryScada.Abort();
             factoryScadaListOfGenerators.Abort();
-           // factoryUI_CE.Abort();
+            // factoryUI_CE.Abort();
         }
 
         public void Close()
@@ -110,7 +110,7 @@ namespace CalculationEngineService
             factoryUI.Close();
             factoryScada.Close();
             factoryScadaListOfGenerators.Close();
-           // factoryUI_CE.Close();
+            // factoryUI_CE.Close();
         }
     }
 }

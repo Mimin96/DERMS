@@ -15,6 +15,9 @@ namespace CalculationEngineService
 {
     public class CEUpdateThroughUI : ICEUpdateThroughUI
     {
+        private Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
+        private Dictionary<long, double> batteryStorage = new Dictionary<long, double>();
+
         public float UpdateThroughUI(long data)
         {
             float energyFromSource = CalculationEngineCache.Instance.PopulateBalance(data);
@@ -22,7 +25,6 @@ namespace CalculationEngineService
         }
         public float Balance(Dictionary<long, DerForecastDayAhead> prod, long GidUi)
         {
-            Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             networkModel = CalculationEngineCache.Instance.GetNMSModel();
             Dictionary<long, double> battery = new Dictionary<long, double>();
             Dictionary<long, List<long>> energySources = new Dictionary<long, List<long>>();
@@ -785,12 +787,12 @@ namespace CalculationEngineService
                     }
                 }
             }
-            foreach(long gidOfGen in changeFlexOfGen)
+            foreach (long gidOfGen in changeFlexOfGen)
             {
                 Generator generator = (Generator)networkModel[gidOfGen];
-                
+
                 generator.Flexibility = false;
-                
+
             }
             CalculationEngineCache.Instance.ListOfGenerators = dicForScada;
             ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(dicForScada);
@@ -801,7 +803,6 @@ namespace CalculationEngineService
         public float BalanceNetworkModel()
         {
             float energyFromSource = 0;
-            Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             networkModel = CalculationEngineCache.Instance.GetNMSModel();
             foreach (KeyValuePair<long, IdentifiedObject> kvp in networkModel)
             {
@@ -817,7 +818,6 @@ namespace CalculationEngineService
 
         public List<long> AllGeoRegions()
         {
-            Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             networkModel = CalculationEngineCache.Instance.GetNMSModel();
             List<long> geoReg = new List<long>();
             foreach (KeyValuePair<long, IdentifiedObject> kvp in networkModel)
@@ -1096,23 +1096,22 @@ namespace CalculationEngineService
         }
         public List<Generator> ListOffTurnedOffGenerators()
         {
-            Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             networkModel = CalculationEngineCache.Instance.GetNMSModel();
             List<Generator> generators = new List<Generator>();
-            foreach(long gid in CalculationEngineCache.Instance.TurnedOnGenerators)
+            foreach (long gid in CalculationEngineCache.Instance.TurnedOnGenerators)
             {
                 Generator generator = (Generator)networkModel[gid];
-                if(generator.Flexibility)
+                if (generator.Flexibility)
                 {
-                    if(CalculationEngineCache.Instance.DisableAutomaticOptimization.Contains(generator.Container))
+                    if (CalculationEngineCache.Instance.DisableAutomaticOptimization.Contains(generator.Container))
                     {
                         Substation substation = (Substation)networkModel[generator.Container];
                         CalculationEngineCache.Instance.DisableAutomaticOptimization.Remove(substation.GlobalId);
-                        if(CalculationEngineCache.Instance.DisableAutomaticOptimization.Contains(substation.SubGeoReg))
+                        if (CalculationEngineCache.Instance.DisableAutomaticOptimization.Contains(substation.SubGeoReg))
                         {
                             SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)networkModel[substation.SubGeoReg];
                             CalculationEngineCache.Instance.DisableAutomaticOptimization.Remove(subGeographicalRegion.GlobalId);
-                            if(CalculationEngineCache.Instance.DisableAutomaticOptimization.Contains(subGeographicalRegion.GeoReg))
+                            if (CalculationEngineCache.Instance.DisableAutomaticOptimization.Contains(subGeographicalRegion.GeoReg))
                             {
                                 GeographicalRegion geographicalRegion = (GeographicalRegion)networkModel[subGeographicalRegion.GeoReg];
                                 CalculationEngineCache.Instance.DisableAutomaticOptimization.Remove(geographicalRegion.GlobalId);
@@ -1122,7 +1121,18 @@ namespace CalculationEngineService
                 }
                 generators.Add(generator);
             }
-            
+
+            return generators;
+        }
+        public List<Generator> GeneratorOffCheck()
+        {
+            networkModel = CalculationEngineCache.Instance.GetNMSModel();
+            List<Generator> generators = new List<Generator>();
+            foreach (long genGid in CalculationEngineCache.Instance.TurnedOffGenerators)
+            {
+                Generator generator = (Generator)networkModel[genGid];
+                generators.Add(generator);
+            }
             return generators;
         }
     }

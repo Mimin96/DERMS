@@ -371,12 +371,12 @@ namespace UI.ViewModel
 
             this.dERDashboardUserControl = dERDashboardUserControl;
 
-           // Mediator.Register("DerForecastDayAhead", DERDashboardDerForecastDayAhead);
+            // Mediator.Register("DerForecastDayAhead", DERDashboardDerForecastDayAhead);
             //Mediator.Register("Flexibility", DERDashboardFlexibility);
 
             CurrentSelectedGid = 0;
 
-           // ClientSideProxy =  ClientSideProxy.Instance;
+            // ClientSideProxy =  ClientSideProxy.Instance;
             //CalculationEnginePubSub = new CalculationEnginePubSub();
             //ClientSideProxy.StartServiceHost(CalculationEnginePubSub);
             //ClientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
@@ -484,7 +484,7 @@ namespace UI.ViewModel
             CurrentSelectedGid = gid;
             proxy = new CommunicationProxy();
             proxy.Open2();
-            TurnedOffGenerators = proxy.sendToCE.ListOffTurnedOffGenerators();
+            TurnedOffGenerators = proxy.sendToCE.GeneratorOffCheck();
             foreach (Generator g in TurnedOffGenerators)
             {
                 if (g.GlobalId.Equals(gid))
@@ -518,7 +518,7 @@ namespace UI.ViewModel
                     }
                 }
             }
-            
+
         }
         public void OptimizationCommandExecute()
         {
@@ -544,7 +544,7 @@ namespace UI.ViewModel
                 proxy.Open2();
                 TurnedOffGenerators = proxy.sendToCE.ListOffTurnedOffGenerators();
                 DisableAutomaticOptimization = proxy.sendToCE.ListOfDisabledGenerators();
-                
+
                 if (!DisableAutomaticOptimization.Contains(GidForOptimization))
                 {
                     if (proxy == null)
@@ -775,7 +775,7 @@ namespace UI.ViewModel
             foreach (HourDataPoint hc in tempList)
             {
                 ChartValues2.Add((double)hc.ActivePower);
-                
+
                 // ChartValues1.Add((double)hc.ActivePower);
 
             }
@@ -859,7 +859,7 @@ namespace UI.ViewModel
             foreach (HourDataPoint hc in tempList)
             {
                 ChartValues2.Add((double)hc.ActivePower);
-               
+
 
             }
             foreach (HourDataPoint hdpProduction in tempListProduction)

@@ -1,6 +1,6 @@
 ﻿namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 {
-	using FTN.Common;
+    using FTN.Common;
     using System;
 
     /// <summary>
@@ -8,7 +8,7 @@
     /// ResourceDescription objects using PowerTransformerCIMProfile_Labs objects.
     /// </summary>
     public static class PowerTransformerConverter
-	{
+    {
 
         #region Populate ResourceDescription
         public static void PopulateIdentifiedObjectProperties(FTN.IdentifiedObject cimIdentifiedObject, ResourceDescription rd)
@@ -121,7 +121,16 @@
                     }
                     rd.AddProperty(new Property(ModelCode.EQUIPMENT_CONTAINER, gid));
                 }
-
+                if (cimGenerator.BreakerHasValue)
+                {
+                    long gid = importHelper.GetMappedGID(cimGenerator.Breaker.ID);
+                    if (gid < 0)
+                    {
+                        report.Report.Append("WARNING: Convert ").Append(cimGenerator.GetType().ToString()).Append(" rdfID = \"").Append(cimGenerator.ID);
+                        report.Report.Append("\" - Failed to set reference to Breaker: rdfID \"").Append(cimGenerator.Breaker.ID).AppendLine(" \" is not mapped to GID!");
+                    }
+                    rd.AddProperty(new Property(ModelCode.GENERATOR_BREAKER, gid));
+                }
             }
         }
 

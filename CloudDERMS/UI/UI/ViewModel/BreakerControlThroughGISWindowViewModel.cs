@@ -57,7 +57,7 @@ namespace UI.ViewModel
 
                 ProxyCE.ChangeBreakerStatus(GID, NormalOpen);
 
-                if(NormalOpen == true)
+                if (NormalOpen == true)
                     e = new Event("Breaker is opened", Enums.Component.SCADA, DateTime.Now);
                 else
                     e = new Event("Breaker is closed", Enums.Component.SCADA, DateTime.Now);
@@ -67,7 +67,7 @@ namespace UI.ViewModel
 
                 if (NormalOpen == true)
                 {
-                    
+
                 }
 
                 for (int i = 0; i < Application.Current.Windows.Count; i++)

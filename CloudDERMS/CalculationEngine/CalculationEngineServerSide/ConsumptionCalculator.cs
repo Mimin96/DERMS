@@ -24,7 +24,7 @@ namespace CalculationEngineService
             this.networkModel = networkModel;
         }
 
-        public void Calculate(Dictionary<long,DerForecastDayAhead> derForcast)
+        public void Calculate(Dictionary<long, DerForecastDayAhead> derForcast)
         {
             this.Forecasts = derForcast;
             CalculateDayAheadSubstation();
@@ -49,36 +49,36 @@ namespace CalculationEngineService
                     if (type.Name.Equals("Substation"))
                     {
                         var gr = (Substation)kvpDic.Value;
-                        
+
                         Forecast forecast = CalculationEngineCache.Instance.GetForecast(kvpDic.Key);
 
-                        foreach(DERMSCommon.WeatherForecast.HourDataPoint dataPoint in consumerDayAhead.Hourly)
+                        foreach (DERMSCommon.WeatherForecast.HourDataPoint dataPoint in consumerDayAhead.Hourly)
                         {
                             DarkSkyApi.Models.HourDataPoint hourDataPoint = forecast.Hourly.Hours.FirstOrDefault(h => h.Time.Hour == dataPoint.Time.Hour);
                             float curveFactor = 0;
                             curveFactor = dataPoint.ActivePower;
                             dataPoint.ActivePower = 0;
-                            foreach(EnergyConsumer ec in energyConsumers)
+                            foreach (EnergyConsumer ec in energyConsumers)
                             {
-                                if(gr.Equipments.Contains(ec.GlobalId))
+                                if (gr.Equipments.Contains(ec.GlobalId))
                                 {
                                     dataPoint.ActivePower += ec.PFixed * curveFactor;
                                 }
                             }
-                            
+
                         }
                         substationDayAhead.Add(kvpDic.Key, consumerDayAhead.Clone());
                     }
-                    
+
                 }
-                
+
             }
         }
 
         public void CalculateSubstations(Dictionary<long, DerForecastDayAhead> derForcast)
         {
             Dictionary<long, DerForecastDayAhead> substationForecast = Forecasts;
-            foreach(KeyValuePair<long,DerForecastDayAhead> kvp in derForcast)
+            foreach (KeyValuePair<long, DerForecastDayAhead> kvp in derForcast)
             {
                 foreach (KeyValuePair<long, DayAhead> kvp2 in substationDayAhead)
                 {
@@ -104,9 +104,9 @@ namespace CalculationEngineService
                     {
                         var gr = (SubGeographicalRegion)kvpDic.Value;
                         derForcast[gr.GlobalId].Consumption = new DayAhead();
-                        foreach(Substation substation in substations)
+                        foreach (Substation substation in substations)
                         {
-                            if(gr.Substations.Contains(substation.GlobalId))
+                            if (gr.Substations.Contains(substation.GlobalId))
                             {
                                 derForcast[gr.GlobalId].Consumption += derForcast[substation.GlobalId].Consumption;
                             }

@@ -74,7 +74,7 @@
   <ItemGroup>
     <Reference Include="SwitchingEquipmentCIMProfile_Labs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\1203dll\SwitchingEquipmentCIMProfile_Labs.dll</HintPath>
+      <HintPath>Lib\SwitchingEquipmentCIMProfile_Labs.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

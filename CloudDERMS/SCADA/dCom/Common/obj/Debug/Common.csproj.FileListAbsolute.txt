@@ -460,3 +460,11 @@ C:\Users\boske\Desktop\DER\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj
 C:\Users\boske\Desktop\DER\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\boske\Desktop\DER\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\boske\Desktop\DER\DERMS\DERMS\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\SCADA\dCom\Common\bin\Debug\Common.dll
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\SCADA\dCom\Common\bin\Debug\Common.pdb
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\SCADA\dCom\Common\obj\Debug\Common.dll
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\SCADA\dCom\Common\obj\Debug\Common.pdb

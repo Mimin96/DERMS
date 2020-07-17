@@ -28,7 +28,9 @@
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000500000006" type="GENERATOR" />
-          <Properties />
+          <Properties>
+            <Property id="GENERATOR_BREAKER" value="0x0000000200000005" />
+          </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000400000015" type="ENERGYCONSUMER" />
@@ -360,15 +362,11 @@
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000800000005" type="DISCRETE" />
-          <Properties>
-            <Property id="DISCRETE_NORMAL_VALUE" value="0" />
-          </Properties>
+          <Properties />
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x0000000800000006" type="DISCRETE" />
-          <Properties>
-            <Property id="DISCRETE_NORMAL_VALUE" value="0" />
-          </Properties>
+          <Properties />
         </ResourceDescription>
       </ResourceDescriptions>
     </operation>

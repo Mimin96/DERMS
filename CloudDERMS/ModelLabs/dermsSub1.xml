@@ -951,6 +951,7 @@
 		<cim:ConductingEquipment.longitude>45.277772</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.799303</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Wind</cim:Generator.generatorType>
+		<cim:Generator.breaker rdf:resource="#b_22"/>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>		
 	</cim:Generator>
 	

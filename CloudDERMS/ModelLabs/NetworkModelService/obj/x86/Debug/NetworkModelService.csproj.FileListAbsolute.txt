@@ -458,3 +458,10 @@ C:\Users\boske\Desktop\DER\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Deb
 C:\Users\boske\Desktop\DER\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CopyComplete
 C:\Users\boske\Desktop\DER\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.dll
 C:\Users\boske\Desktop\DER\DERMS\DERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.pdb
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\ModelLabs\bin\FTN.Services.NetworkModelService.dll
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\ModelLabs\bin\FTN.Services.NetworkModelService.pdb
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csprojAssemblyReference.cache
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CoreCompileInputs.cache
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\ModelLabs\NetworkModelService\obj\x86\Debug\NetworkModelService.csproj.CopyComplete
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.dll
+C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\ModelLabs\NetworkModelService\obj\x86\Debug\FTN.Services.NetworkModelService.pdb
