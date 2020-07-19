@@ -1,0 +1,91 @@
+D:\Vezbe\11\ModelLabs\bin\FTN.Common.dll
+D:\Vezbe\11\ModelLabs\bin\FTN.Common.pdb
+D:\Vezbe\11\ModelLabs\Common\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Vezbe\11\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+D:\Vezbe\11\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+D:\Vezbe\11\ModelLabsProjekat\ModelLabs\bin\FTN.Common.dll
+D:\Vezbe\11\ModelLabsProjekat\ModelLabs\bin\FTN.Common.pdb
+D:\Vezbe\11\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Vezbe\11\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+D:\Vezbe\11\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+D:\shared\simesVezbe\Projekat\ModelLabsProjekat\ModelLabs\bin\FTN.Common.dll
+D:\shared\simesVezbe\Projekat\ModelLabsProjekat\ModelLabs\bin\FTN.Common.pdb
+D:\shared\simesVezbe\Projekat\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\shared\simesVezbe\Projekat\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+D:\shared\simesVezbe\Projekat\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+D:\Simes\Projekat\ModelLabsProjekat\ModelLabs\bin\FTN.Common.dll
+D:\Simes\Projekat\ModelLabsProjekat\ModelLabs\bin\FTN.Common.pdb
+D:\Simes\Projekat\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+D:\Simes\Projekat\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\Cetvrta godina\B3\ModelLabsProjekat\ModelLabs\bin\FTN.Common.dll
+C:\Users\Nemanja\Desktop\Cetvrta godina\B3\ModelLabsProjekat\ModelLabs\bin\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\Cetvrta godina\B3\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\Cetvrta godina\B3\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\Cetvrta godina\B3\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+C:\Users\Nemanja\Desktop\Cetvrta godina\B3\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+C:\Users\Nemanja\Desktop\ModelLabsProjekat\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\ModelLabsProjekat\ModelLabs\bin\FTN.Common.dll
+C:\Users\Nemanja\Desktop\ModelLabsProjekat\ModelLabs\bin\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\ModelLabsProjekat - Copy\ModelLabs\bin\FTN.Common.dll
+C:\Users\Nemanja\Desktop\ModelLabsProjekat - Copy\ModelLabs\bin\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\ModelLabsProjekat - Copy\ModelLabs\Common\obj\x86\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\ModelLabsProjekat - Copy\ModelLabs\Common\obj\x86\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\ModelLabsProjekat - Copy\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+C:\Users\Nemanja\Desktop\ModelLabsProjekat - Copy\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\DERMS_NMS - Copy\ModelLabs\bin\FTN.Common.dll
+C:\Users\Nemanja\Desktop\DERMS_NMS - Copy\ModelLabs\bin\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\DERMS_NMS - Copy\ModelLabs\Common\obj\x86\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\DERMS_NMS - Copy\ModelLabs\Common\obj\x86\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\DERMS_NMS - Copy\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+C:\Users\Nemanja\Desktop\DERMS_NMS - Copy\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\09.12\DERMS_NMS - Copy\ModelLabs\bin\FTN.Common.dll
+C:\Users\Nemanja\Desktop\09.12\DERMS_NMS - Copy\ModelLabs\bin\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\09.12\DERMS_NMS - Copy\ModelLabs\Common\obj\x86\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\09.12\DERMS_NMS - Copy\ModelLabs\Common\obj\x86\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\09.12\DERMS_NMS - Copy\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+C:\Users\Nemanja\Desktop\09.12\DERMS_NMS - Copy\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\DERMS-master\DERMS\ModelLabs\bin\FTN.Common.dll
+C:\Users\Nemanja\Desktop\DERMS-master\DERMS\ModelLabs\bin\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\DERMS-master\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\DERMS-master\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\DERMS-master\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+C:\Users\Nemanja\Desktop\DERMS-master\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\ModelLabs\bin\FTN.Common.dll
+C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\ModelLabs\bin\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+C:\Users\Nemanja\Desktop\master\DERMS-master\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\bin\FTN.Common.dll
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\bin\FTN.Common.pdb
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csprojAssemblyReference.cache
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\ModelLabs\bin\FTN.Common.dll
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\ModelLabs\bin\FTN.Common.pdb
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csprojAssemblyReference.cache
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+C:\Users\milan.petrovic\Desktop\GitO403\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\bin\FTN.Common.dll
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\bin\FTN.Common.pdb
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csprojAssemblyReference.cache
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+C:\Users\milan.petrovic\Desktop\Git1103\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\Git2203\DERMS\DERMS\ModelLabs\bin\FTN.Common.dll
+C:\Users\Nemanja\Desktop\Git2203\DERMS\DERMS\ModelLabs\bin\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\Git2203\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\Git2203\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\Git2203\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+C:\Users\Nemanja\Desktop\Git2203\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\Git1507\DERMS\DERMS\ModelLabs\bin\FTN.Common.dll
+C:\Users\Nemanja\Desktop\Git1507\DERMS\DERMS\ModelLabs\bin\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\Git1507\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\Git1507\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\Git1507\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.dll
+C:\Users\Nemanja\Desktop\Git1507\DERMS\DERMS\ModelLabs\Common\obj\x86\Debug\FTN.Common.pdb

@@ -1,0 +1,2 @@
+C:\Users\Caki\Desktop\OnlyCloud2\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\1807\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache

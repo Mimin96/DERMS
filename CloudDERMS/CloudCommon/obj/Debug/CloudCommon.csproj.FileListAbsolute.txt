@@ -1,5 +1,0 @@
-C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\CloudCommon\bin\Debug\CloudCommon.dll
-C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\CloudCommon\bin\Debug\CloudCommon.pdb
-C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\CloudCommon\obj\Debug\CloudCommon.csproj.CoreCompileInputs.cache
-C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\CloudCommon\obj\Debug\CloudCommon.dll
-C:\Users\boske\OneDrive\Desktop\DERMS\CloudDERMS\CloudCommon\obj\Debug\CloudCommon.pdb

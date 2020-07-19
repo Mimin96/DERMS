@@ -1,0 +1,5 @@
+C:\Users\Caki\Desktop\1807\DERMS\CloudDERMS\CalculateEngineApp\CloudCommon\bin\Debug\CloudCommon.dll
+C:\Users\Caki\Desktop\1807\DERMS\CloudDERMS\CalculateEngineApp\CloudCommon\bin\Debug\CloudCommon.pdb
+C:\Users\Caki\Desktop\1807\DERMS\CloudDERMS\CalculateEngineApp\CloudCommon\obj\Debug\CloudCommon.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\1807\DERMS\CloudDERMS\CalculateEngineApp\CloudCommon\obj\Debug\CloudCommon.dll
+C:\Users\Caki\Desktop\1807\DERMS\CloudDERMS\CalculateEngineApp\CloudCommon\obj\Debug\CloudCommon.pdb
