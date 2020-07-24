@@ -55,7 +55,7 @@ namespace UI.Communication
             NetTcpBinding binding = new NetTcpBinding();
             binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
             serviceHost.AddServiceEndpoint(typeof(ICalculationEnginePubSub), binding, clientAddress);
-            serviceHost.Open();
+           // serviceHost.Open();
         }
 
         public void Subscribe(int gidOfTopic)

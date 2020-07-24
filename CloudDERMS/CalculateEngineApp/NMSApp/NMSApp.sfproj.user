@@ -4,5 +4,6 @@
     <ApplicationUrl />
     <LastServiceLocation />
     <LaunchTarget>[UseApplicationUrl]</LaunchTarget>
+    <IsStartupProjectCheckComplete>true</IsStartupProjectCheckComplete>
   </PropertyGroup>
 </Project>

@@ -15,6 +15,7 @@ using CalculationEngineServiceCommon;
 using DERMSCommon.UIModel;
 using DERMSCommon.SCADACommon;
 using DERMSCommon.UIModel.ThreeViewModel;
+using CloudCommon.SCADA.AzureStorage.Entities;
 
 namespace UI.ViewModel
 {
@@ -374,148 +375,148 @@ namespace UI.ViewModel
 
         }
 
-        private Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.DayItem> ReadFromDayTable(string connectionString)
+        private Dictionary<Tuple<long, DateTime>, DayItem> ReadFromDayTable(string connectionString)
         {
-            Tuple<long, DateTime> key = null;
-            Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.DayItem> dayItemsData = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.DayItem>();
-            using (System.Data.SqlClient.SqlConnection _con = new System.Data.SqlClient.SqlConnection(connectionString))
-            {
+            //Tuple<long, DateTime> key = null;
+            //Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.DayItem> dayItemsData = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.DayItem>();
+            //using (System.Data.SqlClient.SqlConnection _con = new System.Data.SqlClient.SqlConnection(connectionString))
+            //{
 
-                using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SELECT Timestamp, Gid, E, PMax, PMin, PAvg FROM dbo.Day", _con))
-                {
-                    _con.Open();
-                    using (System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        // Check is the reader has any rows at all before starting to read.
-                        if (reader.HasRows)
-                        {
-                            // Read advances to the next row.
-                            while (reader.Read())
-                            {
-                                DERMSCommon.SCADACommon.DayItem c = new DERMSCommon.SCADACommon.DayItem();
-                                // To avoid unexpected bugs access columns by name.
-                                try
-                                {
-                                    c.E = reader.GetDouble(reader.GetOrdinal("E"));
-                                    c.PAvg = reader.GetDouble(reader.GetOrdinal("PAvg"));
-                                    c.PMax = reader.GetDouble(reader.GetOrdinal("PMax"));
-                                    c.PMin = reader.GetDouble(reader.GetOrdinal("PMin"));
-                                    c.Timestamp = reader.GetDateTime(reader.GetOrdinal("Timestamp"));
-                                    c.Gid = reader.GetInt64(reader.GetOrdinal("Gid"));
-                                    //c.P = reader.GetDouble(reader.GetOrdinal("P"));
-                                    key = new Tuple<long, DateTime>(c.Gid, c.Timestamp);
+            //    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SELECT Timestamp, Gid, E, PMax, PMin, PAvg FROM dbo.Day", _con))
+            //    {
+            //        _con.Open();
+            //        using (System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader())
+            //        {
+            //            // Check is the reader has any rows at all before starting to read.
+            //            if (reader.HasRows)
+            //            {
+            //                // Read advances to the next row.
+            //                while (reader.Read())
+            //                {
+            //                    DERMSCommon.SCADACommon.DayItem c = new DERMSCommon.SCADACommon.DayItem();
+            //                    // To avoid unexpected bugs access columns by name.
+            //                    try
+            //                    {
+            //                        c.E = reader.GetDouble(reader.GetOrdinal("E"));
+            //                        c.PAvg = reader.GetDouble(reader.GetOrdinal("PAvg"));
+            //                        c.PMax = reader.GetDouble(reader.GetOrdinal("PMax"));
+            //                        c.PMin = reader.GetDouble(reader.GetOrdinal("PMin"));
+            //                        c.Timestamp = reader.GetDateTime(reader.GetOrdinal("Timestamp"));
+            //                        c.Gid = reader.GetInt64(reader.GetOrdinal("Gid"));
+            //                        //c.P = reader.GetDouble(reader.GetOrdinal("P"));
+            //                        key = new Tuple<long, DateTime>(c.Gid, c.Timestamp);
 
-                                    dayItemsData.Add(key, c);
-                                }
-                                catch (Exception e)
-                                { }
-                            }
-                        }
-                    }
+            //                        dayItemsData.Add(key, c);
+            //                    }
+            //                    catch (Exception e)
+            //                    { }
+            //                }
+            //            }
+            //        }
 
-                    _con.Close();
-                }
-            }
+            //        _con.Close();
+            //    }
+            //}
 
-            foreach (var d in dayItemsData)
-                _itemsDay.Add(d.Value);
-            return dayItemsData;
+            //foreach (var d in dayItemsData)
+            //    _itemsDay.Add(d.Value);
+            return null;
         }
 
-        private Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.MonthItem> ReadFromMonthTable(string connectionString)
+        private Dictionary<Tuple<long, DateTime>, MonthItem> ReadFromMonthTable(string connectionString)
         {
-            Tuple<long, DateTime> key = null;
-            Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.MonthItem> monthItemsData = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.MonthItem>();
-            using (System.Data.SqlClient.SqlConnection _con = new System.Data.SqlClient.SqlConnection(connectionString))
-            {
+            //Tuple<long, DateTime> key = null;
+            //Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.MonthItem> monthItemsData = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.MonthItem>();
+            //using (System.Data.SqlClient.SqlConnection _con = new System.Data.SqlClient.SqlConnection(connectionString))
+            //{
 
-                using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SELECT Timestamp, Gid, E, PMax, PMin, PAvg FROM dbo.Month", _con))
-                {
-                    _con.Open();
-                    using (System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        // Check is the reader has any rows at all before starting to read.
-                        if (reader.HasRows)
-                        {
-                            // Read advances to the next row.
-                            while (reader.Read())
-                            {
-                                DERMSCommon.SCADACommon.MonthItem c = new DERMSCommon.SCADACommon.MonthItem();
-                                // To avoid unexpected bugs access columns by name.
-                                try
-                                {
-                                    c.E = reader.GetDouble(reader.GetOrdinal("E"));
-                                    c.PAvg = reader.GetDouble(reader.GetOrdinal("PAvg"));
-                                    c.PMax = reader.GetDouble(reader.GetOrdinal("PMax"));
-                                    c.PMin = reader.GetDouble(reader.GetOrdinal("PMin"));
-                                    c.Timestamp = reader.GetDateTime(reader.GetOrdinal("Timestamp"));
-                                    c.Gid = reader.GetInt64(reader.GetOrdinal("Gid"));
-                                    //c.P = reader.GetDouble(reader.GetOrdinal("P"));
-                                    key = new Tuple<long, DateTime>(c.Gid, c.Timestamp);
+            //    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SELECT Timestamp, Gid, E, PMax, PMin, PAvg FROM dbo.Month", _con))
+            //    {
+            //        _con.Open();
+            //        using (System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader())
+            //        {
+            //            // Check is the reader has any rows at all before starting to read.
+            //            if (reader.HasRows)
+            //            {
+            //                // Read advances to the next row.
+            //                while (reader.Read())
+            //                {
+            //                    DERMSCommon.SCADACommon.MonthItem c = new DERMSCommon.SCADACommon.MonthItem();
+            //                    // To avoid unexpected bugs access columns by name.
+            //                    try
+            //                    {
+            //                        c.E = reader.GetDouble(reader.GetOrdinal("E"));
+            //                        c.PAvg = reader.GetDouble(reader.GetOrdinal("PAvg"));
+            //                        c.PMax = reader.GetDouble(reader.GetOrdinal("PMax"));
+            //                        c.PMin = reader.GetDouble(reader.GetOrdinal("PMin"));
+            //                        c.Timestamp = reader.GetDateTime(reader.GetOrdinal("Timestamp"));
+            //                        c.Gid = reader.GetInt64(reader.GetOrdinal("Gid"));
+            //                        //c.P = reader.GetDouble(reader.GetOrdinal("P"));
+            //                        key = new Tuple<long, DateTime>(c.Gid, c.Timestamp);
 
-                                    monthItemsData.Add(key, c);
-                                }
-                                catch (Exception e)
-                                { }
-                            }
-                        }
-                    }
+            //                        monthItemsData.Add(key, c);
+            //                    }
+            //                    catch (Exception e)
+            //                    { }
+            //                }
+            //            }
+            //        }
 
-                    _con.Close();
-                }
-            }
+            //        _con.Close();
+            //    }
+            //}
 
-            foreach (var d in monthItemsData)
-                _itemsMonth.Add(d.Value);
-            return monthItemsData;
+            //foreach (var d in monthItemsData)
+            //    _itemsMonth.Add(d.Value);
+            return null;
         }
 
-        private Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.YearItem> ReadFromYearTable(string connectionString)
+        private Dictionary<Tuple<long, DateTime>, YearItem> ReadFromYearTable(string connectionString)
         {
-            Tuple<long, DateTime> key = null;
-            Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.YearItem> yearItemsData = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.YearItem>();
-            using (System.Data.SqlClient.SqlConnection _con = new System.Data.SqlClient.SqlConnection(connectionString))
-            {
+            //Tuple<long, DateTime> key = null;
+            //Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.YearItem> yearItemsData = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.YearItem>();
+            //using (System.Data.SqlClient.SqlConnection _con = new System.Data.SqlClient.SqlConnection(connectionString))
+            //{
 
-                using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SELECT Timestamp, Gid, E, PMax, PMin, PAvg FROM dbo.Year", _con))
-                {
-                    _con.Open();
-                    using (System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        // Check is the reader has any rows at all before starting to read.
-                        if (reader.HasRows)
-                        {
-                            // Read advances to the next row.
-                            while (reader.Read())
-                            {
-                                DERMSCommon.SCADACommon.YearItem c = new DERMSCommon.SCADACommon.YearItem();
-                                // To avoid unexpected bugs access columns by name.
-                                try
-                                {
-                                    c.E = reader.GetDouble(reader.GetOrdinal("E"));
-                                    c.PAvg = reader.GetDouble(reader.GetOrdinal("PAvg"));
-                                    c.PMax = reader.GetDouble(reader.GetOrdinal("PMax"));
-                                    c.PMin = reader.GetDouble(reader.GetOrdinal("PMin"));
-                                    c.Timestamp = reader.GetDateTime(reader.GetOrdinal("Timestamp"));
-                                    c.Gid = reader.GetInt64(reader.GetOrdinal("Gid"));
-                                    //c.P = reader.GetDouble(reader.GetOrdinal("P"));
-                                    key = new Tuple<long, DateTime>(c.Gid, c.Timestamp);
+            //    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SELECT Timestamp, Gid, E, PMax, PMin, PAvg FROM dbo.Year", _con))
+            //    {
+            //        _con.Open();
+            //        using (System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader())
+            //        {
+            //            // Check is the reader has any rows at all before starting to read.
+            //            if (reader.HasRows)
+            //            {
+            //                // Read advances to the next row.
+            //                while (reader.Read())
+            //                {
+            //                    DERMSCommon.SCADACommon.YearItem c = new DERMSCommon.SCADACommon.YearItem();
+            //                    // To avoid unexpected bugs access columns by name.
+            //                    try
+            //                    {
+            //                        c.E = reader.GetDouble(reader.GetOrdinal("E"));
+            //                        c.PAvg = reader.GetDouble(reader.GetOrdinal("PAvg"));
+            //                        c.PMax = reader.GetDouble(reader.GetOrdinal("PMax"));
+            //                        c.PMin = reader.GetDouble(reader.GetOrdinal("PMin"));
+            //                        c.Timestamp = reader.GetDateTime(reader.GetOrdinal("Timestamp"));
+            //                        c.Gid = reader.GetInt64(reader.GetOrdinal("Gid"));
+            //                        //c.P = reader.GetDouble(reader.GetOrdinal("P"));
+            //                        key = new Tuple<long, DateTime>(c.Gid, c.Timestamp);
 
-                                    yearItemsData.Add(key, c);
-                                }
-                                catch (Exception e)
-                                { }
-                            }
-                        }
-                    }
+            //                        yearItemsData.Add(key, c);
+            //                    }
+            //                    catch (Exception e)
+            //                    { }
+            //                }
+            //            }
+            //        }
 
-                    _con.Close();
-                }
-            }
+            //        _con.Close();
+            //    }
+            //}
 
-            foreach (var d in yearItemsData)
-                _itemsYear.Add(d.Value);
-            return yearItemsData;
+            //foreach (var d in yearItemsData)
+            //    _itemsYear.Add(d.Value);
+            return null;
         }
 
         private void ApplyFilter(object obj)

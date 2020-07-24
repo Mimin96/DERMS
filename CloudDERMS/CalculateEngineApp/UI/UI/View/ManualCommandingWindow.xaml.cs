@@ -42,8 +42,8 @@ namespace UI.View
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			try
-			{
+            try
+            {
 				if (Increase.IsChecked == true)
 				{
 					((ManualCommandingViewModel)DataContext).Command(Double.Parse(ValueKW.Text), FlexibilityIncDec.Increase, Gid);
@@ -59,8 +59,8 @@ namespace UI.View
 
 				Close();
 			}
-			catch(Exception es)
-			{
+            catch (Exception)
+            {
 				PopUpWindow popUpWindow = new PopUpWindow("Please enter only numbers!");
 				((ManualCommandingViewModel)DataContext).CloseConnection();
 				Gid = 0;
