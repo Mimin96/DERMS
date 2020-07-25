@@ -3886,3 +3886,4 @@ C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\bin\Debug\Micro
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\bin\Debug\Microsoft.OData.Edm.xml
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\bin\Debug\Microsoft.Spatial.xml
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\obj\Debug\UI.exe.config
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\bin\Debug\Modbus.dll

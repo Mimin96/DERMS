@@ -70,7 +70,6 @@ C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\bin\x64\Debug\Microsoft.ServiceFabric.Preview.xml
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\bin\x64\Debug\Microsoft.ServiceFabric.Services.xml
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\bin\x64\Debug\System.Fabric.xml
-C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.csprojAssemblyReference.cache
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.csproj.CoreCompileInputs.cache
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.csproj.CopyComplete
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.exe
