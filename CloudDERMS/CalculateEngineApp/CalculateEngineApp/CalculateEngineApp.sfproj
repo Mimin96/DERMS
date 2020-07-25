@@ -38,6 +38,7 @@
     <ProjectReference Include="..\CEPubSubMicroservice\CEPubSubMicroservice.csproj" />
     <ProjectReference Include="..\CETransactionMicroservice\CETransactionMicroservice.csproj" />
     <ProjectReference Include="..\CEWeatherForecastMicroservice\CEWeatherForecastMicroservice.csproj" />
+    <ProjectReference Include="..\TreeConstructionMicroservice\TreeConstructionMicroservice.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>
