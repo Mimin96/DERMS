@@ -3,6 +3,7 @@ using dCom.ViewModel;
 using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace dCom
 {
@@ -40,6 +41,21 @@ namespace dCom
         private void CheckBox_SourceUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
         {
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            buttonExit.Background = Brushes.Red;
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            buttonExit.Background = Brushes.Transparent;
         }
     }
 }

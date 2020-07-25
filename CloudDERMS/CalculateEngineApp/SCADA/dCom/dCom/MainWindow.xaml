@@ -4,53 +4,61 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dCom"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
 		xmlns:converters ="clr-namespace:dCom.Converters"
-        Title="DERMS projekat" Height="350" Width="1000">
+        Title="" Height="186" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Resources>
         <converters:ConnectionStateToColorConverter x:Key="ConnectionStateToColor" />
         <converters:StringToVisibilityConverter x:Key="StringToVisibility" />
         <converters:AlarmToBackgroundColorConverter x:Key="AlarmToBackgroundColor"/>
-
-
     </Window.Resources>
-
-    <Grid Background="Aqua">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-
-        <StatusBar Grid.Row="2" Grid.ColumnSpan="2">
-            <StatusBarItem>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Current Time: " />
-                    <Label>
-                        <TextBlock Text="{Binding Path=CurrentTime, StringFormat='{}{0:dd/MM/yyyy hh:mm:ss}'}" />
-                    </Label>
-                </StackPanel>
-            </StatusBarItem>
-            <StatusBarItem>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Elapsed Time: " />
-                    <Label>
-                        <TextBlock Text="{Binding Path=ElapsedTime}" />
-                    </Label>
-                </StackPanel>
-            </StatusBarItem>
-            <StatusBarItem>
-                <Border Background="{Binding ConnectionState, Converter={StaticResource ResourceKey=ConnectionStateToColor}}" Opacity="0.9">
+        <Grid Grid.Row="0" Background="#FF303030"  MouseDown="DragWindow">
+            <Label HorizontalAlignment="Center" IsEnabled="False" Foreground="#FF0398E2" VerticalAlignment="Bottom" FontSize="15" FontFamily="Bookman Old Style" FontWeight="Bold">Distributed Energy Resources Management System</Label>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,0">
+                <Button x:Name="buttonExit" Cursor="Hand" Content="X" Width="28" Margin="0,4,0,4" Background="Transparent" BorderBrush="{x:Null}" Foreground="White" MouseLeave="Button_MouseLeave" MouseEnter="Button_MouseEnter" Click="Button_Click"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Background="#FF303030">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StatusBar Grid.Row="2" Grid.ColumnSpan="2" Background="#484a48">
+                <StatusBarItem>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Connection status with simulator: " TextBlock.FontWeight="Bold" />
-                        <Label>
-                            <TextBlock Text="{Binding Path=ConnectionState}" TextBlock.FontWeight="Bold" />
+                        <Label Content="Current Time: " Foreground="#FF0398E2"/>
+                        <Label Foreground="#FF0398E2">
+                            <TextBlock Text="{Binding Path=CurrentTime, StringFormat='{}{0:dd/MM/yyyy hh:mm:ss}'}" />
                         </Label>
                     </StackPanel>
-                </Border>
-            </StatusBarItem>
-        </StatusBar>
-        <Label Content="SCADA Server" TextBlock.FontWeight="Bold" TextBlock.FontSize="80" HorizontalAlignment="Left" Margin="137,50,0,0" VerticalAlignment="Top" Height="124" Width="542"/>
+                </StatusBarItem>
+                <StatusBarItem>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Elapsed Time: " Foreground="#FF0398E2"/>
+                        <Label Foreground="#FF0398E2">
+                            <TextBlock Text="{Binding Path=ElapsedTime}" />
+                        </Label>
+                    </StackPanel>
+                </StatusBarItem>
+                <StatusBarItem>
+                    <Border Background="{Binding ConnectionState, Converter={StaticResource ResourceKey=ConnectionStateToColor}}" Opacity="0.9">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Connection status with simulator: " TextBlock.FontWeight="Bold" Foreground="#FF0398E2"/>
+                            <Label>
+                                <TextBlock Text="{Binding Path=ConnectionState}" TextBlock.FontWeight="Bold" />
+                            </Label>
+                        </StackPanel>
+                    </Border>
+                </StatusBarItem>
+            </StatusBar>
+            <Label Content="SCADA Server" Foreground="#FF0398E2" FontFamily="Champagne &amp; Limousines" TextBlock.FontWeight="Bold" TextBlock.FontSize="80" Margin="25,10,0,0" VerticalAlignment="Top" Height="97" HorizontalAlignment="Left" Width="542"/>
+        </Grid>
     </Grid>
 </Window>
