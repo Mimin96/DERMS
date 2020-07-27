@@ -57,5 +57,10 @@ namespace dCom
         {
             buttonExit.Background = Brushes.Transparent;
         }
+
+        private void DragWindow(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }
