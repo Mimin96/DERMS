@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using System.Fabric;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using CloudCommon.CalculateEngine;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
+using System.ServiceModel;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
+using System.Fabric.Description;
 
 namespace CECalculationMicroservice
 {
@@ -24,7 +30,20 @@ namespace CECalculationMicroservice
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
-            return new ServiceInstanceListener[0];
+            var ip = Context.NodeContext.IPAddressOrFQDN;
+
+            return new[]
+            {
+                new ServiceInstanceListener((context) =>
+                    new WcfCommunicationListener<IConsumptionCalculator>(
+                        wcfServiceObject: new ConsumptionCalculatorService(),
+                        serviceContext: context,
+                        endpointResourceName: "ConsumptionCalculatorEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "ConsumptionCalculatorListener"
+                ),
+            };
         }
 
         /// <summary>

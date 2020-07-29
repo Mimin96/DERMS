@@ -14,21 +14,21 @@ namespace CalculationEngineService
     public class ConsumptionCalculator
     {
 
-        public void Calculate(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel)
+        public void Calculate(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel, Dictionary<long, DayAhead> subDayAhead, Dictionary<long, Forecast> DerWeather)
         {
             Dictionary<long, DerForecastDayAhead> Forecasts;
             Forecasts = derForcast;
-            CalculateDayAheadSubstation(networkModel);
-            CalculateSubstations(derForcast, Forecasts);
+            subDayAhead = CalculateDayAheadSubstation(networkModel,DerWeather);
+            CalculateSubstations(derForcast, Forecasts,subDayAhead);
             CalculateSubRegion(derForcast, networkModel);
             CalculateGeoRegions(derForcast, networkModel);
         }
 
-        private void CalculateDayAheadSubstation(NetworkModelTransfer networkModel)
+        private Dictionary<long, DayAhead> CalculateDayAheadSubstation(NetworkModelTransfer networkModel, Dictionary<long, Forecast> DerWeather)
         {
             List<EnergyConsumer> energyConsumers = new List<EnergyConsumer>();
             energyConsumers = GetEnergyConsumers(networkModel);
-            CalculationEngineCache.Instance.SubstationDayAhead = new Dictionary<long, DayAhead>();
+            Dictionary<long, DayAhead> calcDayAhead = new Dictionary<long, DayAhead>();//<-povratna
             ConsumerCharacteristics consumerCharacteristics = new ConsumerCharacteristics();
 
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
@@ -42,7 +42,7 @@ namespace CalculationEngineService
                     {
                         var gr = (Substation)kvpDic.Value;
 
-                        Forecast forecast = CalculationEngineCache.Instance.GetForecast(kvpDic.Key);
+                        Forecast forecast = DerWeather[kvpDic.Key];//<-Kroz parametar
 
                         foreach (DERMSCommon.WeatherForecast.HourDataPoint dataPoint in consumerDayAhead.Hourly)
                         {
@@ -59,24 +59,25 @@ namespace CalculationEngineService
                             }
 
                         }
-                        CalculationEngineCache.Instance.SubstationDayAhead.Add(kvpDic.Key, consumerDayAhead.Clone());
+                        calcDayAhead.Add(kvpDic.Key, consumerDayAhead.Clone());//<-povratna
                     }
 
                 }
 
             }
+            return calcDayAhead;
         }
 
-        public void CalculateSubstations(Dictionary<long, DerForecastDayAhead> derForcast, Dictionary<long, DerForecastDayAhead> Forecasts)
+        public void CalculateSubstations(Dictionary<long, DerForecastDayAhead> derForcast, Dictionary<long, DerForecastDayAhead> Forecasts, Dictionary<long, DayAhead> subDayAhead)
         {
             Dictionary<long, DerForecastDayAhead> substationForecast = Forecasts;
             foreach (KeyValuePair<long, DerForecastDayAhead> kvp in derForcast)
             {
-                foreach (KeyValuePair<long, DayAhead> kvp2 in CalculationEngineCache.Instance.SubstationDayAhead)
+                foreach (KeyValuePair<long, DayAhead> kvp2 in subDayAhead)
                 {
                     if (kvp.Key.Equals(kvp2.Key))
                     {
-                        kvp.Value.Consumption += CalculationEngineCache.Instance.SubstationDayAhead[kvp.Key];
+                        kvp.Value.Consumption += subDayAhead[kvp.Key];
                     }
                 }
             }

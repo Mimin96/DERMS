@@ -246,7 +246,7 @@ namespace CalculationEngineService
         public void PopulateConsumptionForecast(NetworkModelTransfer networkModel)
         {
             ConsumptionCalculator consumptionCalculator = new ConsumptionCalculator();
-            consumptionCalculator.Calculate(productionCached, networkModel);
+            consumptionCalculator.Calculate(productionCached, networkModel,SubstationDayAhead,derWeatherCached);
             PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
         }
         public void PopulateFlexibility(NetworkModelTransfer networkModel)
