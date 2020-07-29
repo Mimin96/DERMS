@@ -13,31 +13,23 @@ namespace CalculationEngineService
 {
     public class ConsumptionCalculator
     {
-        private NetworkModelTransfer networkModel;
-        private Dictionary<long, DerForecastDayAhead> Forecasts;
-        private Dictionary<long, DayAhead> substationDayAhead;
-        private ConsumerCharacteristics consumerCharacteristics = new ConsumerCharacteristics();
-        private Dictionary<DateTime, double> consumptionPerHour = new Dictionary<DateTime, double>();
 
-        public ConsumptionCalculator(NetworkModelTransfer networkModel)
+        public void Calculate(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel)
         {
-            this.networkModel = networkModel;
+            Dictionary<long, DerForecastDayAhead> Forecasts;
+            Forecasts = derForcast;
+            CalculateDayAheadSubstation(networkModel);
+            CalculateSubstations(derForcast, Forecasts);
+            CalculateSubRegion(derForcast, networkModel);
+            CalculateGeoRegions(derForcast, networkModel);
         }
 
-        public void Calculate(Dictionary<long,DerForecastDayAhead> derForcast)
-        {
-            this.Forecasts = derForcast;
-            CalculateDayAheadSubstation();
-            CalculateSubstations(derForcast);
-            CalculateSubRegion(derForcast);
-            CalculateGeoRegions(derForcast);
-        }
-
-        private void CalculateDayAheadSubstation()
+        private void CalculateDayAheadSubstation(NetworkModelTransfer networkModel)
         {
             List<EnergyConsumer> energyConsumers = new List<EnergyConsumer>();
-            energyConsumers = GetEnergyConsumers();
-            substationDayAhead = new Dictionary<long, DayAhead>();
+            energyConsumers = GetEnergyConsumers(networkModel);
+            CalculationEngineCache.Instance.SubstationDayAhead = new Dictionary<long, DayAhead>();
+            ConsumerCharacteristics consumerCharacteristics = new ConsumerCharacteristics();
 
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
@@ -49,52 +41,52 @@ namespace CalculationEngineService
                     if (type.Name.Equals("Substation"))
                     {
                         var gr = (Substation)kvpDic.Value;
-                        
+
                         Forecast forecast = CalculationEngineCache.Instance.GetForecast(kvpDic.Key);
 
-                        foreach(DERMSCommon.WeatherForecast.HourDataPoint dataPoint in consumerDayAhead.Hourly)
+                        foreach (DERMSCommon.WeatherForecast.HourDataPoint dataPoint in consumerDayAhead.Hourly)
                         {
                             DarkSkyApi.Models.HourDataPoint hourDataPoint = forecast.Hourly.Hours.FirstOrDefault(h => h.Time.Hour == dataPoint.Time.Hour);
                             float curveFactor = 0;
                             curveFactor = dataPoint.ActivePower;
                             dataPoint.ActivePower = 0;
-                            foreach(EnergyConsumer ec in energyConsumers)
+                            foreach (EnergyConsumer ec in energyConsumers)
                             {
-                                if(gr.Equipments.Contains(ec.GlobalId))
+                                if (gr.Equipments.Contains(ec.GlobalId))
                                 {
                                     dataPoint.ActivePower += ec.PFixed * curveFactor;
                                 }
                             }
-                            
+
                         }
-                        substationDayAhead.Add(kvpDic.Key, consumerDayAhead.Clone());
+                        CalculationEngineCache.Instance.SubstationDayAhead.Add(kvpDic.Key, consumerDayAhead.Clone());
                     }
-                    
+
                 }
-                
+
             }
         }
 
-        public void CalculateSubstations(Dictionary<long, DerForecastDayAhead> derForcast)
+        public void CalculateSubstations(Dictionary<long, DerForecastDayAhead> derForcast, Dictionary<long, DerForecastDayAhead> Forecasts)
         {
             Dictionary<long, DerForecastDayAhead> substationForecast = Forecasts;
-            foreach(KeyValuePair<long,DerForecastDayAhead> kvp in derForcast)
+            foreach (KeyValuePair<long, DerForecastDayAhead> kvp in derForcast)
             {
-                foreach (KeyValuePair<long, DayAhead> kvp2 in substationDayAhead)
+                foreach (KeyValuePair<long, DayAhead> kvp2 in CalculationEngineCache.Instance.SubstationDayAhead)
                 {
                     if (kvp.Key.Equals(kvp2.Key))
                     {
-                        kvp.Value.Consumption += substationDayAhead[kvp.Key];
+                        kvp.Value.Consumption += CalculationEngineCache.Instance.SubstationDayAhead[kvp.Key];
                     }
                 }
             }
         }
 
 
-        public void CalculateSubRegion(Dictionary<long, DerForecastDayAhead> derForcast)
+        public void CalculateSubRegion(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel)
         {
             List<Substation> substations = new List<Substation>();
-            substations = GetSubstations();
+            substations = GetSubstations(networkModel);
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
                 foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
@@ -104,9 +96,9 @@ namespace CalculationEngineService
                     {
                         var gr = (SubGeographicalRegion)kvpDic.Value;
                         derForcast[gr.GlobalId].Consumption = new DayAhead();
-                        foreach(Substation substation in substations)
+                        foreach (Substation substation in substations)
                         {
-                            if(gr.Substations.Contains(substation.GlobalId))
+                            if (gr.Substations.Contains(substation.GlobalId))
                             {
                                 derForcast[gr.GlobalId].Consumption += derForcast[substation.GlobalId].Consumption;
                             }
@@ -116,10 +108,10 @@ namespace CalculationEngineService
             }
         }
 
-        public void CalculateGeoRegions(Dictionary<long, DerForecastDayAhead> derForcast)
+        public void CalculateGeoRegions(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel)
         {
             List<SubGeographicalRegion> geographicalRegions = new List<SubGeographicalRegion>();
-            geographicalRegions = GetSubGeographicalRegions();
+            geographicalRegions = GetSubGeographicalRegions(networkModel);
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
                 foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
@@ -141,7 +133,7 @@ namespace CalculationEngineService
             }
         }
 
-        public List<EnergyConsumer> GetEnergyConsumers()
+        public List<EnergyConsumer> GetEnergyConsumers(NetworkModelTransfer networkModel)
         {
             List<EnergyConsumer> energyConsumers = new List<EnergyConsumer>();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
@@ -159,7 +151,7 @@ namespace CalculationEngineService
             return energyConsumers;
         }
 
-        public List<Substation> GetSubstations()
+        public List<Substation> GetSubstations(NetworkModelTransfer networkModel)
         {
             List<Substation> energyConsumers = new List<Substation>();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
@@ -177,7 +169,7 @@ namespace CalculationEngineService
             return energyConsumers;
         }
 
-        public List<SubGeographicalRegion> GetSubGeographicalRegions()
+        public List<SubGeographicalRegion> GetSubGeographicalRegions(NetworkModelTransfer networkModel)
         {
             List<SubGeographicalRegion> energyConsumers = new List<SubGeographicalRegion>();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)

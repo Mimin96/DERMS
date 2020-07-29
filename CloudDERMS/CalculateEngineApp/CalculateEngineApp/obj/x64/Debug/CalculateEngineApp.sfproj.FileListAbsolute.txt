@@ -1,3 +1,4 @@
 C:\Users\Caki\Desktop\OnlyCloud2\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
 C:\Users\Caki\Desktop\1807\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
+C:\Users\Djole\Desktop\projekat-7.28\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
