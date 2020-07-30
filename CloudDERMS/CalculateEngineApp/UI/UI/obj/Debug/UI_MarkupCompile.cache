@@ -12,9 +12,9 @@ DEBUG;TRACE
 E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\App.xaml
 12615951116
 
-39429834827
-801239214768
+43-2138548679
+27-915145302
 Resources\AppDictionary.xaml;View\BreakerControlThroughGISWindow.xaml;View\DERDashboardUserControl.xaml;View\EventSummaryUserControl.xaml;View\GISUserControl.xaml;View\HistoryUserControl.xaml;View\LoadingWindow.xaml;View\MainWindow.xaml;View\ManualCommandingWindow.xaml;View\NetworkModelUserControl.xaml;View\PopUpWindow.xaml;View\SignalsSummaryUserControl.xaml;
 
-False
+True
 
