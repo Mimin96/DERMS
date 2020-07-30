@@ -43,6 +43,15 @@ namespace CECalculationMicroservice
                     ),
                     name: "ConsumptionCalculatorListener"
                 ),
+                new ServiceInstanceListener((context) =>
+                    new WcfCommunicationListener<IProductionCalculator>(
+                        wcfServiceObject: new ProductionCalculatorService(),
+                        serviceContext: context,
+                        endpointResourceName: "ProductionCalculatorEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "ProductionCalculatorListener"
+                ),
             };
         }
 
@@ -61,7 +70,7 @@ namespace CECalculationMicroservice
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                ServiceEventSource.Current.ServiceMessage(this.Context, "Working-{0}", ++iterations);
+                //ServiceEventSource.Current.ServiceMessage(this.Context, "Working-{0}", ++iterations);
 
                 await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
             }

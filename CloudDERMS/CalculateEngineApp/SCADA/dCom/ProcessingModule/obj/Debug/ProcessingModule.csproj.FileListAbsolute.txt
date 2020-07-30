@@ -590,3 +590,12 @@ C:\Users\Djole\Desktop\29.7.Projekat\DERMS\CloudDERMS\CalculateEngineApp\SCADA\d
 C:\Users\Djole\Desktop\29.7.Projekat\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
 C:\Users\Djole\Desktop\29.7.Projekat\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
 C:\Users\Djole\Desktop\29.7.Projekat\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb
+E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.dll
+E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.pdb
+E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\bin\Debug\Common.dll
+E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\bin\Debug\Common.pdb
+E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csprojAssemblyReference.cache
+E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CoreCompileInputs.cache
+E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
+E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
+E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb

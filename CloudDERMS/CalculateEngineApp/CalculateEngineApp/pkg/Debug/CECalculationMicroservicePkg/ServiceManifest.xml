@@ -23,6 +23,7 @@
            replicas of different partitions that are placed in your code. -->
       <Endpoint Name="ServiceEndpoint" />
       <Endpoint Name="ConsumptionCalculatorEndpoint" />
+      <Endpoint Name="ProductionCalculatorEndpoint" />
     </Endpoints>
   </Resources>
 </ServiceManifest>

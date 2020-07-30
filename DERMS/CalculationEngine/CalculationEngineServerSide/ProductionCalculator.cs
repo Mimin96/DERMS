@@ -14,17 +14,17 @@ namespace CalculationEngineService
     public class ProductionCalculator
     {
 
-        public DerForecastDayAhead CalculateGenerator(Forecast forecast, Generator generator)
+        public DerForecastDayAhead CalculateGenerator(Forecast forecast, Generator generator,Dictionary<long,DerForecastDayAhead> GeneratorForecastList)
         {
             DerForecastDayAhead generatorForecast = new DerForecastDayAhead(generator.GlobalId);
 
             DayAhead dayAhead = generator.CalculateDayAhead(forecast, generator.GlobalId, new Substation(generator.GlobalId));
             generatorForecast.Production += dayAhead;
-            CalculationEngineCache.Instance.GeneratorForecastList[generator.GlobalId] = generatorForecast;
+            GeneratorForecastList[generator.GlobalId] = generatorForecast;///
             return generatorForecast;
         }
 
-        public DerForecastDayAhead CalculateSubstation(Forecast forecast, Substation substation, NetworkModelTransfer networkModel)
+        public DerForecastDayAhead CalculateSubstation(Forecast forecast, Substation substation, NetworkModelTransfer networkModel,Dictionary<long,DerForecastDayAhead> GeneratorForecastList,Dictionary<long,DerForecastDayAhead> SubstationsForecast)
         {
 
             List<Generator> generators = new List<Generator>();
@@ -48,15 +48,15 @@ namespace CalculationEngineService
                 if (substation.Equipments.Contains(generator.GlobalId))
                 {
                     // DayAhead dayAhead = generator.CalculateDayAhead(forecast, substation.GlobalId, substation);
-                    substationForecast.Production += CalculationEngineCache.Instance.GeneratorForecastList[generator.GlobalId].Production;
+                    substationForecast.Production += GeneratorForecastList[generator.GlobalId].Production;
 
-                    CalculationEngineCache.Instance.SubstationsForecast[substation.GlobalId] = substationForecast;
+                    SubstationsForecast[substation.GlobalId] = substationForecast;
                 }
             }
             return substationForecast;
         }
 
-        public DerForecastDayAhead CalculateSubRegion(SubGeographicalRegion subGeographicalRegion, NetworkModelTransfer networkModel)
+        public DerForecastDayAhead CalculateSubRegion(SubGeographicalRegion subGeographicalRegion, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> SubstationsForecast, Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast)
         {
             List<Substation> substations = new List<Substation>();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
@@ -77,15 +77,15 @@ namespace CalculationEngineService
                 if (subGeographicalRegion.Substations.Contains(substation.GlobalId))
                 {
 
-                    subGeographicalRegionForecast.Production += CalculationEngineCache.Instance.SubstationsForecast[substation.GlobalId].Production;
+                    subGeographicalRegionForecast.Production += SubstationsForecast[substation.GlobalId].Production;
 
-                    CalculationEngineCache.Instance.SubGeographicalRegionsForecast[subGeographicalRegion.GlobalId] = subGeographicalRegionForecast;
+                    SubGeographicalRegionsForecast[subGeographicalRegion.GlobalId] = subGeographicalRegionForecast;
                 }
             }
             return subGeographicalRegionForecast;
         }
 
-        public DerForecastDayAhead CalculateGeoRegion(GeographicalRegion geographicalRegion, NetworkModelTransfer networkModel)
+        public DerForecastDayAhead CalculateGeoRegion(GeographicalRegion geographicalRegion, NetworkModelTransfer networkModel,Dictionary<long,DerForecastDayAhead> SubGeographicalRegionsForecast)
         {
             List<SubGeographicalRegion> subGeographicalRegions = new List<SubGeographicalRegion>();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
@@ -105,7 +105,7 @@ namespace CalculationEngineService
             {
                 if (geographicalRegion.Regions.Contains(subGeo.GlobalId))
                 {
-                    geoRegionForecast.Production += CalculationEngineCache.Instance.SubGeographicalRegionsForecast[subGeo.GlobalId].Production;
+                    geoRegionForecast.Production += SubGeographicalRegionsForecast[subGeo.GlobalId].Production;
                 }
             }
             return geoRegionForecast;

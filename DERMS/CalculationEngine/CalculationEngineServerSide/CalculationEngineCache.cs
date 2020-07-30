@@ -201,7 +201,7 @@ namespace CalculationEngineService
                     if (type.Name.Equals("Generator"))
                     {
                         var gr = (Generator)kvpDic.Value;
-                        AddDerForecast(productionCalculator.CalculateGenerator(GetForecast(kvpDic.Key), gr), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
+                        AddDerForecast(productionCalculator.CalculateGenerator(GetForecast(kvpDic.Key), gr, GeneratorForecastList), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
                     }
                 }
             }
@@ -213,7 +213,7 @@ namespace CalculationEngineService
                     if (type.Name.Equals("Substation"))
                     {
                         var gr = (Substation)kvpDic.Value;
-                        AddDerForecast(productionCalculator.CalculateSubstation(GetForecast(kvpDic.Key), gr, networkModel), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
+                        AddDerForecast(productionCalculator.CalculateSubstation(GetForecast(kvpDic.Key), gr, networkModel,GeneratorForecastList,SubstationsForecast), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
                     }
                 }
             }
@@ -225,7 +225,7 @@ namespace CalculationEngineService
                     if (type.Name.Equals("SubGeographicalRegion"))
                     {
                         var gr = (SubGeographicalRegion)kvpDic.Value;
-                        AddDerForecast(productionCalculator.CalculateSubRegion(gr, networkModel), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
+                        AddDerForecast(productionCalculator.CalculateSubRegion(gr, networkModel,SubstationsForecast,SubGeographicalRegionsForecast), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
                     }
                 }
             }
@@ -237,7 +237,7 @@ namespace CalculationEngineService
                     if (type.Name.Equals("GeographicalRegion"))
                     {
                         var gr = (GeographicalRegion)kvpDic.Value;
-                        AddDerForecast(productionCalculator.CalculateGeoRegion(gr, networkModel), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
+                        AddDerForecast(productionCalculator.CalculateGeoRegion(gr, networkModel,SubGeographicalRegionsForecast), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
                     }
                 }
             }

@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsumptionCalculatorService.cs" />
+    <Compile Include="ProductionCalculatorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CECalculationMicroservice.cs" />
     <Compile Include="Program.cs" />
