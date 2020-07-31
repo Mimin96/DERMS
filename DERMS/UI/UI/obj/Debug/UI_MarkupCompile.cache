@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\Master\30.7.2020\DERMS\DERMS\UI\UI\obj\Debug\
+E:\Master\31.7.2020.v2\DERMS\DERMS\UI\UI\obj\Debug\
 UI
 none
 false
 DEBUG;TRACE
-E:\Master\30.7.2020\DERMS\DERMS\UI\UI\App.xaml
+E:\Master\31.7.2020.v2\DERMS\DERMS\UI\UI\App.xaml
 12615951116
 
-39429834827
-80-280895401
+43-2138548679
+27394726122
 Resources\AppDictionary.xaml;View\BreakerControlThroughGISWindow.xaml;View\DERDashboardUserControl.xaml;View\EventSummaryUserControl.xaml;View\GISUserControl.xaml;View\HistoryUserControl.xaml;View\LoadingWindow.xaml;View\MainWindow.xaml;View\ManualCommandingWindow.xaml;View\NetworkModelUserControl.xaml;View\PopUpWindow.xaml;View\SignalsSummaryUserControl.xaml;
 
-False
+True
 
