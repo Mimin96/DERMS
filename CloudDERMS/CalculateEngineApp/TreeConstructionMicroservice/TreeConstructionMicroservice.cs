@@ -4,7 +4,10 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CloudCommon.CalculateEngine;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
+using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace TreeConstructionMicroservice
@@ -24,7 +27,20 @@ namespace TreeConstructionMicroservice
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
-            return new ServiceInstanceListener[0];
+            var ip = Context.NodeContext.IPAddressOrFQDN;
+
+            return new[]
+            {
+                new ServiceInstanceListener((context) =>
+                    new WcfCommunicationListener<ITreeConstruction>(
+                        wcfServiceObject: new TreeConstructionService(),
+                        serviceContext: context,
+                        endpointResourceName: "BuildTreeServiceEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "BuildTreeServiceListener"
+                )
+            };
         }
 
         /// <summary>

@@ -35,11 +35,11 @@ namespace TreeConstructionMicroservice
         }
 
         //Should be used for first construction of the tree
-        public TreeNode<NodeData> ConstructTree(NetworkModelTransfer networkModelTransfer)
-        {
-            PopulateGraphCached(networkModelTransfer);
-            return GraphCached;
-        }
+        //public TreeNode<NodeData> ConstructTree(NetworkModelTransfer networkModelTransfer)
+        //{
+        //    PopulateGraphCached(networkModelTransfer);
+        //    return GraphCached;
+        //}
 
         //Should be used for existing tree
         public TreeNode<NodeData> ConstructTree(NetworkModelTransfer networkModelTransfer, TreeNode<NodeData> graphCached)
