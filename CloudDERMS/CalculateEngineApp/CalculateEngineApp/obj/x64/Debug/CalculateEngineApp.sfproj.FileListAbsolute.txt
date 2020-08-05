@@ -6,3 +6,4 @@ C:\Users\Djole\Desktop\29.7.Projekat\DERMS\CloudDERMS\CalculateEngineApp\Calcula
 E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
 E:\Master\31.7.2020\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
 C:\Users\Caki\Desktop\3107\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache

@@ -1,0 +1,921 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:cim="http://iec.ch/TC57/2010/CIM-schema-cim15#"
+	xmlns:ftn="http://www.ftnydro.com/CIM15/2010/extension#">
+
+	<cim:GeographicalRegion rdf:ID="gr_1">
+		<cim:IdentifiedObject.description>gr1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>gr_1</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.Name>GR1</cim:IdentifiedObject.Name>
+		<cim:GeographicalRegion.longitude>45.2516700</cim:GeographicalRegion.longitude>
+		<cim:GeographicalRegion.latitude>19.8369400</cim:GeographicalRegion.latitude>
+	</cim:GeographicalRegion>
+	
+	<cim:SubGeographicalRegion rdf:ID="sgr_3">
+		<cim:IdentifiedObject.description>sgr3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>sgr_3</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>SGR3</cim:IdentifiedObject.name>
+		<cim:SubGeographicalRegion.longitude>45.1517700</cim:SubGeographicalRegion.longitude>
+		<cim:SubGeographicalRegion.latitude>19.9367400</cim:SubGeographicalRegion.latitude>
+		<cim:SubGeographicalRegion.Region rdf:resource="#gr_1"/>
+	</cim:SubGeographicalRegion>
+	
+	<cim:Substation rdf:ID="s_4">
+		<cim:IdentifiedObject.description>s4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>s_4</cim:IdentifiedObject.mRID>
+		<cim:Substation.Region rdf:resource="#sgr_3"/>
+		<cim:IdentifiedObject.name>S4</cim:IdentifiedObject.name>	
+		<cim:ConductingEquipment.longitude>45.242108</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.765462</cim:ConductingEquipment.latitude>		
+	</cim:Substation>
+	
+<!-- substation4 -->	
+	<!-- grana1 start (source, acl, consumer, breaker, solar panel)-->
+	<cim:EnergySource rdf:id="es_4">
+		<cim:IdentifiedObject.description>es4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>es_4</cim:IdentifiedObject.mRID>		
+		<cim:IdentifiedObject.name>ES4</cim:IdentifiedObject.name>
+		<cim:EnergySource.activePower>950</cim:EnergySource.activePower>
+		<cim:EnergySource.nominalVoltage>10</cim:EnergySource.nominalVoltage>
+		<cim:EnergySource.voltageMagnitude>20</cim:EnergySource.voltageMagnitude>
+		<cim:EnergySource.sourceType>Distribution</cim:EnergySource.sourceType>
+		<cim:ConductingEquipment.longitude>45.238871</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.822901</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>
+	</cim:EnergySource>
+	
+	<cim:ConnectivityNode rdf:ID="cn_374">
+		<cim:IdentifiedObject.description>cn374</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_374</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN374</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_374">
+		<cim:IdentifiedObject.description>t374</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_374</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T374</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#es_4"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_374"/>		
+	</cim:Terminal>	
+	
+	<cim:ACLineSegment rdf:id="acl_274">
+		<cim:identifiedobject.description>acl274</cim:identifiedobject.description>
+		<cim:identifiedobject.mRID>acl_274</cim:identifiedobject.mRID>
+		<cim:IdentifiedObject.name>ACL274</cim:IdentifiedObject.name>	
+		<cim:Conductor.conductorType>Overhead</cim:Conductor.conductorType>	
+		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
+		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>
+	</cim:ACLineSegment>
+	
+	<cim:Point rdf:ID="p_174">
+		<cim:IdentifiedObject.description>p174</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_174</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P174</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.238871</cim:Point.longitude>
+		<cim:Point.latitude>19.822901</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_274"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_27004">
+		<cim:IdentifiedObject.description>p27004</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_27004</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P27004</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.239777</cim:Point.longitude>
+		<cim:Point.latitude>19.816507</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_274"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_2704">
+		<cim:IdentifiedObject.description>p2704</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_2704</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P2704</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.240231</cim:Point.longitude>
+		<cim:Point.latitude>19.811443</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_274"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_2714">
+		<cim:IdentifiedObject.description>p2714</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_2714</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P2714</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.240805</cim:Point.longitude>
+		<cim:Point.latitude>19.807151</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_274"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_2724">
+		<cim:IdentifiedObject.description>p2724</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_2724</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P2724</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.241137</cim:Point.longitude>
+		<cim:Point.latitude>19.8014233</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_274"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_2744">
+		<cim:IdentifiedObject.description>p2744</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_2744</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P2744</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.241409</cim:Point.longitude>
+		<cim:Point.latitude>19.801014</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_274"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_2754">
+		<cim:IdentifiedObject.description>p2754</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_2754</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P2754</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.241621</cim:Point.longitude>
+		<cim:Point.latitude>19.798525</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_274"/>
+	</cim:Point>	
+	
+	<cim:Point rdf:ID="p_2755">
+		<cim:IdentifiedObject.description>p2755</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_2755</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P2755</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.242950</cim:Point.longitude>
+		<cim:Point.latitude>19.794448</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_274"/>
+	</cim:Point>
+	
+	<cim:Terminal rdf:id="t_674">
+		<cim:IdentifiedObject.description>t674</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_674</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T674</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_274"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_374"/>		
+	</cim:Terminal>	
+		
+	<cim:ConnectivityNode rdf:ID="cn_674">
+		<cim:IdentifiedObject.description>cn674</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_674</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN674</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_774">
+		<cim:IdentifiedObject.description>t774</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_774</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T774</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_274"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_674"/>		
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:id="ec_274">
+		<cim:IdentifiedObject.description>ec274</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ec_274</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>EC274</cim:IdentifiedObject.name>
+		<cim:EnergyConsumer.pfixed>3</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
+		<cim:ConductingEquipment.longitude>45.239777</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.816507</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:id="t_874">
+		<cim:IdentifiedObject.description>t874</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_874</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T874</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#ec_274"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_674"/>		
+	</cim:Terminal>	
+	
+	<cim:ConnectivityNode rdf:ID="cn_6704">
+		<cim:IdentifiedObject.description>cn6704</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_6704</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN6704</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_7704">
+		<cim:IdentifiedObject.description>t7704</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_7704</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T7704</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_274"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6704"/>		
+	</cim:Terminal>	
+	
+	<cim:EnergyConsumer rdf:id="ec_2704">
+		<cim:IdentifiedObject.description>ec2704</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ec_2704</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>EC2704</cim:IdentifiedObject.name>
+		<cim:EnergyConsumer.pfixed>3</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
+		<cim:ConductingEquipment.longitude>45.240231</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.811443</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:id="t_8704">
+		<cim:IdentifiedObject.description>t8704</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_8704</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T8704</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#ec_2704"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6704"/>		
+	</cim:Terminal>	
+	
+	<cim:ConnectivityNode rdf:ID="cn_6714">
+		<cim:IdentifiedObject.description>cn6714</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_6714</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN6714</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_7714">
+		<cim:IdentifiedObject.description>t7714</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_7714</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T7714</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_274"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6714"/>		
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:id="ec_2714">
+		<cim:IdentifiedObject.description>ec2714</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ec_2714</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>EC2714</cim:IdentifiedObject.name>
+		<cim:EnergyConsumer.pfixed>3</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
+		<cim:ConductingEquipment.longitude>45.240805</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.807151</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:id="t_8714">
+		<cim:IdentifiedObject.description>t8714</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_8714</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T8714</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#ec_2714"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6714"/>		
+	</cim:Terminal>
+	
+	
+	<cim:ConnectivityNode rdf:ID="cn_6724">
+		<cim:IdentifiedObject.description>cn6724</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_6724</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN6724</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_7724">
+		<cim:IdentifiedObject.description>t7724</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_7724</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T7724</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_274"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6724"/>		
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:id="ec_2724">
+		<cim:IdentifiedObject.description>ec2724</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ec_2724</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>EC2724</cim:IdentifiedObject.name>
+		<cim:EnergyConsumer.pfixed>3</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
+		<cim:ConductingEquipment.longitude>45.241137</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.8014233</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:id="t_8724">
+		<cim:IdentifiedObject.description>t8724</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_8724</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T8724</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#ec_2724"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6724"/>		
+	</cim:Terminal>	
+	
+	<cim:ConnectivityNode rdf:ID="cn_6734">
+		<cim:IdentifiedObject.description>cn6734</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_6734</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN6734</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_7734">
+		<cim:IdentifiedObject.description>t7734</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_7734</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T7734</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_274"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6734"/>		
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:id="ec_2734">
+		<cim:IdentifiedObject.description>ec2734</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ec_2734</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>EC2734</cim:IdentifiedObject.name>
+		<cim:EnergyConsumer.pfixed>3</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
+		<cim:ConductingEquipment.longitude>45.241409</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.801014</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:id="t_8734">
+		<cim:IdentifiedObject.description>t8734</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_8734</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T8734</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#ec_2734"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6734"/>		
+	</cim:Terminal>	
+	
+	<cim:ConnectivityNode rdf:ID="cn_6744">
+		<cim:IdentifiedObject.description>cn6744</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_6744</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN6744</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_7744">
+		<cim:IdentifiedObject.description>t7744</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_7744</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T7744</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_274"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6744"/>		
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:id="ec_2744">
+		<cim:IdentifiedObject.description>ec2744</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ec_2744</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>EC2744</cim:IdentifiedObject.name>
+		<cim:EnergyConsumer.pfixed>3</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
+		<cim:ConductingEquipment.longitude>45.241621</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.798525</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:id="t_8744">
+		<cim:IdentifiedObject.description>t8744</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_8744</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T8744</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#ec_2744"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6744"/>		
+	</cim:Terminal>	
+	
+	<cim:ConnectivityNode rdf:ID="cn_774">
+		<cim:IdentifiedObject.description>cn774</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_774</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN774</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>		
+	
+	<cim:Breaker rdf:ID="b_274">
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
+		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
+		<cim:IdentifiedObject.mRID>b_274</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.description>b274</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.name>B274</cim:IdentifiedObject.name>
+		<cim:ConductingEquipment.longitude>45.242950</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.794448</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>
+	</cim:Breaker>	
+	
+	<cim:Terminal rdf:id="t_974">
+		<cim:IdentifiedObject.description>t974</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_974</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T974</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#b_274"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_674"/>		
+	</cim:Terminal>	
+	
+	<cim:Discrete rdf:id="d_274">
+		<cim:IdentifiedObject.description>Commanding</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>d_274</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>D274</cim:IdentifiedObject.name>
+		<cim:Measurement.measurementType>Discrete</cim:Measurement.measurementType>
+		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>			
+		<cim:Discrete.minValue>0</cim:Discrete.minValue>			
+		<cim:Discrete.normalValue>1</cim:Discrete.normalValue>
+		<cim:Measurement.powerSystemResource rdf:resource="b_274"/>		
+	</cim:Discrete>
+	
+	<cim:Terminal rdf:id="t_1074">
+		<cim:IdentifiedObject.description>t1074</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_1074</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T1074</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#b_274"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_774"/>		
+	</cim:Terminal>	
+	
+	<cim:ACLineSegment rdf:id="acl_47">
+		<cim:identifiedobject.description>acl47</cim:identifiedobject.description>
+		<cim:identifiedobject.mRID>acl_47</cim:identifiedobject.mRID>
+		<cim:IdentifiedObject.name>ACL47</cim:IdentifiedObject.name>	
+		<cim:Conductor.conductorType>Overhead</cim:Conductor.conductorType>	
+		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
+		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>
+	</cim:ACLineSegment>
+	
+	<cim:Point rdf:ID="p_047">
+		<cim:IdentifiedObject.description>p047</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_047</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P047</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.242950</cim:Point.longitude>
+		<cim:Point.latitude>19.794448</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_47"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_47">
+		<cim:IdentifiedObject.description>p47</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_47</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P47</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.241950</cim:Point.longitude>
+		<cim:Point.latitude>19.792448</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_47"/>
+	</cim:Point>	
+	
+	<cim:Terminal rdf:id="t_364">
+		<cim:IdentifiedObject.description>t364</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_364</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T364</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_47"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_774"/>		
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="cn_7744">
+		<cim:IdentifiedObject.description>cn7744</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_7744</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN7744</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_3674">
+		<cim:IdentifiedObject.description>t3674</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_3674</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T3674</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_47"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_7744"/>		
+	</cim:Terminal>
+	
+	<cim:Generator rdf:id="g_74">
+		<cim:IdentifiedObject.description>g74</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>g_74</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>g74</cim:IdentifiedObject.name>
+		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
+		<cim:Generator.minQ>0</cim:Generator.minQ>			
+		<cim:Generator.condenserP>650</cim:Generator.condenserP>
+		<cim:Generator.flexibility>true</cim:Generator.flexibility>
+		<cim:Generator.maxFlexibility>50</cim:Generator.maxFlexibility>
+		<cim:Generator.minFlexibility>50</cim:Generator.minFlexibility>
+		<cim:ConductingEquipment.longitude>45.241950</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.792448</cim:ConductingEquipment.latitude>
+		<cim:Generator.generatorType>Solar</cim:Generator.generatorType>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:Generator>
+	
+	<cim:Analog rdf:id="a_274">
+		<cim:IdentifiedObject.description>Aqusition</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>a_274</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>Solar</cim:IdentifiedObject.name>
+		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
+		<cim:Analog.maxValue>4</cim:Analog.maxValue>			
+		<cim:Analog.minValue>2</cim:Analog.minValue>		
+		<cim:Measurement.powerSystemResource rdf:resource="g_74"/>			
+	</cim:Analog>
+	
+	<cim:Analog rdf:id="a_2741">
+		<cim:IdentifiedObject.description>Simulation</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>a_2741</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>Solar</cim:IdentifiedObject.name>
+		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
+		<cim:Analog.maxValue>250</cim:Analog.maxValue>			
+		<cim:Analog.minValue>50</cim:Analog.minValue>		
+		<cim:Measurement.powerSystemResource rdf:resource="g_74"/>			
+	</cim:Analog>
+	
+	<cim:Analog rdf:id="a_2742">
+		<cim:IdentifiedObject.description>Commanding</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>a_2742</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>Solar</cim:IdentifiedObject.name>
+		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>			
+		<cim:Analog.normalValue>0</cim:Analog.normalValue>				
+		<cim:Analog.maxValue>250</cim:Analog.maxValue>			
+		<cim:Analog.minValue>50</cim:Analog.minValue>		
+		<cim:Measurement.powerSystemResource rdf:resource="g_74"/>			
+	</cim:Analog>
+	
+	<cim:Terminal rdf:id="t_36744">
+		<cim:IdentifiedObject.description>t36744</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_36744</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T36744</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#g_74"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_7744"/>		
+	</cim:Terminal>
+	
+	<!-- grana1 end -->
+	
+	
+	
+	
+	<!-- grana2 start (source, breaker, consumer, acl, wind generator)-->	
+	
+	<cim:ACLineSegment rdf:id="acl_254">
+		<cim:identifiedobject.description>ac254</cim:identifiedobject.description>
+		<cim:identifiedobject.mRID>acl_254</cim:identifiedobject.mRID>
+		<cim:IdentifiedObject.name>ACL254</cim:IdentifiedObject.name>	
+		<cim:Conductor.conductorType>Overhead</cim:Conductor.conductorType>	
+		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
+		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>
+	</cim:ACLineSegment>	
+	
+	<cim:Point rdf:ID="p_114"> 
+		<cim:IdentifiedObject.description>p114</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_114</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P114</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.238871</cim:Point.longitude>
+		<cim:Point.latitude>19.822901</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_254"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_164"> 
+		<cim:IdentifiedObject.description>p164</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_164</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P164</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.237723</cim:Point.longitude>
+		<cim:Point.latitude>19.822000</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_254"/>
+	</cim:Point>
+	
+	<cim:Terminal rdf:id="t_464">
+		<cim:IdentifiedObject.description>t464</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_464</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T464</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_254"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_374"/>		
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="cn_434">
+		<cim:IdentifiedObject.description>cn434</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_434</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN434</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_43684">
+		<cim:IdentifiedObject.description>t43684</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_43684</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T43684</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_254"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_434"/>		
+	</cim:Terminal>
+	
+	<cim:Breaker rdf:ID="b_264">
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+		<cim:Switch.feederID1>feeder1</cim:Switch.feederID1>
+		<cim:Switch.feederID2>feeder2</cim:Switch.feederID2>
+		<cim:IdentifiedObject.mRID>b_264</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.description>b264</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.name>B264</cim:IdentifiedObject.name>
+		<cim:ConductingEquipment.longitude>45.237723</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.822000</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>
+	</cim:Breaker>	
+	
+	<cim:Discrete rdf:id="d_264">
+		<cim:IdentifiedObject.description>Commanding</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>d_264</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>D264</cim:IdentifiedObject.name>
+		<cim:Measurement.measurementType>Discrete</cim:Measurement.measurementType>
+		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>			
+		<cim:Discrete.minValue>0</cim:Discrete.minValue>			
+		<cim:Discrete.normalValue>1</cim:Discrete.normalValue>
+		<cim:Measurement.powerSystemResource rdf:resource="b_264"/>		
+	</cim:Discrete>
+	
+	<cim:Terminal rdf:id="t_664">
+		<cim:IdentifiedObject.description>t664</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_664</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T664</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#b_264"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_374"/>		
+	</cim:Terminal>	
+	
+	<cim:ConnectivityNode rdf:ID="cn_664">
+		<cim:IdentifiedObject.description>cn664</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_664</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN664</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_764">
+		<cim:IdentifiedObject.description>t764</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_764</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T764</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#b_264"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_664"/>		
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:id="ec_264">
+		<cim:IdentifiedObject.description>ec264</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ec_264</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>EC264</cim:IdentifiedObject.name>
+		<cim:EnergyConsumer.pfixed>2</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
+		<cim:ConductingEquipment.longitude>45.236544</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.820069</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:id="t_864">
+		<cim:IdentifiedObject.description>t864</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_864</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T864</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#ec_264"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_664"/>		
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="cn_764">
+		<cim:IdentifiedObject.description>cn764</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_764</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN764</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>		
+	
+	<cim:ACLineSegment rdf:id="acl_264">
+		<cim:identifiedobject.description>acl264</cim:identifiedobject.description>
+		<cim:identifiedobject.mRID>acl_264</cim:identifiedobject.mRID>
+		<cim:IdentifiedObject.name>ACL264</cim:IdentifiedObject.name>	
+		<cim:Conductor.conductorType>Overhead</cim:Conductor.conductorType>	
+		<cim:ACLineSegment.feederCable>false</cim:ACLineSegment.feederCable>	
+		<cim:ACLineSegment.ratedCurrent>30</cim:ACLineSegment.ratedCurrent>	
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>
+	</cim:ACLineSegment>
+	
+	<cim:Point rdf:ID="p_1640"> 
+		<cim:IdentifiedObject.description>p1640</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_1640</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P1640</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.237723</cim:Point.longitude>
+		<cim:Point.latitude>19.822000</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_264"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_16401"> 
+		<cim:IdentifiedObject.description>p2000</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_2000</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P2000</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.236544</cim:Point.longitude>
+		<cim:Point.latitude>19.820069</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_264"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_164012"> 
+		<cim:IdentifiedObject.description>p26202</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_26202</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P26202</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.237164</cim:Point.longitude>
+		<cim:Point.latitude>19.821056</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_264"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_1640123">
+		<cim:IdentifiedObject.description>p26243</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_26243</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P26243</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.235033</cim:Point.longitude>
+		<cim:Point.latitude>19.817794</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_264"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_16401234"> 
+		<cim:IdentifiedObject.description>p263405</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_263405</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P263405</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.233885</cim:Point.longitude>
+		<cim:Point.latitude>19.816078</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_264"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_164012345"> 
+		<cim:IdentifiedObject.description>p263416</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_263416</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P263416</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.232872</cim:Point.longitude>
+		<cim:Point.latitude>19.814232</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_264"/>
+	</cim:Point>
+	
+	<cim:Point rdf:ID="p_1640123456"> 
+		<cim:IdentifiedObject.description>p263427</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>p_263427</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>P263427</cim:IdentifiedObject.name>
+		<cim:Point.longitude>45.230152</cim:Point.longitude>
+		<cim:Point.latitude>19.815648</cim:Point.latitude>
+		<cim:Point.Line rdf:resource="#acl_264"/>
+	</cim:Point>
+	
+	<cim:Terminal rdf:id="t_964">
+		<cim:IdentifiedObject.description>t964</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_964</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T964</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_264"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_664"/>		
+	</cim:Terminal>			
+	
+	<cim:ConnectivityNode rdf:ID="cn_46810214">
+		<cim:IdentifiedObject.description>cn46810214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_46810214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN46810214</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_47810214">
+		<cim:IdentifiedObject.description>t47810214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_47810214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T47810214</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_264"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_46810214"/>		
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:id="ec_42810214">
+		<cim:IdentifiedObject.description>ec42810214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ec_42810214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>EC42810214</cim:IdentifiedObject.name>
+		<cim:EnergyConsumer.pfixed>2</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
+		<cim:ConductingEquipment.longitude>45.237164</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.821056</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:id="t_48810214">
+		<cim:IdentifiedObject.description>t48810214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_48810214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T48810214</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#ec_42810214"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_46810214"/>		
+	</cim:Terminal>			
+	
+	<cim:ConnectivityNode rdf:ID="cn_456810214">
+		<cim:IdentifiedObject.description>cn456810214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_456810214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN456810214</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_45810214">
+		<cim:IdentifiedObject.description>t457810214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_457810214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T457810214</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_264"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_456810214"/>		
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:id="ec_452810214">
+		<cim:IdentifiedObject.description>ec452810214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ec_452810214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>EC452810214</cim:IdentifiedObject.name>
+		<cim:EnergyConsumer.pfixed>2</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
+		<cim:ConductingEquipment.longitude>45.235033</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.817794</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:id="t_458810214">
+		<cim:IdentifiedObject.description>t458810214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_458810214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T458810214</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#ec_452810214"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_456810214"/>		
+	</cim:Terminal>		
+		
+	<cim:ConnectivityNode rdf:ID="cn_6810214">
+		<cim:IdentifiedObject.description>cn6810214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_6810214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN6810214</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_7810214">
+		<cim:IdentifiedObject.description>t7810214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_7810214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T7810214</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_264"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6810214"/>		
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:id="ec_2810214">
+		<cim:IdentifiedObject.description>ec2810214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ec_2810214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>EC2810214</cim:IdentifiedObject.name>
+		<cim:EnergyConsumer.pfixed>2</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
+		<cim:ConductingEquipment.longitude>45.233885</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.816078</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:id="t_8810214">
+		<cim:IdentifiedObject.description>t8810214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_8810214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T8810214</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#ec_2810214"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6810214"/>		
+	</cim:Terminal>		
+	
+	<cim:ConnectivityNode rdf:ID="cn_6811214">
+		<cim:IdentifiedObject.description>cn6811214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>cn_6811214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>CN6811214</cim:IdentifiedObject.name>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#s_4"/>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:id="t_7811214">
+		<cim:IdentifiedObject.description>t7811214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_7811214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T7811214</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_264"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6811214"/>		
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:id="ec_2811214">
+		<cim:IdentifiedObject.description>ec2811214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ec_2811214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>EC2811214</cim:IdentifiedObject.name>
+		<cim:EnergyConsumer.pfixed>2</cim:EnergyConsumer.pfixed>
+		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
+		<cim:ConductingEquipment.longitude>45.232872</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.814232</cim:ConductingEquipment.latitude>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:id="t_8811214">
+		<cim:IdentifiedObject.description>t8811214</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_8811214</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T8811214</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#ec_2811214"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_6811214"/>		
+	</cim:Terminal>		
+	
+	
+	<cim:Terminal rdf:id="t_1064">
+		<cim:IdentifiedObject.description>t1064</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_1064</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T1064</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#acl_264"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_764"/>		
+	</cim:Terminal>	
+	
+	<cim:Generator rdf:id="g_264">
+		<cim:IdentifiedObject.description>g264</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>g_264</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>g264</cim:IdentifiedObject.name>
+		<cim:Generator.maxQ>8</cim:Generator.maxQ>			
+		<cim:Generator.minQ>0</cim:Generator.minQ>			
+		<cim:Generator.condenserP>950</cim:Generator.condenserP>
+		<cim:Generator.flexibility>true</cim:Generator.flexibility>
+		<cim:Generator.maxFlexibility>90</cim:Generator.maxFlexibility>
+		<cim:Generator.minFlexibility>90</cim:Generator.minFlexibility>
+		<cim:ConductingEquipment.longitude>45.230152</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.815648</cim:ConductingEquipment.latitude>
+		<cim:Generator.generatorType>Wind</cim:Generator.generatorType>
+		<cim:Equipment.EquipmentContainer rdf:resource="#s_4"/>		
+	</cim:Generator>	
+	
+	<cim:Analog rdf:id="a_1264">
+		<cim:IdentifiedObject.description>Aqusition</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>a_1264</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>Wind</cim:IdentifiedObject.name>
+		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
+		<cim:Analog.maxValue>20</cim:Analog.maxValue>			
+		<cim:Analog.minValue>10</cim:Analog.minValue>
+		<cim:Measurement.powerSystemResource rdf:resource="g_264"/>			
+	</cim:Analog>
+	
+	<cim:Analog rdf:id="a_2264">
+		<cim:IdentifiedObject.description>Simulation</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>a_2264</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>Wind</cim:IdentifiedObject.name>
+		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
+		<cim:Analog.maxValue>20</cim:Analog.maxValue>			
+		<cim:Analog.minValue>10</cim:Analog.minValue>		
+		<cim:Measurement.powerSystemResource rdf:resource="g_264"/>			
+	</cim:Analog>
+	
+	<cim:Analog rdf:id="a_264">
+		<cim:IdentifiedObject.description>Commanding</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>a_264</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>Wind</cim:IdentifiedObject.name>
+		<cim:Measurement.measurementType>ActivePower</cim:Measurement.measurementType>
+		<cim:Analog.maxValue>20</cim:Analog.maxValue>
+		<cim:Analog.normalValue>0</cim:Analog.normalValue>			
+		<cim:Analog.minValue>10</cim:Analog.minValue>			
+		<cim:Measurement.powerSystemResource rdf:resource="g_264"/>			
+	</cim:Analog>
+	
+	<cim:Terminal rdf:id="t_1264">
+		<cim:IdentifiedObject.description>t1264</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>t_1264</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>T1264</cim:IdentifiedObject.name>
+		<cim:Terminal.conductingEquipment rdf:resource="#g_264"/>
+		<cim:Terminal.connectivityNode rdf:resource="cn_764"/>		
+	</cim:Terminal>	
+	<!-- grana2 end -->			
+	
+</rdf:RDF>

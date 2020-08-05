@@ -1,0 +1,6 @@
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\CIMParser.dll
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\CIMParser.pdb
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMParser\obj\x64\Debug\CIMParser.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMParser\obj\x64\Debug\CIMParser.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMParser\obj\x64\Debug\CIMParser.dll
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMParser\obj\x64\Debug\CIMParser.pdb

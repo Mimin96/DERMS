@@ -1,0 +1,62 @@
+2/11/2020 9:05:02 PM : Starting Network Model Serivice...
+2/11/2020 9:05:02 PM : Inserting entity with GID (0000000100000001).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000100000002).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000b00000001).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000b00000002).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000a00000001).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000200000001).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000200000002).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000400000001).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000400000002).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000500000001).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000500000002).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000900000001).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000c00000001).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000c00000002).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000300000001).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000300000002).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000300000003).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000300000004).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000300000005).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000300000006).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000300000007).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000600000001).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000600000002).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000600000003).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000600000004).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000600000005).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000600000006).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000600000007).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000600000008).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000600000009).
+2/11/2020 9:05:03 PM : Inserting entity with GID (000000060000000a).
+2/11/2020 9:05:03 PM : Inserting entity with GID (000000060000000b).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000700000001).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000700000002).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000800000001).
+2/11/2020 9:05:03 PM : Inserting entity with GID (0000000800000002).
+2/11/2020 9:05:05 PM : Could not connect to net.tcp://localhost:19002/ISendDataFromNMSToCE. The connection attempt lasted for a time span of 00:00:02.0039418. TCP error code 10061: No connection could be made because the target machine actively refused it 127.0.0.1:19002. 
+2/11/2020 9:05:05 PM : NetworkModelService failed.
+2/11/2020 9:05:05 PM : 
+Server stack trace: 
+   at System.ServiceModel.Channels.SocketConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   at System.ServiceModel.Channels.BufferedConnectionInitiator.Connect(Uri uri, TimeSpan timeout)
+   at System.ServiceModel.Channels.ConnectionPoolHelper.EstablishConnection(TimeSpan timeout)
+   at System.ServiceModel.Channels.ClientFramingDuplexSessionChannel.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.OnOpen(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Open(TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.CallOpenOnce.System.ServiceModel.Channels.ServiceChannel.ICallOnce.Call(ServiceChannel channel, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.CallOnceManager.CallOnce(TimeSpan timeout, CallOnceManager cascade)
+   at System.ServiceModel.Channels.ServiceChannel.EnsureOpened(TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   at DERMSCommon.NMSCommuication.ISendDataFromNMSToCE.SendNetworkModel(NetworkModelTransfer networkModel)
+   at FTN.Services.NetworkModelService.NetworkModelDeepCopy..ctor() in C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService\NetworkModel.cs:line 41
+   at FTN.Services.NetworkModelService.NetworkModelService..ctor() in C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService\NetworkModelService.cs:line 21
+   at FTN.Services.NetworkModelService.Program.Main(String[] args) in C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\Program.cs:line 22

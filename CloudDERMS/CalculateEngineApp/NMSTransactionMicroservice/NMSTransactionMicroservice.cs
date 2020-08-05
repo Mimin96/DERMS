@@ -24,7 +24,7 @@ namespace NMSTransactionMicroservice
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
-            return new ServiceInstanceListener[0];
+            return new ServiceInstanceListener[0];            
         }
 
         /// <summary>

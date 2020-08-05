@@ -19,3 +19,9 @@ C:\Users\Caki\Desktop\3107\DERMS\CloudDERMS\CalculateEngineApp\Commons\bin64\FTN
 C:\Users\Caki\Desktop\3107\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\Common.csproj.CoreCompileInputs.cache
 C:\Users\Caki\Desktop\3107\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\FTN.Common.dll
 C:\Users\Caki\Desktop\3107\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\Commons\bin64\FTN.Common.dll
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\Commons\bin64\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\FTN.Common.dll
+C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\FTN.Common.pdb

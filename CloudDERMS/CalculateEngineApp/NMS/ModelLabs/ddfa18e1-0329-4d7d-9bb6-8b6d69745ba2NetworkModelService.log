@@ -1,0 +1,15 @@
+12/13/2018 3:41:06 PM : Starting Network Model Serivice...
+12/13/2018 3:41:06 PM : Inserting entity with GID (0000000100000001).
+12/13/2018 3:41:06 PM : Inserting entity with GID (0000000200000001).
+12/13/2018 3:41:06 PM : Inserting entity with GID (0000000300000001).
+12/13/2018 3:41:06 PM : Inserting entity with GID (0000000700000001).
+12/13/2018 3:41:06 PM : Inserting entity with GID (0000000400000001).
+12/13/2018 3:41:06 PM : Inserting entity with GID (0000000500000001).
+12/13/2018 3:41:06 PM : Inserting entity with GID (0000000600000001).
+12/13/2018 3:41:08 PM : The communication object, System.ServiceModel.ServiceHost, cannot be used for communication because it is in the Faulted state.
+12/13/2018 3:41:08 PM : NetworkModelService failed.
+12/13/2018 3:41:08 PM :    at System.ServiceModel.Channels.CommunicationObject.Close(TimeSpan timeout)
+   at System.ServiceModel.Channels.CommunicationObject.Close()
+   at FTN.Services.NetworkModelService.NetworkModelService.CloseHosts() in C:\Users\mspet\Desktop\ModelLabsProjekat\ModelLabs\NetworkModelService\NetworkModelService.cs:line 96
+   at FTN.Services.NetworkModelService.NetworkModelService.Dispose() in C:\Users\mspet\Desktop\ModelLabsProjekat\ModelLabs\NetworkModelService\NetworkModelService.cs:line 34
+   at FTN.Services.NetworkModelService.Program.Main(String[] args) in C:\Users\mspet\Desktop\ModelLabsProjekat\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\Program.cs:line 30
