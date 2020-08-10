@@ -230,6 +230,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalculateEngine\Communication\CloudClient.cs" />
+    <Compile Include="CalculateEngine\ICache.cs" />
     <Compile Include="CalculateEngine\IConsumptionCalculator.cs" />
     <Compile Include="CalculateEngine\IDarkSkyApi.cs" />
     <Compile Include="CalculateEngine\IProductionCalculator.cs" />
@@ -244,7 +246,6 @@
     <Compile Include="SCADA\AzureStorage\HistoryDataProcessing.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CalculateEngine\Communication\" />
     <Folder Include="NMS\Communication\" />
     <Folder Include="SCADA\Communication\" />
     <Folder Include="TransactionCoordinator\Communication\" />

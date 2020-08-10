@@ -14,7 +14,7 @@ namespace CECalculationMicroservice
 {
     public class ConsumptionCalculatorService : IConsumptionCalculator
     {
-        public void Calculate(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel, Dictionary<long, DayAhead> subDayAhead, Dictionary<long, Forecast> DerWeather)
+        public async Task Calculate(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel, Dictionary<long, DayAhead> subDayAhead, Dictionary<long, Forecast> DerWeather)
         {
             Dictionary<long, DerForecastDayAhead> Forecasts;
             Forecasts = derForcast;

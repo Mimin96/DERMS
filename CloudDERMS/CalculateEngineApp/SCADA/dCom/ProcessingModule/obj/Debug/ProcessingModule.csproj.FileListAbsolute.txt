@@ -599,3 +599,12 @@ E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingMod
 E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
 E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
 E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb
+C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.dll
+C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.pdb
+C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\bin\Debug\Common.dll
+C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\bin\Debug\Common.pdb
+C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
+C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
+C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb

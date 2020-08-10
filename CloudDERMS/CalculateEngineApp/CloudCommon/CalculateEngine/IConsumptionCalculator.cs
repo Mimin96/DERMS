@@ -14,6 +14,6 @@ namespace CloudCommon.CalculateEngine
     public interface IConsumptionCalculator
     {
         [OperationContract]
-        void Calculate(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel, Dictionary<long, DayAhead> subDayAhead, Dictionary<long, Forecast> DerWeather);
+        Task Calculate(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel, Dictionary<long, DayAhead> subDayAhead, Dictionary<long, Forecast> DerWeather);
     }
 }

@@ -15,13 +15,13 @@ namespace CloudCommon.CalculateEngine
     public interface IProductionCalculator
     {
         [OperationContract]
-        DerForecastDayAhead CalculateGenerator(Forecast forecast, Generator generator, Dictionary<long, DerForecastDayAhead> GeneratorForecastList);
+        Task<DerForecastDayAhead> CalculateGenerator(Forecast forecast, Generator generator, Dictionary<long, DerForecastDayAhead> GeneratorForecastList);
         [OperationContract]
-        DerForecastDayAhead CalculateSubstation(Forecast forecast, Substation substation, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> GeneratorForecastList, Dictionary<long, DerForecastDayAhead> SubstationsForecast);
+        Task<DerForecastDayAhead> CalculateSubstation(Forecast forecast, Substation substation, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> GeneratorForecastList, Dictionary<long, DerForecastDayAhead> SubstationsForecast);
         [OperationContract]
-        DerForecastDayAhead CalculateSubRegion(SubGeographicalRegion subGeographicalRegion, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> SubstationsForecast, Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast);
+        Task<DerForecastDayAhead> CalculateSubRegion(SubGeographicalRegion subGeographicalRegion, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> SubstationsForecast, Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast);
         [OperationContract]
-        DerForecastDayAhead CalculateGeoRegion(GeographicalRegion geographicalRegion, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast);
+        Task<DerForecastDayAhead> CalculateGeoRegion(GeographicalRegion geographicalRegion, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast);
 
 
     }

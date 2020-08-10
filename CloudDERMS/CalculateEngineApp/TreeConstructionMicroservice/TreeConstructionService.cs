@@ -34,6 +34,12 @@ namespace TreeConstructionMicroservice
             set { graphCached = value; }
         }
 
+        public async Task<TreeNode<NodeData>> ConstructTree1(NetworkModelTransfer networkModelTransfer)
+        {
+            PopulateGraphCached(networkModelTransfer);
+            return GraphCached;
+        }
+
         //Should be used for first construction of the tree
         //public TreeNode<NodeData> ConstructTree(NetworkModelTransfer networkModelTransfer)
         //{
@@ -658,7 +664,7 @@ namespace TreeConstructionMicroservice
         #endregion
 
         #region Update Tree From SCADA
-        public TreeNode<NodeData> UpdateGraphWithScadaValues(List<DataPoint> data, TreeNode<NodeData> rcvgraphCached)
+        public async Task<TreeNode<NodeData>> UpdateGraphWithScadaValues(List<DataPoint> data, TreeNode<NodeData> rcvgraphCached)
         {
             if (rcvgraphCached == null)
                 return null;

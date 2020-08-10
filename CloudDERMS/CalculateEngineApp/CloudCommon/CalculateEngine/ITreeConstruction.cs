@@ -24,7 +24,10 @@ namespace CloudCommon.CalculateEngine
         TreeNode<NodeData> ConstructTree(NetworkModelTransfer networkModelTransfer, TreeNode<NodeData> graphCached);  // Should be used when there is a pre-built tree
         
         [OperationContract]
-        TreeNode<NodeData> UpdateGraphWithScadaValues(List<DataPoint> data, TreeNode<NodeData> graphCached);
+        Task<TreeNode<NodeData>> UpdateGraphWithScadaValues(List<DataPoint> data, TreeNode<NodeData> graphCached);
+
+        [OperationContract]
+        Task<TreeNode<NodeData>> ConstructTree1(NetworkModelTransfer networkModelTransfer);
 
     }
 }

@@ -14,7 +14,7 @@ namespace CECalculationMicroservice
 {
     public class ProductionCalculatorService : IProductionCalculator
     {
-        public DerForecastDayAhead CalculateGenerator(Forecast forecast, Generator generator, Dictionary<long, DerForecastDayAhead> GeneratorForecastList)
+        public async Task<DerForecastDayAhead> CalculateGenerator(Forecast forecast, Generator generator, Dictionary<long, DerForecastDayAhead> GeneratorForecastList)
         {
             DerForecastDayAhead generatorForecast = new DerForecastDayAhead(generator.GlobalId);
 
@@ -24,7 +24,7 @@ namespace CECalculationMicroservice
             return generatorForecast;
         }
 
-        public DerForecastDayAhead CalculateSubstation(Forecast forecast, Substation substation, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> GeneratorForecastList, Dictionary<long, DerForecastDayAhead> SubstationsForecast)
+        public async Task<DerForecastDayAhead> CalculateSubstation(Forecast forecast, Substation substation, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> GeneratorForecastList, Dictionary<long, DerForecastDayAhead> SubstationsForecast)
         {
 
             List<Generator> generators = new List<Generator>();
@@ -56,7 +56,7 @@ namespace CECalculationMicroservice
             return substationForecast;
         }
 
-        public DerForecastDayAhead CalculateSubRegion(SubGeographicalRegion subGeographicalRegion, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> SubstationsForecast, Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast)
+        public async Task<DerForecastDayAhead> CalculateSubRegion(SubGeographicalRegion subGeographicalRegion, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> SubstationsForecast, Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast)
         {
             List<Substation> substations = new List<Substation>();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
@@ -85,7 +85,7 @@ namespace CECalculationMicroservice
             return subGeographicalRegionForecast;
         }
 
-        public DerForecastDayAhead CalculateGeoRegion(GeographicalRegion geographicalRegion, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast)
+        public async Task<DerForecastDayAhead> CalculateGeoRegion(GeographicalRegion geographicalRegion, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast)
         {
             List<SubGeographicalRegion> subGeographicalRegions = new List<SubGeographicalRegion>();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
