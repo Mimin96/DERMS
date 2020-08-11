@@ -4,8 +4,11 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CloudCommon.CalculateEngine;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
+using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace CECacheMicroservice
@@ -28,7 +31,20 @@ namespace CECacheMicroservice
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
         {
-            return new ServiceReplicaListener[0];
+            var ip = Context.NodeContext.IPAddressOrFQDN;
+
+            return new[]
+            {
+                new ServiceReplicaListener((context) =>
+                    new WcfCommunicationListener<ICache>(
+                        wcfServiceObject: new CECacheService(),
+                        serviceContext: context,
+                        endpointResourceName: "CECacheServiceEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "CECacheServiceListener"
+                )
+            };
         }
 
         /// <summary>

@@ -127,6 +127,7 @@ namespace UI.ViewModel
             e.Handled = true;
             UIElement iElement = null;
             UIElementCollection ee = ((Map)sender).Children;
+            UIClientCEUpdateThorughUI uIClient = new UIClientCEUpdateThorughUI("UIClientCEUpdateThroughUIEndpoint");
 
             foreach (UIElement uIElement in ee)
             {
@@ -164,9 +165,9 @@ namespace UI.ViewModel
                 bool canManualCommand = true;
                 string text = "";
                 Generator generator = (Generator)selected.Data.IdentifiedObject;
-                proxy = new CommunicationProxy();
-                proxy.Open2();
-                TurnedOffGenerators = proxy.sendToCE.GeneratorOffCheck();
+                //proxy = new CommunicationProxy();
+                //proxy.Open2();
+                TurnedOffGenerators = uIClient.GeneratorOffCheck().Result;
                 foreach (Generator g in TurnedOffGenerators)
                 {
                     if (g.GlobalId.Equals(generator.GlobalId))

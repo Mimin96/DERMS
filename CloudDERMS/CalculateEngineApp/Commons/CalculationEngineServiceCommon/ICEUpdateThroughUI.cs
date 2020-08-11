@@ -1,5 +1,7 @@
 ﻿using DERMSCommon.DataModel.Core;
 using DERMSCommon.SCADACommon;
+using DERMSCommon.UIModel.ThreeViewModel;
+using DERMSCommon.WeatherForecast;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +15,20 @@ namespace CalculationEngineServiceCommon
     public interface ICEUpdateThroughUI
     {
         [OperationContract]
-        float UpdateThroughUI(long data);
+        Task<float> UpdateThroughUI(long data);
         [OperationContract]
-        float BalanceNetworkModel();
+        Task<float> Balance(Dictionary<long, DerForecastDayAhead> prod, long GidUi, Dictionary<long, IdentifiedObject> networkModel, List<long> TurnedOffGenerators);
         [OperationContract]
-        List<long> AllGeoRegions();
+        Task<float> BalanceNetworkModel();
         [OperationContract]
-        List<long> AllowOptimization(long gid);
+        Task<List<long>> AllGeoRegions();
         [OperationContract]
-        List<long> ListOfDisabledGenerators();
+        Task<List<long>> AllowOptimization(long gid);
         [OperationContract]
-        List<Generator> ListOffTurnedOffGenerators();
+        Task<List<long>> ListOfDisabledGenerators();
         [OperationContract]
-        List<Generator> GeneratorOffCheck();
+        Task<List<Generator>> ListOffTurnedOffGenerators();
+        [OperationContract]
+        Task<List<Generator>> GeneratorOffCheck();
     }
 }

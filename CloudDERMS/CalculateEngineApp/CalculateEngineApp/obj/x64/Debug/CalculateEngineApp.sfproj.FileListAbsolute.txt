@@ -8,3 +8,4 @@ E:\Master\31.7.2020\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x
 C:\Users\Caki\Desktop\3107\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
 C:\Users\Nemanja\Desktop\Git0408\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
 C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
+C:\Users\Djole\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache

@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Fabric;
 using System.Linq;
+using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
+using CalculationEngineService;
+using CalculationEngineServiceCommon;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
+using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace CECommandMicroservice
@@ -24,7 +29,29 @@ namespace CECommandMicroservice
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
-            return new ServiceInstanceListener[0];
+            var ip = Context.NodeContext.IPAddressOrFQDN;
+
+            return new[]
+            {
+                new ServiceInstanceListener((context) =>
+                    new WcfCommunicationListener<ICEUpdateThroughUI>(
+                        wcfServiceObject: new CEUpdateThroughUIService(),
+                        serviceContext: context,
+                        endpointResourceName: "CEUpdateThroughUIServiceEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "CEUpdateThroughUIServiceListener"
+                ),
+                new ServiceInstanceListener((context) =>
+                    new WcfCommunicationListener<ICEUpdateThroughUI>(
+                        wcfServiceObject: new CEUpdateThroughUIService(),
+                        serviceContext: context,
+                        address: new EndpointAddress("net.tcp://localhost:55555/CECommandMicroservice"),
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    )
+                    
+                )
+            };
         }
 
         /// <summary>

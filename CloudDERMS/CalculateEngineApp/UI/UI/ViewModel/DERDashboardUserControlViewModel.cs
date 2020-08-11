@@ -482,9 +482,10 @@ namespace UI.ViewModel
         public void SubstationElementCommandExecute(long gid)
         {
             CurrentSelectedGid = gid;
-            proxy = new CommunicationProxy();
-            proxy.Open2();
-            TurnedOffGenerators = proxy.sendToCE.GeneratorOffCheck();
+            //proxy = new CommunicationProxy();
+            //proxy.Open2();
+            UIClientCEUpdateThorughUI uIClient = new UIClientCEUpdateThorughUI("UIClientCEUpdateThroughUIEndpoint");
+            TurnedOffGenerators = uIClient.GeneratorOffCheck().Result;
             foreach (Generator g in TurnedOffGenerators)
             {
                 if (g.GlobalId.Equals(gid))
@@ -538,20 +539,21 @@ namespace UI.ViewModel
         }
         public float Optimization()
         {
+            UIClientCEUpdateThorughUI uIClient = new UIClientCEUpdateThorughUI("UIClientCEUpdateThroughUIEndpoint");
             if (GidForOptimization != 0 && GidForOptimization != -1)
             {
-                proxy = new CommunicationProxy();
-                proxy.Open2();
-                TurnedOffGenerators = proxy.sendToCE.ListOffTurnedOffGenerators();
-                DisableAutomaticOptimization = proxy.sendToCE.ListOfDisabledGenerators();
+                //proxy = new CommunicationProxy();
+                //proxy.Open2();
+                TurnedOffGenerators = uIClient.ListOffTurnedOffGenerators().Result;
+                DisableAutomaticOptimization = uIClient.ListOfDisabledGenerators().Result;
                 
                 if (!DisableAutomaticOptimization.Contains(GidForOptimization))
                 {
-                    if (proxy == null)
-                        proxy = new CommunicationProxy();
+                    //if (proxy == null)
+                    //    proxy = new CommunicationProxy();
                     //proxy.Open2();
                     energySourceOptimizedValue = 0;
-                    float x = proxy.sendToCE.UpdateThroughUI(GidForOptimization);
+                    float x = uIClient.UpdateThroughUI(GidForOptimization).Result;
                     energySourceOptimizedValue = CalculateDemand(GidForOptimization);
                     DisableOptimization(GidForOptimization);
                     proxy.sendToCE.AllowOptimization(GidForOptimization);
@@ -567,18 +569,18 @@ namespace UI.ViewModel
             }
             else if (GidForOptimization == -1)
             {
-                proxy = new CommunicationProxy();
-                proxy.Open2();
-                TurnedOffGenerators = proxy.sendToCE.ListOffTurnedOffGenerators();
-                DisableAutomaticOptimization = proxy.sendToCE.ListOfDisabledGenerators();
+                //proxy = new CommunicationProxy();
+                //proxy.Open2();
+                TurnedOffGenerators = uIClient.ListOffTurnedOffGenerators().Result;
+                DisableAutomaticOptimization = uIClient.ListOfDisabledGenerators().Result;
 
                 if (!DisableAutomaticOptimization.Contains(GidForOptimization))
                 {
-                    if (proxy == null)
-                        proxy = new CommunicationProxy();
+                    //if (proxy == null)
+                    //    proxy = new CommunicationProxy();
                     energySourceOptimizedValue = 0;
                     //proxy.Open2();
-                    float x = proxy.sendToCE.BalanceNetworkModel();
+                    float x = uIClient.BalanceNetworkModel().Result;
                     energySourceOptimizedValue = CalculateDemandForSource();
                     DisableOptimization(GidForOptimization);
                     proxy.sendToCE.AllowOptimization(GidForOptimization);
@@ -923,11 +925,12 @@ namespace UI.ViewModel
 
         public void GetAllGeoRegions()
         {
-            if (proxy == null)
-                proxy = new CommunicationProxy();
+            ////if (proxy == null)
+            ////    proxy = new CommunicationProxy();
             List<long> geoReg = new List<long>();
-            proxy.Open2();
-            geoReg = proxy.sendToCE.AllGeoRegions();
+            //proxy.Open2();
+            UIClientCEUpdateThorughUI uIClient = new UIClientCEUpdateThorughUI("UIClientCEUpdateThroughUIEndpoint");
+            geoReg = uIClient.AllGeoRegions().Result;
             DerForecastDayAhead NetworkProduction = new DerForecastDayAhead();
             foreach (long region in geoReg)
             {
@@ -1054,11 +1057,12 @@ namespace UI.ViewModel
         }
         public float CalculateDemandForSource()
         {
-            if (proxy == null)
-                proxy = new CommunicationProxy();
+            //if (proxy == null)
+            //    proxy = new CommunicationProxy();
             List<long> geoReg = new List<long>();
-            proxy.Open2();
-            geoReg = proxy.sendToCE.AllGeoRegions();
+            //proxy.Open2();
+            UIClientCEUpdateThorughUI uIClient = new UIClientCEUpdateThorughUI("UIClientCEUpdateThroughUIEndpoint");
+            geoReg = uIClient.AllGeoRegions().Result;
             DerForecastDayAhead NetworkProduction = new DerForecastDayAhead();
             foreach (long region in geoReg)
             {

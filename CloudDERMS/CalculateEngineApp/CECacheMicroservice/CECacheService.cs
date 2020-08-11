@@ -18,7 +18,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Communication.Wcf;
-
+using CalculationEngineServiceCommon;
+using DERMSCommon.UIModel.ThreeViewModel;
 
 namespace CECacheMicroservice
 {
@@ -45,6 +46,7 @@ namespace CECacheMicroservice
         private IReliableDictionary<long, DerForecastDayAhead> substationsForecast; //SubstationsForecastCachedDictionary
         private IReliableDictionary<long, DerForecastDayAhead> subGeographicalRegionsForecast; // SubGeographicalRegionsForecastCachedDictionary
         private IReliableDictionary<long, DerForecastDayAhead> generatorForecastList; // GeneratorForecastListCachedDictionary
+        private IReliableDictionary<int, List<NetworkModelTreeClass>> networkModelTreeClass;
         #endregion
 
         private IReliableStateManager stateManager;
@@ -53,6 +55,10 @@ namespace CECacheMicroservice
         {
             this.context = context;
             this.stateManager = stateManager;
+        }
+        public CECacheService()
+        {
+           
         }
 
         //public void CalculateNewFlexibility(DataToUI data)
@@ -90,7 +96,7 @@ namespace CECacheMicroservice
 
             PopulateGraph(networkModelTransfer);
         }
-        public Dictionary<long, IdentifiedObject> GetNMSModel()
+        public async Task<Dictionary<long, IdentifiedObject>> GetNMSModel()
         {
             using (var tx = stateManager.CreateTransaction())
             {
@@ -827,10 +833,59 @@ namespace CECacheMicroservice
             //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
         }
         //NOT COMPLETE CEUpdateThroughUI missing, PubSubCalculatioEngine
-        public float PopulateBalance(long gid)
+        public async Task<float> PopulateBalance(long gid)
         {
-            //CEUpdateThroughUI ce = new CEUpdateThroughUI();
-            //float energyFromSource = ce.Balance(productionCached, gid);
+            CloudClient<ICEUpdateThroughUI> transactionCoordinator = new CloudClient<ICEUpdateThroughUI>
+            (
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+              partitionKey: ServicePartitionKey.Singleton,
+              clientBinding: WcfUtility.CreateTcpClientBinding(),
+              listenerName: "CEUpdateThroughUIServiceListener"
+            );
+            Dictionary<long, DerForecastDayAhead> productionCachedDictionary = new Dictionary<long, DerForecastDayAhead>();
+            Dictionary<long, IdentifiedObject> nmsCacheDictionary = new Dictionary<long, IdentifiedObject>();
+            List<long> turnedOffGeneratorsList = new List<long>();
+            using (var tx = stateManager.CreateTransaction())
+            {
+                IReliableDictionary<long, DerForecastDayAhead> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("ProductionCachedDictionary").Result;
+
+                IAsyncEnumerable<KeyValuePair<long, DerForecastDayAhead>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
+                using (IAsyncEnumerator<KeyValuePair<long, DerForecastDayAhead>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
+                {
+                    while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
+                    {
+                        productionCachedDictionary.Add(dictEnumerator.Current.Key, dictEnumerator.Current.Value);
+                    }
+                }
+            }
+            using (var tx = stateManager.CreateTransaction())
+            {
+                IReliableDictionary<long, IdentifiedObject> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, IdentifiedObject>>("NmsCacheDictionary").Result;
+
+                IAsyncEnumerable<KeyValuePair<long, IdentifiedObject>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
+                using (IAsyncEnumerator<KeyValuePair<long, IdentifiedObject>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
+                {
+                    while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
+                    {
+                        nmsCacheDictionary.Add(dictEnumerator.Current.Key, dictEnumerator.Current.Value);
+                    }
+                }
+            }
+            using (var tx = stateManager.CreateTransaction())
+            {
+                IReliableDictionary<int, List<long>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("turnedOffGeneratorsList").Result;
+
+                IAsyncEnumerable<KeyValuePair<int, List<long>>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
+                using (IAsyncEnumerator<KeyValuePair<int, List<long>>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
+                {
+                    while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
+                    {
+                        //-->>>PROVERITI DA LI JE OVA LISTA DOBRO POPUNJENA
+                       turnedOffGeneratorsList=dictEnumerator.Current.Value;
+                    }
+                }
+            }
+            float energyFromSource = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Balance(productionCachedDictionary, gid, nmsCacheDictionary, turnedOffGeneratorsList));
             //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
             //return energyFromSource;
             return 0;
@@ -1262,7 +1317,7 @@ namespace CECacheMicroservice
         //ListOfDisabledGenerators
         //AllowOptimization
         //ListOffTurnedOffGenerators -- Stoje negde drugde ali traze vrednosti te liste, ali ne stoje u cache
-        public Dictionary<int, List<long>> GetDisableAutomaticOptimization() //DisableAutomaticOptimizationCachedDictionary
+        public async Task<Dictionary<int, List<long>>> GetDisableAutomaticOptimization() //DisableAutomaticOptimizationCachedDictionary
         {
             Dictionary<int, List<long>> DisableAutomaticOptimization = new Dictionary<int, List<long>>();
 
@@ -1313,7 +1368,7 @@ namespace CECacheMicroservice
         //GeneratorOffCheck
         //ChangeBreakerStatus -- Stoje negde drugde ali traze vrednosti liste, ali ove metode ne stoje u cache (FlexibilityFromUIToCE, CEUpdateThroughUI) 
         //TurnedOffGeneratorsCachedDictionary
-        public Dictionary<int, List<long>> GetTurnedOffGenerators()
+        public async Task<Dictionary<int, List<long>>> GetTurnedOffGenerators()
         {
             Dictionary<int, List<long>> TurnedOffGenerators = new Dictionary<int, List<long>>();
 
@@ -1362,7 +1417,7 @@ namespace CECacheMicroservice
         #region turnedOnGenerators methods
         //ListOffTurnedOffGenerators 
         //ChangeBreakerStatus -- Stoje negde drugde ali traze vrednosti liste, ali ove metode ne stoje u cache (FlexibilityFromUIToCE, CEUpdateThroughUI) 
-        public Dictionary<int, List<long>> GetTurnedOnGenerators()
+        public async Task<Dictionary<int, List<long>>> GetTurnedOnGenerators()
         {
             Dictionary<int, List<long>> TurnedOnGenerators = new Dictionary<int, List<long>>();
 

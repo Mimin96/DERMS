@@ -19,7 +19,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         void PopulateNSMModelCache(NetworkModelTransfer networkModelTransfer);
         [OperationContract]
-        Dictionary<long, IdentifiedObject> GetNMSModel();
+        Task<Dictionary<long, IdentifiedObject>> GetNMSModel();
         [OperationContract]
         void RestartCache(NetworkModelTransfer networkModelTransfer);
         [OperationContract]
@@ -45,7 +45,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         void SendDerForecastDayAhead();
         [OperationContract]
-        float PopulateBalance(long gid);
+        Task<float> PopulateBalance(long gid);
         [OperationContract]
         void UpdateMinAndMaxFlexibilityForChangedGenerators();
         [OperationContract]
@@ -59,11 +59,11 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Dictionary<long, double> GetListOfGeneratorsForScada();
         [OperationContract]
-        Dictionary<int, List<long>> GetDisableAutomaticOptimization();
+        Task<Dictionary<int, List<long>>> GetDisableAutomaticOptimization();
         [OperationContract]
-        Dictionary<int, List<long>> GetTurnedOffGenerators();
+        Task<Dictionary<int, List<long>>> GetTurnedOffGenerators();
         [OperationContract]
-        Dictionary<int, List<long>> GetTurnedOnGenerators();
+        Task<Dictionary<int, List<long>>> GetTurnedOnGenerators();
         [OperationContract]
         Dictionary<long, DerForecastDayAhead> GetTempProductionCached();
         [OperationContract]

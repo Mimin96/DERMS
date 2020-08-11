@@ -114,6 +114,10 @@
       <Project>{7FE86AFE-D2D4-44DD-81F4-39916C5AE1FA}</Project>
       <Name>CloudCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Commons\CalculationEngineServiceCommon\CalculationEngineServiceCommon.csproj">
+      <Project>{C6A1D90E-C842-4B98-958B-C3267664D121}</Project>
+      <Name>CalculationEngineServiceCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Commons\Common\Common.csproj">
       <Project>{B1E36476-2A09-4271-B336-3158CBD9DF2F}</Project>
       <Name>Common</Name>
