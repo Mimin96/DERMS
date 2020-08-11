@@ -29,7 +29,7 @@ namespace UI.ViewModel
            
             Inc = inc;
 			Dec = dec;
-			Connect();
+			//Connect();
 		}
 
 		public void Command(double valueKW, FlexibilityIncDec incdec, long gid)
@@ -91,7 +91,8 @@ namespace UI.ViewModel
 
                 if (canManualCommand)
 				{
-					ProxyCE.UpdateFlexibilityFromUIToCE(valueKW, incdec, gid);
+					UIClientFlexibilityFromUIToCE uiClient = new UIClientFlexibilityFromUIToCE("UIClientFlexibilityFromUIToCEEndpoint");
+					uiClient.UpdateFlexibilityFromUIToCE(valueKW, incdec, gid);
 
 					Event e = new Event("Manual optimization was performed. ", Enums.Component.CalculationEngine, DateTime.Now);
 					EventsLogger el = new EventsLogger();

@@ -31,6 +31,7 @@
       <Endpoint Name="ServiceEndpoint" />
       <Endpoint Name="ConsumptionCalculatorEndpoint"/>
       <Endpoint Name="ProductionCalculatorEndpoint"/>
+	  <Endpoint Name="IslandCalculationsEndpoint"/>
     </Endpoints>
   </Resources>
 </ServiceManifest>

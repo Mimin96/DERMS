@@ -50,6 +50,15 @@ namespace CECommandMicroservice
                         listenerBinding: WcfUtility.CreateTcpListenerBinding()
                     )
                     
+                ),
+                new ServiceInstanceListener((context) =>
+                    new WcfCommunicationListener<IFlexibilityFromUIToCE>(
+                        wcfServiceObject: new FlexibilityFromUIToCEService(),
+                        serviceContext: context,
+                        address: new EndpointAddress("net.tcp://localhost:66666/CECommandMicroserviceFlexibility"),
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    )
+
                 )
             };
         }

@@ -12,9 +12,9 @@ namespace CalculationEngineServiceCommon
     public interface IFlexibilityFromUIToCE
     {
         [OperationContract]
-		void UpdateFlexibilityFromUIToCE(double valueKW, FlexibilityIncDec incOrDec, long gid);
+		Task UpdateFlexibilityFromUIToCE(double valueKW, FlexibilityIncDec incOrDec, long gid);
 
         [OperationContract]
-        void ChangeBreakerStatus(long GID, bool NormalOpen);
+        Task ChangeBreakerStatus(long GID, bool NormalOpen);
     }
 }

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using UI.Communication;
 using UI.Resources;
 
 namespace UI.ViewModel
@@ -32,7 +33,7 @@ namespace UI.ViewModel
         {
             Open = false;
             Close = false;
-            Connect();
+            //Connect();
         }
 
         public ICommand BreakerOnOffCommand
@@ -55,7 +56,8 @@ namespace UI.ViewModel
             {
                 bool NormalOpen = Open ? true : false;
 
-                ProxyCE.ChangeBreakerStatus(GID, NormalOpen);
+                UIClientFlexibilityFromUIToCE uIClient = new UIClientFlexibilityFromUIToCE("UIClientFlexibilityFromUIToCEEndpoint");
+                uIClient.ChangeBreakerStatus(GID, NormalOpen);
 
                 if(NormalOpen == true)
                     e = new Event("Breaker is opened", Enums.Component.SCADA, DateTime.Now);

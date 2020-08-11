@@ -125,4 +125,3 @@ C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADACommandMicro
 C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADACommandMicroservice\obj\x64\Debug\SCADACommandMicroservice.csproj.CopyComplete
 C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADACommandMicroservice\obj\x64\Debug\SCADACommandMicroservice.exe
 C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADACommandMicroservice\obj\x64\Debug\SCADACommandMicroservice.pdb
-C:\Users\Djole\Desktop\DERMS\CloudDERMS\CalculateEngineApp\SCADACommandMicroservice\bin\x64\Debug\System.Fabric.dll

@@ -35,7 +35,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         DataToUI CreateDataForUI();
         [OperationContract]
-        Dictionary<long, DerForecastDayAhead> GetAllDerForecastDayAhead();
+        Task<Dictionary<long, DerForecastDayAhead>> GetAllDerForecastDayAhead();
         [OperationContract]
         void UpdateGraphWithScadaValues(List<DataPoint> data);
         [OperationContract]
@@ -43,7 +43,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         void ApplyChangesOnProductionCached();
         [OperationContract]
-        void SendDerForecastDayAhead();
+        Task SendDerForecastDayAhead();
         [OperationContract]
         Task<float> PopulateBalance(long gid);
         [OperationContract]
@@ -65,7 +65,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Task<Dictionary<int, List<long>>> GetTurnedOnGenerators();
         [OperationContract]
-        Dictionary<long, DerForecastDayAhead> GetTempProductionCached();
+        Task<Dictionary<long, DerForecastDayAhead>> GetTempProductionCached();
         [OperationContract]
         Dictionary<long, DayAhead> GetSubstationDayAhead();
         [OperationContract]
@@ -83,7 +83,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         void AddToListOfGeneratorsForScada(long gid, double param);
         [OperationContract]
-        void AddToTempProductionCached(long gid, DerForecastDayAhead param);
+        Task AddToTempProductionCached(long gid, DerForecastDayAhead param);
         [OperationContract]
         void AddToSubstationDayAhead(long gid, DayAhead param);
         [OperationContract]
@@ -101,17 +101,17 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         void RemoveFromSubstationDayAhead(long gid);
         [OperationContract]
-        void RemoveFromTempProductionCached(long gid);
+        Task RemoveFromTempProductionCached(long gid);
         [OperationContract]
         void AddToCopyOfProductionCached(long gid, DerForecastDayAhead forecast);
         [OperationContract]
-        void AddToTurnedOnGenerators(long param);
+        Task AddToTurnedOnGenerators(long param);
         [OperationContract]
-        void RemoveFromTurnedOnGenerators(long param);
+        Task RemoveFromTurnedOnGenerators(long param);
         [OperationContract]
-        void AddToTurnedOffGenerators(long param);
+        Task AddToTurnedOffGenerators(long param);
         [OperationContract]
-        void RemoveFromTurnedOffGenerators(long param);
+        Task RemoveFromTurnedOffGenerators(long param);
         [OperationContract]
         void AddToDisableAutomaticOptimization(long param);
         [OperationContract]

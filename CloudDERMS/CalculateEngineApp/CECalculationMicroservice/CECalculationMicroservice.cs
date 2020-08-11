@@ -52,6 +52,15 @@ namespace CECalculationMicroservice
                     ),
                     name: "ProductionCalculatorListener"
                 ),
+                 new ServiceInstanceListener((context) =>
+                    new WcfCommunicationListener<IIslandCalculations>(
+                        wcfServiceObject: new IslandCalculationsService(),
+                        serviceContext: context,
+                        endpointResourceName: "IslandCalculationsEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "IslandCalculationsListener"
+                ),
             };
         }
 

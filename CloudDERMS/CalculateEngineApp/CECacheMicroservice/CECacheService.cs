@@ -828,7 +828,7 @@ namespace CECacheMicroservice
             UpdateMinAndMaxFlexibilityForChangedGenerators();
         }
         //NOT COMPLETE PubSubCalculatioEngine *- Trebalo bi da se izmeni ako se bude zvalo iz nekog drugog servisa.
-        public void SendDerForecastDayAhead()
+        public async Task SendDerForecastDayAhead()
         {
             //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
         }
@@ -919,7 +919,7 @@ namespace CECacheMicroservice
                 return data;
             }
         }
-        public Dictionary<long, DerForecastDayAhead> GetAllDerForecastDayAhead()
+        public async Task<Dictionary<long, DerForecastDayAhead>> GetAllDerForecastDayAhead()
         {
             Dictionary<long, DerForecastDayAhead> tempDictionary = new Dictionary<long, DerForecastDayAhead>();
 
@@ -1388,7 +1388,7 @@ namespace CECacheMicroservice
 
             return TurnedOffGenerators;
         }
-        public void AddToTurnedOffGenerators(long param)
+        public async Task AddToTurnedOffGenerators(long param)
         {
             using (var tx = stateManager.CreateTransaction())
             {
@@ -1400,7 +1400,7 @@ namespace CECacheMicroservice
                 tx.CommitAsync();
             }
         }
-        public void RemoveFromTurnedOffGenerators(long param)
+        public async Task RemoveFromTurnedOffGenerators(long param)
         {
             using (var tx = stateManager.CreateTransaction())
             {
@@ -1437,7 +1437,7 @@ namespace CECacheMicroservice
 
             return TurnedOnGenerators;
         }
-        public void AddToTurnedOnGenerators(long param)
+        public async Task AddToTurnedOnGenerators(long param)
         {
             using (var tx = stateManager.CreateTransaction())
             {
@@ -1449,7 +1449,7 @@ namespace CECacheMicroservice
                 tx.CommitAsync();
             }
         }
-        public void RemoveFromTurnedOnGenerators(long param)
+        public async Task RemoveFromTurnedOnGenerators(long param)
         {
             using (var tx = stateManager.CreateTransaction())
             {
@@ -1465,7 +1465,7 @@ namespace CECacheMicroservice
 
         #region tempProductionCached methods
         //ChangeBreakerStatus
-        public Dictionary<long, DerForecastDayAhead> GetTempProductionCached()
+        public async Task<Dictionary<long, DerForecastDayAhead>> GetTempProductionCached()
         {
             Dictionary<long, DerForecastDayAhead> TempProductionCached = new Dictionary<long, DerForecastDayAhead>();
 
@@ -1485,7 +1485,7 @@ namespace CECacheMicroservice
 
             return TempProductionCached;
         }
-        public void AddToTempProductionCached(long gid, DerForecastDayAhead param)
+        public async Task AddToTempProductionCached(long gid, DerForecastDayAhead param)
         {
             using (var tx = stateManager.CreateTransaction())
             {
@@ -1494,7 +1494,7 @@ namespace CECacheMicroservice
                 tx.CommitAsync();
             }
         }
-        public void RemoveFromTempProductionCached(long gid)
+        public async Task RemoveFromTempProductionCached(long gid)
         {
             using (var tx = stateManager.CreateTransaction())
             {
