@@ -1,4 +1,6 @@
 ﻿using CalculationEngineServiceCommon;
+using CloudCommon.CalculateEngine;
+using CloudCommon.CalculateEngine.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +11,19 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 
 namespace UI.Communication
 {
     public class ClientSideProxy
     {
-        private string clientAddress;
-        private IPubSubCalculateEngine proxy = null;
+        public string ClientAddress { get; set; }
         private ChannelFactory<IPubSubCalculateEngine> factory;
-        private ServiceHost serviceHost;
+        private ServiceHost ServiceHost { get; set; }
         private static CalculationEnginePubSub _calculationEnginePubSub;
+
+        private CloudClient<IPubSub> transactionCoordinator;
 
         private static ClientSideProxy instance = null;
         public static ClientSideProxy Instance
@@ -38,62 +43,38 @@ namespace UI.Communication
             }
         }
 
-        private ClientSideProxy()
+        public async void TempSubscribe()
         {
-            string ipAddress = GetLocalIPAddress();
-            int port = GetAvailablePort();
-
-            clientAddress = String.Format("net.tcp://{0}:{1}/ICalculationEnginePubSub", ipAddress, port);
-            ConnectToService();
+            bool ret = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SubscribeSubscriber(ClientAddress, 1));
         }
 
         public void StartServiceHost(ICalculationEnginePubSub observerInstance)
         {
-            serviceHost = new ServiceHost(observerInstance);
-            var behaviour = serviceHost.Description.Behaviors.Find<ServiceBehaviorAttribute>();
+            string ipAddress = GetLocalIPAddress();
+            int port = GetAvailablePort();
+
+            ClientAddress = String.Format("net.tcp://{0}:{1}/ICECommunicationPubSub", ipAddress, port);
+
+            transactionCoordinator = new CloudClient<IPubSub>
+            (
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CEPubSubMicroservice"),
+              partitionKey: new ServicePartitionKey(0),
+              clientBinding: WcfUtility.CreateTcpClientBinding(),
+              listenerName: "CEPubSubMicroServiceListener"
+            );
+
+            ServiceHost = new ServiceHost(observerInstance);
+            var behaviour = ServiceHost.Description.Behaviors.Find<ServiceBehaviorAttribute>();
             behaviour.InstanceContextMode = InstanceContextMode.Single;
             NetTcpBinding binding = new NetTcpBinding();
-            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-            serviceHost.AddServiceEndpoint(typeof(ICalculationEnginePubSub), binding, clientAddress);
-           // serviceHost.Open();
-        }
-
-        public void Subscribe(int gidOfTopic)
-        {
-            try
-            {
-                proxy.Subscribe(clientAddress, gidOfTopic);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        public void Unsubscribe(int gidOfTopic, bool disconnect)
-        {
-            try
-            {
-                proxy.Unsubscribe(clientAddress, gidOfTopic, disconnect);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void ConnectToService()
-        {
-            NetTcpBinding binding = new NetTcpBinding();
-            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-            factory = new ChannelFactory<IPubSubCalculateEngine>(binding, new EndpointAddress("net.tcp://localhost:19000/IPubSubCalculateEngine"));
-            proxy = factory.CreateChannel();
+            ServiceHost.AddServiceEndpoint(typeof(ICECommunicationPubSub), binding, ClientAddress);
+            ServiceHost.Open();
         }
 
         public void Close()
         {
             factory.Close();
-            serviceHost.Close();
+            ServiceHost.Close();
         }
 
         private int GetAvailablePort()

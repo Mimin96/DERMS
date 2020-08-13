@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
+using System.ServiceModel;
+using CloudCommon.CalculateEngine;
 
 namespace CEPubSubMicroservice
 {
@@ -15,6 +18,8 @@ namespace CEPubSubMicroservice
     /// </summary>
     internal sealed class CEPubSubMicroservice : StatefulService
     {
+        private static CEPubSubService cEPubSubService;
+
         public CEPubSubMicroservice(StatefulServiceContext context)
             : base(context)
         { }
@@ -28,7 +33,29 @@ namespace CEPubSubMicroservice
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
         {
-            return new ServiceReplicaListener[0];
+            cEPubSubService = new CEPubSubService(StateManager, Context);
+            var ip = Context.NodeContext.IPAddressOrFQDN;
+
+            return new[] {
+                new ServiceReplicaListener((context) =>
+                    new WcfCommunicationListener<IPubSub>(
+                        wcfServiceObject: cEPubSubService,
+                        serviceContext: context,
+                        address: new EndpointAddress("net.tcp://localhost:52354/CEPubSubMicroService"),
+                        listenerBinding: new NetTcpBinding()
+                    ),
+                    name: "PubSub"
+                ),
+                new ServiceReplicaListener((context) =>
+                    new WcfCommunicationListener<IPubSub>(
+                        wcfServiceObject: cEPubSubService,
+                        serviceContext: context,
+                        endpointResourceName: "CEPubSubMicroServiceEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "CEPubSubMicroServiceListener"
+                )
+            };
         }
 
         /// <summary>

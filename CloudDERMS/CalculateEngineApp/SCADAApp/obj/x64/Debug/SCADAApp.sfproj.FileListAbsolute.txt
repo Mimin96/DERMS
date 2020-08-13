@@ -3,3 +3,4 @@ C:\Users\Caki\Desktop\1807\DERMS\CloudDERMS\CalculateEngineApp\SCADAApp\obj\x64\
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\SCADAApp\obj\x64\Debug\SCADAApp.sfproj.CoreCompileInputs.cache
 E:\Master\30.7.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADAApp\obj\x64\Debug\SCADAApp.sfproj.CoreCompileInputs.cache
 C:\Users\Caki\Desktop\1008\DERMS\CloudDERMS\CalculateEngineApp\SCADAApp\obj\x64\Debug\SCADAApp.sfproj.CoreCompileInputs.cache
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\SCADAApp\obj\x64\Debug\SCADAApp.sfproj.CoreCompileInputs.cache

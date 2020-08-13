@@ -1,4 +1,5 @@
 ﻿using CalculationEngineServiceCommon;
+using CloudCommon.CalculateEngine;
 using DERMSCommon;
 using DERMSCommon.SCADACommon;
 using DERMSCommon.UIModel.ThreeViewModel;
@@ -13,7 +14,7 @@ using UI.Resources.MediatorPattern;
 
 namespace UI.Communication
 {
-	public class CalculationEnginePubSub : ICalculationEnginePubSub
+	public class CalculationEnginePubSub : ICalculationEnginePubSub, ICECommunicationPubSub
 	{
 		public void SendDataUI(TreeNode<NodeData> data, List<NetworkModelTreeClass> NetworkModelTreeClass)
 		{
@@ -43,6 +44,11 @@ namespace UI.Communication
 		public void SendScadaDataToUIDataPoint(List<DataPoint> data)
 		{
 			Mediator.NotifyColleagues("SCADADataPoint", data);
+		}
+
+		public void SendDataToUI(DataToUI data)
+		{
+			Mediator.NotifyColleagues("SendDataToUI", data);
 		}
 	}
 }

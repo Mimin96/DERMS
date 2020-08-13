@@ -232,10 +232,14 @@
   <ItemGroup>
     <Compile Include="CalculateEngine\Communication\CloudClient.cs" />
     <Compile Include="CalculateEngine\ICache.cs" />
+    <Compile Include="CalculateEngine\ICECommunicationPubSub.cs" />
     <Compile Include="CalculateEngine\IConsumptionCalculator.cs" />
     <Compile Include="CalculateEngine\IDarkSkyApi.cs" />
     <Compile Include="CalculateEngine\IIslandCalculations.cs" />
     <Compile Include="CalculateEngine\IProductionCalculator.cs" />
+    <Compile Include="CalculateEngine\IPubSub.cs" />
+    <Compile Include="CalculateEngine\IPubSubTopic.cs" />
+    <Compile Include="CalculateEngine\ISubscribe.cs" />
     <Compile Include="CalculateEngine\ITreeConstruction.cs" />
     <Compile Include="NMSCLoudClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
