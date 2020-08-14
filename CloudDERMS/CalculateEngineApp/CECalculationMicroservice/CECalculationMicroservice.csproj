@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsumptionCalculatorService.cs" />
+    <Compile Include="DERFlexibility.cs" />
     <Compile Include="IslandCalculationsService.cs" />
     <Compile Include="ProductionCalculatorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

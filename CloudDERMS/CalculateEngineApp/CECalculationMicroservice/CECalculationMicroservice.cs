@@ -61,6 +61,15 @@ namespace CECalculationMicroservice
                     ),
                     name: "IslandCalculationsListener"
                 ),
+                 new ServiceInstanceListener((context) =>
+                    new WcfCommunicationListener<IDERFlexibility>(
+                        wcfServiceObject: new DERFlexibility(),
+                        serviceContext: context,
+                        endpointResourceName: "DERFlexibilityEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "DERFlexibilityListener"
+                ),
             };
         }
 

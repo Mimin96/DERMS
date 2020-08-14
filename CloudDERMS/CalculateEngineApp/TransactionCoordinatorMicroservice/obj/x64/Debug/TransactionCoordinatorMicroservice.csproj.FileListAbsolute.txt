@@ -150,3 +150,4 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\Tr
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\TransactionCoordinatorMicroservice\obj\x64\Debug\TransactionCoordinatorMicroservice.csproj.CopyComplete
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\TransactionCoordinatorMicroservice\obj\x64\Debug\TransactionCoordinatorMicroservice.exe
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\TransactionCoordinatorMicroservice\obj\x64\Debug\TransactionCoordinatorMicroservice.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\TransactionCoordinatorMicroservice\obj\x64\Debug\TransactionCoordinatorMicroservice.csprojAssemblyReference.cache

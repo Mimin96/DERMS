@@ -235,6 +235,7 @@
     <Compile Include="CalculateEngine\ICECommunicationPubSub.cs" />
     <Compile Include="CalculateEngine\IConsumptionCalculator.cs" />
     <Compile Include="CalculateEngine\IDarkSkyApi.cs" />
+    <Compile Include="CalculateEngine\IDERFlexibility.cs" />
     <Compile Include="CalculateEngine\IIslandCalculations.cs" />
     <Compile Include="CalculateEngine\IProductionCalculator.cs" />
     <Compile Include="CalculateEngine\IPubSub.cs" />

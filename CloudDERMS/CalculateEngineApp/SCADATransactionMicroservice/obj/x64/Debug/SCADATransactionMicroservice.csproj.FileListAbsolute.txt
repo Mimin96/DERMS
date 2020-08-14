@@ -149,3 +149,4 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\SC
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\SCADATransactionMicroservice\obj\x64\Debug\SCADATransactionMicroservice.csproj.CopyComplete
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\SCADATransactionMicroservice\obj\x64\Debug\SCADATransactionMicroservice.exe
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\SCADATransactionMicroservice\obj\x64\Debug\SCADATransactionMicroservice.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\SCADATransactionMicroservice\obj\x64\Debug\SCADATransactionMicroservice.csprojAssemblyReference.cache

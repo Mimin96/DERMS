@@ -228,3 +228,4 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CE
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.csproj.CopyComplete
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.exe
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.csprojAssemblyReference.cache
