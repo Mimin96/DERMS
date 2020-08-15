@@ -63,19 +63,20 @@ namespace NMSGDAMicroservice
         /// </summary>
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service replica.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
-        {        
+        {
             try
-            {        
+            {
                 using (NetworkModelService nms = new NetworkModelService())
                 {
-                    nms.Start();
+                    GDA.NetworkModelDeepCopy = nms.nmdc;
+                    await nms.Start();
                     while (true)
-                    { }                    
+                    { }
                 }
             }
             catch (Exception ex)
             {
-               
+
             }
 
         }

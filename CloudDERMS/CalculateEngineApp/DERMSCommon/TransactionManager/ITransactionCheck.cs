@@ -11,12 +11,12 @@ namespace DERMSCommon.TransactionManager
     public interface ITransactionCheck
     {
         [OperationContract]
-        bool Prepare();
+        Task<bool> Prepare();
 
         [OperationContract]
-        void Commit();
+        Task Commit();
 
         [OperationContract]
-        void Rollback();
+        Task Rollback();
     }
 }

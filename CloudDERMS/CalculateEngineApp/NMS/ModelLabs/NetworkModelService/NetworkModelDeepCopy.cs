@@ -1,7 +1,10 @@
 ﻿using DERMSCommon.DataModel.Core;
 using DERMSCommon.NMSCommuication;
+using DERMSCommon.TransactionManager;
 using FTN.Common;
 using FTN.Services.NetworkModelService.Communication;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,39 +19,42 @@ namespace FTN.Services.NetworkModelService
         NetworkModel networkModelCopy = null;
         Delta lastDelta = null;
 
-        CommunicationWithCE proxyFromNMSToCE;
-        CommunicationWithScada proxyFromNMSToScada;
-        CommunicationWithTM proxyFromNMSToTM;
         NetworkModelTransfer networkModelTransfer;
         SignalsTransfer signalsTransfer;
+        
         public NetworkModelDeepCopy()
         {
             networkModel = new NetworkModel();
         }
 
-        public void StartService()
+        public async Task StartService()
         {
-            proxyFromNMSToTM = new CommunicationWithTM();
-            proxyFromNMSToCE = new CommunicationWithCE();
-            proxyFromNMSToScada = new CommunicationWithScada();
-            bool result;
-            bool result1;
+            bool result = true;
+            bool result1 = true;
 
-            proxyFromNMSToTM.Open();
-            proxyFromNMSToTM.sendToTM.Enlist("net.tcp://localhost:19506/ITransactionCheck");
+            CloudClient<ITransactionListing> transactionCoordinator = new CloudClient<ITransactionListing>
+            (
+                serviceUri: new Uri($"fabric:/TransactionCoordinatorApp/TransactionCoordinatorMicroservice"),
+                partitionKey: new ServicePartitionKey(0),
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "TMNMSListener"
+            );
 
-            proxyFromNMSToCE.Open();
+            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Enlist("NMS"));
+            //proxyFromNMSToCE.Open();
 
             DataForSendingToCEandSCADA();
             networkModelTransfer.InitState = true;
 
 
-            result1 = proxyFromNMSToCE.sendToCE.CheckForTM(networkModelTransfer);
+            //result1 = proxyFromNMSToCE.sendToCE.CheckForTM(networkModelTransfer);
 
-            proxyFromNMSToScada.Open();
-            result = proxyFromNMSToScada.sendToScada.CheckForTM(signalsTransfer);
+            //proxyFromNMSToScada.Open();
+            //result = proxyFromNMSToScada.sendToScada.CheckForTM(signalsTransfer);
 
-            proxyFromNMSToTM.sendToTM.FinishList(result && result1);
+            //proxyFromNMSToTM.sendToTM.FinishList(result && result1);
+            //nMSTMCloudClient.FinishList(result && result1);
+            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.FinishList(result && result1));
         }
 
         #region Find
@@ -200,13 +206,13 @@ namespace FTN.Services.NetworkModelService
             signalsTransfer = new SignalsTransfer(insertSCADA, updateSCADA, deleteSCADA);
         }
 
-        public void Commit()
+        public async Task Commit()
         {
             if (lastDelta != null)
                 networkModel.SaveDelta(lastDelta);
         }
 
-        public void Rollback()
+        public async Task Rollback()
         {
             networkModel = networkModelCopy;
         }

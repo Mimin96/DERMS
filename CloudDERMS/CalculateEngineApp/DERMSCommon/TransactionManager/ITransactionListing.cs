@@ -11,9 +11,9 @@ namespace DERMSCommon.TransactionManager
     public interface ITransactionListing
     {
         [OperationContract]
-        void Enlist(string adress);
+        Task Enlist(string adress);
 
         [OperationContract]
-        void FinishList(bool IsSuccessfull);
+        Task FinishList(bool IsSuccessfull);
     }
 }

@@ -4,8 +4,11 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using DERMSCommon.TransactionManager;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
+using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace TransactionCoordinatorMicroservice
@@ -28,7 +31,17 @@ namespace TransactionCoordinatorMicroservice
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
         {
-            return new ServiceReplicaListener[0];
+            return new[]{
+                new ServiceReplicaListener((context) =>
+                    new WcfCommunicationListener<ITransactionListing>(
+                        wcfServiceObject: new TransactionManager(),
+                        serviceContext: context,
+                        endpointResourceName: "TMNMSEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "TMNMSListener"
+                )
+            };
         }
 
         /// <summary>

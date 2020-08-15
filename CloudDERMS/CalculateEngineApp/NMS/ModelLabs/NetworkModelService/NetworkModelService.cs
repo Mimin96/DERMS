@@ -9,24 +9,27 @@ using FTN.Services.NetworkModelService;
 using System.ServiceModel.Description;
 using FTN.Common;
 using DERMSCommon.TransactionManager;
+using System.Threading.Tasks;
 
 namespace FTN.Services.NetworkModelService
 {
     public class NetworkModelService : IDisposable
     {
-        private NetworkModelDeepCopy nm = null;
+        public NetworkModelDeepCopy nmdc = null;
         private List<ServiceHost> hosts = null;
 
         public NetworkModelService()
         {
-            nm = new NetworkModelDeepCopy();
-            GenericDataAccess.NetworkModelDeepCopy = nm;
-            ResourceIterator.NetworkModelDeepCopy = nm;
-            InitializeHosts();
+            nmdc = new NetworkModelDeepCopy();
+            GenericDataAccess.NetworkModelDeepCopy = nmdc;
+            ResourceIterator.NetworkModelDeepCopy = nmdc;
+
+            //InitializeHosts();
         }
 
-        public void Start()
+        public async Task Start()
         {
+            await nmdc.StartService();
             //StartHosts();
             //nm.StartService();
         }
@@ -46,7 +49,7 @@ namespace FTN.Services.NetworkModelService
 
         public ServiceHost StartNmsTCSrv()
         {
-            ServiceHost serviceHost = new ServiceHost(new NMSTransaction(nm));
+            ServiceHost serviceHost = new ServiceHost(new NMSTransaction(nmdc));
             var behaviour = serviceHost.Description.Behaviors.Find<ServiceBehaviorAttribute>();
             behaviour.InstanceContextMode = InstanceContextMode.Single;
             NetTcpBinding binding = new NetTcpBinding();

@@ -15,17 +15,17 @@ namespace FTN.Services.NetworkModelService
         {
             this.networkModelDeepCopy = networkModelDeepCopy;
         }
-        public void Commit()
+        public async Task Commit()
         {
             networkModelDeepCopy.Commit();
         }
 
-        public bool Prepare()
+        public async Task<bool> Prepare()
         {
             return true;
         }
 
-        public void Rollback()
+        public async Task Rollback()
         {
             networkModelDeepCopy.Rollback();
         }

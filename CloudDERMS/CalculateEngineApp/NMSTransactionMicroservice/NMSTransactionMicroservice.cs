@@ -4,7 +4,10 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using DERMSCommon.TransactionManager;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
+using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace NMSTransactionMicroservice
@@ -24,7 +27,18 @@ namespace NMSTransactionMicroservice
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
-            return new ServiceInstanceListener[0];            
+            return new[] {
+
+                new ServiceInstanceListener((context) =>
+                    new WcfCommunicationListener<ITransactionCheck>(
+                        wcfServiceObject: new NMSTransaction(),
+                        serviceContext: context,
+                        endpointResourceName: "NMSTMEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "NMSTMListener"
+                ),
+            };
         }
 
         /// <summary>

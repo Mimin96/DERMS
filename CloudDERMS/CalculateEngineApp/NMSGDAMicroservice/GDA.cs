@@ -209,19 +209,19 @@ namespace FTN.Services.NetworkModelService
             throw new NotImplementedException();
         }
 
-        public bool Prepare()
+        public async Task<bool> Prepare()
         {
             return true;
         }
 
-        public void Commit()
+        public async Task Commit()
         {
-            nm.Commit();
+            await nm.Commit();
         }
 
-        public void Rollback()
+        public async Task Rollback()
         {
-            nm.Rollback();
+            await nm.Rollback();
         }
     }
 }

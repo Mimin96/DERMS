@@ -11,10 +11,10 @@ namespace FTN.Services.NetworkModelService
     public interface INetworkModelDeepCopy
     {
         [OperationContract]
-        void Commit();
+        Task Commit();
 
         [OperationContract]
-        void Rollback();
+        Task Rollback();
         
     }
 }
