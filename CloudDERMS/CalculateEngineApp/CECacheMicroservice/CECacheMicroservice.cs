@@ -33,16 +33,28 @@ namespace CECacheMicroservice
         {
             var ip = Context.NodeContext.IPAddressOrFQDN;
 
+            ICache cECache = new CECacheService(StateManager);
+            SendDataFromNMSToCE sendDataFromNMSToCE = new SendDataFromNMSToCE(StateManager, cECache);
+
             return new[]
             {
                 new ServiceReplicaListener((context) =>
                     new WcfCommunicationListener<ICache>(
-                        wcfServiceObject: new CECacheService(),
+                        wcfServiceObject: cECache,
                         serviceContext: context,
                         endpointResourceName: "CECacheServiceEndpoint",
                         listenerBinding: WcfUtility.CreateTcpListenerBinding()
                     ),
                     name: "CECacheServiceListener"
+                ),
+                new ServiceReplicaListener((context) =>
+                    new WcfCommunicationListener<CloudCommon.CalculateEngine.ISendDataFromNMSToCE>(
+                        wcfServiceObject: sendDataFromNMSToCE,
+                        serviceContext: context,
+                        endpointResourceName: "CESendDataFromNMSEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "CESendDataFromNMSListener"
                 )
             };
         }

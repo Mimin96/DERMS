@@ -255,3 +255,4 @@ C:\Users\Nemanja\Desktop\Git1508\DERMS\CloudDERMS\CalculateEngineApp\CETransacti
 C:\Users\Nemanja\Desktop\Git1508\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git1508\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.exe
 C:\Users\Nemanja\Desktop\Git1508\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.csprojAssemblyReference.cache

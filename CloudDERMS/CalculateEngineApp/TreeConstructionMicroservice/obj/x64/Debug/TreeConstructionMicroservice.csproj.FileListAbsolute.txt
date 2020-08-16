@@ -24,7 +24,6 @@ C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicro
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\MaterialDesignThemes.Wpf.dll
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Innovative.SolarCalculator.dll
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Innovative.Geometry.Angle.dll
-C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\netstandard.dll
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.Azure.DocumentDB.Core.dll
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Newtonsoft.Json.dll
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.OData.Core.dll
@@ -54,7 +53,6 @@ C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicro
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.OData.Edm.xml
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.Spatial.xml
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csprojAssemblyReference.cache
-C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.exe.config
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csproj.CoreCompileInputs.cache
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csproj.CopyComplete
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.exe
@@ -527,3 +525,17 @@ C:\Users\Nemanja\Desktop\Git1508\DERMS\CloudDERMS\CalculateEngineApp\TreeConstru
 C:\Users\Nemanja\Desktop\Git1508\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git1508\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.exe
 C:\Users\Nemanja\Desktop\Git1508\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.ServiceFabric.FabricTransport.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.ServiceFabric.FabricTransport.V2.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.ServiceFabric.Services.Remoting.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.ServiceFabric.Services.Wcf.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\FTN.Services.NetworkModelService.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\DERMSCommon.dll.config
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.ServiceFabric.FabricTransport.xml
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.ServiceFabric.FabricTransport.V2.xml
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.ServiceFabric.Services.Remoting.xml
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.ServiceFabric.Services.Wcf.xml
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\FTN.Services.NetworkModelService.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\FTN.Services.NetworkModelService.dll.config

@@ -50,10 +50,8 @@ namespace CECacheMicroservice
         #endregion
 
         private IReliableStateManager stateManager;
-        private StatefulServiceContext context;
-        public CECacheService(IReliableStateManager stateManager, StatefulServiceContext context)
+        public CECacheService(IReliableStateManager stateManager)
         {
-            this.context = context;
             this.stateManager = stateManager;
         }
         public CECacheService()
