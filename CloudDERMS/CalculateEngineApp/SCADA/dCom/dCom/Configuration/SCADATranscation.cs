@@ -16,17 +16,17 @@ namespace dCom.Configuration
         {
             this._scada = scada;
         }
-        public void Commit()
+        public async Task Commit()
         {
-            _scada.SendGids(_st);
+            await _scada.SendGids(_st);
         }
 
-        public bool Prepare()
+        public async Task<bool> Prepare()
         {
             return true;
         }
 
-        public void Rollback()
+        public async Task Rollback()
         {
             return;
         }

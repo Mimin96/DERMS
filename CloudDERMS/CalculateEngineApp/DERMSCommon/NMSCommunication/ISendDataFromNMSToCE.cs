@@ -41,7 +41,7 @@ namespace DERMSCommon.NMSCommuication
         [ServiceKnownType(typeof(ConnectivityNode))]
         [ServiceKnownType(typeof(ConductingEquipment))]
         [ServiceKnownType(typeof(GeographicalRegion))]
-        bool SendNetworkModel(NetworkModelTransfer networkModel);
+        Task<bool> SendNetworkModel(NetworkModelTransfer networkModel);
 
         [OperationContract]
         [ServiceKnownType(typeof(DataModel.Wires.Switch))]
@@ -68,6 +68,6 @@ namespace DERMSCommon.NMSCommuication
         [ServiceKnownType(typeof(ConnectivityNode))]
         [ServiceKnownType(typeof(ConductingEquipment))]
         [ServiceKnownType(typeof(GeographicalRegion))]
-        bool CheckForTM(NetworkModelTransfer networkModel);
+        Task<bool> CheckForTM(NetworkModelTransfer networkModel);
     }
 }

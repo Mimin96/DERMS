@@ -10,10 +10,13 @@ using System.Threading.Tasks;
 
 namespace CECacheMicroservice
 {
-    public class SendDataFromNMSToCE : CloudCommon.CalculateEngine.ISendDataFromNMSToCE
+    public class SendDataFromNMSToCE : DERMSCommon.NMSCommuication.ISendDataFromNMSToCE
     {
         private IReliableStateManager _stateManager;
         private ICache _cache;
+        private NetworkModelTransfer _nmt;
+
+        public NetworkModelTransfer Nmt { get => _nmt; set => _nmt = value; }
 
         public SendDataFromNMSToCE(IReliableStateManager stateManager, ICache cache) 
         {
@@ -21,9 +24,13 @@ namespace CECacheMicroservice
             _cache = cache;
         }
 
+        public SendDataFromNMSToCE() 
+        {
+            
+        }
 
 
-        public bool CheckForTM(NetworkModelTransfer networkModel)
+        public async Task<bool> CheckForTM(NetworkModelTransfer networkModel)
         {
             using (var tx = _stateManager.CreateTransaction())
             {
@@ -32,8 +39,10 @@ namespace CECacheMicroservice
                 NetworkModelTransfer modelTransfer = queue.TryDequeueAsync(tx).Result.Value;
                 queue.EnqueueAsync(tx, networkModel);
 
-                tx.CommitAsync();
+                await tx.CommitAsync();
             }
+
+            Nmt = networkModel;
 
             if (networkModel != null)
                 return true;
@@ -41,7 +50,7 @@ namespace CECacheMicroservice
                 return false;
         }
 
-        public bool SendNetworkModel(NetworkModelTransfer networkModel)
+        public async Task<bool> SendNetworkModel(NetworkModelTransfer networkModel)
         {
             using (var tx = _stateManager.CreateTransaction())
             {
@@ -50,21 +59,27 @@ namespace CECacheMicroservice
                 networkModel = queue.TryPeekAsync(tx).Result.Value;
             }
 
+            networkModel = Nmt;
+            if (networkModel != null)            
+                networkModel.InitState = true;            
+
             if (networkModel.InitState)
                 _cache.PopulateNSMModelCache(networkModel);
             else
-                _cache.RestartCache(networkModel);
-
-            _cache.PopulateWeatherForecast(networkModel);
-
-            _cache.PopulateProductionForecast(networkModel);
-            _cache.PopulateConsumptionForecast(networkModel);
+                _cache.RestartCache(networkModel);            
 
             // pozvati pubSub na ovom mestu
             //PubSubCalculatioEngine.Instance.Notify(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
             
-            if (networkModel != null)
+            if (networkModel.Insert.Count != 0)
+            {
+                _cache.PopulateWeatherForecast(networkModel);
+
+                _cache.PopulateProductionForecast(networkModel);
+                _cache.PopulateConsumptionForecast(networkModel);
+
                 return true;
+            }                
             else
                 return false;
         }

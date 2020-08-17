@@ -17,6 +17,7 @@ using System.IO;
 using System.ServiceModel;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace dCom.Configuration
@@ -87,7 +88,7 @@ namespace dCom.Configuration
                 //OnPropertyChanged("CurrentTime");
             }
         }
-        public bool CheckForTM(SignalsTransfer signals)
+        public async Task<bool> CheckForTM(SignalsTransfer signals)
         {
             SignalsTransfer = signals;
             if (signals != null)
@@ -95,7 +96,7 @@ namespace dCom.Configuration
             else
                 return false;
         }
-        public bool SendGids(SignalsTransfer signals)
+        public async Task<bool> SendGids(SignalsTransfer signals)
         {
             Dictionary<long, IdentifiedObject> analogni = new Dictionary<long, IdentifiedObject>();
             Dictionary<long, IdentifiedObject> digitalni = new Dictionary<long, IdentifiedObject>();

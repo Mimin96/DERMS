@@ -29,6 +29,26 @@ namespace TransactionCoordinatorMicroservice
             );
 
             await nmsClient.InvokeWithRetryAsync(client => client.Channel.Rollback());
+
+            CloudClient<ITransactionCheck> ceClient = new CloudClient<ITransactionCheck>
+            (
+               serviceUri: new Uri($"fabric:/CalculateEngineApp/CETransactionMicroservice"),
+               partitionKey: ServicePartitionKey.Singleton,
+               clientBinding: WcfUtility.CreateTcpClientBinding(),
+               listenerName: "CETMListener"
+            );
+
+            await ceClient.InvokeWithRetryAsync(client => client.Channel.Rollback());
+
+            CloudClient<ITransactionCheck> scadaClient = new CloudClient<ITransactionCheck>
+            (
+               serviceUri: new Uri($"fabric:/SCADAApp/SCADATransactionMicroservice"),
+               partitionKey: ServicePartitionKey.Singleton,
+               clientBinding: WcfUtility.CreateTcpClientBinding(),
+               listenerName: "SCADATMListener"
+            );
+
+            await scadaClient.InvokeWithRetryAsync(client => client.Channel.Rollback());
         }
 
         private async Task Commit()
@@ -42,6 +62,26 @@ namespace TransactionCoordinatorMicroservice
             );
 
             await nmsClient.InvokeWithRetryAsync(client => client.Channel.Commit());
+
+            CloudClient<ITransactionCheck> ceClient = new CloudClient<ITransactionCheck>
+            (
+               serviceUri: new Uri($"fabric:/CalculateEngineApp/CETransactionMicroservice"),
+               partitionKey: ServicePartitionKey.Singleton,
+               clientBinding: WcfUtility.CreateTcpClientBinding(),
+               listenerName: "CETMListener"
+            );
+
+            await ceClient.InvokeWithRetryAsync(client => client.Channel.Commit());
+
+            CloudClient<ITransactionCheck> scadaClient = new CloudClient<ITransactionCheck>
+            (
+               serviceUri: new Uri($"fabric:/SCADAApp/SCADATransactionMicroservice"),
+               partitionKey: ServicePartitionKey.Singleton,
+               clientBinding: WcfUtility.CreateTcpClientBinding(),
+               listenerName: "SCADATMListener"
+            );
+
+            await scadaClient.InvokeWithRetryAsync(client => client.Channel.Commit());
         }
 
         public async Task Enlist(string adress)

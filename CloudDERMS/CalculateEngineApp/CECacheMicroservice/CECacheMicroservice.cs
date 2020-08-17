@@ -48,7 +48,7 @@ namespace CECacheMicroservice
                     name: "CECacheServiceListener"
                 ),
                 new ServiceReplicaListener((context) =>
-                    new WcfCommunicationListener<CloudCommon.CalculateEngine.ISendDataFromNMSToCE>(
+                    new WcfCommunicationListener<DERMSCommon.NMSCommuication.ISendDataFromNMSToCE>(
                         wcfServiceObject: sendDataFromNMSToCE,
                         serviceContext: context,
                         endpointResourceName: "CESendDataFromNMSEndpoint",

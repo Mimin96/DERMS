@@ -9154,6 +9154,11 @@
             Debug channel.
             </summary>
         </member>
+        <member name="F:System.Fabric.Common.Tracing.EventChannel.Audit">
+            <summary>
+            Audit channel.
+            </summary>
+        </member>
         <member name="M:System.Fabric.Common.Tracing.EventDataArrayBuilder.TruncateStringVariants(System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@,System.Fabric.Common.Tracing.Variant@)">
             <summary>
             Method calculates average characters available for string variants
@@ -17049,6 +17054,17 @@
             </value>
             <remarks>
             <para>See <see cref="P:System.Fabric.Description.ServiceDescription.DefaultMoveCost" /></para>
+            </remarks>
+        </member>
+        <member name="P:System.Fabric.Description.ServiceUpdateDescription.ServiceDnsName">
+            <summary>
+            <para>Gets or sets DNS name for the service.</para>
+            </summary>
+            <value>
+            <para>Service DNS name</para>
+            </value>
+            <remarks>
+            <para>See <see cref="P:System.Fabric.Description.ServiceDescription.ServiceDnsName" /></para>
             </remarks>
         </member>
         <member name="P:System.Fabric.Description.ServiceUpdateDescription.ScalingPolicies">
@@ -30848,6 +30864,87 @@
             </exception>
             <exception cref="T:System.TimeoutException">
             <para>This operation has a timeout of 60 seconds.</para>
+            <para>
+                See <see href="https://docs.microsoft.com/azure/service-fabric/service-fabric-errors-and-exceptions"/> for handling common FabricClient failures.</para>
+            </exception>
+            <exception cref="T:System.Fabric.FabricException">
+            <para>
+                See also <see href="https://docs.microsoft.com/azure/service-fabric/service-fabric-errors-and-exceptions"/> for handling common FabricClient failures.</para>
+            </exception>
+            <exception cref="T:System.Fabric.FabricInvalidAddressException">
+                <para> For this query, this exception usually means that the given node name does not match any node in the cluster.</para>
+            </exception>
+        </member>
+        <member name="M:System.Fabric.FabricClient.QueryClient.GetDeployedCodePackageListAsync(System.String,System.Uri,System.String,System.String)">
+            <summary>
+            <para>Gets the list of the deployed code packages.</para>
+            </summary>
+            <param name="nodeName">
+            <para>The name of the node. This is a case-sensitive exact match. This value should not be null or empty,
+            and if the node name does not match any node on the cluster, an exception is thrown.</para>
+            </param>
+            <param name="applicationName">
+            <para>The name of the application.</para>
+            </param>
+            <param name="serviceManifestNameFilter">
+            <para>Filter results to include only those matching this service manifest name.</para>
+            </param>
+            <param name="codePackageNameFilter">
+            <para>Filter results to include only those matching this code package name.</para>
+            </param>
+            <returns>
+            <para>A task that represents the asynchronous query operation.</para>
+            <para>The returned task contains the list of deployed code packages as <see cref="T:System.Fabric.Query.DeployedCodePackageList" />.</para>
+            </returns>
+            <exception cref="T:System.Fabric.FabricObjectClosedException">
+            <para>
+                See <see href="https://docs.microsoft.com/azure/service-fabric/service-fabric-errors-and-exceptions"/> for handling common FabricClient failures.</para>
+            </exception>
+            <exception cref="T:System.TimeoutException">
+            <para>This operation has a timeout of 60 seconds.</para>
+            <para>
+                See <see href="https://docs.microsoft.com/azure/service-fabric/service-fabric-errors-and-exceptions"/> for handling common FabricClient failures.</para>
+            </exception>
+            <exception cref="T:System.Fabric.FabricException">
+            <para>
+                See also <see href="https://docs.microsoft.com/azure/service-fabric/service-fabric-errors-and-exceptions"/> for handling common FabricClient failures.</para>
+            </exception>
+            <exception cref="T:System.Fabric.FabricInvalidAddressException">
+                <para> For this query, this exception usually means that the given node name does not match any node in the cluster.</para>
+            </exception>
+        </member>
+        <member name="M:System.Fabric.FabricClient.QueryClient.GetDeployedCodePackageListAsync(System.String,System.Uri,System.String,System.String,System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            <para>Gets the list of the deployed code packages.</para>
+            </summary>
+            <param name="nodeName">
+            <para>The name of the node. This is a case-sensitive exact match. This value should not be null or empty,
+            and if the node name does not match any node on the cluster, an exception is thrown.</para>
+            </param>
+            <param name="applicationName">
+            <para>The name of the application.</para>
+            </param>
+            <param name="serviceManifestNameFilter">
+            <para>Filter results to include only those matching this service manifest name.</para>
+            </param>
+            <param name="codePackageNameFilter">
+            <para>Filter results to include only those matching this code package name.</para>
+            </param>
+            <param name="timeout">
+            <para>Specifies the duration this operation has to complete before timing out.</para>
+            </param>
+            <param name="cancellationToken">
+            <para>Propagates notification that operations should be canceled.</para>
+            </param>
+            <returns>
+            <para>A task that represents the asynchronous query operation.</para>
+            <para>The returned task contains the list of deployed code packages as <see cref="T:System.Fabric.Query.DeployedCodePackageList" />.</para>
+            </returns>
+            <exception cref="T:System.Fabric.FabricObjectClosedException">
+            <para>
+                See <see href="https://docs.microsoft.com/azure/service-fabric/service-fabric-errors-and-exceptions"/> for handling common FabricClient failures.</para>
+            </exception>
+            <exception cref="T:System.TimeoutException">
             <para>
                 See <see href="https://docs.microsoft.com/azure/service-fabric/service-fabric-errors-and-exceptions"/> for handling common FabricClient failures.</para>
             </exception>

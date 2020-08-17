@@ -240,7 +240,6 @@
     <Compile Include="CalculateEngine\IProductionCalculator.cs" />
     <Compile Include="CalculateEngine\IPubSub.cs" />
     <Compile Include="CalculateEngine\IPubSubTopic.cs" />
-    <Compile Include="CalculateEngine\ISendDataFromNMSToCE.cs" />
     <Compile Include="CalculateEngine\ISubscribe.cs" />
     <Compile Include="CalculateEngine\ITreeConstruction.cs" />
     <Compile Include="NMSCLoudClient.cs" />
