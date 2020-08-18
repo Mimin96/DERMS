@@ -43,3 +43,11 @@ C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLa
 C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.dll
 C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.pdb
+E:\Master\18.8.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.Services.NetworkModelService.dll.config
+E:\Master\18.8.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.Services.NetworkModelService.dll
+E:\Master\18.8.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.Services.NetworkModelService.pdb
+E:\Master\18.8.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csprojAssemblyReference.cache
+E:\Master\18.8.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csproj.CoreCompileInputs.cache
+E:\Master\18.8.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csproj.CopyComplete
+E:\Master\18.8.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.dll
+E:\Master\18.8.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.pdb

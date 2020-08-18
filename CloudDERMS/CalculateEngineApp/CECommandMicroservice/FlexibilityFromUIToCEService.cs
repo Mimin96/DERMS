@@ -99,7 +99,7 @@ namespace CECommandMicroservice
             data.Flexibility = valueKW;
             data.Gid = gid;
             data.FlexibilityIncDec = incOrDec;
-            //NAKNADNO IZMENITI I ODKOMENTARISATI
+
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
@@ -108,7 +108,7 @@ namespace CECommandMicroservice
               listenerName: "CECacheServiceListener"
             );
             transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.CalculateNewFlexibility(data));
-            //CalculationEngineCache.Instance.CalculateNewFlexibility(data);
+
         }
     }
 }
