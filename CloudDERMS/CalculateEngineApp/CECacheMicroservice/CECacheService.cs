@@ -549,7 +549,7 @@ namespace CECacheMicroservice
             }
         }*/
         //NOT COMPLETE - Ovaj kod bi trebalo da se izmesti u CECalculationMicroservice
-        public void CalculateNewFlexibility(DataToUI data)
+        public async Task CalculateNewFlexibility(DataToUI data)
         { /*
             Dictionary<DMSType, long> affectedDERForcast = new Dictionary<DMSType, long>();
             DERFlexibility flexibility = new DERFlexibility();

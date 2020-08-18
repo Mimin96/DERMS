@@ -31,7 +31,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         void PopulateProductionForecast(NetworkModelTransfer networkModel);
         [OperationContract]
-        void CalculateNewFlexibility(DataToUI data);
+        Task CalculateNewFlexibility(DataToUI data);
         [OperationContract]
         DataToUI CreateDataForUI();
         [OperationContract]
