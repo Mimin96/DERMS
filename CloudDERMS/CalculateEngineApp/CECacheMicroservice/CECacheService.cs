@@ -1139,7 +1139,7 @@ namespace CECacheMicroservice
         //CalculateNewFlexibility
         //CHECK DA LI TREBA DA SE UBACE U interfejs
         //NOT COMPLETE -- Trebalo bi da stoje na nekom drugom servisu
-        public void UpdateMinAndMaxFlexibilityForChangedGenerators()
+        public async Task UpdateMinAndMaxFlexibilityForChangedGenerators()
         {
             //double minProd = 0;
             //double maxProd = 0;

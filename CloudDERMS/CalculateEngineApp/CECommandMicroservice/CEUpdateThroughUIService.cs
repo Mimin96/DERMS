@@ -806,6 +806,14 @@ namespace CalculationEngineService
             //---NIJE RESENO---DODATNA KONEKCIJA
             //CalculationEngineCache.Instance.ListOfGenerators = dicForScada;
             //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(dicForScada);
+            CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
+            (
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              partitionKey: ServicePartitionKey.Singleton,
+              clientBinding: WcfUtility.CreateTcpClientBinding(),
+              listenerName: "CECacheServiceListener"
+            );
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateMinAndMaxFlexibilityForChangedGenerators());
             //CalculationEngineCache.Instance.UpdateMinAndMaxFlexibilityForChangedGenerators();
             return energyFromSource;
         }

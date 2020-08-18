@@ -47,7 +47,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Task<float> PopulateBalance(long gid);
         [OperationContract]
-        void UpdateMinAndMaxFlexibilityForChangedGenerators();
+        Task UpdateMinAndMaxFlexibilityForChangedGenerators();
         [OperationContract]
         Dictionary<long, List<DataPoint>> GetscadaPointsCached();
         [OperationContract]
