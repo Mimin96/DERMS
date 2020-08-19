@@ -56,7 +56,7 @@ namespace CECacheMicroservice
         }
         public CECacheService()
         {
-           
+
         }
 
         //public void CalculateNewFlexibility(DataToUI data)
@@ -64,7 +64,7 @@ namespace CECacheMicroservice
         //private void CalculateFlexibility()
 
         #region nmsCache methods
-        public void PopulateNSMModelCache(NetworkModelTransfer networkModelTransfer)
+        public async Task<bool> PopulateNSMModelCache(NetworkModelTransfer networkModelTransfer)
         {
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> dictionary in networkModelTransfer.Delete)
             {
@@ -93,6 +93,7 @@ namespace CECacheMicroservice
             }
 
             PopulateGraph(networkModelTransfer);
+            return true;
         }
         public async Task<Dictionary<long, IdentifiedObject>> GetNMSModel()
         {
@@ -245,14 +246,14 @@ namespace CECacheMicroservice
         #endregion
 
         #region derWeatherCached methods
-        public async void PopulateWeatherForecast(NetworkModelTransfer networkModel)
+        public async Task<bool> PopulateWeatherForecast(NetworkModelTransfer networkModel)
         {
             //Communication with Microservice in same application
             //ServicePartitionKey(0)
             CloudClient<IDarkSkyApi> transactionCoordinator = new CloudClient<IDarkSkyApi>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CEWeatherForecastMicroservice"),
-              partitionKey:  ServicePartitionKey.Singleton,
+              partitionKey: ServicePartitionKey.Singleton,
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "DarkSkyApiListener"
             );
@@ -280,6 +281,8 @@ namespace CECacheMicroservice
 
                 }
             }
+
+            return true;
         }
         public async void AddForecast(Forecast wf, long gid)
         {
@@ -294,18 +297,19 @@ namespace CECacheMicroservice
         {
             using (var tx = stateManager.CreateTransaction())
             {
-                var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, List<Forecast>>>("DERWeatherCachedDictionary");
+                var d = stateManager.GetOrAddAsync<IReliableDictionary<long, Forecast>>("DERWeatherCachedDictionary").Result;
 
-                if (!dictionary.Result.ContainsKeyAsync(tx, gid).Result)
+                if (d.ContainsKeyAsync(tx, gid).Result)
                 {
-                    Forecast forecast = dictionary.Result.TryGetValueAsync(tx, gid).Result.Value.ToList().First();
+                    Forecast forecast = d.TryGetValueAsync(tx, gid).Result.Value;
                     return forecast;
                 }
             }
             return null;
         }
+
         //NOT COMPLETE PubSubCalculatioEngine
-        public async void PopulateConsumptionForecast(NetworkModelTransfer networkModel)
+        public async Task<bool> PopulateConsumptionForecast(NetworkModelTransfer networkModel)
         {
             //Communication with Microservice in same application
             CloudClient<IConsumptionCalculator> transactionCoordinator = new CloudClient<IConsumptionCalculator>
@@ -367,10 +371,11 @@ namespace CECacheMicroservice
 
             await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Calculate(productionCachedDictionary, networkModel, substationDayAheadDictionary, derWeatherCachedDictionary));
 
+            return true;
             //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
         }
         //NOT COMPLETE PubSubCalculatioEngine
-        public async void PopulateProductionForecast(NetworkModelTransfer networkModel)
+        public async Task<bool> PopulateProductionForecast(NetworkModelTransfer networkModel)
         {
             //Communication with Microservice in same application
             CloudClient<IProductionCalculator> transactionCoordinator = new CloudClient<IProductionCalculator>
@@ -487,7 +492,7 @@ namespace CECacheMicroservice
             }
 
 
-
+            return true;
             //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead); // KAD SE POPUNI CACHE SALJE SVIMA Dictionary
         }
         //NOT COMPLETE PubSubCalculatioEngine
@@ -880,7 +885,7 @@ namespace CECacheMicroservice
                     while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
                     {
                         //-->>>PROVERITI DA LI JE OVA LISTA DOBRO POPUNJENA
-                       turnedOffGeneratorsList=dictEnumerator.Current.Value;
+                        turnedOffGeneratorsList = dictEnumerator.Current.Value;
                     }
                 }
             }
@@ -966,8 +971,8 @@ namespace CECacheMicroservice
         {
             CloudClient<ITreeConstruction> transactionCoordinator = new CloudClient<ITreeConstruction>
             (
-                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
-                partitionKey: new ServicePartitionKey(0),
+                serviceUri: new Uri("fabric:/CalculateEngineApp/TreeConstructionMicroservice"),
+                partitionKey: ServicePartitionKey.Singleton,
                 clientBinding: WcfUtility.CreateTcpClientBinding(),
                 listenerName: "BuildTreeServiceListener"
             );

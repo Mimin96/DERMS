@@ -21,3 +21,9 @@ C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLa
 C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMParser\obj\x64\Debug\CIMParser.csproj.CoreCompileInputs.cache
 C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMParser\obj\x64\Debug\CIMParser.dll
 C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMParser\obj\x64\Debug\CIMParser.pdb
+C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\CIMParser.dll
+C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\CIMParser.pdb
+C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMParser\obj\x64\Debug\CIMParser.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMParser\obj\x64\Debug\CIMParser.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMParser\obj\x64\Debug\CIMParser.dll
+C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMParser\obj\x64\Debug\CIMParser.pdb

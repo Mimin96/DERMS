@@ -202,3 +202,7 @@ C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\SCADACacheMicrose
 C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\SCADACacheMicroservice\obj\x64\Debug\SCADACacheMicroservice.csproj.CopyComplete
 C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\SCADACacheMicroservice\obj\x64\Debug\SCADACacheMicroservice.exe
 C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\SCADACacheMicroservice\obj\x64\Debug\SCADACacheMicroservice.pdb
+C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\SCADACacheMicroservice\obj\x64\Debug\SCADACacheMicroservice.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\SCADACacheMicroservice\obj\x64\Debug\SCADACacheMicroservice.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\SCADACacheMicroservice\obj\x64\Debug\SCADACacheMicroservice.exe
+C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\SCADACacheMicroservice\obj\x64\Debug\SCADACacheMicroservice.pdb

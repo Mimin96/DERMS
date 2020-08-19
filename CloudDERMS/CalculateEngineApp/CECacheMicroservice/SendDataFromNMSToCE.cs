@@ -14,19 +14,19 @@ namespace CECacheMicroservice
     {
         private IReliableStateManager _stateManager;
         private ICache _cache;
-       // private NetworkModelTransfer _nmt;
+        // private NetworkModelTransfer _nmt;
 
-       // public NetworkModelTransfer Nmt { get => _nmt; set => _nmt = value; }
+        // public NetworkModelTransfer Nmt { get => _nmt; set => _nmt = value; }
 
-        public SendDataFromNMSToCE(IReliableStateManager stateManager, ICache cache) 
+        public SendDataFromNMSToCE(IReliableStateManager stateManager, ICache cache)
         {
             _stateManager = stateManager;
             _cache = cache;
         }
 
-        public SendDataFromNMSToCE() 
+        public SendDataFromNMSToCE()
         {
-            
+
         }
 
 
@@ -42,7 +42,7 @@ namespace CECacheMicroservice
                 await tx.CommitAsync();
             }
 
-           // Nmt = networkModel;
+            // Nmt = networkModel;
 
             if (networkModel != null)
                 return true;
@@ -59,27 +59,29 @@ namespace CECacheMicroservice
                 networkModel = queue.TryPeekAsync(tx).Result.Value;
             }
 
-           // networkModel = Nmt;
-            if (networkModel != null)            
-                networkModel.InitState = true;            
+            // networkModel = Nmt;
+            if (networkModel != null)
+                networkModel.InitState = true;
+
+            bool b = false;
 
             if (networkModel.InitState)
-                _cache.PopulateNSMModelCache(networkModel);
+                b = await _cache.PopulateNSMModelCache(networkModel);
             else
-                _cache.RestartCache(networkModel);            
+                _cache.RestartCache(networkModel);
 
             // pozvati pubSub na ovom mestu
             //PubSubCalculatioEngine.Instance.Notify(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
-            
+
             if (networkModel.Insert.Count != 0)
             {
-                _cache.PopulateWeatherForecast(networkModel);
+                await _cache.PopulateWeatherForecast(networkModel);
 
-                _cache.PopulateProductionForecast(networkModel);
-                _cache.PopulateConsumptionForecast(networkModel);
+                await _cache.PopulateProductionForecast(networkModel);
+                await _cache.PopulateConsumptionForecast(networkModel);
 
                 return true;
-            }                
+            }
             else
                 return false;
         }

@@ -4,28 +4,16 @@
 winexe
 C#
 .cs
-<<<<<<< HEAD
-C:\Users\Andrej\Desktop\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\obj\Debug\
-=======
-C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\obj\Debug\
->>>>>>> a47ae7eda21cc06816721e88c0bf9ce6dde5cf62
+C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\obj\Debug\
 UI
 none
 false
 DEBUG;TRACE
-<<<<<<< HEAD
-C:\Users\Andrej\Desktop\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\App.xaml
-12615951116
-
-45-744825497
-44-1226936271
-=======
-C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\App.xaml
+C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\App.xaml
 12615951116
 
 411367987010
-9775727836
->>>>>>> a47ae7eda21cc06816721e88c0bf9ce6dde5cf62
+97-317600747
 Resources\AppDictionary.xaml;View\BreakerControlThroughGISWindow.xaml;View\DERDashboardUserControl.xaml;View\EventSummaryUserControl.xaml;View\GISUserControl.xaml;View\HistoryUserControl.xaml;View\LoadingWindow.xaml;View\MainWindow.xaml;View\ManualCommandingWindow.xaml;View\NetworkModelUserControl.xaml;View\PopUpWindow.xaml;View\SignalsSummaryUserControl.xaml;
 
 False
