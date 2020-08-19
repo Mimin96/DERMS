@@ -46,7 +46,7 @@ namespace CECommandMicroservice
                     new WcfCommunicationListener<ICEUpdateThroughUI>(
                         wcfServiceObject: new CEUpdateThroughUIService(),
                         serviceContext: context,
-                        address: new EndpointAddress("net.tcp://localhost:55555/CECommandMicroservice"),
+                        address: new EndpointAddress("net.tcp://localhost:55556/CECommandMicroservice"),
                         listenerBinding: WcfUtility.CreateTcpListenerBinding()
                     ),
                     name: "CECommandMicroserviceListener"
