@@ -248,10 +248,11 @@ namespace CECacheMicroservice
         public async void PopulateWeatherForecast(NetworkModelTransfer networkModel)
         {
             //Communication with Microservice in same application
+            //ServicePartitionKey(0)
             CloudClient<IDarkSkyApi> transactionCoordinator = new CloudClient<IDarkSkyApi>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
-              partitionKey: ServicePartitionKey.Singleton,
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CEWeatherForecastMicroservice"),
+              partitionKey:  ServicePartitionKey.Singleton,
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "DarkSkyApiListener"
             );
@@ -309,7 +310,7 @@ namespace CECacheMicroservice
             //Communication with Microservice in same application
             CloudClient<IConsumptionCalculator> transactionCoordinator = new CloudClient<IConsumptionCalculator>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
               partitionKey: ServicePartitionKey.Singleton,
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "ConsumptionCalculatorListener"
@@ -374,7 +375,7 @@ namespace CECacheMicroservice
             //Communication with Microservice in same application
             CloudClient<IProductionCalculator> transactionCoordinator = new CloudClient<IProductionCalculator>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
               partitionKey: ServicePartitionKey.Singleton,
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "ProductionCalculatorListener"
@@ -966,7 +967,7 @@ namespace CECacheMicroservice
             CloudClient<ITreeConstruction> transactionCoordinator = new CloudClient<ITreeConstruction>
             (
                 serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
-                partitionKey: ServicePartitionKey.Singleton,
+                partitionKey: new ServicePartitionKey(0),
                 clientBinding: WcfUtility.CreateTcpClientBinding(),
                 listenerName: "BuildTreeServiceListener"
             );

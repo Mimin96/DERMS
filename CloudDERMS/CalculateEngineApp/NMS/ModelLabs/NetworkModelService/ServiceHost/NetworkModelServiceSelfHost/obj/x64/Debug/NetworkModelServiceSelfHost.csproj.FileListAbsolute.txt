@@ -51,3 +51,11 @@ C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLa
 C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x64\Debug\NetworkModelServiceSelfHost.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x64\Debug\FTN_NetworkModelService.exe
 C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x64\Debug\FTN_NetworkModelService.pdb
+C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN_NetworkModelService.exe.config
+C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN_NetworkModelService.exe
+C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN_NetworkModelService.pdb
+C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x64\Debug\NetworkModelServiceSelfHost.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x64\Debug\NetworkModelServiceSelfHost.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x64\Debug\NetworkModelServiceSelfHost.csproj.CopyComplete
+C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x64\Debug\FTN_NetworkModelService.exe
+C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\ServiceHost\NetworkModelServiceSelfHost\obj\x64\Debug\FTN_NetworkModelService.pdb
