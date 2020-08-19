@@ -35,6 +35,7 @@ namespace CETransactionMicroservice
             );
 
             await nmsToCE.InvokeWithRetryAsync(client => client.Channel.SendNetworkModel(_nmt));
+
             //await _calcEngine.SendNetworkModel(_nmt);
         }
 

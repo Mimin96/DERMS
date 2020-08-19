@@ -43,12 +43,10 @@ namespace dCom.Configuration
                                         vred = vred * (-1); 
                                     }
 
-                                    ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)vred, configuration);
-                                    Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-                                    commandExecutor.EnqueueCommand(fn);
-                                    ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value-2), (ushort)zbir, configuration);
-                                    Common.IModbusFunction fn1 = FunctionFactory.CreateModbusFunction(p1);
-                                    commandExecutor.EnqueueCommand(fn1);
+                                   // SendCommandToSimlator(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)vred, configuration);
+
+                                    //SendCommandToSimlator(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value-2), (ushort)zbir, configuration);
+
                                 }
                             }
                         }
@@ -58,9 +56,8 @@ namespace dCom.Configuration
                             {
                                 {
 
-                                    ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_COIL, gidoviNaAdresu.Value, (ushort)generator.Value, configuration);
-                                    Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-                                    commandExecutor.EnqueueCommand(fn);
+                                    //SendCommandToSimlator(6, (byte)ModbusFunctionCode.WRITE_SINGLE_COIL, gidoviNaAdresu.Value, (ushort)generator.Value, configuration);
+                                    
                                 }
                             }
                         }

@@ -22,11 +22,11 @@ using System.Windows.Threading;
 
 namespace dCom.Configuration
 {
-    public class SendDataFromNmsToScada : SCADACommunication, ISendDataFromNMSToScada, IStateUpdater
+    public class ScadaManagaer : IStateUpdater
     {
 
-        private static SignalsTransfer signalsTransfer;
-        public static SignalsTransfer SignalsTransfer { get => signalsTransfer; set => signalsTransfer = value; }
+        //private static SignalsTransfer signalsTransfer;
+        //public static SignalsTransfer SignalsTransfer { get => signalsTransfer; set => signalsTransfer = value; }
         private ObservableCollection<BasePointItem> PointsToAdd { get; set; }
         private ISendDataToCEThroughScada ProxyUI { get; set; }
         private ChannelFactory<ISendDataToCEThroughScada> factoryUI;
@@ -88,81 +88,10 @@ namespace dCom.Configuration
                 //OnPropertyChanged("CurrentTime");
             }
         }
-        public async Task<bool> CheckForTM(SignalsTransfer signals)
+
+        public void  SendGids(SignalsTransfer signals)
         {
-            SignalsTransfer = signals;
-            if (signals != null)
-                return true;
-            else
-                return false;
-        }
-        public async Task<bool> SendGids(SignalsTransfer signals)
-        {
-            Dictionary<long, IdentifiedObject> analogni = new Dictionary<long, IdentifiedObject>();
-            Dictionary<long, IdentifiedObject> digitalni = new Dictionary<long, IdentifiedObject>();
 
-            if (SignalsTransfer.Insert.Count > 0 || SignalsTransfer.Update.Count > 0)
-            {
-
-                analogni = SignalsTransfer.Insert[1];
-                digitalni = SignalsTransfer.Insert[0];
-                foreach (KeyValuePair<long, IdentifiedObject> kvp in analogni)
-                {
-                    if (!analogniStari.ContainsKey(kvp.Key))
-                    {
-                        analogniStari.Add(kvp.Key, kvp.Value);
-
-                    }
-                }
-                foreach (KeyValuePair<long, IdentifiedObject> kvp in digitalni)
-                {
-                    if (!digitalniStari.ContainsKey(kvp.Key))
-                    {
-                        digitalniStari.Add(kvp.Key, kvp.Value);
-
-                    }
-                }
-
-                configuration = new ConfigReader(analogniStari, digitalniStari);
-                commandExecutor = new FunctionExecutor(this, configuration);
-                foreach (KeyValuePair<long, IdentifiedObject> kvp in analogni)
-                {
-
-                    foreach (KeyValuePair<List<long>, ushort> par in GidoviNaAdresu)
-                    {
-                        if (par.Key.Contains(((Analog)kvp.Value).GlobalId))
-                        {
-                            ushort raw = 0;
-                            if ((double)((Analog)kvp.Value).NormalValue != 0)
-                            {
-                                raw = (ushort)((Analog)kvp.Value).NormalValue;
-                            }
-
-                            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, par.Value, raw, configuration);
-                            Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-                            commandExecutor.EnqueueCommand(fn);
-                        }
-                    }
-
-                }
-                foreach (KeyValuePair<long, IdentifiedObject> kvp in digitalni)
-                {
-                    foreach (KeyValuePair<List<long>, ushort> par in GidoviNaAdresu)
-                    {
-                        if (par.Key.Contains(((Discrete)kvp.Value).GlobalId))
-                        {
-
-                            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_COIL, par.Value, (ushort)((Discrete)kvp.Value).NormalValue, configuration);
-                            Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-                            commandExecutor.EnqueueCommand(fn);
-                        }
-                    }
-
-                }
-
-
-
-                
                 //Thread.Sleep(10000);
                 this.acquisitor = new Acquisitor(acquisitionTrigger, commandExecutor, this, configuration);
 
@@ -170,13 +99,6 @@ namespace dCom.Configuration
                 commandExecutor.UpdatePointEvent += CommandExecutor_UpdatePointEvent;
                 InitializeAndStartThreads();
 
-
-            }
-            signals = SignalsTransfer;
-            if (signals != null)
-                return true;
-            else
-                return false;
         }
 
 
