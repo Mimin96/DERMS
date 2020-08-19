@@ -132,6 +132,8 @@ namespace FTN.Services.NetworkModelService
                 return updateResult;
             }
 
+            StartService();
+
             return updateResult;
         }
 

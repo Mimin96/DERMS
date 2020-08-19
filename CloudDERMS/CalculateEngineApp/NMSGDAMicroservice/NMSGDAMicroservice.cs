@@ -69,7 +69,7 @@ namespace NMSGDAMicroservice
                 using (NetworkModelService nms = new NetworkModelService())
                 {
                     GDA.NetworkModelDeepCopy = nms.nmdc;
-                    await nms.Start();
+                    //await nms.Start();
                     while (true)
                     { }
                 }

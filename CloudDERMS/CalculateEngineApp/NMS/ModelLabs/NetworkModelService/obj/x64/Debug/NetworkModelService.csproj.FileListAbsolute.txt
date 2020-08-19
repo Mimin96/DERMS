@@ -51,3 +51,11 @@ E:\Master\18.8.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkMod
 E:\Master\18.8.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csproj.CopyComplete
 E:\Master\18.8.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.dll
 E:\Master\18.8.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.pdb
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.Services.NetworkModelService.dll.config
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.Services.NetworkModelService.dll
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.Services.NetworkModelService.pdb
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csprojAssemblyReference.cache
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csproj.CoreCompileInputs.cache
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csproj.CopyComplete
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.dll
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.pdb

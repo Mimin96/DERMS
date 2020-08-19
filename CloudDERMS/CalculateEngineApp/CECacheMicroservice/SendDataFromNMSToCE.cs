@@ -14,9 +14,9 @@ namespace CECacheMicroservice
     {
         private IReliableStateManager _stateManager;
         private ICache _cache;
-        private NetworkModelTransfer _nmt;
+       // private NetworkModelTransfer _nmt;
 
-        public NetworkModelTransfer Nmt { get => _nmt; set => _nmt = value; }
+       // public NetworkModelTransfer Nmt { get => _nmt; set => _nmt = value; }
 
         public SendDataFromNMSToCE(IReliableStateManager stateManager, ICache cache) 
         {
@@ -37,12 +37,12 @@ namespace CECacheMicroservice
                 IReliableQueue<NetworkModelTransfer> queue = _stateManager.GetOrAddAsync<IReliableQueue<NetworkModelTransfer>>("networkModelTransfer").Result;
 
                 NetworkModelTransfer modelTransfer = queue.TryDequeueAsync(tx).Result.Value;
-                queue.EnqueueAsync(tx, networkModel);
+                await queue.EnqueueAsync(tx, networkModel);
 
                 await tx.CommitAsync();
             }
 
-            Nmt = networkModel;
+           // Nmt = networkModel;
 
             if (networkModel != null)
                 return true;
@@ -59,7 +59,7 @@ namespace CECacheMicroservice
                 networkModel = queue.TryPeekAsync(tx).Result.Value;
             }
 
-            networkModel = Nmt;
+           // networkModel = Nmt;
             if (networkModel != null)            
                 networkModel.InitState = true;            
 

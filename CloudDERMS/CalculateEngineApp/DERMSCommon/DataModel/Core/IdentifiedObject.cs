@@ -7,6 +7,8 @@ using System.Text;
 using System.Xml;
 using System.Reflection;
 using FTN.Common;
+using DERMSCommon.DataModel.Wires;
+using DERMSCommon.DataModel.Meas;
 
 namespace DERMSCommon.DataModel.Core
 {
@@ -19,7 +21,32 @@ namespace DERMSCommon.DataModel.Core
 	}
 
     [DataContract]
-	public class IdentifiedObject
+    [KnownType(typeof(GeographicalRegion))]
+    [KnownType(typeof(Switch))]
+    [KnownType(typeof(PROTECTED_SWITCH))]
+    [KnownType(typeof(Conductor))]
+    [KnownType(typeof(Point))]
+    [KnownType(typeof(Breaker))]
+    [KnownType(typeof(ACLineSegment))]
+    [KnownType(typeof(Measurement))]
+    [KnownType(typeof(Discrete))]
+    [KnownType(typeof(Analog))]
+    [KnownType(typeof(Terminal))]
+    [KnownType(typeof(Generator))]
+    [KnownType(typeof(Substation))]
+    [KnownType(typeof(SubGeographicalRegion))]
+    [KnownType(typeof(RegulatingCondEq))]
+    [KnownType(typeof(PowerSystemResource))]
+    [KnownType(typeof(FeederObject))]
+    [KnownType(typeof(EquipmentContainer))]
+    [KnownType(typeof(Equipment))]
+    [KnownType(typeof(EnergySource))]
+    [KnownType(typeof(EnergyConsumer))]
+    [KnownType(typeof(ConnectivityNodeContainer))]
+    [KnownType(typeof(ConnectivityNode))]
+    [KnownType(typeof(ConductingEquipment))]
+    [KnownType(typeof(GeographicalRegion))]
+    public class IdentifiedObject
 	{
         /// <summary>
         /// Model Resources Description

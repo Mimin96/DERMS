@@ -51,3 +51,16 @@ C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLa
 C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.exe
 C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.pdb
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Cosmos.CRTCompat.dll
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\ModelLabsApp.exe.config
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\ModelLabsApp.exe
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\ModelLabsApp.pdb
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csprojAssemblyReference.cache
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.ModelLabsAppForm.resources
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.Properties.Resources.resources
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csproj.GenerateResource.cache
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csproj.CoreCompileInputs.cache
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csproj.CopyComplete
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.exe
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.pdb
