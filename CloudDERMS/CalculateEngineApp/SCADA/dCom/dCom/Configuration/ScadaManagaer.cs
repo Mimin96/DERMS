@@ -22,7 +22,7 @@ using System.Windows.Threading;
 
 namespace dCom.Configuration
 {
-    public class ScadaManagaer : IStateUpdater
+    public class ScadaManagaer : SCADACommunication, IStateUpdater
     {
 
         //private static SignalsTransfer signalsTransfer;
@@ -89,7 +89,7 @@ namespace dCom.Configuration
             }
         }
 
-        public void  SendGids(SignalsTransfer signals)
+        public void  SendGids()
         {
 
                 //Thread.Sleep(10000);
@@ -206,6 +206,7 @@ namespace dCom.Configuration
             InitializeTimerThread();
             StartTimerThread();
         }
+
 
         private void InitializeTimerThread()
         {
