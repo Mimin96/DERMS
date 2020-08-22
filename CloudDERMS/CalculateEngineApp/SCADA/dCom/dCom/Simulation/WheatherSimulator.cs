@@ -16,6 +16,10 @@ using Modbus;
 using Common;
 using ProcessingModule;
 using Innovative.SolarCalculator;
+using DERMSCommon.TransactionManager;
+using DERMSCommon.SCADACommon;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 
 namespace dCom.Simulation
 {
@@ -23,6 +27,7 @@ namespace dCom.Simulation
     {
         DarkSkyAPISmartCache cache = new DarkSkyAPISmartCache();
         private HourDataPoint hourDataPoint = new HourDataPoint();
+        private CloudClient<IScadaCloudToScadaLocal> transactionCoordinator;
         private DarkSkyService darkSkyProxy;
         public WheaterSimulator()
         {
@@ -108,6 +113,17 @@ namespace dCom.Simulation
 
                 }
             }
+
+
+            transactionCoordinator = new CloudClient<IScadaCloudToScadaLocal>
+            (
+                serviceUri: new Uri("fabric:/SCADAApp/SCADACacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0),
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "SCADAComunicationMicroserviceListener"
+            );
+            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddorUpdateAnalogniKontejnerModelEntity(analogniStari));
+
 
             //MOCK_Start
             if (!isFileFull)

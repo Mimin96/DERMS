@@ -31,7 +31,7 @@ namespace SCADACacheMicroservice
             return true;
         }
 
-        public async void AddorUpdateAnalogniKontejnerModelEntity(Dictionary<long, IdentifiedObject> dict)
+        public async Task AddorUpdateAnalogniKontejnerModelEntity(Dictionary<long, IdentifiedObject> dict)
         {
             foreach (KeyValuePair<long, IdentifiedObject> kvp in dict)
             {
@@ -44,7 +44,18 @@ namespace SCADACacheMicroservice
             }
         }
 
-        public async void AddorUpdateDigitalniKontejnerModelEntity(Dictionary<long, IdentifiedObject> dict)
+        public async Task<string> GetAddress()
+        {
+            string returnVal = "";
+            using (var tx = _stateManager.CreateTransaction())
+            {
+                IReliableQueue<string> queue = _stateManager.GetOrAddAsync<IReliableQueue<string>>("endpoints").Result;
+                 returnVal = queue.TryPeekAsync(tx).Result.Value;
+            }
+            return returnVal;
+        }
+
+        public async Task AddorUpdateDigitalniKontejnerModelEntity(Dictionary<long, IdentifiedObject> dict)
         {
             foreach (KeyValuePair<long, IdentifiedObject> kvp in dict)
             {
@@ -57,7 +68,7 @@ namespace SCADACacheMicroservice
             }
         }
 
-        public async void AddorUpdateGidoviNaAdresuModelEntity(Dictionary<List<long>, ushort> dict)
+        public async Task AddorUpdateGidoviNaAdresuModelEntity(Dictionary<List<long>, ushort> dict)
         {
                 using (var tx = _stateManager.CreateTransaction())
                 {

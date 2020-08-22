@@ -102,6 +102,7 @@
     <Compile Include="CECacheMicroservice.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="SendDataFromNMSToCE.cs" />
+    <Compile Include="SendDataToCEThroughScada.cs" />
     <Compile Include="ServiceEventSource.cs" />
   </ItemGroup>
   <ItemGroup>

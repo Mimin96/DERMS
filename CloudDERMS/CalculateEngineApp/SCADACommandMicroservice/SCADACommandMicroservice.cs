@@ -4,7 +4,10 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CalculationEngineServiceCommon;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
+using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace SCADACommandMicroservice
@@ -24,7 +27,19 @@ namespace SCADACommandMicroservice
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
-            return new ServiceInstanceListener[0];
+
+            return new[]
+            {
+                new ServiceInstanceListener((context) =>
+                    new WcfCommunicationListener<ISendListOfGeneratorsToScada>(
+                        wcfServiceObject: new CommandingService(),
+                        serviceContext: context,
+                        endpointResourceName: "SCADACommandingMicroserviceEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "SCADACommandingMicroserviceListener"
+                )
+            };
         }
 
         /// <summary>
