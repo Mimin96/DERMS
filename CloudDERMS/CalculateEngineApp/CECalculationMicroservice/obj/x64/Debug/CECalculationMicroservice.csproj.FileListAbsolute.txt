@@ -70,7 +70,6 @@ C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroser
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\bin\x64\Debug\Microsoft.ServiceFabric.Preview.xml
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\bin\x64\Debug\Microsoft.ServiceFabric.Services.xml
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\bin\x64\Debug\System.Fabric.xml
-C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.csprojAssemblyReference.cache
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.csproj.CoreCompileInputs.cache
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.csproj.CopyComplete
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.exe
@@ -973,3 +972,6 @@ C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicr
 C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.csproj.CopyComplete
 C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.exe
 C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\bin\x64\Debug\netstandard.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.exe.config
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.csprojAssemblyReference.cache

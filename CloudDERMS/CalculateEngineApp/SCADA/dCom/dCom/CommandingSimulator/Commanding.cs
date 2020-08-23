@@ -21,7 +21,7 @@ namespace dCom.CommandingSimulator
 
         public void LogMessage(string message)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void SendCommandToSimlator(ushort length, byte functionCode, ushort outputAddress, ushort value, global::Common.IConfiguration configuration)
@@ -34,7 +34,7 @@ namespace dCom.CommandingSimulator
 
         public void UpdateConnectionState(ConnectionState currentConnectionState)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

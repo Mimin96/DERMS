@@ -118,18 +118,19 @@ namespace dCom.ViewModel
         public MainViewModel()
         {
             //Connect to TM
-            NetTcpBinding binding4 = new NetTcpBinding();
-            factoryTM = new ChannelFactory<ITransactionListing>(binding4, new EndpointAddress("net.tcp://localhost:20508/ITransactionListing"));
-            ProxyTM = factoryTM.CreateChannel();
+            // ovo promeniti da gadja Cloud uvek proveriti da li mzoe i pokusavati da pogodi dok ne dobijek onekciju
+           /// NetTcpBinding binding4 = new NetTcpBinding();
+           /// factoryTM = new ChannelFactory<ITransactionListing>(binding4, new EndpointAddress("net.tcp://localhost:20508/ITransactionListing"));
+           /// ProxyTM = factoryTM.CreateChannel();
 
-            Console.WriteLine("Connected: net.tcp://localhost:20508/ITransactionListing");
-            ProxyTM.Enlist("net.tcp://localhost:19518/ITransactionCheck");
+           // Console.WriteLine("Connected: net.tcp://localhost:20508/ITransactionListing");
+           /// ProxyTM.Enlist("net.tcp://localhost:19518/ITransactionCheck");
             CloudClient<IScadaCloudToScadaLocal> transactionCoordinator = new CloudClient<IScadaCloudToScadaLocal>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CEPubSubMicroservice"),
+              serviceUri: new Uri("fabric:/SCADAApp/SCADACacheMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
-              listenerName: "CEPubSubMicroServiceListener"
+              listenerName: "SCADAComunicationMicroserviceListener"
             );
             string ipAddress = GetLocalIPAddress();
             int port = GetAvailablePort();
@@ -137,14 +138,14 @@ namespace dCom.ViewModel
             string ClientAddress = String.Format("net.tcp://{0}:{1}/ICECommunicationPubSub", ipAddress, port);
 
             bool ret = false;
-
+           // ret = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendEndpoints(ClientAddress)).Result;
             while (ret != true)
             {
                 try
                 {
                     ret = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendEndpoints(ClientAddress)).Result;
                 }
-                catch
+                catch (Exception e)
                 {
 
                 }
@@ -209,7 +210,6 @@ namespace dCom.ViewModel
             return -1;
 
         }
-
         private string GetLocalIPAddress()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());

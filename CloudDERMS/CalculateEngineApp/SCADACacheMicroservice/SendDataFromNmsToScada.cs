@@ -89,13 +89,16 @@ namespace SCADACacheMicroservice
                     }
                 }
 
+                string clientAddress = "";
 
-                string clientAddress;
-                using (var tx = _stateManager.CreateTransaction())
+                do 
                 {
-                    IReliableQueue<string> queue = _stateManager.GetOrAddAsync<IReliableQueue<string>>("endpoints").Result;
-                    clientAddress = queue.TryPeekAsync(tx).Result.Value;
-                }
+                    using (var tx = _stateManager.CreateTransaction())
+                    {
+                        IReliableQueue<string> queue = _stateManager.GetOrAddAsync<IReliableQueue<string>>("endpoints").Result;
+                        clientAddress = queue.TryPeekAsync(tx).Result.Value;
+                    }
+                } while(clientAddress == null || clientAddress == "");
 
                 NetTcpBinding binding = new NetTcpBinding();
                 var factory = new ChannelFactory<IScadaCloudServer>(binding, new EndpointAddress(clientAddress));

@@ -91,15 +91,15 @@ namespace dCom.Simulation
 
                         try
                         {
-                            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)vrednost, configuration);
+                            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)Common.ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)vrednost, configuration);
                             Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
                             commandExecutor.EnqueueCommand(fn);
                             ((Analog)kvp.Value).NormalValue = vrednost;
-                            ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 1), (ushort)vrednost, configuration);
+                            ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)Common.ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 1), (ushort)vrednost, configuration);
                             Common.IModbusFunction fn1 = FunctionFactory.CreateModbusFunction(p1);
                             commandExecutor.EnqueueCommand(fn1);
 
-                                ModbusWriteCommandParameters p12 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 2), 0, configuration);
+                                ModbusWriteCommandParameters p12 = new ModbusWriteCommandParameters(6, (byte)Common.ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 2), 0, configuration);
                                 Common.IModbusFunction fn12 = FunctionFactory.CreateModbusFunction(p12);
                                 commandExecutor.EnqueueCommand(fn12);
 

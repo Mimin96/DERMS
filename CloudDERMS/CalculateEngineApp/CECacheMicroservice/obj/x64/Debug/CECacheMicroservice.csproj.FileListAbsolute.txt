@@ -830,3 +830,5 @@ C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservi
 C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\obj\x64\Debug\CECacheMicroservice.csproj.CopyComplete
 C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\obj\x64\Debug\CECacheMicroservice.exe
 C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\obj\x64\Debug\CECacheMicroservice.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\bin\x64\Debug\netstandard.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\obj\x64\Debug\CECacheMicroservice.exe.config

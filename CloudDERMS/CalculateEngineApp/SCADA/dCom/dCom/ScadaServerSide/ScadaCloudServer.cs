@@ -29,7 +29,7 @@ namespace dCom.ScadaServerSide
 
         public void LogMessage(string message)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void SendCommandToSimlator(ushort length, byte functionCode, ushort outputAddress, ushort value)
@@ -43,7 +43,7 @@ namespace dCom.ScadaServerSide
 
         public void UpdateConnectionState(Common.ConnectionState currentConnectionState)
         {
-            throw new NotImplementedException();
+           
         }
     }
 }

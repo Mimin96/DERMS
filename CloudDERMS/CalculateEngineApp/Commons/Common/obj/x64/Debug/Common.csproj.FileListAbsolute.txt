@@ -48,3 +48,4 @@ C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\ob
 C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\Common.csproj.CoreCompileInputs.cache
 C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\FTN.Common.dll
 C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\FTN.Common.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\Common.csprojAssemblyReference.cache
