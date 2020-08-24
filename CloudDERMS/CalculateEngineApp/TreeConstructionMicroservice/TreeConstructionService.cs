@@ -196,11 +196,6 @@ namespace TreeConstructionMicroservice
             //OBAVESTI UI DA JE DOSLO DO PROMENE I POSALJI OVAJ GRAPH
         }
 
-        public async Task<List<NetworkModelTreeClass>> GetNetworkModelTreeClass()
-		{
-            return NetworkModelTreeClass;
-        }
-
         private void DoStartTerminal(Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             // Get energy ESRC

@@ -4,7 +4,6 @@ using DERMSCommon.DataModel.Meas;
 using DERMSCommon.DataModel.Wires;
 using DERMSCommon.NMSCommuication;
 using DERMSCommon.SCADACommon;
-using DERMSCommon.UIModel.ThreeViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,9 +79,6 @@ namespace CloudCommon.CalculateEngine
         [ServiceKnownType(typeof(ConductingEquipment))]
         [ServiceKnownType(typeof(GeographicalRegion))]
         Task<TreeNode<NodeData>> ConstructTree1(NetworkModelTransfer networkModelTransfer);
-
-        [OperationContract]
-        Task<List<NetworkModelTreeClass>> GetNetworkModelTreeClass();
 
     }
 }

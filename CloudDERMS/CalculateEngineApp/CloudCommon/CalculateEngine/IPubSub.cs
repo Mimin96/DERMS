@@ -1,5 +1,4 @@
-﻿using DERMSCommon;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -13,7 +12,5 @@ namespace CloudCommon.CalculateEngine
 	{
 		[OperationContract]
 		Task<bool> SubscribeSubscriber(string clientAddress, int gidOfTopic);
-		[OperationContract]
-		Task<bool> Notify(DataToUI forcastDayAhead, long gidOfTopic);
 	}
 }

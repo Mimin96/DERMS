@@ -17,7 +17,7 @@ namespace CloudCommon.CalculateEngine
     {
         //MUST HAVE GET CREATE UPDATE DELETE 
         [OperationContract]
-        Task<bool> PopulateNSMModelCache(NetworkModelTransfer networkModelTransfer);
+        void PopulateNSMModelCache(NetworkModelTransfer networkModelTransfer);
         [OperationContract]
         Task<Dictionary<long, IdentifiedObject>> GetNMSModel();
         [OperationContract]
@@ -25,11 +25,11 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         void AddScadaPoints(List<DataPoint> dataPoints);
         [OperationContract]
-        Task<bool> PopulateWeatherForecast(NetworkModelTransfer networkModel);
+        void PopulateWeatherForecast(NetworkModelTransfer networkModel);
         [OperationContract]
-        Task<bool> PopulateConsumptionForecast(NetworkModelTransfer networkModel);
+        void PopulateConsumptionForecast(NetworkModelTransfer networkModel);
         [OperationContract]
-        Task<bool> PopulateProductionForecast(NetworkModelTransfer networkModel);
+        void PopulateProductionForecast(NetworkModelTransfer networkModel);
         [OperationContract]
         Task CalculateNewFlexibility(DataToUI data);
         [OperationContract]

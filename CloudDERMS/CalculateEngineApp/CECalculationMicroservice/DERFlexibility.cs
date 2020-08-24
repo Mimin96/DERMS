@@ -3,13 +3,10 @@ using DERMSCommon.DataModel.Core;
 using DERMSCommon.NMSCommuication;
 using DERMSCommon.WeatherForecast;
 using FTN.Common;
-using Microsoft.ServiceFabric.Data;
-using Microsoft.ServiceFabric.Data.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace CECalculationMicroservice
@@ -131,70 +128,38 @@ namespace CECalculationMicroservice
 			}
 		}
 
-		public async Task<bool> CheckFlexibilityForManualCommanding(long gid, IReliableDictionary<long, IdentifiedObject> model, IReliableStateManager stateManager)
+		public bool CheckFlexibilityForManualCommanding(long gid, Dictionary<long, IdentifiedObject> model)
 		{
-			using (var tx = stateManager.CreateTransaction())
+			bool flexibility = false;
+			List<Generator> allGenerators = new List<Generator>();
+			allGenerators = GetGeneratorsForManualCommand(model);
+
+			if (model.ContainsKey(gid))
 			{
-				bool flexibility = false;
-				List<Generator> allGenerators = new List<Generator>();
-				allGenerators = GetGeneratorsForManualCommand(model, stateManager);
+				var type = model[gid].GetType();
 
-				if (await model.ContainsKeyAsync(tx, gid))
+				if (type.Name.Equals("Substation"))
 				{
-					var type = model.TryGetValueAsync(tx, gid).Result.GetType();
-
-					if (type.Name.Equals("Substation"))
+					Substation substation = (Substation)model[gid];
+					foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
 					{
-						ConditionalValue<IdentifiedObject> io = await model.TryGetValueAsync(tx, gid);
-						Substation substation = (Substation)io.Value;
-
-						foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
+						if (substation.Equipments.Contains(kvpGenerator.Key) && !kvpGenerator.Value)  // <- umesto flexibility treba generator.flexibility
 						{
-							if (substation.Equipments.Contains(kvpGenerator.Key) && !kvpGenerator.Value)  // <- umesto flexibility treba generator.flexibility
-							{
-								generatorsForOverclock.Add(kvpGenerator.Key);
-								flexibility = true;
-								break;
-							}
+							generatorsForOverclock.Add(kvpGenerator.Key);
+							flexibility = true;
+							break;
 						}
 					}
-					else if (type.Name.Equals("GeographicalRegion"))
+				}
+				else if (type.Name.Equals("GeographicalRegion"))
+				{
+					GeographicalRegion gr = (GeographicalRegion)model[gid];
+					foreach (long s in gr.Regions)
 					{
-						ConditionalValue<IdentifiedObject> io = await model.TryGetValueAsync(tx, gid);
-						GeographicalRegion gr = (GeographicalRegion)io.Value;
-
-						foreach (long s in gr.Regions)
+						SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)model[s];
+						foreach (long sub in subGeographicalRegion.Substations)
 						{
-							ConditionalValue<IdentifiedObject> io2 = await model.TryGetValueAsync(tx, s);
-							SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)io2.Value;
-
-							foreach (long sub in subGeographicalRegion.Substations)
-							{
-								ConditionalValue<IdentifiedObject> io3 = await model.TryGetValueAsync(tx, sub);
-								Substation substation = (Substation)io3.Value;
-
-								foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
-								{
-									if (substation.Equipments.Contains(kvpGenerator.Key) && !kvpGenerator.Value)  // <- umesto flexibility treba generator.flexibility
-									{
-										generatorsForOverclock.Add(kvpGenerator.Key);
-										flexibility = true;
-										break;
-									}
-								}
-							}
-						}
-					}
-					else if (type.Name.Equals("SubGeographicalRegion"))
-					{
-						ConditionalValue<IdentifiedObject> io = await model.TryGetValueAsync(tx, gid);
-						SubGeographicalRegion sgr = (SubGeographicalRegion)io.Value;
-
-						foreach (long sub in sgr.Substations)
-						{
-							ConditionalValue<IdentifiedObject> io2 = await model.TryGetValueAsync(tx, sub);
-							Substation substation = (Substation)io2.Value;
-
+							Substation substation = (Substation)model[sub];
 							foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
 							{
 								if (substation.Equipments.Contains(kvpGenerator.Key) && !kvpGenerator.Value)  // <- umesto flexibility treba generator.flexibility
@@ -206,14 +171,16 @@ namespace CECalculationMicroservice
 							}
 						}
 					}
-					else if (type.Name.Equals("Generator"))
+				}
+				else if (type.Name.Equals("SubGeographicalRegion"))
+				{
+					SubGeographicalRegion sgr = (SubGeographicalRegion)model[gid];
+					foreach (long sub in sgr.Substations)
 					{
-						ConditionalValue<IdentifiedObject> io4 = await model.TryGetValueAsync(tx, gid);
-						Generator generator = (Generator)io4.Value;
-
+						Substation substation = (Substation)model[sub];
 						foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
 						{
-							if (generator.GlobalId.Equals(kvpGenerator.Key) && !kvpGenerator.Value)  // TurnOnFlexibilityForManualCommanding NE MOZE SE PROSLEDJIVATI GID GENERATORA
+							if (substation.Equipments.Contains(kvpGenerator.Key) && !kvpGenerator.Value)  // <- umesto flexibility treba generator.flexibility
 							{
 								generatorsForOverclock.Add(kvpGenerator.Key);
 								flexibility = true;
@@ -221,237 +188,220 @@ namespace CECalculationMicroservice
 							}
 						}
 					}
-
-					foreach (long gen in generatorsForOverclock)
+				}
+				else if (type.Name.Equals("Generator"))
+				{
+					Generator generator = (Generator)model[gid];
+					foreach (KeyValuePair<long, bool> kvpGenerator in stateOfGenerator)
 					{
-						stateOfGenerator[gen] = !stateOfGenerator[gen];
+						if (generator.GlobalId.Equals(kvpGenerator.Key) && !kvpGenerator.Value)  // TurnOnFlexibilityForManualCommanding NE MOZE SE PROSLEDJIVATI GID GENERATORA
+						{
+							generatorsForOverclock.Add(kvpGenerator.Key);
+							flexibility = true;
+							break;
+						}
 					}
 				}
-				else
-				{
-					flexibility = true;
-				}
 
-				return flexibility;
+				foreach (long gen in generatorsForOverclock)
+				{
+					stateOfGenerator[gen] = !stateOfGenerator[gen];
+				}
 			}
+			else
+			{
+				flexibility = true;
+			}
+
+			return flexibility;
 		}
 
 		#region NetworkModel
-		public async Task CalculateNewDerForecastDayAheadForNetworkModel(double flexibilityValue, IReliableDictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities, IReliableStateManager stateManager)
+		public void CalculateNewDerForecastDayAheadForNetworkModel(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
 		{
-			using (var tx = stateManager.CreateTransaction())
+			int numOfHour = -1;
+			bool finished = false;
+			double networkModelActivePower = 0;
+			if (!affectedEntities.Count.Equals(0))
 			{
-				int numOfHour = -1;
-				bool finished = false;
-				double networkModelActivePower = 0;
-				if (!affectedEntities.Count.Equals(0))
+				if (flexibilityValue > 0)
 				{
-					if (flexibilityValue > 0)
+					while (numOfHour < 23)
 					{
-						while (numOfHour < 23)
+						numOfHour++;
+						finished = false;
+
+						foreach (var gr in affectedEntities.Values)
 						{
-							numOfHour++;
-							finished = false;
-
-							foreach (var gr in affectedEntities.Values)
+							if (gr.GetType().Name.Equals("GeographicalRegion"))
 							{
-								if (gr.GetType().Name.Equals("GeographicalRegion"))
-								{
-									ConditionalValue<DerForecastDayAhead> derForecastDayAhead = await derForcast.TryGetValueAsync(tx, gr.GlobalId);
-									DayAhead dayAhead = derForecastDayAhead.Value.Production;
-									networkModelActivePower += dayAhead.Hourly[numOfHour].ActivePower;
-								}
+								networkModelActivePower += derForcast[gr.GlobalId].Production.Hourly[numOfHour].ActivePower;
 							}
+						}
 
-							double productionHour = networkModelActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
-							foreach (IdentifiedObject io in affectedEntities.Values)
+						double productionHour = networkModelActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
+						foreach (IdentifiedObject io in affectedEntities.Values)
+						{
+							if (!finished)
 							{
-								if (!finished)
+								if (io.GetType().Name.Equals("GeographicalRegion"))
 								{
-									if (io.GetType().Name.Equals("GeographicalRegion"))
+									GeographicalRegion geographicalRegion = (GeographicalRegion)io;
+
+									foreach (long subGeoReg in geographicalRegion.Regions)
 									{
-										GeographicalRegion geographicalRegion = (GeographicalRegion)io;
-
-										foreach (long subGeoReg in geographicalRegion.Regions)
+										SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[subGeoReg];
+										foreach (long sub in subGeographicalRegion.Substations)
 										{
-											SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[subGeoReg];
-											foreach (long sub in subGeographicalRegion.Substations)
+											if (!finished)
 											{
-												if (!finished)
+												Substation substation = (Substation)affectedEntities[sub];
+												foreach (long gen in substation.Equipments)
 												{
-													Substation substation = (Substation)affectedEntities[sub];
-													foreach (long gen in substation.Equipments)
+													if (affectedEntities.ContainsKey(gen))
 													{
-														if (affectedEntities.ContainsKey(gen))
+														Generator generator = (Generator)affectedEntities[gen];
+														if (generator.MaxFlexibility > 0)
 														{
-															Generator generator = (Generator)affectedEntities[gen];
-															if (generator.MaxFlexibility > 0)
+															double genProduction = 0;
+															double genProductionInPercent = 0;
+															double contition = productionHour - (derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100));
+															if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
 															{
-																double genProduction = 0;
-																double genProductionInPercent = 0;
-
-																ConditionalValue<DerForecastDayAhead> derForecastDayAhead2 = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-																DayAhead dayAhead = derForecastDayAhead2.Value.Production;
-
-																double contition = productionHour - (dayAhead.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100));
-																if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
-																{
-																	genProduction = dayAhead.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
-																	genProductionInPercent = (100 * genProduction) / dayAhead.Hourly[numOfHour].ActivePower;
-																	productionHour -= genProduction;
-																}
-																else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
-																{
-																	genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
-																	genProductionInPercent = (100 * genProduction) / dayAhead.Hourly[numOfHour].ActivePower;
-																	productionHour -= genProduction;
-																	finished = true;
-																}
-																else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
-																{
-																	genProduction = dayAhead.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
-																	genProductionInPercent = (100 * genProduction) / dayAhead.Hourly[numOfHour].ActivePower;
-																	productionHour -= genProduction;
-																	finished = true;
-																}
-
-																ConditionalValue<DerForecastDayAhead> derForecastDayAheadGenerator = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-																derForecastDayAheadGenerator.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
-
-																ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation = await derForcast.TryGetValueAsync(tx, substation.GlobalId);
-																derForecastDayAheadSubstation.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-																ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubGeographicalRegion = await derForcast.TryGetValueAsync(tx, subGeographicalRegion.GlobalId);
-																derForecastDayAheadSubGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-																ConditionalValue<DerForecastDayAhead> derForecastDayAheadGeographicalRegion = await derForcast.TryGetValueAsync(tx, geographicalRegion.GlobalId);
-																derForecastDayAheadGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
-
-																if (finished)
-																	break;
-
+																genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
+																genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+																productionHour -= genProduction;
 															}
-														}
+															else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+															{
+																genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
+																genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+																productionHour -= genProduction;
+																finished = true;
+															}
+															else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+															{
+																genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
+																genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+																productionHour -= genProduction;
+																finished = true;
+															}
 
+															derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
+															derForcast[substation.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+															derForcast[subGeographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+															derForcast[geographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
+
+															if (finished)
+																break;
+
+														}
 													}
+
 												}
-												else
-												{
-													break;
-												}
+											}
+											else
+											{
+												break;
 											}
 										}
 									}
 								}
-								else
-								{
-									break;
-								}
+							}
+							else
+							{
+								break;
 							}
 						}
 					}
-					else if (flexibilityValue < 0)
+				}
+				else if (flexibilityValue < 0)
+				{
+
+					while (numOfHour < 23)
 					{
+						numOfHour++;
+						finished = false;
 
-						while (numOfHour < 23)
+						foreach (var gr in affectedEntities.Values)
 						{
-							numOfHour++;
-							finished = false;
-
-							foreach (var gr in affectedEntities.Values)
+							if (gr.GetType().Name.Equals("GeographicalRegion"))
 							{
-								if (gr.GetType().Name.Equals("GeographicalRegion"))
-								{
-									ConditionalValue<DerForecastDayAhead> derForecastDayAhead = await derForcast.TryGetValueAsync(tx, gr.GlobalId);
-									DayAhead dayAhead = derForecastDayAhead.Value.Production;
-									networkModelActivePower += dayAhead.Hourly[numOfHour].ActivePower;
-								}
+								networkModelActivePower += derForcast[gr.GlobalId].Production.Hourly[numOfHour].ActivePower;
 							}
+						}
 
-							double productionHour = -1 * networkModelActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE SMANJI PROZIVODNJA PO SATU
-							foreach (IdentifiedObject io in affectedEntities.Values)
+						double productionHour = -1 * networkModelActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE SMANJI PROZIVODNJA PO SATU
+						foreach (IdentifiedObject io in affectedEntities.Values)
+						{
+							if (!finished)
 							{
-								if (!finished)
+								if (io.GetType().Name.Equals("GeographicalRegion"))
 								{
-									if (io.GetType().Name.Equals("GeographicalRegion"))
+									GeographicalRegion geographicalRegion = (GeographicalRegion)io;
+
+									foreach (long subGeoReg in geographicalRegion.Regions)
 									{
-										GeographicalRegion geographicalRegion = (GeographicalRegion)io;
-
-										foreach (long subGeoReg in geographicalRegion.Regions)
+										SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[subGeoReg];
+										foreach (long sub in subGeographicalRegion.Substations)
 										{
-											SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[subGeoReg];
-											foreach (long sub in subGeographicalRegion.Substations)
+											if (!finished)
 											{
-												if (!finished)
+												Substation substation = (Substation)affectedEntities[sub];
+												foreach (long gen in substation.Equipments)
 												{
-													Substation substation = (Substation)affectedEntities[sub];
-													foreach (long gen in substation.Equipments)
+													if (affectedEntities.ContainsKey(gen))
 													{
-														if (affectedEntities.ContainsKey(gen))
+														Generator generator = (Generator)affectedEntities[gen];
+														if (generator.MinFlexibility > 0)
 														{
-															Generator generator = (Generator)affectedEntities[gen];
-															if (generator.MinFlexibility > 0)
+															double genProduction = 0;
+															double genProductionInPercent = 0;
+															double contition = productionHour - (derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100));
+															if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MIN I NASTAVLJAMO DALJE DA SMANJUJEMO PROIZVODNJU OSTALIH GENERATORA
 															{
-																double genProduction = 0;
-																double genProductionInPercent = 0;
-
-																ConditionalValue<DerForecastDayAhead> derForecastDayAhead2 = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-																DayAhead dayAhead = derForecastDayAhead2.Value.Production;
-
-																double contition = productionHour - (dayAhead.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100));
-																if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MIN I NASTAVLJAMO DALJE DA SMANJUJEMO PROIZVODNJU OSTALIH GENERATORA
-																{
-																	genProduction = dayAhead.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
-																	genProductionInPercent = (100 * genProduction) / dayAhead.Hourly[numOfHour].ActivePower;
-																	productionHour -= genProduction;
-																}
-																else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
-																{
-																	genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
-																	genProductionInPercent = (100 * genProduction) / dayAhead.Hourly[numOfHour].ActivePower;
-																	productionHour -= genProduction;
-																	finished = true;
-																}
-																else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
-																{
-																	genProduction = dayAhead.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
-																	genProductionInPercent = (100 * genProduction) / dayAhead.Hourly[numOfHour].ActivePower;
-																	productionHour -= genProduction;
-																	finished = true;
-																}
-
-																ConditionalValue<DerForecastDayAhead> derForecastDayAheadGenerator = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-																derForecastDayAheadGenerator.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
-
-																ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation = await derForcast.TryGetValueAsync(tx, substation.GlobalId);
-																derForecastDayAheadSubstation.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-																ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubGeographicalRegion = await derForcast.TryGetValueAsync(tx, subGeographicalRegion.GlobalId);
-																derForecastDayAheadSubGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-																ConditionalValue<DerForecastDayAhead> derForecastDayAheadGeographicalRegion = await derForcast.TryGetValueAsync(tx, geographicalRegion.GlobalId);
-																derForecastDayAheadGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
-
-
-																if (finished)
-																	break;
+																genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
+																genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+																productionHour -= genProduction;
 															}
-														}
+															else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+															{
+																genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
+																genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+																productionHour -= genProduction;
+																finished = true;
+															}
+															else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+															{
+																genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
+																genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+																productionHour -= genProduction;
+																finished = true;
+															}
 
+															derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
+															derForcast[substation.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+															derForcast[subGeographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+															derForcast[geographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
+
+															if (finished)
+																break;
+														}
 													}
+
 												}
-												else
-												{
-													break;
-												}
+											}
+											else
+											{
+												break;
 											}
 										}
 									}
 								}
-								else
-								{
-									break;
-								}
+							}
+							else
+							{
+								break;
 							}
 						}
 					}
@@ -459,7 +409,7 @@ namespace CECalculationMicroservice
 			}
 		}
 
-		public async Task<Dictionary<long, double>> TurnOnFlexibilityForNetworkModel(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
+		public Dictionary<long, double> TurnOnFlexibilityForNetworkModel(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
 		{
 			Dictionary<long, double> ret = new Dictionary<long, double>();
 			Dictionary<long, double> allGeneratorsProduction = new Dictionary<long, double>();
@@ -615,211 +565,176 @@ namespace CECalculationMicroservice
 			}
 
 			return ret;
-
 		}
 
 		#endregion
 
 		#region GeoRegion
 
-		public async Task CalculateNewDerForecastDayAheadForGeoRegion(double flexibilityValue, IReliableDictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities, IReliableStateManager stateManager)
+		public void CalculateNewDerForecastDayAheadForGeoRegion(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
 		{
-			using (var tx = stateManager.CreateTransaction())
+			GeographicalRegion geographicalRegion = (GeographicalRegion)affectedEntities[gid];
+			int numOfHour = -1;
+			bool finished = false;
+			if (!affectedEntities.Count.Equals(0))
 			{
-				GeographicalRegion geographicalRegion = (GeographicalRegion)affectedEntities[gid];
-				int numOfHour = -1;
-				bool finished = false;
-				if (!affectedEntities.Count.Equals(0))
+				if (flexibilityValue > 0)
 				{
-					if (flexibilityValue > 0)
+					foreach (HourDataPoint datapoint in derForcast[gid].Production.Hourly)
 					{
-						ConditionalValue<DerForecastDayAhead> derForecastDayAhead = await derForcast.TryGetValueAsync(tx, gid);
-						DayAhead dayAhead = derForecastDayAhead.Value.Production;
-
-						foreach (HourDataPoint datapoint in dayAhead.Hourly)
+						numOfHour++;
+						finished = false;
+						double productionHour = datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
+						foreach (IdentifiedObject io in affectedEntities.Values)
 						{
-							numOfHour++;
-							finished = false;
-							double productionHour = datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
-							foreach (IdentifiedObject io in affectedEntities.Values)
+							if (!finished)
 							{
-								if (!finished)
+								if (io.GetType().Name.Equals("SubGeographicalRegion"))
 								{
-									if (io.GetType().Name.Equals("SubGeographicalRegion"))
+									SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)io;
+									foreach (long sub in subGeographicalRegion.Substations)
 									{
-										SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)io;
-										foreach (long sub in subGeographicalRegion.Substations)
+										if (!finished)
 										{
-											if (!finished)
+											Substation substation = (Substation)affectedEntities[sub];
+											foreach (long gen in substation.Equipments)
 											{
-												Substation substation = (Substation)affectedEntities[sub];
-												foreach (long gen in substation.Equipments)
+												if (affectedEntities.ContainsKey(gen))
 												{
-													if (affectedEntities.ContainsKey(gen))
+													Generator generator = (Generator)affectedEntities[gen];
+													if (generator.MaxFlexibility > 0)
 													{
-														Generator generator = (Generator)affectedEntities[gen];
-														if (generator.MaxFlexibility > 0)
+														double genProduction = 0;
+														double genProductionInPercent = 0;
+														double contition = productionHour - (derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100));
+														if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
 														{
-															double genProduction = 0;
-															double genProductionInPercent = 0;
-
-															ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubReg = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-															DayAhead dayAheadSubReg = derForecastDayAheadSubReg.Value.Production;
-
-															double contition = productionHour - (dayAheadSubReg.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100));
-															if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
-															{
-																genProduction = dayAheadSubReg.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
-																genProductionInPercent = (100 * genProduction) / dayAheadSubReg.Hourly[numOfHour].ActivePower;
-																productionHour -= genProduction;
-															}
-															else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
-															{
-																genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
-																genProductionInPercent = (100 * genProduction) / dayAheadSubReg.Hourly[numOfHour].ActivePower;
-																productionHour -= genProduction;
-																finished = true;
-															}
-															else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
-															{
-																genProduction = dayAheadSubReg.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
-																genProductionInPercent = (100 * genProduction) / dayAheadSubReg.Hourly[numOfHour].ActivePower;
-																productionHour -= genProduction;
-																finished = true;
-															}
-
-															ConditionalValue<DerForecastDayAhead> derForecastDayAheadGenerator = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-															derForecastDayAheadGenerator.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
-
-															ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation = await derForcast.TryGetValueAsync(tx, substation.GlobalId);
-															derForecastDayAheadSubstation.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-															ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubGeographicalRegion = await derForcast.TryGetValueAsync(tx, subGeographicalRegion.GlobalId);
-															derForecastDayAheadSubGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-															ConditionalValue<DerForecastDayAhead> derForecastDayAheadGeographicalRegion = await derForcast.TryGetValueAsync(tx, geographicalRegion.GlobalId);
-															derForecastDayAheadGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
-
-															if (finished)
-																break;
-
+															genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
+															genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+															productionHour -= genProduction;
 														}
-													}
+														else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+														{
+															genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
+															genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+															productionHour -= genProduction;
+															finished = true;
+														}
+														else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+														{
+															genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
+															genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+															productionHour -= genProduction;
+															finished = true;
+														}
 
+														derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
+														derForcast[substation.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+														derForcast[subGeographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+														derForcast[geographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
+
+														if (finished)
+															break;
+
+													}
 												}
+
 											}
-											else
-											{
-												break;
-											}
+										}
+										else
+										{
+											break;
 										}
 									}
 								}
-								else
-								{
-									break;
-								}
+							}
+							else
+							{
+								break;
 							}
 						}
 					}
-					else if (flexibilityValue < 0)
+				}
+				else if (flexibilityValue < 0)
+				{
+					foreach (HourDataPoint datapoint in derForcast[gid].Production.Hourly)
 					{
-
-						ConditionalValue<DerForecastDayAhead> derForecastDayAhead = await derForcast.TryGetValueAsync(tx, gid);
-						DayAhead dayAhead = derForecastDayAhead.Value.Production;
-
-						foreach (HourDataPoint datapoint in dayAhead.Hourly)
+						numOfHour++;
+						finished = false;
+						double productionHour = -1 * datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE SMANJI PROZIVODNJA PO SATU
+						foreach (IdentifiedObject io in affectedEntities.Values)
 						{
-							numOfHour++;
-							finished = false;
-							double productionHour = -1 * datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE SMANJI PROZIVODNJA PO SATU
-							foreach (IdentifiedObject io in affectedEntities.Values)
+							if (!finished)
 							{
-								if (!finished)
+								if (io.GetType().Name.Equals("SubGeographicalRegion"))
 								{
-									if (io.GetType().Name.Equals("SubGeographicalRegion"))
+									SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)io;
+									foreach (long sub in subGeographicalRegion.Substations)
 									{
-										SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)io;
-										foreach (long sub in subGeographicalRegion.Substations)
+										if (!finished)
 										{
-											if (!finished)
+											Substation substation = (Substation)affectedEntities[sub];
+											foreach (long gen in substation.Equipments)
 											{
-												Substation substation = (Substation)affectedEntities[sub];
-												foreach (long gen in substation.Equipments)
+												if (affectedEntities.ContainsKey(gen))
 												{
-													if (affectedEntities.ContainsKey(gen))
+													Generator generator = (Generator)affectedEntities[gen];
+													if (generator.MinFlexibility > 0)
 													{
-														Generator generator = (Generator)affectedEntities[gen];
-														if (generator.MinFlexibility > 0)
+														double genProduction = 0;
+														double genProductionInPercent = 0;
+														double contition = productionHour - (derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100));
+														if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MIN I NASTAVLJAMO DALJE DA SMANJUJEMO PROIZVODNJU OSTALIH GENERATORA
 														{
-															double genProduction = 0;
-															double genProductionInPercent = 0;
-
-															ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubReg = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-															DayAhead dayAheadSubReg = derForecastDayAheadSubReg.Value.Production;
-
-															double contition = productionHour - (dayAheadSubReg.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100));
-															if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MIN I NASTAVLJAMO DALJE DA SMANJUJEMO PROIZVODNJU OSTALIH GENERATORA
-															{
-																genProduction = dayAheadSubReg.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
-																genProductionInPercent = (100 * genProduction) / dayAheadSubReg.Hourly[numOfHour].ActivePower;
-																productionHour -= genProduction;
-															}
-															else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
-															{
-																genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
-																genProductionInPercent = (100 * genProduction) / dayAheadSubReg.Hourly[numOfHour].ActivePower;
-																productionHour -= genProduction;
-																finished = true;
-															}
-															else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
-															{
-																genProduction = dayAheadSubReg.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
-																genProductionInPercent = (100 * genProduction) / dayAheadSubReg.Hourly[numOfHour].ActivePower;
-																productionHour -= genProduction;
-																finished = true;
-															}
-
-															ConditionalValue<DerForecastDayAhead> derForecastDayAheadGenerator = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-															derForecastDayAheadGenerator.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
-
-															ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation = await derForcast.TryGetValueAsync(tx, substation.GlobalId);
-															derForecastDayAheadSubstation.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-															ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubGeographicalRegion = await derForcast.TryGetValueAsync(tx, subGeographicalRegion.GlobalId);
-															derForecastDayAheadSubGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-															ConditionalValue<DerForecastDayAhead> derForecastDayAheadGeographicalRegion = await derForcast.TryGetValueAsync(tx, geographicalRegion.GlobalId);
-															derForecastDayAheadGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
-
-															if (finished)
-																break;
+															genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
+															genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+															productionHour -= genProduction;
 														}
-													}
+														else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+														{
+															genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
+															genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+															productionHour -= genProduction;
+															finished = true;
+														}
+														else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+														{
+															genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
+															genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+															productionHour -= genProduction;
+															finished = true;
+														}
 
+														derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
+														derForcast[substation.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+														derForcast[subGeographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+														derForcast[geographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
+
+														if (finished)
+															break;
+													}
 												}
+
 											}
-											else
-											{
-												break;
-											}
+										}
+										else
+										{
+											break;
 										}
 									}
 								}
-								else
-								{
-									break;
-								}
+							}
+							else
+							{
+								break;
 							}
 						}
 					}
 				}
 			}
-
-
 		}
 
-		public async Task<Dictionary<long, double>> TurnOnFlexibilityForGeoRegion(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
+		public Dictionary<long, double> TurnOnFlexibilityForGeoRegion(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
 		{
 			Dictionary<long, double> ret = new Dictionary<long, double>();
 			Dictionary<long, double> allGeneratorsProduction = new Dictionary<long, double>();
@@ -961,199 +876,165 @@ namespace CECalculationMicroservice
 			}
 
 			return ret;
-
 		}
 
 		#endregion
 
 		#region SubGeoRegion
-		public async Task CalculateNewDerForecastDayAheadForSubGeoRegion(double flexibilityValue, IReliableDictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities, IReliableStateManager stateManager)
+		public void CalculateNewDerForecastDayAheadForSubGeoRegion(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
 		{
-			using (var tx = stateManager.CreateTransaction())
+			SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[gid];
+			GeographicalRegion geographicalRegion = null;
+			int numOfHour = -1;
+			bool finished = false;
+			if (!affectedEntities.Count.Equals(0))
 			{
-				SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)affectedEntities[gid];
-				GeographicalRegion geographicalRegion = null;
-				int numOfHour = -1;
-				bool finished = false;
-				if (!affectedEntities.Count.Equals(0))
+				foreach (IdentifiedObject io in affectedEntities.Values)
 				{
-					foreach (IdentifiedObject io in affectedEntities.Values)
+					if (io.GetType().Name.Equals("GeographicalRegion"))
 					{
-						if (io.GetType().Name.Equals("GeographicalRegion"))
-						{
-							geographicalRegion = (GeographicalRegion)io;
-							break;
-						}
+						geographicalRegion = (GeographicalRegion)io;
+						break;
 					}
-
-					if (flexibilityValue > 0)
-					{
-
-						ConditionalValue<DerForecastDayAhead> derForecastDayAhead = await derForcast.TryGetValueAsync(tx, gid);
-						DayAhead dayAhead = derForecastDayAhead.Value.Production;
-
-						foreach (HourDataPoint datapoint in dayAhead.Hourly)
-						{
-							numOfHour++;
-							finished = false;
-
-							double productionHour = datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
-							foreach (IdentifiedObject io in affectedEntities.Values)
-							{
-								if (!finished)
-								{
-									if (io.GetType().Name.Equals("Substation"))
-									{
-										Substation substation = (Substation)io;
-										foreach (long gen in substation.Equipments)
-										{
-											if (affectedEntities.ContainsKey(gen))
-											{
-												Generator generator = (Generator)affectedEntities[gen];
-												if (generator.MaxFlexibility > 0)
-												{
-													double genProduction = 0;
-													double genProductionInPercent = 0;
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-													DayAhead dayAheadSubstation = derForecastDayAheadSubstation.Value.Production;
-
-													double contition = productionHour - (dayAheadSubstation.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100));
-													if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
-													{
-														genProduction = dayAheadSubstation.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
-														genProductionInPercent = (100 * genProduction) / dayAheadSubstation.Hourly[numOfHour].ActivePower;
-														productionHour -= genProduction;
-													}
-													else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
-													{
-														genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
-														genProductionInPercent = (100 * genProduction) / dayAheadSubstation.Hourly[numOfHour].ActivePower;
-														productionHour -= genProduction;
-														finished = true;
-													}
-													else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
-													{
-														genProduction = dayAheadSubstation.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
-														genProductionInPercent = (100 * genProduction) / dayAheadSubstation.Hourly[numOfHour].ActivePower;
-														productionHour -= genProduction;
-														finished = true;
-													}
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadGenerator = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-													derForecastDayAheadGenerator.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation2 = await derForcast.TryGetValueAsync(tx, substation.GlobalId);
-													derForecastDayAheadSubstation2.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubGeographicalRegion = await derForcast.TryGetValueAsync(tx, subGeographicalRegion.GlobalId);
-													derForecastDayAheadSubGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadGeographicalRegion = await derForcast.TryGetValueAsync(tx, geographicalRegion.GlobalId);
-													derForecastDayAheadGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
-
-													if (finished)
-														break;
-												}
-											}
-
-										}
-									}
-								}
-								else
-								{
-									break;
-								}
-							}
-						}
-					}
-					else if (flexibilityValue < 0)
-					{
-
-						ConditionalValue<DerForecastDayAhead> derForecastDayAhead = await derForcast.TryGetValueAsync(tx, gid);
-						DayAhead dayAhead = derForecastDayAhead.Value.Production;
-
-						foreach (HourDataPoint datapoint in dayAhead.Hourly)
-						{
-							numOfHour++;
-							finished = false;
-
-							double productionHour = -1 * datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
-							foreach (IdentifiedObject io in affectedEntities.Values)
-							{
-								if (!finished)
-								{
-									if (io.GetType().Name.Equals("Substation"))
-									{
-										Substation substation = (Substation)io;
-										foreach (long gen in substation.Equipments)
-										{
-											if (affectedEntities.ContainsKey(gen))
-											{
-												Generator generator = (Generator)affectedEntities[gen];
-												if (generator.MaxFlexibility > 0)
-												{
-													double genProduction = 0;
-													double genProductionInPercent = 0;
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-													DayAhead dayAheadSubstation = derForecastDayAheadSubstation.Value.Production;
-
-													double contition = productionHour - (dayAheadSubstation.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100));
-													if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MIN I NASTAVLJAMO DALJE DA SMANJIMO PROIZVODNJU OSTALIH GENERATORA
-													{
-														genProduction = dayAheadSubstation.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
-														genProductionInPercent = (100 * genProduction) / dayAheadSubstation.Hourly[numOfHour].ActivePower;
-														productionHour -= genProduction;
-													}
-													else if (contition < 0) // SMANJIMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
-													{
-														genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA SMANJITI PROIZVODNJU ODREDJENOG GENERATORA
-														genProductionInPercent = (100 * genProduction) / dayAheadSubstation.Hourly[numOfHour].ActivePower;
-														productionHour -= genProduction;
-														finished = true;
-													}
-													else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
-													{
-														genProduction = dayAheadSubstation.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
-														genProductionInPercent = (100 * genProduction) / dayAheadSubstation.Hourly[numOfHour].ActivePower;
-														productionHour -= genProduction;
-														finished = true;
-													}
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadGenerator = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-													derForecastDayAheadGenerator.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation2 = await derForcast.TryGetValueAsync(tx, substation.GlobalId);
-													derForecastDayAheadSubstation2.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubGeographicalRegion = await derForcast.TryGetValueAsync(tx, subGeographicalRegion.GlobalId);
-													derForecastDayAheadSubGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadGeographicalRegion = await derForcast.TryGetValueAsync(tx, geographicalRegion.GlobalId);
-													derForecastDayAheadGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
-
-													if (finished)
-														break;
-												}
-											}
-
-										}
-									}
-								}
-								else
-								{
-									break;
-								}
-							}
-						}
-					}
-
 				}
+
+				if (flexibilityValue > 0)
+				{
+					foreach (HourDataPoint datapoint in derForcast[gid].Production.Hourly)
+					{
+						numOfHour++;
+						finished = false;
+
+						double productionHour = datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
+						foreach (IdentifiedObject io in affectedEntities.Values)
+						{
+							if (!finished)
+							{
+								if (io.GetType().Name.Equals("Substation"))
+								{
+									Substation substation = (Substation)io;
+									foreach (long gen in substation.Equipments)
+									{
+										if (affectedEntities.ContainsKey(gen))
+										{
+											Generator generator = (Generator)affectedEntities[gen];
+											if (generator.MaxFlexibility > 0)
+											{
+												double genProduction = 0;
+												double genProductionInPercent = 0;
+												double contition = productionHour - (derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100));
+												if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
+												{
+													genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
+													genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+													productionHour -= genProduction;
+												}
+												else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+												{
+													genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
+													genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+													productionHour -= genProduction;
+													finished = true;
+												}
+												else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+												{
+													genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
+													genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+													productionHour -= genProduction;
+													finished = true;
+												}
+
+												derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
+												derForcast[substation.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+												derForcast[subGeographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+												derForcast[geographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
+
+												if (finished)
+													break;
+											}
+										}
+
+									}
+								}
+							}
+							else
+							{
+								break;
+							}
+						}
+					}
+				}
+				else if (flexibilityValue < 0)
+				{
+					foreach (HourDataPoint datapoint in derForcast[gid].Production.Hourly)
+					{
+						numOfHour++;
+						finished = false;
+
+						double productionHour = -1 * datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
+						foreach (IdentifiedObject io in affectedEntities.Values)
+						{
+							if (!finished)
+							{
+								if (io.GetType().Name.Equals("Substation"))
+								{
+									Substation substation = (Substation)io;
+									foreach (long gen in substation.Equipments)
+									{
+										if (affectedEntities.ContainsKey(gen))
+										{
+											Generator generator = (Generator)affectedEntities[gen];
+											if (generator.MaxFlexibility > 0)
+											{
+												double genProduction = 0;
+												double genProductionInPercent = 0;
+												double contition = productionHour - (derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100));
+												if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MIN I NASTAVLJAMO DALJE DA SMANJIMO PROIZVODNJU OSTALIH GENERATORA
+												{
+													genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
+													genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+													productionHour -= genProduction;
+												}
+												else if (contition < 0) // SMANJIMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+												{
+													genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA SMANJITI PROIZVODNJU ODREDJENOG GENERATORA
+													genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+													productionHour -= genProduction;
+													finished = true;
+												}
+												else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+												{
+													genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
+													genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+													productionHour -= genProduction;
+													finished = true;
+												}
+
+												derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // SMANJIMO PROIZVODNJU GENERATORA NA MAX
+												derForcast[substation.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // SMANJIMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+												derForcast[subGeographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // SMANJIMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+												derForcast[geographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // SMANJIMO KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
+
+												if (finished)
+													break;
+											}
+										}
+
+									}
+								}
+							}
+							else
+							{
+								break;
+							}
+						}
+					}
+				}
+
 			}
 		}
 
-		public async Task<Dictionary<long, double>> TurnOnFlexibilityForSubGeoRegion(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
+		public Dictionary<long, double> TurnOnFlexibilityForSubGeoRegion(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
 		{
 			Dictionary<long, double> ret = new Dictionary<long, double>();
 			Dictionary<long, double> allGeneratorsProduction = new Dictionary<long, double>();
@@ -1286,199 +1167,166 @@ namespace CECalculationMicroservice
 		#endregion
 
 		#region Substation
-		public async Task CalculateNewDerForecastDayAheadForSubstation(double flexibilityValue, IReliableDictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities, IReliableStateManager stateManager)
+		public void CalculateNewDerForecastDayAheadForSubstation(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
 		{
-			using (var tx = stateManager.CreateTransaction())
+			SubGeographicalRegion subGeographicalRegion = null;
+			GeographicalRegion geographicalRegion = null;
+			Substation substation = (Substation)affectedEntities[gid];
+			int numOfHour = -1;
+			bool finished = false;
+			if (!affectedEntities.Count.Equals(0))
 			{
-				SubGeographicalRegion subGeographicalRegion = null;
-				GeographicalRegion geographicalRegion = null;
-				Substation substation = (Substation)affectedEntities[gid];
-				int numOfHour = -1;
-				bool finished = false;
-				if (!affectedEntities.Count.Equals(0))
+				foreach (IdentifiedObject io in affectedEntities.Values)
 				{
-					foreach (IdentifiedObject io in affectedEntities.Values)
+					if (io.GetType().Name.Equals("GeographicalRegion"))
 					{
-						if (io.GetType().Name.Equals("GeographicalRegion"))
-						{
-							geographicalRegion = (GeographicalRegion)io;
-							break;
-						}
+						geographicalRegion = (GeographicalRegion)io;
+						break;
 					}
-
-					foreach (IdentifiedObject io in affectedEntities.Values)
-					{
-						if (io.GetType().Name.Equals("SubGeographicalRegion"))
-						{
-							subGeographicalRegion = (SubGeographicalRegion)io;
-							break;
-						}
-					}
-
-					if (flexibilityValue > 0)
-					{
-
-						ConditionalValue<DerForecastDayAhead> derForecastDayAhead = await derForcast.TryGetValueAsync(tx, gid);
-						DayAhead dayAhead = derForecastDayAhead.Value.Production;
-
-						foreach (HourDataPoint datapoint in dayAhead.Hourly)
-						{
-							numOfHour++;
-							finished = false;
-							double productionHour = datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
-							foreach (IdentifiedObject io in affectedEntities.Values)
-							{
-								if (!finished)
-								{
-									if (io.GetType().Name.Equals("Substation"))
-									{
-										foreach (long gen in substation.Equipments)
-										{
-											if (affectedEntities.ContainsKey(gen))
-											{
-												Generator generator = (Generator)affectedEntities[gen];
-												if (generator.MaxFlexibility > 0)
-												{
-													double genProduction = 0;
-													double genProductionInPercent = 0;
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-													DayAhead dayAheadSubstation = derForecastDayAheadSubstation.Value.Production;
-
-													double contition = productionHour - (dayAheadSubstation.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100));
-													if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
-													{
-														genProduction = dayAheadSubstation.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
-														genProductionInPercent = (100 * genProduction) / dayAheadSubstation.Hourly[numOfHour].ActivePower;
-														productionHour -= genProduction;
-													}
-													else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
-													{
-														genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
-														genProductionInPercent = (100 * genProduction) / dayAheadSubstation.Hourly[numOfHour].ActivePower;
-														productionHour -= genProduction;
-														finished = true;
-													}
-													else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
-													{
-														genProduction = dayAheadSubstation.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
-														genProductionInPercent = (100 * genProduction) / dayAheadSubstation.Hourly[numOfHour].ActivePower;
-														productionHour -= genProduction;
-														finished = true;
-													}
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadGenerator = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-													derForecastDayAheadGenerator.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation2 = await derForcast.TryGetValueAsync(tx, substation.GlobalId);
-													derForecastDayAheadSubstation2.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubGeographicalRegion = await derForcast.TryGetValueAsync(tx, subGeographicalRegion.GlobalId);
-													derForecastDayAheadSubGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadGeographicalRegion = await derForcast.TryGetValueAsync(tx, geographicalRegion.GlobalId);
-													derForecastDayAheadGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
-
-													if (finished)
-														break;
-												}
-											}
-
-										}
-									}
-								}
-								else
-								{
-									break;
-								}
-							}
-						}
-					}
-					else if (flexibilityValue < 0)
-					{
-
-						ConditionalValue<DerForecastDayAhead> derForecastDayAhead = await derForcast.TryGetValueAsync(tx, gid);
-						DayAhead dayAhead = derForecastDayAhead.Value.Production;
-
-						foreach (HourDataPoint datapoint in dayAhead.Hourly)
-						{
-							numOfHour++;
-							finished = false;
-							double productionHour = -1 * datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE SMANJI PROZIVODNJA PO SATU
-							foreach (IdentifiedObject io in affectedEntities.Values)
-							{
-								if (!finished)
-								{
-									if (io.GetType().Name.Equals("Substation"))
-									{
-										foreach (long gen in substation.Equipments)
-										{
-											if (affectedEntities.ContainsKey(gen))
-											{
-												Generator generator = (Generator)affectedEntities[gen];
-												if (generator.MinFlexibility > 0)
-												{
-													double genProduction = 0;
-													double genProductionInPercent = 0;
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-													DayAhead dayAheadSubstation = derForecastDayAheadSubstation.Value.Production;
-
-													double contition = productionHour - (dayAheadSubstation.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100));
-													if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MIN I NASTAVLJAMO DALJE DA SMANJIMO PROIZVODNJU GENERATORA
-													{
-														genProduction = dayAheadSubstation.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
-														genProductionInPercent = (100 * genProduction) / dayAheadSubstation.Hourly[numOfHour].ActivePower;
-														productionHour -= genProduction;
-													}
-													else if (contition < 0) // SMANJIMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
-													{
-														genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA SMANJITI PROIZVODNJU ODREDJENOG GENERATORA
-														genProductionInPercent = (100 * genProduction) / dayAheadSubstation.Hourly[numOfHour].ActivePower;
-														productionHour -= genProduction;
-														finished = true;
-													}
-													else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
-													{
-														genProduction = dayAheadSubstation.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
-														genProductionInPercent = (100 * genProduction) / dayAheadSubstation.Hourly[numOfHour].ActivePower;
-														productionHour -= genProduction;
-														finished = true;
-													}
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadGenerator = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-													derForecastDayAheadGenerator.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation2 = await derForcast.TryGetValueAsync(tx, substation.GlobalId);
-													derForecastDayAheadSubstation2.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubGeographicalRegion = await derForcast.TryGetValueAsync(tx, subGeographicalRegion.GlobalId);
-													derForecastDayAheadSubGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-													ConditionalValue<DerForecastDayAhead> derForecastDayAheadGeographicalRegion = await derForcast.TryGetValueAsync(tx, geographicalRegion.GlobalId);
-													derForecastDayAheadGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
-
-													if (finished)
-														break;
-												}
-											}
-
-										}
-									}
-								}
-								else
-								{
-									break;
-								}
-							}
-						}
-					}
-
 				}
+
+				foreach (IdentifiedObject io in affectedEntities.Values)
+				{
+					if (io.GetType().Name.Equals("SubGeographicalRegion"))
+					{
+						subGeographicalRegion = (SubGeographicalRegion)io;
+						break;
+					}
+				}
+
+				if (flexibilityValue > 0)
+				{
+					foreach (HourDataPoint datapoint in derForcast[gid].Production.Hourly)
+					{
+						numOfHour++;
+						finished = false;
+						double productionHour = datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
+						foreach (IdentifiedObject io in affectedEntities.Values)
+						{
+							if (!finished)
+							{
+								if (io.GetType().Name.Equals("Substation"))
+								{
+									foreach (long gen in substation.Equipments)
+									{
+										if (affectedEntities.ContainsKey(gen))
+										{
+											Generator generator = (Generator)affectedEntities[gen];
+											if (generator.MaxFlexibility > 0)
+											{
+												double genProduction = 0;
+												double genProductionInPercent = 0;
+												double contition = productionHour - (derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100));
+												if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
+												{
+													genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
+													genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+													productionHour -= genProduction;
+												}
+												else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+												{
+													genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
+													genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+													productionHour -= genProduction;
+													finished = true;
+												}
+												else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+												{
+													genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
+													genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+													productionHour -= genProduction;
+													finished = true;
+												}
+
+												derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
+												derForcast[substation.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+												derForcast[subGeographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+												derForcast[geographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
+
+												if (finished)
+													break;
+											}
+										}
+
+									}
+								}
+							}
+							else
+							{
+								break;
+							}
+						}
+					}
+				}
+				else if (flexibilityValue < 0)
+				{
+					foreach (HourDataPoint datapoint in derForcast[gid].Production.Hourly)
+					{
+						numOfHour++;
+						finished = false;
+						double productionHour = -1 * datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE SMANJI PROZIVODNJA PO SATU
+						foreach (IdentifiedObject io in affectedEntities.Values)
+						{
+							if (!finished)
+							{
+								if (io.GetType().Name.Equals("Substation"))
+								{
+									foreach (long gen in substation.Equipments)
+									{
+										if (affectedEntities.ContainsKey(gen))
+										{
+											Generator generator = (Generator)affectedEntities[gen];
+											if (generator.MinFlexibility > 0)
+											{
+												double genProduction = 0;
+												double genProductionInPercent = 0;
+												double contition = productionHour - (derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100));
+												if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MIN I NASTAVLJAMO DALJE DA SMANJIMO PROIZVODNJU GENERATORA
+												{
+													genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
+													genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+													productionHour -= genProduction;
+												}
+												else if (contition < 0) // SMANJIMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+												{
+													genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA SMANJITI PROIZVODNJU ODREDJENOG GENERATORA
+													genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+													productionHour -= genProduction;
+													finished = true;
+												}
+												else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+												{
+													genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
+													genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+													productionHour -= genProduction;
+													finished = true;
+												}
+
+												derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // SMANJIMO PROIZVODNJU GENERATORA NA MAX
+												derForcast[substation.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // SMANJIMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+												derForcast[subGeographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // SMANJIMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+												derForcast[geographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // SMANJIMO KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
+
+												if (finished)
+													break;
+											}
+										}
+
+									}
+								}
+							}
+							else
+							{
+								break;
+							}
+						}
+					}
+				}
+
 			}
 		}
 
-		public async Task<Dictionary<long, double>> TurnOnFlexibilityForSubstation(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
+		public Dictionary<long, double> TurnOnFlexibilityForSubstation(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
 		{
 			Dictionary<long, double> ret = new Dictionary<long, double>();
 			Dictionary<long, double> allGeneratorsProduction = new Dictionary<long, double>();
@@ -1618,187 +1466,154 @@ namespace CECalculationMicroservice
 		#endregion
 
 		#region Generator
-		public async Task CalculateNewDerForecastDayAheadForGenerator(double flexibilityValue, IReliableDictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities, IReliableStateManager stateManager)
+		public void CalculateNewDerForecastDayAheadForGenerator(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
 		{
-			using (var tx = stateManager.CreateTransaction())
+			SubGeographicalRegion subGeographicalRegion = null;
+			GeographicalRegion geographicalRegion = null;
+			Substation substation = null;
+			Generator generator = (Generator)affectedEntities[gid];
+			int numOfHour = -1;
+			bool finished = false;
+			if (!affectedEntities.Count.Equals(0))
 			{
-				SubGeographicalRegion subGeographicalRegion = null;
-				GeographicalRegion geographicalRegion = null;
-				Substation substation = null;
-				Generator generator = (Generator)affectedEntities[gid];
-				int numOfHour = -1;
-				bool finished = false;
-				if (!affectedEntities.Count.Equals(0))
+				foreach (IdentifiedObject io in affectedEntities.Values)
 				{
-					foreach (IdentifiedObject io in affectedEntities.Values)
+					if (io.GetType().Name.Equals("GeographicalRegion"))
 					{
-						if (io.GetType().Name.Equals("GeographicalRegion"))
-						{
-							geographicalRegion = (GeographicalRegion)io;
-							break;
-						}
+						geographicalRegion = (GeographicalRegion)io;
+						break;
 					}
-
-					foreach (IdentifiedObject io in affectedEntities.Values)
-					{
-						if (io.GetType().Name.Equals("SubGeographicalRegion"))
-						{
-							subGeographicalRegion = (SubGeographicalRegion)io;
-							break;
-						}
-					}
-
-					foreach (IdentifiedObject io in affectedEntities.Values)
-					{
-						if (io.GetType().Name.Equals("Substation"))
-						{
-							substation = (Substation)io;
-							break;
-						}
-					}
-
-					if (flexibilityValue > 0)
-					{
-
-						ConditionalValue<DerForecastDayAhead> derForecastDayAhead = await derForcast.TryGetValueAsync(tx, gid);
-						DayAhead dayAhead = derForecastDayAhead.Value.Production;
-
-						foreach (HourDataPoint datapoint in dayAhead.Hourly)
-						{
-							numOfHour++;
-							finished = false;
-							double productionHour = datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
-							foreach (IdentifiedObject io in affectedEntities.Values)
-							{
-								if (!finished)
-								{
-									if (generator.MaxFlexibility > 0)
-									{
-										double genProduction = 0;
-										double genProductionInPercent = 0;
-
-										ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubReg = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-										DayAhead dayAheadSubReg = derForecastDayAheadSubReg.Value.Production;
-
-										double contition = productionHour - (dayAheadSubReg.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100));
-										if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
-										{
-											genProduction = dayAheadSubReg.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
-											genProductionInPercent = (100 * genProduction) / dayAheadSubReg.Hourly[numOfHour].ActivePower;
-											productionHour -= genProduction;
-										}
-										else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
-										{
-											genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
-											genProductionInPercent = (100 * genProduction) / dayAheadSubReg.Hourly[numOfHour].ActivePower;
-											productionHour -= genProduction;
-											finished = true;
-										}
-										else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
-										{
-											genProduction = dayAheadSubReg.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
-											genProductionInPercent = (100 * genProduction) / dayAheadSubReg.Hourly[numOfHour].ActivePower;
-											productionHour -= genProduction;
-											finished = true;
-										}
-
-										ConditionalValue<DerForecastDayAhead> derForecastDayAheadGenerator = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-										derForecastDayAheadGenerator.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
-
-										ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation = await derForcast.TryGetValueAsync(tx, substation.GlobalId);
-										derForecastDayAheadSubstation.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-										ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubGeographicalRegion = await derForcast.TryGetValueAsync(tx, subGeographicalRegion.GlobalId);
-										derForecastDayAheadSubGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-										ConditionalValue<DerForecastDayAhead> derForecastDayAheadGeographicalRegion = await derForcast.TryGetValueAsync(tx, geographicalRegion.GlobalId);
-										derForecastDayAheadGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower += (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
-
-										if (finished)
-											break;
-									}
-								}
-								else
-								{
-									break;
-								}
-							}
-						}
-					}
-					else if (flexibilityValue < 0)
-					{
-
-						ConditionalValue<DerForecastDayAhead> derForecastDayAhead = await derForcast.TryGetValueAsync(tx, gid);
-						DayAhead dayAhead = derForecastDayAhead.Value.Production;
-
-						foreach (HourDataPoint datapoint in dayAhead.Hourly)
-						{
-							numOfHour++;
-							finished = false;
-							double productionHour = -1 * datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE SMANJI PROZIVODNJA PO SATU
-							foreach (IdentifiedObject io in affectedEntities.Values)
-							{
-								if (!finished)
-								{
-									if (generator.MinFlexibility > 0)
-									{
-										double genProduction = 0;
-										double genProductionInPercent = 0;
-
-										ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubReg = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-										DayAhead dayAheadSubReg = derForecastDayAheadSubReg.Value.Production;
-
-										double contition = productionHour - (dayAheadSubReg.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100));
-										if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MIN I NASTAVLJAMO DALJE DA SMANJIMO PROIZVODNJU GENERATORA
-										{
-											genProduction = dayAheadSubReg.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
-											genProductionInPercent = (100 * genProduction) / dayAheadSubReg.Hourly[numOfHour].ActivePower;
-											productionHour -= genProduction;
-										}
-										else if (contition < 0) // SMANJIMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
-										{
-											genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA SMANJITI PROIZVODNJU ODREDJENOG GENERATORA
-											genProductionInPercent = (100 * genProduction) / dayAheadSubReg.Hourly[numOfHour].ActivePower;
-											productionHour -= genProduction;
-											finished = true;
-										}
-										else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
-										{
-											genProduction = dayAheadSubReg.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
-											genProductionInPercent = (100 * genProduction) / dayAheadSubReg.Hourly[numOfHour].ActivePower;
-											productionHour -= genProduction;
-											finished = true;
-										}
-
-										ConditionalValue<DerForecastDayAhead> derForecastDayAheadGenerator = await derForcast.TryGetValueAsync(tx, generator.GlobalId);
-										derForecastDayAheadGenerator.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
-
-										ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubstation = await derForcast.TryGetValueAsync(tx, substation.GlobalId);
-										derForecastDayAheadSubstation.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-										ConditionalValue<DerForecastDayAhead> derForecastDayAheadSubGeographicalRegion = await derForcast.TryGetValueAsync(tx, subGeographicalRegion.GlobalId);
-										derForecastDayAheadSubGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
-
-										ConditionalValue<DerForecastDayAhead> derForecastDayAheadGeographicalRegion = await derForcast.TryGetValueAsync(tx, geographicalRegion.GlobalId);
-										derForecastDayAheadGeographicalRegion.Value.Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
-
-										if (finished)
-											break;
-									}
-								}
-								else
-								{
-									break;
-								}
-							}
-						}
-					}
-
 				}
+
+				foreach (IdentifiedObject io in affectedEntities.Values)
+				{
+					if (io.GetType().Name.Equals("SubGeographicalRegion"))
+					{
+						subGeographicalRegion = (SubGeographicalRegion)io;
+						break;
+					}
+				}
+
+				foreach (IdentifiedObject io in affectedEntities.Values)
+				{
+					if (io.GetType().Name.Equals("Substation"))
+					{
+						substation = (Substation)io;
+						break;
+					}
+				}
+
+				if (flexibilityValue > 0)
+				{
+					foreach (HourDataPoint datapoint in derForcast[gid].Production.Hourly)
+					{
+						numOfHour++;
+						finished = false;
+						double productionHour = datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE POVECA PROZIVODNJA PO SATU
+						foreach (IdentifiedObject io in affectedEntities.Values)
+						{
+							if (!finished)
+							{
+								if (generator.MaxFlexibility > 0)
+								{
+									double genProduction = 0;
+									double genProductionInPercent = 0;
+									double contition = productionHour - (derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100));
+									if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MAX I NASTAVLJAMO DALJE DA POVECAVAMO OSTALE GENERATORE
+									{
+										genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
+										genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+										productionHour -= genProduction;
+									}
+									else if (contition < 0) // POVECAMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+									{
+										genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA POVECATI PROIZVODNJU ODREDJENOG GENERATORA
+										genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+										productionHour -= genProduction;
+										finished = true;
+									}
+									else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+									{
+										genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MaxFlexibility / 100);
+										genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+										productionHour -= genProduction;
+										finished = true;
+									}
+
+									derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU GENERATORA NA MAX
+									derForcast[substation.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+									derForcast[subGeographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // POVECAMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+									derForcast[geographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower += (float)genProduction; // PROVERITI KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
+
+									if (finished)
+										break;
+								}
+							}
+							else
+							{
+								break;
+							}
+						}
+					}
+				}
+				else if (flexibilityValue < 0)
+				{
+					foreach (HourDataPoint datapoint in derForcast[gid].Production.Hourly)
+					{
+						numOfHour++;
+						finished = false;
+						double productionHour = -1 * datapoint.ActivePower * (flexibilityValue / 100); // RACUNAMO KOLIKO BI TREBALA DA SE SMANJI PROZIVODNJA PO SATU
+						foreach (IdentifiedObject io in affectedEntities.Values)
+						{
+							if (!finished)
+							{
+								if (generator.MinFlexibility > 0)
+								{
+									double genProduction = 0;
+									double genProductionInPercent = 0;
+									double contition = productionHour - (derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100));
+									if (contition > 0) // POSTAVIMO PROIZVODNJU GENERATORA NA MIN I NASTAVLJAMO DALJE DA SMANJIMO PROIZVODNJU GENERATORA
+									{
+										genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
+										genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+										productionHour -= genProduction;
+									}
+									else if (contition < 0) // SMANJIMO PROIZVODNJU GENERATORA I ZADOVOLJEN JE FLEXIBILITY GEOREGIONA
+									{
+										genProduction = productionHour; //DOBIJEMO ZA KOLIKO KW TREBA SMANJITI PROIZVODNJU ODREDJENOG GENERATORA
+										genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+										productionHour -= genProduction;
+										finished = true;
+									}
+									else // ZNACI DA JE ZADOVOLJEN FLEXIBILITY REGIONA
+									{
+										genProduction = derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower * (generator.MinFlexibility / 100);
+										genProductionInPercent = (100 * genProduction) / derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower;
+										productionHour -= genProduction;
+										finished = true;
+									}
+
+									derForcast[generator.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // SMANJIMO PROIZVODNJU GENERATORA NA MAX
+									derForcast[substation.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // SMANJIMO PROIZVODNJU SUBSTATIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+									derForcast[subGeographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // SMANJIMO PROIZVODNJU SUBREGIONA ZA ONOLIKO ZA KOLIKO SE POVECALA PROIZVODNJA GENERATORA
+									derForcast[geographicalRegion.GlobalId].Production.Hourly[numOfHour].ActivePower -= (float)genProduction; // SMANJIMO KAKO SE MENJA PRODUCION GEOREGIONA KAD IMA VISE SUBREGIONA
+
+									if (finished)
+										break;
+								}
+							}
+							else
+							{
+								break;
+							}
+						}
+					}
+				}
+
 			}
 		}
 
-		public async Task<Dictionary<long, double>> TurnOnFlexibilityForGenerator(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
+		public Dictionary<long, double> TurnOnFlexibilityForGenerator(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities)
 		{
 			Generator generator = (Generator)affectedEntities[gid];
 			Dictionary<long, double> ret = new Dictionary<long, double>();
@@ -1843,31 +1658,24 @@ namespace CECalculationMicroservice
 			return generators;
 		}
 
-		public List<Generator> GetGeneratorsForManualCommand(IReliableDictionary<long, IdentifiedObject> nmsModel, IReliableStateManager stateManager)
+		public List<Generator> GetGeneratorsForManualCommand(Dictionary<long, IdentifiedObject> nmsModel)
 		{
-			using (var tx = stateManager.CreateTransaction())
+			List<Generator> generators = new List<Generator>();
+
+			foreach (IdentifiedObject io in nmsModel.Values)
 			{
-				List<Generator> generators = new List<Generator>();
-
-				IAsyncEnumerable<KeyValuePair<long, IdentifiedObject>> nmsModelEnumerable = nmsModel.CreateEnumerableAsync(tx).Result;
-				using (IAsyncEnumerator<KeyValuePair<long, IdentifiedObject>> productionCachedEnumerator = nmsModelEnumerable.GetAsyncEnumerator())
+				var type = io.GetType();
+				if (type.Name.Equals("Generator"))
 				{
-					while (productionCachedEnumerator.MoveNextAsync(CancellationToken.None).Result)
-					{
-						var type = productionCachedEnumerator.GetType();
-						if (type.Name.Equals("Generator"))
-						{
-							var generator = (Generator)productionCachedEnumerator;
-							generators.Add(generator);
+					var generator = (Generator)io;
+					generators.Add(generator);
 
-							if (!stateOfGenerator.ContainsKey(generator.GlobalId))
-								stateOfGenerator.Add(generator.GlobalId, false);
-						}
-					}
+					if (!stateOfGenerator.ContainsKey(generator.GlobalId))
+						stateOfGenerator.Add(generator.GlobalId, false);
 				}
-
-				return generators;
 			}
+
+			return generators;
 		}
 
 		#region TempFlexibility

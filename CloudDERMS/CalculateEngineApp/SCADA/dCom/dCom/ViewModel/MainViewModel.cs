@@ -1,22 +1,14 @@
 ﻿using CalculationEngineServiceCommon;
 using Common;
 using dCom.Configuration;
-using dCom.ScadaServerSide;
 using dCom.Simulation;
 using DERMSCommon.NMSCommuication;
-using DERMSCommon.SCADACommon;
 using DERMSCommon.TransactionManager;
-using Microsoft.ServiceFabric.Services.Client;
-using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using Modbus.Acquisition;
 using Modbus.Connection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
 using System.ServiceModel;
 using System.Text;
 using System.Threading;
@@ -24,7 +16,7 @@ using System.Windows.Threading;
 
 namespace dCom.ViewModel
 {
-    internal class MainViewModel : ViewModelBase, IDisposable, Common.IStateUpdater
+    internal class MainViewModel : ViewModelBase, IDisposable, IStateUpdater
     {
         public ObservableCollection<BasePointItem> Points { get; set; }
         private ISendDataToCEThroughScada ProxyUI { get; set; }
@@ -33,12 +25,12 @@ namespace dCom.ViewModel
         private ServiceHost serviceHostForCE;
         private ITransactionListing ProxyTM { get; set; }
         private ChannelFactory<ITransactionListing> factoryTM;
-        private ServiceHost ServiceHost { get; set; }
+
         #region Fields
 
         private object lockObject = new object();
         private Thread timerWorker;
-        private Common.ConnectionState connectionState;
+        private ConnectionState connectionState;
         private Modbus.Acquisition.Acquisitor acquisitor;
         private AutoResetEvent acquisitionTrigger = new AutoResetEvent(false);
         private TimeSpan elapsedTime = new TimeSpan();
@@ -46,10 +38,10 @@ namespace dCom.ViewModel
         private string logText;
         private StringBuilder logBuilder;
         private DateTime currentTime;
-        private Common.IFunctionExecutor commandExecutor;
+        private IFunctionExecutor commandExecutor;
         private bool timerThreadStopSignal = true;
         private bool disposed = false;
-        Common.IConfiguration configuration;
+        IConfiguration configuration;
         EasyModbus.ModbusClient modbusClient = new EasyModbus.ModbusClient();
         private WheaterSimulator ws = new WheaterSimulator();
         private int brojac = 0;
@@ -71,7 +63,7 @@ namespace dCom.ViewModel
             }
         }
 
-        public Common.ConnectionState ConnectionState
+        public ConnectionState ConnectionState
         {
             get
             {
@@ -118,141 +110,60 @@ namespace dCom.ViewModel
         public MainViewModel()
         {
             //Connect to TM
-            // ovo promeniti da gadja Cloud uvek proveriti da li mzoe i pokusavati da pogodi dok ne dobijek onekciju
-           /// NetTcpBinding binding4 = new NetTcpBinding();
-           /// factoryTM = new ChannelFactory<ITransactionListing>(binding4, new EndpointAddress("net.tcp://localhost:20508/ITransactionListing"));
-           /// ProxyTM = factoryTM.CreateChannel();
+            NetTcpBinding binding4 = new NetTcpBinding();
+            factoryTM = new ChannelFactory<ITransactionListing>(binding4, new EndpointAddress("net.tcp://localhost:20508/ITransactionListing"));
+            ProxyTM = factoryTM.CreateChannel();
 
-           // Console.WriteLine("Connected: net.tcp://localhost:20508/ITransactionListing");
-           /// ProxyTM.Enlist("net.tcp://localhost:19518/ITransactionCheck");
-            CloudClient<IScadaCloudToScadaLocal> transactionCoordinator = new CloudClient<IScadaCloudToScadaLocal>
-            (
-              serviceUri: new Uri("fabric:/SCADAApp/SCADACacheMicroservice"),
-              partitionKey: new ServicePartitionKey(0),
-              clientBinding: WcfUtility.CreateTcpClientBinding(),
-              listenerName: "SCADAComunicationMicroserviceListener"
-            );
-            string ipAddress = GetLocalIPAddress();
-            int port = GetAvailablePort();
+            Console.WriteLine("Connected: net.tcp://localhost:20508/ITransactionListing");
+            ProxyTM.Enlist("net.tcp://localhost:19518/ITransactionCheck");
 
-            string ClientAddress = String.Format("net.tcp://{0}:{1}/ICECommunicationPubSub", ipAddress, port);
-
-            bool ret = false;
-           // ret = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendEndpoints(ClientAddress)).Result;
-            while (ret != true)
-            {
-                try
-                {
-                    ret = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendEndpoints(ClientAddress)).Result;
-                }
-                catch (Exception e)
-                {
-
-                }
-
-            }
-
-            ServiceHost = new ServiceHost(new ScadaCloudServer());
-            var behaviour = ServiceHost.Description.Behaviors.Find<ServiceBehaviorAttribute>();
-            behaviour.InstanceContextMode = InstanceContextMode.Single;
-            NetTcpBinding binding = new NetTcpBinding();
-            ServiceHost.AddServiceEndpoint(typeof(IScadaCloudServer), binding, ClientAddress);
-            ServiceHost.Open();
-
-
-            //openConnection();
-
+            openConnection();
             //InitializePointCollection();
             InitializeAndStartThreads();
             logBuilder = new StringBuilder();
-            ConnectionState = Common.ConnectionState.CONNECTED; 
+            ConnectionState = ConnectionState.CONNECTED;
             Thread.CurrentThread.Name = "Main Thread";
 
     
 
         }
 
-        private int GetAvailablePort()
-        {
-            int startingPort = 20000;
-            var portArray = new List<int>();
-
-            var properties = IPGlobalProperties.GetIPGlobalProperties();
-
-            // Ignore active connections
-            var connections = properties.GetActiveTcpConnections();
-            portArray.AddRange(from n in connections
-                               where n.LocalEndPoint.Port >= startingPort
-                               select n.LocalEndPoint.Port);
-
-            // Ignore active tcp listners
-            var endPoints = properties.GetActiveTcpListeners();
-            portArray.AddRange(from n in endPoints
-                               where n.Port >= startingPort
-                               select n.Port);
-
-            // Ignore active udp listeners
-            endPoints = properties.GetActiveUdpListeners();
-            portArray.AddRange(from n in endPoints
-                               where n.Port >= startingPort
-                               select n.Port);
-
-            portArray.Sort();
-
-            for (var i = startingPort; i < UInt16.MaxValue; i++)
-            {
-                if (!portArray.Contains(i))
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-
-        }
-        private string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            var ipAddress = host.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
-            return ipAddress.ToString();
-        }
-
         #region Private methods
-        //private void openConnection()
-        //{
-        //    //Open service for NMS
-        //    string address3 = String.Format("net.tcp://localhost:19012/ISendDataFromNMSToScada");
-        //    NetTcpBinding binding = new NetTcpBinding();
-        //    binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-        //    serviceHostForNMS = new ServiceHost(typeof(SendDataFromNmsToScada));
+        private void openConnection()
+        {
+            //Open service for NMS
+            string address3 = String.Format("net.tcp://localhost:19012/ISendDataFromNMSToScada");
+            NetTcpBinding binding = new NetTcpBinding();
+            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            serviceHostForNMS = new ServiceHost(typeof(SendDataFromNmsToScada));
 
-        //    serviceHostForNMS.AddServiceEndpoint(typeof(ISendDataFromNMSToScada), binding, address3);
-        //    serviceHostForNMS.Open();
-        //    Console.WriteLine("Open: net.tcp://localhost:19012/ISendDataFromNMSToScada");
+            serviceHostForNMS.AddServiceEndpoint(typeof(ISendDataFromNMSToScada), binding, address3);
+            serviceHostForNMS.Open();
+            Console.WriteLine("Open: net.tcp://localhost:19012/ISendDataFromNMSToScada");
 
 
-        //    //Open service for NMS
-        //    string address = String.Format("net.tcp://localhost:18503/ISendListOfGeneratorsToScada");
-        //    NetTcpBinding binding2 = new NetTcpBinding();
-        //    binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-        //    serviceHostForCE = new ServiceHost(typeof(SendListOfGeneratorsToScada));
+            //Open service for NMS
+            string address = String.Format("net.tcp://localhost:18503/ISendListOfGeneratorsToScada");
+            NetTcpBinding binding2 = new NetTcpBinding();
+            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            serviceHostForCE = new ServiceHost(typeof(SendListOfGeneratorsToScada));
 
-        //    serviceHostForCE.AddServiceEndpoint(typeof(ISendListOfGeneratorsToScada), binding2, address);
-        //    serviceHostForCE.Open();
-        //    Console.WriteLine("Open: net.tcp://localhost:19012/ISendListOfGeneratorsToScada");
-        //    //Open service for TM
-        //    SendDataFromNmsToScada nmsToScada = new SendDataFromNmsToScada();
-        //    string address4 = String.Format("net.tcp://localhost:19518/ITransactionCheck");
-        //    NetTcpBinding binding4 = new NetTcpBinding();
-        //    binding4.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-        //    ServiceHost serviceHostForTM = new ServiceHost(new SCADATranscation(nmsToScada));
-        //    var behaviour = serviceHostForTM.Description.Behaviors.Find<ServiceBehaviorAttribute>();
-        //    behaviour.InstanceContextMode = InstanceContextMode.Single;
-        //    serviceHostForTM.AddServiceEndpoint(typeof(ITransactionCheck), binding4, address4);
-        //    serviceHostForTM.Open();
+            serviceHostForCE.AddServiceEndpoint(typeof(ISendListOfGeneratorsToScada), binding2, address);
+            serviceHostForCE.Open();
+            Console.WriteLine("Open: net.tcp://localhost:19012/ISendListOfGeneratorsToScada");
+            //Open service for TM
+            SendDataFromNmsToScada nmsToScada = new SendDataFromNmsToScada();
+            string address4 = String.Format("net.tcp://localhost:19518/ITransactionCheck");
+            NetTcpBinding binding4 = new NetTcpBinding();
+            binding4.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            ServiceHost serviceHostForTM = new ServiceHost(new SCADATranscation(nmsToScada));
+            var behaviour = serviceHostForTM.Description.Behaviors.Find<ServiceBehaviorAttribute>();
+            behaviour.InstanceContextMode = InstanceContextMode.Single;
+            serviceHostForTM.AddServiceEndpoint(typeof(ITransactionCheck), binding4, address4);
+            serviceHostForTM.Open();
 
-        //    Console.WriteLine("Open: net.tcp://localhost:19518/ITransactionCheck");
-        //}
+            Console.WriteLine("Open: net.tcp://localhost:19518/ITransactionCheck");
+        }
         /*
         private void InitializePointCollection()
         {
@@ -460,20 +371,20 @@ namespace dCom.ViewModel
             }
         }
         */
-        private BasePointItem CreatePoint(Common.IConfigItem c, int i, Common.IFunctionExecutor commandExecutor)
+        private BasePointItem CreatePoint(IConfigItem c, int i, IFunctionExecutor commandExecutor)
         {
             switch (c.RegistryType)
             {
-                case Common.PointType.DIGITAL_INPUT:
+                case PointType.DIGITAL_INPUT:
                     return new DigitalInput(c, commandExecutor, this, configuration, i);
 
-                case Common.PointType.DIGITAL_OUTPUT:
+                case PointType.DIGITAL_OUTPUT:
                     return new DigitalOutput(c, commandExecutor, this, configuration, i);
 
-                case Common.PointType.ANALOG_INPUT:
+                case PointType.ANALOG_INPUT:
                     return new AnalaogInput(c, commandExecutor, this, configuration, i);
 
-                case Common.PointType.ANALOG_OUTPUT:
+                case PointType.ANALOG_OUTPUT:
                     return new AnalogOutput(c, commandExecutor, this, configuration, i);
 
                 default:
@@ -527,7 +438,7 @@ namespace dCom.ViewModel
 
         #region IStateUpdater implementation
 
-        public void UpdateConnectionState(Common.ConnectionState currentConnectionState)
+        public void UpdateConnectionState(ConnectionState currentConnectionState)
         {
             dispather.Invoke((Action)(() =>
             {

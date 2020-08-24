@@ -12,6 +12,6 @@ namespace CalculationEngineServiceCommon
     public interface ISendDataToCEThroughScada
     {
         [OperationContract]
-        Task ReceiveFromScada(List<DataPoint> data);
+        void ReceiveFromScada(List<DataPoint> data);
     }
 }

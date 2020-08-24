@@ -4,12 +4,8 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DERMSCommon.NMSCommuication;
-using DERMSCommon.SCADACommon;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
-using Microsoft.ServiceFabric.Services.Communication.Wcf;
-using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace SCADACacheMicroservice
@@ -32,30 +28,7 @@ namespace SCADACacheMicroservice
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
         {
-
-            SendDataFromNmsToScada sendDataFromNMSToCE = new SendDataFromNmsToScada(StateManager);
-
-            return new[]
-            {
-                new ServiceReplicaListener((context) =>
-                    new WcfCommunicationListener<ISendDataFromNMSToScada>(
-                        wcfServiceObject: sendDataFromNMSToCE,
-                        serviceContext: context,
-                        endpointResourceName: "SCADACacheMicroserviceEndpoint",
-                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
-                    ),
-                    name: "SCADACacheMicroserviceListener"
-                ),
-                new ServiceReplicaListener((context) =>
-                    new WcfCommunicationListener<IScadaCloudToScadaLocal>(
-                        wcfServiceObject: new CloudScadaToLocalScada(StateManager),
-                        serviceContext: context,
-                        endpointResourceName: "SCADAComunicationMicroserviceEndpoint",
-                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
-                    ),
-                    name: "SCADAComunicationMicroserviceListener"
-                )
-            };
+            return new ServiceReplicaListener[0];
         }
 
         /// <summary>
