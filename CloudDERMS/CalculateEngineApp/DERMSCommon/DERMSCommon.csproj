@@ -150,12 +150,15 @@
     <Compile Include="NMSCommunication\SignalsTransfer.cs" />
     <Compile Include="NodeData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SCADACommon\ComunicationSCADAClient.cs" />
     <Compile Include="SCADACommon\DataPoint.cs" />
     <Compile Include="SCADACommon\Enums.cs" />
     <Compile Include="SCADACommon\IConfigItem.cs" />
     <Compile Include="SCADACommon\IConfiguration.cs" />
     <Compile Include="SCADACommon\IFunctionExecutor.cs" />
     <Compile Include="SCADACommon\IModbusFunction.cs" />
+    <Compile Include="SCADACommon\IScadaCloudServer.cs" />
+    <Compile Include="SCADACommon\IScadaCloudToScadaLocal.cs" />
     <Compile Include="SCADACommon\IStateUpdater.cs" />
     <Compile Include="SCADACommon\SCADACommanding.cs" />
     <Compile Include="SmartCache\SCADADataPointSmartCache.cs" />

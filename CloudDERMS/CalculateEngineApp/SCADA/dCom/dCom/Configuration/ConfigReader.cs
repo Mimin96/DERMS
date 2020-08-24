@@ -185,6 +185,10 @@ namespace dCom.Configuration
 
 
             }
+
+            ScadaManagaer scadaManagaer = new ScadaManagaer();
+            scadaManagaer.SendGids();
+
             //try
             //{
             //    ConfigItem ci = new ConfigItem(filtered);

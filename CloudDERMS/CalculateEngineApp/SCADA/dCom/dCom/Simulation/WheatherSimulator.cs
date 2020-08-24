@@ -16,6 +16,10 @@ using Modbus;
 using Common;
 using ProcessingModule;
 using Innovative.SolarCalculator;
+using DERMSCommon.TransactionManager;
+using DERMSCommon.SCADACommon;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 
 namespace dCom.Simulation
 {
@@ -23,6 +27,7 @@ namespace dCom.Simulation
     {
         DarkSkyAPISmartCache cache = new DarkSkyAPISmartCache();
         private HourDataPoint hourDataPoint = new HourDataPoint();
+        private CloudClient<IScadaCloudToScadaLocal> transactionCoordinator;
         private DarkSkyService darkSkyProxy;
         public WheaterSimulator()
         {
@@ -86,17 +91,17 @@ namespace dCom.Simulation
 
                         try
                         {
-                            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)vrednost, configuration);
+                            ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(6, (byte)Common.ModbusFunctionCode.WRITE_SINGLE_REGISTER, gidoviNaAdresu.Value, (ushort)vrednost, configuration);
                             Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
                             commandExecutor.EnqueueCommand(fn);
                             ((Analog)kvp.Value).NormalValue = vrednost;
-                            ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 1), (ushort)vrednost, configuration);
+                            ModbusWriteCommandParameters p1 = new ModbusWriteCommandParameters(6, (byte)Common.ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 1), (ushort)vrednost, configuration);
                             Common.IModbusFunction fn1 = FunctionFactory.CreateModbusFunction(p1);
                             commandExecutor.EnqueueCommand(fn1);
 
-                                ModbusWriteCommandParameters p12 = new ModbusWriteCommandParameters(6, (byte)ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 2), 0, configuration);
-                                Common.IModbusFunction fn12 = FunctionFactory.CreateModbusFunction(p12);
-                                commandExecutor.EnqueueCommand(fn12);
+                            ModbusWriteCommandParameters p12 = new ModbusWriteCommandParameters(6, (byte)Common.ModbusFunctionCode.WRITE_SINGLE_REGISTER, (ushort)(gidoviNaAdresu.Value - 2), 0, configuration);
+                            Common.IModbusFunction fn12 = FunctionFactory.CreateModbusFunction(p12);
+                            commandExecutor.EnqueueCommand(fn12);
 
                         }
                         catch (Exception ex)
@@ -108,6 +113,20 @@ namespace dCom.Simulation
 
                 }
             }
+
+            ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
+            await sCADAClient.AddorUpdateAnalogniKontejnerModelEntity(analogniStari);
+
+
+            //transactionCoordinator = new CloudClient<IScadaCloudToScadaLocal>
+            //(
+            //    serviceUri: new Uri("fabric:/SCADAApp/SCADACacheMicroservice"),
+            //    partitionKey: new ServicePartitionKey(0),
+            //    clientBinding: WcfUtility.CreateTcpClientBinding(),
+            //    listenerName: "SCADAComunicationMicroserviceListener"
+            //);
+            //await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddorUpdateAnalogniKontejnerModelEntity(analogniStari));
+
 
             //MOCK_Start
             if (!isFileFull)
