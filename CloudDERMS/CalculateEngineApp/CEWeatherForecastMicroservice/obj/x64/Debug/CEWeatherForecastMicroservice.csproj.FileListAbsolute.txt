@@ -849,3 +849,7 @@ C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\CEWeatherForecast
 C:\Users\Caki\Desktop\2008\DERMS\CloudDERMS\CalculateEngineApp\CEWeatherForecastMicroservice\obj\x64\Debug\CEWeatherForecastMicroservice.pdb
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CEWeatherForecastMicroservice\bin\x64\Debug\netstandard.dll
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CEWeatherForecastMicroservice\obj\x64\Debug\CEWeatherForecastMicroservice.exe.config
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEWeatherForecastMicroservice\bin\x64\Debug\netstandard.dll
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEWeatherForecastMicroservice\bin\x64\Debug\DERMSCommon.dll.config
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEWeatherForecastMicroservice\bin\x64\Debug\FTN.Services.NetworkModelService.dll.config
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEWeatherForecastMicroservice\obj\x64\Debug\CEWeatherForecastMicroservice.exe.config

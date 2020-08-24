@@ -1,5 +1,6 @@
 ﻿using DERMSCommon.UIModel.ThreeViewModel;
 using DERMSCommon.WeatherForecast;
+using Microsoft.ServiceFabric.Data.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
