@@ -30,29 +30,46 @@ namespace CECacheMicroservice
         // Napravi get metode i update metode za liste za koje je potrebno
         // Proveri na kraju sta se odakle poziva, da li treba da se smesti u interfejs
         #region Reliable Dictionaries
-        private IReliableDictionary<long, IdentifiedObject> nmsCache; //NetworkModelDictionary
-        private IReliableDictionary<long, List<DataPoint>> scadaPointsCached; //SCADAPointsDictionary
-        private IReliableDictionary<long, Forecast> derWeatherCached; // DERWeatherCachedDictionary
-        private IReliableDictionary<long, DerForecastDayAhead> productionCached; // ProductionCachedDictionary
-        private IReliableDictionary<int, TreeNode<NodeData>> graphCached; // GraphCachedDictionary
-        private IReliableDictionary<int, List<DataPoint>> dataPoints; //DataPointsCachedDictionary
-        private IReliableDictionary<long, DerForecastDayAhead> copyOfProductionCached; //CopyOfProductionCachedDictionary
-        private IReliableDictionary<long, double> listOfGeneratorsForScada; // ListOfGeneratorsForScadaCachedDictionary
-        private IReliableDictionary<int, List<long>> DisableAutomaticOptimization; // DisableAutomaticOptimizationCachedDictionary
-        private IReliableDictionary<int, List<long>> TurnedOffGenerators; // TurnedOffGeneratorsCachedDictionary
-        private IReliableDictionary<int, List<long>> turnedOnGenerators;  // TurnedOnGeneratorsCachedDictionary
-        private IReliableDictionary<long, DerForecastDayAhead> tempProductionCached; // TempProductionCachedDictionary
-        private IReliableDictionary<long, DayAhead> substationDayAhead; //SubstationDayAheadCachedDictionary
-        private IReliableDictionary<long, DerForecastDayAhead> substationsForecast; //SubstationsForecastCachedDictionary
-        private IReliableDictionary<long, DerForecastDayAhead> subGeographicalRegionsForecast; // SubGeographicalRegionsForecastCachedDictionary
-        private IReliableDictionary<long, DerForecastDayAhead> generatorForecastList; // GeneratorForecastListCachedDictionary
-        private IReliableDictionary<int, List<NetworkModelTreeClass>> networkModelTreeClass;
+        //private IReliableDictionary<long, IdentifiedObject> nmsCache; //NetworkModelDictionary
+        //private IReliableDictionary<long, List<DataPoint>> scadaPointsCached; //SCADAPointsDictionary
+        //private IReliableDictionary<long, Forecast> derWeatherCached; // DERWeatherCachedDictionary
+        //private IReliableDictionary<long, DerForecastDayAhead> productionCached; // ProductionCachedDictionary
+        //private IReliableDictionary<int, TreeNode<NodeData>> graphCached; // GraphCachedDictionary
+        //private IReliableDictionary<int, List<DataPoint>> dataPoints; //DataPointsCachedDictionary
+        //private IReliableDictionary<long, DerForecastDayAhead> copyOfProductionCached; //CopyOfProductionCachedDictionary
+        //private IReliableDictionary<long, double> listOfGeneratorsForScada; // ListOfGeneratorsForScadaCachedDictionary
+        //private IReliableDictionary<int, List<long>> DisableAutomaticOptimization; // DisableAutomaticOptimizationCachedDictionary
+        //private IReliableDictionary<int, List<long>> TurnedOffGenerators; // TurnedOffGeneratorsCachedDictionary
+        //private IReliableDictionary<int, List<long>> turnedOnGenerators;  // TurnedOnGeneratorsCachedDictionary
+        //private IReliableDictionary<long, DerForecastDayAhead> tempProductionCached; // TempProductionCachedDictionary
+        //private IReliableDictionary<long, DayAhead> substationDayAhead; //SubstationDayAheadCachedDictionary
+        //private IReliableDictionary<long, DerForecastDayAhead> substationsForecast; //SubstationsForecastCachedDictionary
+        //private IReliableDictionary<long, DerForecastDayAhead> subGeographicalRegionsForecast; // SubGeographicalRegionsForecastCachedDictionary
+        //private IReliableDictionary<long, DerForecastDayAhead> generatorForecastList; // GeneratorForecastListCachedDictionary
+        //private IReliableDictionary<int, List<NetworkModelTreeClass>> networkModelTreeClass;
         #endregion
 
+        private CloudClient<IPubSub> pubSub;
+        private CloudClient<IDERFlexibility> derFlexibility;
         private IReliableStateManager stateManager;
         public CECacheService(IReliableStateManager stateManager)
         {
             this.stateManager = stateManager;
+            pubSub = new CloudClient<IPubSub>
+            (
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CEPubSubMicroService"),
+              partitionKey: ServicePartitionKey.Singleton,
+              clientBinding: WcfUtility.CreateTcpClientBinding(),
+              listenerName: "CEPubSubMicroServiceListener"
+            );
+
+            derFlexibility = new CloudClient<IDERFlexibility>
+            (
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
+              partitionKey: ServicePartitionKey.Singleton,
+              clientBinding: WcfUtility.CreateTcpClientBinding(),
+              listenerName: "DERFlexibilityListener"
+            );
         }
         public CECacheService()
         {
@@ -64,7 +81,7 @@ namespace CECacheMicroservice
         //private void CalculateFlexibility()
 
         #region nmsCache methods
-        public void PopulateNSMModelCache(NetworkModelTransfer networkModelTransfer)
+        public async Task PopulateNSMModelCache(NetworkModelTransfer networkModelTransfer)
         {
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> dictionary in networkModelTransfer.Delete)
             {
@@ -245,7 +262,7 @@ namespace CECacheMicroservice
         #endregion
 
         #region derWeatherCached methods
-        public async void PopulateWeatherForecast(NetworkModelTransfer networkModel)
+        public async Task PopulateWeatherForecast(NetworkModelTransfer networkModel)
         {
             //Communication with Microservice in same application
             //ServicePartitionKey(0)
@@ -305,7 +322,7 @@ namespace CECacheMicroservice
             return null;
         }
         //NOT COMPLETE PubSubCalculatioEngine
-        public async void PopulateConsumptionForecast(NetworkModelTransfer networkModel)
+        public async Task PopulateConsumptionForecast(NetworkModelTransfer networkModel)
         {
             //Communication with Microservice in same application
             CloudClient<IConsumptionCalculator> transactionCoordinator = new CloudClient<IConsumptionCalculator>
@@ -370,7 +387,7 @@ namespace CECacheMicroservice
             //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
         }
         //NOT COMPLETE PubSubCalculatioEngine
-        public async void PopulateProductionForecast(NetworkModelTransfer networkModel)
+        public async Task PopulateProductionForecast(NetworkModelTransfer networkModel)
         {
             //Communication with Microservice in same application
             CloudClient<IProductionCalculator> transactionCoordinator = new CloudClient<IProductionCalculator>
@@ -551,7 +568,303 @@ namespace CECacheMicroservice
         }*/
         //NOT COMPLETE - Ovaj kod bi trebalo da se izmesti u CECalculationMicroservice
         public async Task CalculateNewFlexibility(DataToUI data)
-        { /*
+        {
+            //using (var tx = stateManager.CreateTransaction())
+            //{
+            //    Dictionary<DMSType, long> affectedDERForcast = new Dictionary<DMSType, long>();
+            //    string type = "empty";
+
+            //    nmsCache = stateManager.GetOrAddAsync<IReliableDictionary<long, IdentifiedObject>>("nmsCache").Result;
+
+            //    if (!await nmsCache.ContainsKeyAsync(tx, data.Gid))
+            //    {
+            //        type = nmsCache.TryGetValueAsync(tx, data.Gid).Result.Value.GetType().Name;
+            //    }
+            //    else
+            //    {
+            //        type = "NetworkModel";
+            //    }
+
+            //    Dictionary<long, IdentifiedObject> affectedEntities = new Dictionary<long, IdentifiedObject>();
+            //    listOfGeneratorsForScada = new Dictionary<long, double>();
+
+            //    DataToUI dataForScada = new DataToUI();
+            //    copyOfProductionCached = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("copyOfProductionCached").Result;
+
+            //    //copyOfProductionCached = new Dictionary<long, DerForecastDayAhead>(productionCached.Count); // TRENUTNA PROIZVODNJA 24 CASA UNAPRED
+
+            //    /*foreach (DerForecastDayAhead der in productionCached)
+            //    {
+            //        await copyOfProductionCached.AddAsync(tx, der.entityGid, new DerForecastDayAhead(der));
+            //    }*/
+
+            //    productionCached = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("productionCached").Result;
+
+            //    IAsyncEnumerable<KeyValuePair<long, DerForecastDayAhead>> productionCachedEnumerable = productionCached.CreateEnumerableAsync(tx).Result;
+            //    using (IAsyncEnumerator<KeyValuePair<long, DerForecastDayAhead>> productionCachedEnumerator = productionCachedEnumerable.GetAsyncEnumerator())
+            //    {
+            //        while (productionCachedEnumerator.MoveNextAsync(CancellationToken.None).Result)
+            //        {
+            //            await copyOfProductionCached.AddAsync(tx, productionCachedEnumerator.Current.Value.entityGid, new DerForecastDayAhead(productionCachedEnumerator.Current.Value));
+            //        }
+            //    }
+            //    //OVO JE VALIDNO
+            //    if (await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CheckFlexibilityForManualCommanding(data.Gid, nmsCache, stateManager)))
+            //    {
+            //        if (type.Equals("Generator"))
+            //        {
+            //            IAsyncEnumerable<KeyValuePair<long, IdentifiedObject>> nmsCacheEnumerable = nmsCache.CreateEnumerableAsync(tx).Result;
+            //            using (IAsyncEnumerator<KeyValuePair<long, IdentifiedObject>> nmsCacheEnumerator = nmsCacheEnumerable.GetAsyncEnumerator())
+            //            {
+            //                while (nmsCacheEnumerator.MoveNextAsync(CancellationToken.None).Result)
+            //                {
+            //                    if (nmsCacheEnumerator.Current.Value.GetType().Name.Equals("GeographicalRegion"))
+            //                    {
+            //                        GeographicalRegion gr = (GeographicalRegion)nmsCacheEnumerator.Current.Value;
+
+            //                        foreach (long s in gr.Regions)
+            //                        {
+            //                            ConditionalValue<IdentifiedObject> subGeographicalRegionIdentifiedObject = nmsCache.TryGetValueAsync(tx, s).Result;
+            //                            SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)subGeographicalRegionIdentifiedObject.Value;
+
+            //                            foreach (long sub in subGeographicalRegion.Substations)
+            //                            {
+            //                                ConditionalValue<IdentifiedObject> substationIdentifiedObject = nmsCache.TryGetValueAsync(tx, sub).Result;
+            //                                Substation substation = (Substation)substationIdentifiedObject.Value;
+
+            //                                if (substation.Equipments.Contains(data.Gid))  // TREBA IMPLEMENTIRATI U IFU PROSLEDJIVANJE REGIONA I SUBREGIONA U KOM SE NALAZI Generator
+            //                                {
+            //                                    if (nmsCache.TryGetValueAsync(tx, data.Gid).Result.GetType().Name.Equals("Generator"))
+            //                                    {
+            //                                        ConditionalValue<IdentifiedObject> generatorIdentifiedObject = nmsCache.TryGetValueAsync(tx, data.Gid).Result;
+            //                                        Generator generator = (Generator)generatorIdentifiedObject.Value;
+
+            //                                        if (!affectedEntities.ContainsKey(gr.GlobalId))
+            //                                            affectedEntities.Add(gr.GlobalId, gr);
+
+            //                                        if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
+            //                                            affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
+
+            //                                        if (!affectedEntities.ContainsKey(substation.GlobalId))
+            //                                            affectedEntities.Add(substation.GlobalId, substation);
+
+            //                                        if (!affectedEntities.ContainsKey(generator.GlobalId))
+            //                                            affectedEntities.Add(generator.GlobalId, generator);
+            //                                    }
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //            await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewDerForecastDayAheadForGenerator(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities, stateManager));
+            //            listOfGeneratorsForScada = await derFlexibility.InvokeWithRetryAsync(client => client.Channel.TurnOnFlexibilityForGenerator(data.Flexibility, data.Gid, affectedEntities));
+            //        }
+            //        else if (type.Equals("Substation"))
+            //        {
+            //            IAsyncEnumerable<KeyValuePair<long, IdentifiedObject>> nmsCacheEnumerable = nmsCache.CreateEnumerableAsync(tx).Result;
+            //            using (IAsyncEnumerator<KeyValuePair<long, IdentifiedObject>> nmsCacheEnumerator = nmsCacheEnumerable.GetAsyncEnumerator())
+            //            {
+            //                while (nmsCacheEnumerator.MoveNextAsync(CancellationToken.None).Result)
+            //                {
+            //                    if (nmsCacheEnumerator.Current.Value.GetType().Name.Equals("GeographicalRegion"))
+            //                    {
+            //                        GeographicalRegion gr = (GeographicalRegion)nmsCacheEnumerator.Current.Value;
+
+            //                        foreach (long s in gr.Regions)
+            //                        {
+            //                            ConditionalValue<IdentifiedObject> subGeographicalRegionIdentifiedObject = nmsCache.TryGetValueAsync(tx, s).Result;
+            //                            SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)subGeographicalRegionIdentifiedObject.Value;
+
+            //                            foreach (long sub in subGeographicalRegion.Substations)
+            //                            {
+            //                                ConditionalValue<IdentifiedObject> substationIdentifiedObject = nmsCache.TryGetValueAsync(tx, sub).Result;
+            //                                Substation substation = (Substation)substationIdentifiedObject.Value;
+
+            //                                if (substation.GlobalId.Equals(data.Gid))  // TREBA IMPLEMENTIRATI U IFU PROSLEDJIVANJE REGIONA I SUBREGIONA U KOM SE NALAZI Substation
+            //                                {
+            //                                    foreach (long gen in substation.Equipments)
+            //                                    {
+            //                                        if (nmsCache.TryGetValueAsync(tx, gen).Result.GetType().Name.Equals("Generator"))
+            //                                        {
+            //                                            ConditionalValue<IdentifiedObject> generatorIdentifiedObject = nmsCache.TryGetValueAsync(tx, gen).Result;
+            //                                            Generator generator = (Generator)generatorIdentifiedObject.Value;
+
+            //                                            if (!affectedEntities.ContainsKey(gr.GlobalId))
+            //                                                affectedEntities.Add(gr.GlobalId, gr);
+
+            //                                            if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
+            //                                                affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
+
+            //                                            if (!affectedEntities.ContainsKey(substation.GlobalId))
+            //                                                affectedEntities.Add(substation.GlobalId, substation);
+
+            //                                            if (!affectedEntities.ContainsKey(generator.GlobalId))
+            //                                                affectedEntities.Add(generator.GlobalId, generator);
+            //                                        }
+            //                                    }
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //            await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewDerForecastDayAheadForSubstation(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities, stateManager));
+            //            listOfGeneratorsForScada = await derFlexibility.InvokeWithRetryAsync(client => client.Channel.TurnOnFlexibilityForSubstation(data.Flexibility, data.Gid, affectedEntities));
+            //        }
+            //        else if (type.Equals("SubGeographicalRegion"))
+            //        {
+            //            IAsyncEnumerable<KeyValuePair<long, IdentifiedObject>> nmsCacheEnumerable = nmsCache.CreateEnumerableAsync(tx).Result;
+            //            using (IAsyncEnumerator<KeyValuePair<long, IdentifiedObject>> nmsCacheEnumerator = nmsCacheEnumerable.GetAsyncEnumerator())
+            //            {
+            //                while (nmsCacheEnumerator.MoveNextAsync(CancellationToken.None).Result)
+            //                {
+            //                    if (nmsCacheEnumerator.Current.Value.GetType().Name.Equals("GeographicalRegion"))
+            //                    {
+            //                        GeographicalRegion gr = (GeographicalRegion)nmsCacheEnumerator.Current.Value;
+
+            //                        foreach (long s in gr.Regions)
+            //                        {
+            //                            ConditionalValue<IdentifiedObject> subGeographicalRegionIdentifiedObject = nmsCache.TryGetValueAsync(tx, s).Result;
+            //                            SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)subGeographicalRegionIdentifiedObject.Value;
+
+            //                            if (subGeographicalRegion.GlobalId.Equals(data.Gid))
+            //                            {
+            //                                foreach (long sub in subGeographicalRegion.Substations)
+            //                                {
+            //                                    ConditionalValue<IdentifiedObject> substationIdentifiedObject = nmsCache.TryGetValueAsync(tx, sub).Result;
+            //                                    Substation substation = (Substation)substationIdentifiedObject.Value;
+
+            //                                    foreach (long gen in substation.Equipments)
+            //                                    {
+            //                                        if (nmsCache.TryGetValueAsync(tx, gen).Result.GetType().Name.Equals("Generator"))
+            //                                        {
+            //                                            ConditionalValue<IdentifiedObject> generatorIdentifiedObject = nmsCache.TryGetValueAsync(tx, gen).Result;
+            //                                            Generator generator = (Generator)generatorIdentifiedObject.Value;
+
+            //                                            if (!affectedEntities.ContainsKey(gr.GlobalId))
+            //                                                affectedEntities.Add(gr.GlobalId, gr);
+
+            //                                            if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
+            //                                                affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
+
+            //                                            if (!affectedEntities.ContainsKey(substation.GlobalId))
+            //                                                affectedEntities.Add(substation.GlobalId, substation);
+
+            //                                            if (!affectedEntities.ContainsKey(generator.GlobalId))
+            //                                                affectedEntities.Add(generator.GlobalId, generator);
+            //                                        }
+            //                                    }
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            }
+
+            //            await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewDerForecastDayAheadForSubGeoRegion(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities, stateManager));
+            //            listOfGeneratorsForScada = await derFlexibility.InvokeWithRetryAsync(client => client.Channel.TurnOnFlexibilityForSubGeoRegion(data.Flexibility, data.Gid, affectedEntities));
+            //        }
+            //        else if (type.Equals("GeographicalRegion"))
+            //        {
+            //            ConditionalValue<IdentifiedObject> geographicalRegionIdentifiedObject = nmsCache.TryGetValueAsync(tx, data.Gid).Result;
+            //            GeographicalRegion gr = (GeographicalRegion)geographicalRegionIdentifiedObject.Value;
+
+            //            foreach (long s in gr.Regions)
+            //            {
+            //                ConditionalValue<IdentifiedObject> subGeographicalRegionIdentifiedObject = nmsCache.TryGetValueAsync(tx, s).Result;
+            //                SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)subGeographicalRegionIdentifiedObject.Value;
+
+            //                foreach (long sub in subGeographicalRegion.Substations)
+            //                {
+            //                    ConditionalValue<IdentifiedObject> substationIdentifiedObject = nmsCache.TryGetValueAsync(tx, sub).Result;
+            //                    Substation substation = (Substation)substationIdentifiedObject.Value;
+
+            //                    foreach (long gen in substation.Equipments)
+            //                    {
+            //                        if (nmsCache.TryGetValueAsync(tx, gen).Result.GetType().Name.Equals("Generator"))
+            //                        {
+            //                            ConditionalValue<IdentifiedObject> generatorIdentifiedObject = nmsCache.TryGetValueAsync(tx, gen).Result;
+            //                            Generator generator = (Generator)generatorIdentifiedObject.Value;
+
+            //                            if (!affectedEntities.ContainsKey(gr.GlobalId))
+            //                                affectedEntities.Add(gr.GlobalId, gr);
+
+            //                            if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
+            //                                affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
+
+            //                            if (!affectedEntities.ContainsKey(substation.GlobalId))
+            //                                affectedEntities.Add(substation.GlobalId, substation);
+
+            //                            if (!affectedEntities.ContainsKey(generator.GlobalId))
+            //                                affectedEntities.Add(generator.GlobalId, generator);
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //            await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewDerForecastDayAheadForGeoRegion(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities, stateManager));
+            //            listOfGeneratorsForScada = await derFlexibility.InvokeWithRetryAsync(client => client.Channel.TurnOnFlexibilityForGeoRegion(data.Flexibility, data.Gid, affectedEntities));
+            //        }
+            //        else if (type.Equals("NetworkModel")) // OVAJ TREBA PROVERITI
+            //        {
+            //            IAsyncEnumerable<KeyValuePair<long, IdentifiedObject>> nmsCacheEnumerable = nmsCache.CreateEnumerableAsync(tx).Result;
+            //            using (IAsyncEnumerator<KeyValuePair<long, IdentifiedObject>> nmsCacheEnumerator = nmsCacheEnumerable.GetAsyncEnumerator())
+            //            {
+            //                while (nmsCacheEnumerator.MoveNextAsync(CancellationToken.None).Result)
+            //                {
+            //                    if (nmsCacheEnumerator.Current.Value.GetType().Name.Equals("GeographicalRegion"))
+            //                    {
+            //                        GeographicalRegion gr = (GeographicalRegion)nmsCacheEnumerator.Current.Value;
+
+            //                        foreach (long s in gr.Regions)
+            //                        {
+            //                            ConditionalValue<IdentifiedObject> subGeographicalRegionIdentifiedObject = nmsCache.TryGetValueAsync(tx, s).Result;
+            //                            SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)subGeographicalRegionIdentifiedObject.Value;
+
+            //                            foreach (long sub in subGeographicalRegion.Substations)
+            //                            {
+            //                                ConditionalValue<IdentifiedObject> substationIdentifiedObject = nmsCache.TryGetValueAsync(tx, sub).Result;
+            //                                Substation substation = (Substation)substationIdentifiedObject.Value;
+
+            //                                if (substation.Equipments.Contains(data.Gid))  // TREBA IMPLEMENTIRATI U IFU PROSLEDJIVANJE REGIONA I SUBREGIONA U KOM SE NALAZI Generator
+            //                                {
+            //                                    if (nmsCache.TryGetValueAsync(tx, data.Gid).Result.GetType().Name.Equals("Generator"))
+            //                                    {
+            //                                        ConditionalValue<IdentifiedObject> generatorIdentifiedObject = nmsCache.TryGetValueAsync(tx, data.Gid).Result;
+            //                                        Generator generator = (Generator)generatorIdentifiedObject.Value;
+
+            //                                        if (!affectedEntities.ContainsKey(gr.GlobalId))
+            //                                            affectedEntities.Add(gr.GlobalId, gr);
+
+            //                                        if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
+            //                                            affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
+
+            //                                        if (!affectedEntities.ContainsKey(substation.GlobalId))
+            //                                            affectedEntities.Add(substation.GlobalId, substation);
+
+            //                                        if (!affectedEntities.ContainsKey(generator.GlobalId))
+            //                                            affectedEntities.Add(generator.GlobalId, generator);
+            //                                    }
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            }
+
+            //            await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewDerForecastDayAheadForNetworkModel(data.Flexibility, copyOfProductionCached, data.Gid, affectedEntities, stateManager));
+            //            listOfGeneratorsForScada = await derFlexibility.InvokeWithRetryAsync(client => client.Channel.TurnOnFlexibilityForNetworkModel(data.Flexibility, data.Gid, affectedEntities));
+            //        }
+            //    }
+
+            //    dataForScada.DataFromCEToScada = listOfGeneratorsForScada;
+
+            //    await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(dataForScada, (int)Enums.Topics.Flexibility));
+
+            //    //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(listOfGeneratorsForScada);
+            //    ApplyChangesOnProductionCached(); // OVU LINIJU OBRISATI I POZVATI JE KAD SKADA POSALJE ODGOVOR	
+            //}
+            /*
             Dictionary<DMSType, long> affectedDERForcast = new Dictionary<DMSType, long>();
             DERFlexibility flexibility = new DERFlexibility();
             string type = "empty";
@@ -830,6 +1143,7 @@ namespace CECacheMicroservice
         public async Task SendDerForecastDayAhead()
         {
             //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
+            await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead));
         }
         //NOT COMPLETE CEUpdateThroughUI missing, PubSubCalculatioEngine
         public async Task<float> PopulateBalance(long gid)
@@ -980,6 +1294,9 @@ namespace CECacheMicroservice
                 await dictionary.AddOrUpdateAsync(tx, 0, graph, (key, value) => value = graph);
                 await tx.CommitAsync();
             }
+
+            // ovaj deo koda nema smisla jer je graf vec tu iznad
+            //networkModelTreeClass = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetNetworkModelTreeClass());
 
             //CalculateFlexibility();
         }
@@ -1265,10 +1582,11 @@ namespace CECacheMicroservice
             //    productionNetworkModel = 0;
             //}
 
+            //upisati vrednosti
             //DataToUI data = new DataToUI();
             //data.NetworkModelTreeClass = NetworkModelTreeClass;
-            //PubSubCalculatioEngine.Instance.Notify(data, (int)Enums.Topics.NetworkModelTreeClass);
-
+            ////PubSubCalculatioEngine.Instance.Notify(data, (int)Enums.Topics.NetworkModelTreeClass);
+            // await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(data, (int)Enums.Topics.NetworkModelTreeClass));
         }
         public Dictionary<long, double> GetListOfGeneratorsForScada()
         {

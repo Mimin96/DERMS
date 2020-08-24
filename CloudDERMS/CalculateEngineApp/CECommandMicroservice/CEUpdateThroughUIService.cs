@@ -47,7 +47,7 @@ namespace CalculationEngineService
             float energyFromSource = 0;
             IdentifiedObject io = networkModel[GidUi];
             var type = io.GetType();
-            
+
             if (type.Name.Equals("GeographicalRegion"))
             {
                 List<long> temp = new List<long>();
@@ -897,7 +897,7 @@ namespace CalculationEngineService
                     GeographicalRegionsCount++;
                 }
             }
-            if(gid == -1)
+            if (gid == -1)
             {
                 foreach (KeyValuePair<long, IdentifiedObject> kvp in networkModel)
                 {
@@ -913,7 +913,7 @@ namespace CalculationEngineService
                     }
                 }
             }
-            if(networkModel.ContainsKey(gid))
+            if (networkModel.ContainsKey(gid))
             {
                 IdentifiedObject io = networkModel[gid];
                 var type = io.GetType();
@@ -972,7 +972,7 @@ namespace CalculationEngineService
                     }
 
                 }
-                if(type.Name.Equals("SubGeographicalRegion"))
+                if (type.Name.Equals("SubGeographicalRegion"))
                 {
                     SubGeographicalRegion subgeo = (SubGeographicalRegion)io;
                     if (!DisableAutomaticOptimization.Contains(subgeo.GlobalId))
@@ -1042,10 +1042,10 @@ namespace CalculationEngineService
                         }
                     }
                 }
-                if(type.Name.Equals("Substation"))
+                if (type.Name.Equals("Substation"))
                 {
                     Substation substation = (Substation)io;
-                    if(!DisableAutomaticOptimization.Contains(substation.GlobalId))
+                    if (!DisableAutomaticOptimization.Contains(substation.GlobalId))
                     {
                         DisableAutomaticOptimization.Add(substation.GlobalId);
                     }
@@ -1201,9 +1201,9 @@ namespace CalculationEngineService
         {
             Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             List<long> TurnedOffGenerators = new List<long>();
-        
+
             Dictionary<int, List<long>> tempTurnedOffGenerators = new Dictionary<int, List<long>>();
- 
+
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),

@@ -63,7 +63,7 @@ namespace CECommandMicroservice
                     {
                         transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOffGenerators(generatorGid));
                         transactionCoordinatorIsland.InvokeWithRetry(client => client.Channel.GeneratorOff(generatorGid, prod));
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTempProductionCached(generatorGid,prod[generatorGid]));
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTempProductionCached(generatorGid, prod[generatorGid]));
                         prod.Remove(generatorGid);
                         if (TurnedOnGenerators.Contains(generatorGid))
                             transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(generatorGid));

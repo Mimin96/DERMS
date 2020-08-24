@@ -4,6 +4,7 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CalculationEngineServiceCommon;
 using CloudCommon.CalculateEngine;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
@@ -35,6 +36,7 @@ namespace CECacheMicroservice
 
             ICache cECache = new CECacheService(StateManager);
             SendDataFromNMSToCE sendDataFromNMSToCE = new SendDataFromNMSToCE(StateManager, cECache);
+            SendDataToCEThroughScada sendDataToCEThroughScada = new SendDataToCEThroughScada(StateManager, cECache);
 
             return new[]
             {
@@ -55,6 +57,15 @@ namespace CECacheMicroservice
                         listenerBinding: WcfUtility.CreateTcpListenerBinding()
                     ),
                     name: "CESendDataFromNMSListener"
+                ),
+                new ServiceReplicaListener((context) =>
+                    new WcfCommunicationListener<ISendDataToCEThroughScada>(
+                        wcfServiceObject: sendDataToCEThroughScada,
+                        serviceContext: context,
+                        endpointResourceName: "SendDataToCEThroughScadaEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "SendDataToCEThroughScadaListener"
                 )
             };
         }

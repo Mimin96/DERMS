@@ -1,5 +1,7 @@
 ﻿using DERMSCommon.DataModel.Core;
 using DERMSCommon.WeatherForecast;
+using Microsoft.ServiceFabric.Data;
+using Microsoft.ServiceFabric.Data.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,31 +19,31 @@ namespace CloudCommon.CalculateEngine
 		[OperationContract]
 		void TurnOnFlexibility(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid);
 		[OperationContract]
-		bool CheckFlexibilityForManualCommanding(long gid, Dictionary<long, IdentifiedObject> model);
+		Task<bool> CheckFlexibilityForManualCommanding(long gid, IReliableDictionary<long, IdentifiedObject> model, IReliableStateManager stateManager);
 		[OperationContract]
-		void CalculateNewDerForecastDayAheadForNetworkModel(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
+		Task CalculateNewDerForecastDayAheadForNetworkModel(double flexibilityValue, IReliableDictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities, IReliableStateManager stateManager);
 		[OperationContract]
-		Dictionary<long, double> TurnOnFlexibilityForNetworkModel(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
+		Task<Dictionary<long, double>> TurnOnFlexibilityForNetworkModel(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
 		[OperationContract]
-		void CalculateNewDerForecastDayAheadForGeoRegion(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
+		Task CalculateNewDerForecastDayAheadForGeoRegion(double flexibilityValue, IReliableDictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities, IReliableStateManager stateManager);
 		[OperationContract]
-		Dictionary<long, double> TurnOnFlexibilityForGeoRegion(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
+		Task<Dictionary<long, double>> TurnOnFlexibilityForGeoRegion(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
 		[OperationContract]
-		void CalculateNewDerForecastDayAheadForSubGeoRegion(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
+		Task CalculateNewDerForecastDayAheadForSubGeoRegion(double flexibilityValue, IReliableDictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities, IReliableStateManager stateManager);
 		[OperationContract]
-		Dictionary<long, double> TurnOnFlexibilityForSubGeoRegion(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
+		Task<Dictionary<long, double>> TurnOnFlexibilityForSubGeoRegion(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
 		[OperationContract]
-		void CalculateNewDerForecastDayAheadForSubstation(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
+		Task CalculateNewDerForecastDayAheadForSubstation(double flexibilityValue, IReliableDictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities, IReliableStateManager stateManager);
 		[OperationContract]
-		Dictionary<long, double> TurnOnFlexibilityForSubstation(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
+		Task<Dictionary<long, double>> TurnOnFlexibilityForSubstation(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
 		[OperationContract]
-		void CalculateNewDerForecastDayAheadForGenerator(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
+		Task CalculateNewDerForecastDayAheadForGenerator(double flexibilityValue, IReliableDictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities, IReliableStateManager stateManager);
 		[OperationContract]
-		Dictionary<long, double> TurnOnFlexibilityForGenerator(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
+		Task<Dictionary<long, double>> TurnOnFlexibilityForGenerator(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
 		[OperationContract]
 		List<Generator> GetGenerators();
 		[OperationContract]
-		List<Generator> GetGeneratorsForManualCommand(Dictionary<long, IdentifiedObject> nmsModel);
+		List<Generator> GetGeneratorsForManualCommand(IReliableDictionary<long, IdentifiedObject> nmsModel, IReliableStateManager stateManager);
 		[OperationContract]
 		Dictionary<long, double> TempFlexibilityNetworkModel(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
 		[OperationContract]
@@ -49,6 +51,6 @@ namespace CloudCommon.CalculateEngine
 		[OperationContract]
 		Dictionary<long, double> TempFlexibilitySubGeoRegion(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
 		[OperationContract]
-		Dictionary<long, double> TempFlexibilitySubstation(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);		
+		Dictionary<long, double> TempFlexibilitySubstation(double flexibilityValue, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
 	}
 }
