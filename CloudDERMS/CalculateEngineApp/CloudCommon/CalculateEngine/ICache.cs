@@ -81,7 +81,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         void AddDerForecastDayAhead(long id, DerForecastDayAhead forecast);
         [OperationContract]
-        void AddToListOfGeneratorsForScada(long gid, double param);
+        Task AddToListOfGeneratorsForScada(long gid, double param);
         [OperationContract]
         Task AddToTempProductionCached(long gid, DerForecastDayAhead param);
         [OperationContract]

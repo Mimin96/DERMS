@@ -23,7 +23,7 @@ namespace SCADACommandMicroservice
 
         }
 
-        public void SendListOfGenerators(Dictionary<long, double> generators)
+        public async Task SendListOfGenerators(Dictionary<long, double> generators)
         {
 
             CloudClient<IScadaCloudToScadaLocal> transactionCoordinator = new CloudClient<IScadaCloudToScadaLocal>

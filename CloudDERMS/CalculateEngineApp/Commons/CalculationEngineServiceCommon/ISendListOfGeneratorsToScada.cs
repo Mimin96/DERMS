@@ -11,6 +11,6 @@ namespace CalculationEngineServiceCommon
 	public interface ISendListOfGeneratorsToScada
 	{
 		[OperationContract]
-		void SendListOfGenerators(Dictionary<long, double> generators);
+		Task SendListOfGenerators(Dictionary<long, double> generators);
 	}
 }

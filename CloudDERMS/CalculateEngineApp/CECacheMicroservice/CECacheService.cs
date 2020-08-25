@@ -25,31 +25,31 @@ namespace CECacheMicroservice
 {
     public class CECacheService : ICache
     {
-		// fali svuda pubsub notify
-		// listOfGeneratorsForScada -- obratiti paznju na ovo kod CEUpdateThroughUI -- metoda Balance 
-		// Napravi get metode i update metode za liste za koje je potrebno
-		// Proveri na kraju sta se odakle poziva, da li treba da se smesti u interfejs
-		#region Reliable Dictionaries
-		private IReliableDictionary<long, IdentifiedObject> nmsCache; //NetworkModelDictionary
-		private IReliableDictionary<long, List<DataPoint>> scadaPointsCached; //SCADAPointsDictionary
-		private IReliableDictionary<long, Forecast> derWeatherCached; // DERWeatherCachedDictionary
-		private IReliableDictionary<long, DerForecastDayAhead> productionCached; // ProductionCachedDictionary
-		private IReliableDictionary<int, TreeNode<NodeData>> graphCached; // GraphCachedDictionary
-		private IReliableDictionary<int, List<DataPoint>> dataPoints; //DataPointsCachedDictionary
-		private IReliableDictionary<long, DerForecastDayAhead> copyOfProductionCached; //CopyOfProductionCachedDictionary
-		private Dictionary<long, double> listOfGeneratorsForScada; // ListOfGeneratorsForScadaCachedDictionary
-		private IReliableDictionary<int, List<long>> DisableAutomaticOptimization; // DisableAutomaticOptimizationCachedDictionary
-		private IReliableDictionary<int, List<long>> TurnedOffGenerators; // TurnedOffGeneratorsCachedDictionary
-		private IReliableDictionary<int, List<long>> turnedOnGenerators;  // TurnedOnGeneratorsCachedDictionary
-		private IReliableDictionary<long, DerForecastDayAhead> tempProductionCached; // TempProductionCachedDictionary
-		private IReliableDictionary<long, DayAhead> substationDayAhead; //SubstationDayAheadCachedDictionary
-		private IReliableDictionary<long, DerForecastDayAhead> substationsForecast; //SubstationsForecastCachedDictionary
-		private IReliableDictionary<long, DerForecastDayAhead> subGeographicalRegionsForecast; // SubGeographicalRegionsForecastCachedDictionary
-		private IReliableDictionary<long, DerForecastDayAhead> generatorForecastList; // GeneratorForecastListCachedDictionary
-		private List<NetworkModelTreeClass> networkModelTreeClass;
-		#endregion
+        // fali svuda pubsub notify
+        // listOfGeneratorsForScada -- obratiti paznju na ovo kod CEUpdateThroughUI -- metoda Balance 
+        // Napravi get metode i update metode za liste za koje je potrebno
+        // Proveri na kraju sta se odakle poziva, da li treba da se smesti u interfejs
+        #region Reliable Dictionaries
+        private IReliableDictionary<long, IdentifiedObject> nmsCache; //NetworkModelDictionary
+        private IReliableDictionary<long, List<DataPoint>> scadaPointsCached; //SCADAPointsDictionary
+        private IReliableDictionary<long, Forecast> derWeatherCached; // DERWeatherCachedDictionary
+        private IReliableDictionary<long, DerForecastDayAhead> productionCached; // ProductionCachedDictionary
+        private IReliableDictionary<int, TreeNode<NodeData>> graphCached; // GraphCachedDictionary
+        private IReliableDictionary<int, List<DataPoint>> dataPoints; //DataPointsCachedDictionary
+        private IReliableDictionary<long, DerForecastDayAhead> copyOfProductionCached; //CopyOfProductionCachedDictionary
+        private Dictionary<long, double> listOfGeneratorsForScada; // ListOfGeneratorsForScadaCachedDictionary
+        private IReliableDictionary<int, List<long>> DisableAutomaticOptimization; // DisableAutomaticOptimizationCachedDictionary
+        private IReliableDictionary<int, List<long>> TurnedOffGenerators; // TurnedOffGeneratorsCachedDictionary
+        private IReliableDictionary<int, List<long>> turnedOnGenerators;  // TurnedOnGeneratorsCachedDictionary
+        private IReliableDictionary<long, DerForecastDayAhead> tempProductionCached; // TempProductionCachedDictionary
+        private IReliableDictionary<long, DayAhead> substationDayAhead; //SubstationDayAheadCachedDictionary
+        private IReliableDictionary<long, DerForecastDayAhead> substationsForecast; //SubstationsForecastCachedDictionary
+        private IReliableDictionary<long, DerForecastDayAhead> subGeographicalRegionsForecast; // SubGeographicalRegionsForecastCachedDictionary
+        private IReliableDictionary<long, DerForecastDayAhead> generatorForecastList; // GeneratorForecastListCachedDictionary
+        private List<NetworkModelTreeClass> networkModelTreeClass;
+        #endregion
 
-		private CloudClient<IPubSub> pubSub;
+        private CloudClient<IPubSub> pubSub;
         private CloudClient<IDERFlexibility> derFlexibility;
         private IReliableStateManager stateManager;
         public CECacheService(IReliableStateManager stateManager)
@@ -73,7 +73,7 @@ namespace CECacheMicroservice
         }
         public CECacheService()
         {
-           
+
         }
 
         //public void CalculateNewFlexibility(DataToUI data)
@@ -269,7 +269,7 @@ namespace CECacheMicroservice
             CloudClient<IDarkSkyApi> transactionCoordinator = new CloudClient<IDarkSkyApi>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CEWeatherForecastMicroservice"),
-              partitionKey:  ServicePartitionKey.Singleton,
+              partitionKey: ServicePartitionKey.Singleton,
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "DarkSkyApiListener"
             );
@@ -383,7 +383,7 @@ namespace CECacheMicroservice
             }
 
             await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Calculate(productionCachedDictionary, networkModel, substationDayAheadDictionary, derWeatherCachedDictionary));
-
+            await SendDerForecastDayAhead();
             //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
         }
         //NOT COMPLETE PubSubCalculatioEngine
@@ -503,7 +503,7 @@ namespace CECacheMicroservice
                 }
             }
 
-
+            await SendDerForecastDayAhead();
 
             //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead); // KAD SE POPUNI CACHE SALJE SVIMA Dictionary
         }
@@ -517,7 +517,8 @@ namespace CECacheMicroservice
                 tx.CommitAsync();
             }
 
-            //if (!isInitState)
+            if (!isInitState)
+                SendDerForecastDayAhead();
             //    PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
         }
         public void RemoveFromDerForecast(long gid)
@@ -850,11 +851,11 @@ namespace CECacheMicroservice
 
                 //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(listOfGeneratorsForScada);
                 ApplyChangesOnProductionCached(); // OVU LINIJU OBRISATI I POZVATI JE KAD SKADA POSALJE ODGOVOR
-            }  
+            }
         }
 
         public async Task CalculateNewCopyOfProductionCachedFlexibility(Dictionary<long, DerForecastDayAhead> copyOfProductionCachedFlexibility)
-		{
+        {
             using (var tx = stateManager.CreateTransaction())
             {
                 copyOfProductionCached = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("copyOfProductionCached").Result;
@@ -863,7 +864,7 @@ namespace CECacheMicroservice
                 using (IAsyncEnumerator<KeyValuePair<long, DerForecastDayAhead>> copyOfProductionCachedEnumerator = copyOfProductionCachedEnumerable.GetAsyncEnumerator())
                 {
                     while (copyOfProductionCachedEnumerator.MoveNextAsync(CancellationToken.None).Result)
-                    {                        
+                    {
                         if (copyOfProductionCachedFlexibility.ContainsKey(copyOfProductionCachedEnumerator.Current.Key))
                         {
                             await copyOfProductionCached.AddOrUpdateAsync(tx, copyOfProductionCachedEnumerator.Current.Key, copyOfProductionCachedFlexibility[copyOfProductionCachedEnumerator.Current.Key], (key, value) => value = copyOfProductionCachedFlexibility[copyOfProductionCachedEnumerator.Current.Key]);
@@ -952,11 +953,12 @@ namespace CECacheMicroservice
                     while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
                     {
                         //-->>>PROVERITI DA LI JE OVA LISTA DOBRO POPUNJENA
-                       turnedOffGeneratorsList=dictEnumerator.Current.Value;
+                        turnedOffGeneratorsList = dictEnumerator.Current.Value;
                     }
                 }
             }
             float energyFromSource = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Balance(productionCachedDictionary, gid, nmsCacheDictionary, turnedOffGeneratorsList));
+            await SendDerForecastDayAhead();
             //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
             //return energyFromSource;
             return 0;
@@ -1370,13 +1372,13 @@ namespace CECacheMicroservice
 
             return ListOfGeneratorsForScada;
         }
-        public void AddToListOfGeneratorsForScada(long gid, double param)
+        public async Task AddToListOfGeneratorsForScada(long gid, double param)
         {
             using (var tx = stateManager.CreateTransaction())
             {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, double>>("ListOfGeneratorsForScadaCachedDictionary").Result;
-                dictionary.AddOrUpdateAsync(tx, gid, param, (key, value) => value = param);
-                tx.CommitAsync();
+                await dictionary.AddOrUpdateAsync(tx, gid, param, (key, value) => value = param);
+                await tx.CommitAsync();
             }
         }
         public void RemoveFromListOfGeneratorsForScada(long gid)

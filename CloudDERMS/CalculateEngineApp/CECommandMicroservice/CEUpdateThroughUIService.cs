@@ -805,7 +805,6 @@ namespace CalculationEngineService
             }
             //---NIJE RESENO---DODATNA KONEKCIJA
             //CalculationEngineCache.Instance.ListOfGenerators = dicForScada;
-            //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(dicForScada);
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
@@ -813,7 +812,23 @@ namespace CalculationEngineService
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
             );
-            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateMinAndMaxFlexibilityForChangedGenerators());
+            foreach (KeyValuePair<long, double> kvp in dicForScada)
+            {
+                await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToListOfGeneratorsForScada(kvp.Key, kvp.Value));
+            }
+
+            CloudClient<ISendListOfGeneratorsToScada> transactionCoordinatorScada = new CloudClient<ISendListOfGeneratorsToScada>
+            (
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              partitionKey: ServicePartitionKey.Singleton,
+              clientBinding: WcfUtility.CreateTcpClientBinding(),
+              listenerName: "SCADACommandingMicroserviceListener"
+            );
+            await transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(dicForScada));
+
+            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateMinAndMaxFlexibilityForChangedGenerators());
+            //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(dicForScada);
+
             //CalculationEngineCache.Instance.UpdateMinAndMaxFlexibilityForChangedGenerators();
             return energyFromSource;
         }
@@ -840,6 +855,7 @@ namespace CalculationEngineService
                 }
             }
             ///POGLEDAJ METODA OD KESA
+            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead());
             //CalculationEngineCache.Instance.NetworkModelBalanced();
             return energyFromSource;
         }

@@ -61,13 +61,13 @@ namespace CECommandMicroservice
                 {
                     if (!TurnedOffGenerators.Contains(generatorGid))
                     {
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOffGenerators(generatorGid));
-                        transactionCoordinatorIsland.InvokeWithRetry(client => client.Channel.GeneratorOff(generatorGid, prod));
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTempProductionCached(generatorGid, prod[generatorGid]));
+                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOffGenerators(generatorGid));
+                        await transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOff(generatorGid, prod));
+                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTempProductionCached(generatorGid, prod[generatorGid]));
                         prod.Remove(generatorGid);
                         if (TurnedOnGenerators.Contains(generatorGid))
-                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(generatorGid));
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead());
+                            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(generatorGid));
+                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead());
                     }
                 }
             }
@@ -77,18 +77,27 @@ namespace CECommandMicroservice
                 {
                     if (TurnedOffGenerators.Contains(generatorGid))
                     {
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOffGenerators(generatorGid));
+                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOffGenerators(generatorGid));
 
                         prod.Add(generatorGid, TempProductionCached[generatorGid]);
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTempProductionCached(generatorGid));
-                        transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOn(generatorGid, prod));
+                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTempProductionCached(generatorGid));
+                        await transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOn(generatorGid, prod));
                         if (!TurnedOnGenerators.Contains(generatorGid))
-                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOnGenerators(generatorGid));
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead());
+                            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOnGenerators(generatorGid));
+                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead());
                     }
                 }
             }
             //KAD SE URADI ClientSideCE RESITI OVU LINIJU
+            CloudClient<ISendListOfGeneratorsToScada> transactionCoordinatorScada = new CloudClient<ISendListOfGeneratorsToScada>
+            (
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              partitionKey: ServicePartitionKey.Singleton,
+              clientBinding: WcfUtility.CreateTcpClientBinding(),
+              listenerName: "SCADACommandingMicroserviceListener"
+            );
+            await transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(keyValues));
+
             //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(keyValues);
         }
 
@@ -107,7 +116,7 @@ namespace CECommandMicroservice
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
             );
-            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.CalculateNewFlexibility(data));
+            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.CalculateNewFlexibility(data));
 
         }
     }
