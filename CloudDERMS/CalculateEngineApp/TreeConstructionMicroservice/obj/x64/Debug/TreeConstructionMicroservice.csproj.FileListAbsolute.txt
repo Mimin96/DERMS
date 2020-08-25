@@ -975,3 +975,6 @@ C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\TreeConstruction
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csproj.CopyComplete
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.exe
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\DERMSCommon.dll.config
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\FTN.Services.NetworkModelService.dll.config
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csprojAssemblyReference.cache

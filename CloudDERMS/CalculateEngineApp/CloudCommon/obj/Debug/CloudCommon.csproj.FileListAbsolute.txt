@@ -2973,3 +2973,5 @@ C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\CloudCommon\obj\
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\CloudCommon\obj\Debug\CloudCommon.csproj.CopyComplete
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\CloudCommon\obj\Debug\CloudCommon.dll
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\CloudCommon\obj\Debug\CloudCommon.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CloudCommon\bin\Debug\FTN.Services.NetworkModelService.dll.config
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CloudCommon\bin\Debug\DERMSCommon.dll.config

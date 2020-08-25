@@ -12,6 +12,7 @@ using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using System.ServiceModel;
 using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using System.Fabric.Description;
+using CalculationEngineService;
 
 namespace CECalculationMicroservice
 {

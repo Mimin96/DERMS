@@ -273,7 +273,6 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CE
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\bin\x64\Debug\Microsoft.OData.Edm.xml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\bin\x64\Debug\Microsoft.Spatial.xml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.csprojAssemblyReference.cache
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.exe.config
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.csproj.CoreCompileInputs.cache
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.csproj.CopyComplete
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.exe
@@ -861,3 +860,6 @@ C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicrose
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.csproj.CopyComplete
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.exe
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.dll.config
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\bin\x64\Debug\DERMSCommon.dll.config
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\bin\x64\Debug\FTN.Services.NetworkModelService.dll.config

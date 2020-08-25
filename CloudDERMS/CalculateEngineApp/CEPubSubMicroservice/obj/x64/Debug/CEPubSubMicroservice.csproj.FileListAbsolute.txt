@@ -268,7 +268,6 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CE
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\Microsoft.OData.Edm.xml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\Microsoft.Spatial.xml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.csprojAssemblyReference.cache
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.exe.config
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.csproj.CoreCompileInputs.cache
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.csproj.CopyComplete
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.exe
@@ -832,3 +831,5 @@ C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroser
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.csproj.CopyComplete
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.exe
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\DERMSCommon.dll.config
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\FTN.Services.NetworkModelService.dll.config
