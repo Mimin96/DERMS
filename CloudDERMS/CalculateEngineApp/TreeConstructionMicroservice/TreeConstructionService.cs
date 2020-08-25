@@ -1,4 +1,5 @@
 ﻿using CloudCommon.CalculateEngine;
+using CloudCommon.CalculateEngine.Communication;
 using DERMSCommon;
 using DERMSCommon.DataModel.Core;
 using DERMSCommon.DataModel.Meas;
@@ -7,6 +8,8 @@ using DERMSCommon.NMSCommuication;
 using DERMSCommon.SCADACommon;
 using DERMSCommon.UIModel.ThreeViewModel;
 using FTN.Common;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -190,6 +193,15 @@ namespace TreeConstructionMicroservice
                 }
             }
             //
+            CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
+            (
+                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0),
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "CECacheServiceListener"
+            );
+
+            transactionCoordinator.InvokeWithRetry(client => client.Channel.SetNetworkModelTreeClass(NetworkModelTreeClass));
 
             ColorGraph();
             //CalculateFlexibility();

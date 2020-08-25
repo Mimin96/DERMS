@@ -8,3 +8,4 @@ C:\Users\Nemanja\Desktop\Git1708\DERMS\CloudDERMS\CalculateEngineApp\SCADAApp\ob
 C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\SCADAApp\obj\x64\Debug\SCADAApp.sfproj.CoreCompileInputs.cache
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\SCADAApp\obj\x64\Debug\SCADAApp.sfproj.CoreCompileInputs.cache
 C:\Users\Djole\Desktop\Projekat 25.8\DERMS\CloudDERMS\CalculateEngineApp\SCADAApp\obj\x64\Debug\SCADAApp.sfproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\SCADAApp\obj\x64\Debug\SCADAApp.sfproj.CoreCompileInputs.cache

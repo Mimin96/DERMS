@@ -23,7 +23,7 @@ namespace TransactionCoordinatorMicroservice
             CloudClient<ITransactionCheck> nmsClient = new CloudClient<ITransactionCheck>
             (
                serviceUri: new Uri($"fabric:/NMSApp/NMSTransactionMicroservice"),
-               partitionKey: ServicePartitionKey.Singleton,
+               partitionKey: new ServicePartitionKey(0),
                clientBinding: WcfUtility.CreateTcpClientBinding(),
                listenerName: "NMSTMListener"
             );
@@ -33,7 +33,7 @@ namespace TransactionCoordinatorMicroservice
             CloudClient<ITransactionCheck> ceClient = new CloudClient<ITransactionCheck>
             (
                serviceUri: new Uri($"fabric:/CalculateEngineApp/CETransactionMicroservice"),
-               partitionKey: ServicePartitionKey.Singleton,
+               partitionKey: new ServicePartitionKey(0),
                clientBinding: WcfUtility.CreateTcpClientBinding(),
                listenerName: "CETMListener"
             );
@@ -43,7 +43,7 @@ namespace TransactionCoordinatorMicroservice
             CloudClient<ITransactionCheck> scadaClient = new CloudClient<ITransactionCheck>
             (
                serviceUri: new Uri($"fabric:/SCADAApp/SCADATransactionMicroservice"),
-               partitionKey: ServicePartitionKey.Singleton,
+               partitionKey: new ServicePartitionKey(0),
                clientBinding: WcfUtility.CreateTcpClientBinding(),
                listenerName: "SCADATMListener"
             );
@@ -56,7 +56,7 @@ namespace TransactionCoordinatorMicroservice
             CloudClient<ITransactionCheck> nmsClient = new CloudClient<ITransactionCheck>
             (
                serviceUri: new Uri($"fabric:/NMSApp/NMSTransactionMicroservice"),
-               partitionKey: ServicePartitionKey.Singleton,
+               partitionKey: new ServicePartitionKey(0),
                clientBinding: WcfUtility.CreateTcpClientBinding(),
                listenerName: "NMSTMListener"
             );
@@ -66,7 +66,7 @@ namespace TransactionCoordinatorMicroservice
             CloudClient<ITransactionCheck> ceClient = new CloudClient<ITransactionCheck>
             (
                serviceUri: new Uri($"fabric:/CalculateEngineApp/CETransactionMicroservice"),
-               partitionKey: ServicePartitionKey.Singleton,
+               partitionKey: new ServicePartitionKey(0),
                clientBinding: WcfUtility.CreateTcpClientBinding(),
                listenerName: "CETMListener"
             );
@@ -76,7 +76,7 @@ namespace TransactionCoordinatorMicroservice
             CloudClient<ITransactionCheck> scadaClient = new CloudClient<ITransactionCheck>
             (
                serviceUri: new Uri($"fabric:/SCADAApp/SCADATransactionMicroservice"),
-               partitionKey: ServicePartitionKey.Singleton,
+               partitionKey: new ServicePartitionKey(0),
                clientBinding: WcfUtility.CreateTcpClientBinding(),
                listenerName: "SCADATMListener"
             );
@@ -98,7 +98,7 @@ namespace TransactionCoordinatorMicroservice
                 CloudClient<ITransactionCheck> nmsClient = new CloudClient<ITransactionCheck>
                 (
                    serviceUri: new Uri($"fabric:/NMSApp/NMSTransactionMicroservice"),
-                   partitionKey: ServicePartitionKey.Singleton,
+                   partitionKey: new ServicePartitionKey(0),
                    clientBinding: WcfUtility.CreateTcpClientBinding(),
                    listenerName: "NMSTMListener"
                 );

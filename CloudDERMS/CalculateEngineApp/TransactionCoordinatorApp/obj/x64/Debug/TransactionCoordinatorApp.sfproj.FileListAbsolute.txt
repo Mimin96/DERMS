@@ -10,3 +10,4 @@ C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\TransactionCoo
 C:\Users\Caki\Desktop\1908\DERMS\CloudDERMS\CalculateEngineApp\TransactionCoordinatorApp\obj\x64\Debug\TransactionCoordinatorApp.sfproj.CoreCompileInputs.cache
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\TransactionCoordinatorApp\obj\x64\Debug\TransactionCoordinatorApp.sfproj.CoreCompileInputs.cache
 C:\Users\Djole\Desktop\Projekat 25.8\DERMS\CloudDERMS\CalculateEngineApp\TransactionCoordinatorApp\obj\x64\Debug\TransactionCoordinatorApp.sfproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\TransactionCoordinatorApp\obj\x64\Debug\TransactionCoordinatorApp.sfproj.CoreCompileInputs.cache

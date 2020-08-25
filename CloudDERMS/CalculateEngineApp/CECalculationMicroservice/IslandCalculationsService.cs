@@ -20,7 +20,7 @@ namespace CECalculationMicroservice
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
-              partitionKey: ServicePartitionKey.Singleton,
+              partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
             );
@@ -51,7 +51,7 @@ namespace CECalculationMicroservice
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
-              partitionKey: ServicePartitionKey.Singleton,
+              partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
             );

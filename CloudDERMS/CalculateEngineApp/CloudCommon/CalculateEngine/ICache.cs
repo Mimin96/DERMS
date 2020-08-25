@@ -1,7 +1,9 @@
-﻿using DERMSCommon;
+﻿using DarkSkyApi.Models;
+using DERMSCommon;
 using DERMSCommon.DataModel.Core;
 using DERMSCommon.NMSCommuication;
 using DERMSCommon.SCADACommon;
+using DERMSCommon.UIModel.ThreeViewModel;
 using DERMSCommon.WeatherForecast;
 using System;
 using System.Collections.Generic;
@@ -130,6 +132,14 @@ namespace CloudCommon.CalculateEngine
         void RemoveFromDerForecast(long gid);
         [OperationContract]
         void RemoveFromScadaDataPoint(long gid);
+        [OperationContract]
+        Task SetNetworkModelTreeClass(List<NetworkModelTreeClass> networkModelTreeClass);
+        [OperationContract]
+        Task<List<NetworkModelTreeClass>> GetNetworkModelTreeClass();
+        [OperationContract]
+        Task<Dictionary<long, Forecast>> GetWholeDerWeatherCached();
+        [OperationContract]
+        Task<List<long>> GetDisableAutomaticOptimizationList();
 
     }
 }

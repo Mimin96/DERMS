@@ -29,7 +29,7 @@ namespace CECommandMicroservice
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
-              partitionKey: ServicePartitionKey.Singleton,
+              partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
             );
@@ -42,7 +42,7 @@ namespace CECommandMicroservice
             CloudClient<IIslandCalculations> transactionCoordinatorIsland = new CloudClient<IIslandCalculations>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
-              partitionKey: ServicePartitionKey.Singleton,
+              partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "IslandCalculationsListener"
             );
@@ -92,7 +92,7 @@ namespace CECommandMicroservice
             CloudClient<ISendListOfGeneratorsToScada> transactionCoordinatorScada = new CloudClient<ISendListOfGeneratorsToScada>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
-              partitionKey: ServicePartitionKey.Singleton,
+              partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "SCADACommandingMicroserviceListener"
             );
@@ -112,7 +112,7 @@ namespace CECommandMicroservice
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
-              partitionKey: ServicePartitionKey.Singleton,
+              partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
             );

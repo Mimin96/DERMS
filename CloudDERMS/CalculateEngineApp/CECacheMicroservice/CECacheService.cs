@@ -58,7 +58,7 @@ namespace CECacheMicroservice
             pubSub = new CloudClient<IPubSub>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CEPubSubMicroService"),
-              partitionKey: ServicePartitionKey.Singleton,
+              partitionKey: new ServicePartitionKey(0), /*CJN*/
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CEPubSubMicroServiceListener"
             );
@@ -66,7 +66,7 @@ namespace CECacheMicroservice
             derFlexibility = new CloudClient<IDERFlexibility>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
-              partitionKey: ServicePartitionKey.Singleton,
+              partitionKey: new ServicePartitionKey(0), /*CJN*/
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "DERFlexibilityListener"
             );
@@ -269,7 +269,7 @@ namespace CECacheMicroservice
             CloudClient<IDarkSkyApi> transactionCoordinator = new CloudClient<IDarkSkyApi>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CEWeatherForecastMicroservice"),
-              partitionKey: ServicePartitionKey.Singleton,
+              partitionKey: new ServicePartitionKey(0), /*CJN*/
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "DarkSkyApiListener"
             );
@@ -328,7 +328,7 @@ namespace CECacheMicroservice
             CloudClient<IConsumptionCalculator> transactionCoordinator = new CloudClient<IConsumptionCalculator>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
-              partitionKey: ServicePartitionKey.Singleton,
+              partitionKey: new ServicePartitionKey(0), /*CJN*/
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "ConsumptionCalculatorListener"
             );
@@ -393,7 +393,7 @@ namespace CECacheMicroservice
             CloudClient<IProductionCalculator> transactionCoordinator = new CloudClient<IProductionCalculator>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
-              partitionKey: ServicePartitionKey.Singleton,
+              partitionKey: new ServicePartitionKey(0), /*CJN*/
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "ProductionCalculatorListener"
             );
@@ -543,6 +543,28 @@ namespace CECacheMicroservice
                 }
             }
             return null;
+        }
+        public async Task<Dictionary<long, Forecast>> GetWholeDerWeatherCached()
+        {
+            Dictionary<long, Forecast> derWeather = new Dictionary<long, Forecast>();
+
+            using (var tx = stateManager.CreateTransaction())
+            {
+                IReliableDictionary<long, Forecast> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, Forecast>>("DERWeatherCachedDictionary").Result;
+
+                Dictionary<long, Forecast> Nmsdictionary = new Dictionary<long, Forecast>();
+
+                IAsyncEnumerable<KeyValuePair<long, Forecast>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
+                using (IAsyncEnumerator<KeyValuePair<long, Forecast>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
+                {
+                    while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
+                    {
+                        Nmsdictionary.Add(dictEnumerator.Current.Key, dictEnumerator.Current.Value);
+                    }
+                }
+               
+            }
+            return derWeather;
         }
         #endregion
 
@@ -910,7 +932,7 @@ namespace CECacheMicroservice
             CloudClient<ICEUpdateThroughUI> transactionCoordinator = new CloudClient<ICEUpdateThroughUI>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
-              partitionKey: ServicePartitionKey.Singleton,
+              partitionKey: new ServicePartitionKey(0), /*CJN*/
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CEUpdateThroughUIServiceListener"
             );
@@ -1040,7 +1062,7 @@ namespace CECacheMicroservice
         {
             CloudClient<ITreeConstruction> transactionCoordinator = new CloudClient<ITreeConstruction>
             (
-                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                serviceUri: new Uri("fabric:/CalculateEngineApp/TreeConstructionMicroservice"),
                 partitionKey: new ServicePartitionKey(0),
                 clientBinding: WcfUtility.CreateTcpClientBinding(),
                 listenerName: "BuildTreeServiceListener"
@@ -1064,8 +1086,8 @@ namespace CECacheMicroservice
         {
             CloudClient<ITreeConstruction> transactionCoordinator = new CloudClient<ITreeConstruction>
             (
-                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
-                partitionKey: ServicePartitionKey.Singleton,
+                serviceUri: new Uri("fabric:/CalculateEngineApp/TreeConstructionMicroservice"),
+                partitionKey: new ServicePartitionKey(0), /*CJN*/
                 clientBinding: WcfUtility.CreateTcpClientBinding(),
                 listenerName: "BuildTreeServiceListener"
             );
@@ -1398,6 +1420,7 @@ namespace CECacheMicroservice
         //ListOfDisabledGenerators
         //AllowOptimization
         //ListOffTurnedOffGenerators -- Stoje negde drugde ali traze vrednosti te liste, ali ne stoje u cache
+        //This method should not be used
         public async Task<Dictionary<int, List<long>>> GetDisableAutomaticOptimization() //DisableAutomaticOptimizationCachedDictionary
         {
             Dictionary<int, List<long>> DisableAutomaticOptimization = new Dictionary<int, List<long>>();
@@ -1417,6 +1440,22 @@ namespace CECacheMicroservice
             }
 
             return DisableAutomaticOptimization;
+        }
+
+        public async Task<List<long>> GetDisableAutomaticOptimizationList()
+        {
+            List<long> lista = new List<long>();
+
+
+            using (var tx = stateManager.CreateTransaction())
+            {
+                IReliableDictionary<int, List<long>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("DisableAutomaticOptimizationCachedDictionary").Result;
+
+                lista = dict.TryGetValueAsync(tx, 0).Result.Value;
+            }
+
+
+            return lista;
         }
         public void AddToDisableAutomaticOptimization(long param)
         {
@@ -1752,6 +1791,33 @@ namespace CECacheMicroservice
                 dictionary.TryRemoveAsync(tx, gid);
                 tx.CommitAsync();
             }
+        }
+        #endregion
+
+        #region networkModelTreeClass methods
+        // get nmt 
+        public async Task SetNetworkModelTreeClass(List<NetworkModelTreeClass> networkModelTreeClass)
+        {
+            using (var tx = stateManager.CreateTransaction())
+            {
+                var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, List<NetworkModelTreeClass>>>("NetworkModelTreeClassCached").Result;
+                dictionary.AddOrUpdateAsync(tx, 0, networkModelTreeClass, (key, value) => value = networkModelTreeClass);
+                tx.CommitAsync();
+            }
+        }
+
+        public async Task<List<NetworkModelTreeClass>> GetNetworkModelTreeClass()
+        {
+            List<NetworkModelTreeClass> nmt = new List<NetworkModelTreeClass>();
+
+            using (var tx = stateManager.CreateTransaction())
+            {
+                IReliableDictionary<int, List<NetworkModelTreeClass>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<NetworkModelTreeClass>>>("NetworkModelTreeClassCached").Result;
+
+                nmt = dict.TryGetValueAsync(tx, 0).Result.Value;
+            }
+
+            return nmt;
         }
         #endregion
 
