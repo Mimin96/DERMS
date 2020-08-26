@@ -109,14 +109,15 @@ namespace CECommandMicroservice
             data.Gid = gid;
             data.FlexibilityIncDec = incOrDec;
 
-            CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
+            CloudClient<IDERFlexibility> derFlexibility = new CloudClient<IDERFlexibility>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
-              partitionKey: new ServicePartitionKey(0),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
+              partitionKey: new ServicePartitionKey(0), /*CJN*/
               clientBinding: WcfUtility.CreateTcpClientBinding(),
-              listenerName: "CECacheServiceListener"
+              listenerName: "DERFlexibilityListener"
             );
-            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.CalculateNewFlexibility(data));
+
+            await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewFlexibility(data));
 
         }
     }

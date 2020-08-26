@@ -482,7 +482,6 @@ C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CE
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\bin\x64\Debug\MaterialDesignColors.pdb
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\bin\x64\Debug\Microsoft.OData.Edm.xml
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\bin\x64\Debug\Microsoft.Spatial.xml
-C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.csprojAssemblyReference.cache
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.csproj.CoreCompileInputs.cache
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.csproj.CopyComplete
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.exe
@@ -1192,3 +1191,7 @@ C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMi
 C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.csproj.CopyComplete
 C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.exe
 C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.dll
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.dll.config
+C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\CECalculationMicroservice\obj\x64\Debug\CECalculationMicroservice.csprojAssemblyReference.cache

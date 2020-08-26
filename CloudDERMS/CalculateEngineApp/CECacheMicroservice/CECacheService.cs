@@ -30,7 +30,7 @@ namespace CECacheMicroservice
         // Napravi get metode i update metode za liste za koje je potrebno
         // Proveri na kraju sta se odakle poziva, da li treba da se smesti u interfejs
         #region Reliable Dictionaries
-        private IReliableDictionary<long, IdentifiedObject> nmsCache; //NetworkModelDictionary
+        /*private IReliableDictionary<long, IdentifiedObject> nmsCache; //NetworkModelDictionary
         private IReliableDictionary<long, List<DataPoint>> scadaPointsCached; //SCADAPointsDictionary
         private IReliableDictionary<long, Forecast> derWeatherCached; // DERWeatherCachedDictionary
         private IReliableDictionary<long, DerForecastDayAhead> productionCached; // ProductionCachedDictionary
@@ -46,7 +46,7 @@ namespace CECacheMicroservice
         private IReliableDictionary<long, DerForecastDayAhead> substationsForecast; //SubstationsForecastCachedDictionary
         private IReliableDictionary<long, DerForecastDayAhead> subGeographicalRegionsForecast; // SubGeographicalRegionsForecastCachedDictionary
         private IReliableDictionary<long, DerForecastDayAhead> generatorForecastList; // GeneratorForecastListCachedDictionary
-        private List<NetworkModelTreeClass> networkModelTreeClass;
+        private List<NetworkModelTreeClass> networkModelTreeClass;*/
         #endregion
 
         private CloudClient<IPubSub> pubSub;
@@ -321,7 +321,7 @@ namespace CECacheMicroservice
             }
             return null;
         }
-        //NOT COMPLETE PubSubCalculatioEngine
+
         public async Task PopulateConsumptionForecast(NetworkModelTransfer networkModel)
         {
             //Communication with Microservice in same application
@@ -384,9 +384,8 @@ namespace CECacheMicroservice
 
             await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Calculate(productionCachedDictionary, networkModel, substationDayAheadDictionary, derWeatherCachedDictionary));
             await SendDerForecastDayAhead();
-            //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
         }
-        //NOT COMPLETE PubSubCalculatioEngine
+
         public async Task PopulateProductionForecast(NetworkModelTransfer networkModel)
         {
             //Communication with Microservice in same application
@@ -504,10 +503,8 @@ namespace CECacheMicroservice
             }
 
             await SendDerForecastDayAhead();
-
-            //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead); // KAD SE POPUNI CACHE SALJE SVIMA Dictionary
         }
-        //NOT COMPLETE PubSubCalculatioEngine
+
         public void AddDerForecast(DerForecastDayAhead derForecastDayAhead, long gid, bool isInitState)
         {
             using (var tx = stateManager.CreateTransaction())
@@ -519,7 +516,6 @@ namespace CECacheMicroservice
 
             if (!isInitState)
                 SendDerForecastDayAhead();
-            //    PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
         }
         public void RemoveFromDerForecast(long gid)
         {
@@ -589,298 +585,12 @@ namespace CECacheMicroservice
                 }
             }
         }*/
-        //NOT COMPLETE - Ovaj kod bi trebalo da se izmesti u CECalculationMicroservice
-        public async Task CalculateNewFlexibility(DataToUI data)
-        {
-            using (var tx = stateManager.CreateTransaction())
-            {
-                Dictionary<DMSType, long> affectedDERForcast = new Dictionary<DMSType, long>();
-                string type = "empty";
-
-                nmsCache = stateManager.GetOrAddAsync<IReliableDictionary<long, IdentifiedObject>>("nmsCache").Result;
-
-                if (!await nmsCache.ContainsKeyAsync(tx, data.Gid))
-                {
-                    type = nmsCache.TryGetValueAsync(tx, data.Gid).Result.Value.GetType().Name;
-                }
-                else
-                {
-                    type = "NetworkModel";
-                }
-
-                Dictionary<long, IdentifiedObject> affectedEntities = new Dictionary<long, IdentifiedObject>();
-                listOfGeneratorsForScada = new Dictionary<long, double>();
-
-                DataToUI dataForScada = new DataToUI();
-                copyOfProductionCached = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("copyOfProductionCached").Result;
-
-                Dictionary<long, DerForecastDayAhead> copyOfProductionCachedFlexibility = new Dictionary<long, DerForecastDayAhead>(); // TRENUTNA PROIZVODNJA 24 CASA UNAPRED
-
-                /*foreach (DerForecastDayAhead der in productionCached)
-                {
-                    await copyOfProductionCached.AddAsync(tx, der.entityGid, new DerForecastDayAhead(der));
-                }*/
-
-                productionCached = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("productionCached").Result;
-
-                IAsyncEnumerable<KeyValuePair<long, DerForecastDayAhead>> productionCachedEnumerable = productionCached.CreateEnumerableAsync(tx).Result;
-                using (IAsyncEnumerator<KeyValuePair<long, DerForecastDayAhead>> productionCachedEnumerator = productionCachedEnumerable.GetAsyncEnumerator())
-                {
-                    while (productionCachedEnumerator.MoveNextAsync(CancellationToken.None).Result)
-                    {
-                        copyOfProductionCachedFlexibility.Add(productionCachedEnumerator.Current.Value.entityGid, new DerForecastDayAhead(productionCachedEnumerator.Current.Value));
-                        await copyOfProductionCached.AddAsync(tx, productionCachedEnumerator.Current.Value.entityGid, new DerForecastDayAhead(productionCachedEnumerator.Current.Value));
-                    }
-                }
-
-                nmsCache = stateManager.GetOrAddAsync<IReliableDictionary<long, IdentifiedObject>>("nmsCache").Result;
-                Dictionary<long, IdentifiedObject> nmsCacheFlexibility = new Dictionary<long, IdentifiedObject>();
-
-                IAsyncEnumerable<KeyValuePair<long, IdentifiedObject>> nmsCacheEnumerable = nmsCache.CreateEnumerableAsync(tx).Result;
-                using (IAsyncEnumerator<KeyValuePair<long, IdentifiedObject>> nmsCacheEnumerator = nmsCacheEnumerable.GetAsyncEnumerator())
-                {
-                    while (nmsCacheEnumerator.MoveNextAsync(CancellationToken.None).Result)
-                    {
-                        nmsCacheFlexibility.Add(nmsCacheEnumerator.Current.Key, nmsCacheEnumerator.Current.Value);
-                    }
-                }
-
-                if (await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CheckFlexibilityForManualCommanding(data.Gid, nmsCacheFlexibility)))
-                {
-                    if (type.Equals("Generator"))
-                    {
-                        foreach (IdentifiedObject io in nmsCacheFlexibility.Values)
-                        {
-                            if (io.GetType().Name.Equals("GeographicalRegion"))
-                            {
-                                GeographicalRegion gr = (GeographicalRegion)nmsCacheFlexibility[io.GlobalId];
-                                foreach (long s in gr.Regions)
-                                {
-                                    SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCacheFlexibility[s];
-
-                                    foreach (long sub in subGeographicalRegion.Substations)
-                                    {
-                                        Substation substation = (Substation)nmsCacheFlexibility[sub];
-
-                                        if (substation.Equipments.Contains(data.Gid))  // TREBA IMPLEMENTIRATI U IFU PROSLEDJIVANJE REGIONA I SUBREGIONA U KOM SE NALAZI Generator
-                                        {
-                                            if (nmsCacheFlexibility[data.Gid].GetType().Name.Equals("Generator"))
-                                            {
-                                                Generator generator = (Generator)nmsCacheFlexibility[data.Gid];
-
-                                                if (!affectedEntities.ContainsKey(gr.GlobalId))
-                                                    affectedEntities.Add(gr.GlobalId, gr);
-
-                                                if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
-                                                    affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
-
-                                                if (!affectedEntities.ContainsKey(substation.GlobalId))
-                                                    affectedEntities.Add(substation.GlobalId, substation);
-
-                                                if (!affectedEntities.ContainsKey(generator.GlobalId))
-                                                    affectedEntities.Add(generator.GlobalId, generator);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewDerForecastDayAheadForGenerator(data.Flexibility, copyOfProductionCachedFlexibility, data.Gid, affectedEntities));
-                        listOfGeneratorsForScada = await derFlexibility.InvokeWithRetryAsync(client => client.Channel.TurnOnFlexibilityForGenerator(data.Flexibility, data.Gid, affectedEntities));
-
-                    }
-                    else if (type.Equals("Substation"))
-                    {
-                        foreach (IdentifiedObject io in nmsCacheFlexibility.Values)
-                        {
-                            if (io.GetType().Name.Equals("GeographicalRegion"))
-                            {
-                                GeographicalRegion gr = (GeographicalRegion)nmsCacheFlexibility[io.GlobalId];
-                                foreach (long s in gr.Regions)
-                                {
-                                    SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCacheFlexibility[s];
-                                    foreach (long sub in subGeographicalRegion.Substations)
-                                    {
-                                        Substation substation = (Substation)nmsCacheFlexibility[sub];
-
-                                        if (substation.GlobalId.Equals(data.Gid))  // TREBA IMPLEMENTIRATI U IFU PROSLEDJIVANJE REGIONA I SUBREGIONA U KOM SE NALAZI Substation
-                                        {
-                                            foreach (long gen in substation.Equipments)
-                                            {
-                                                if (nmsCacheFlexibility[gen].GetType().Name.Equals("Generator"))
-                                                {
-                                                    Generator generator = (Generator)nmsCacheFlexibility[gen];
-
-                                                    if (!affectedEntities.ContainsKey(gr.GlobalId))
-                                                        affectedEntities.Add(gr.GlobalId, gr);
-
-                                                    if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
-                                                        affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
-
-                                                    if (!affectedEntities.ContainsKey(substation.GlobalId))
-                                                        affectedEntities.Add(substation.GlobalId, substation);
-
-                                                    if (!affectedEntities.ContainsKey(generator.GlobalId))
-                                                        affectedEntities.Add(generator.GlobalId, generator);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewDerForecastDayAheadForSubstation(data.Flexibility, copyOfProductionCachedFlexibility, data.Gid, affectedEntities));
-                        listOfGeneratorsForScada = await derFlexibility.InvokeWithRetryAsync(client => client.Channel.TurnOnFlexibilityForSubstation(data.Flexibility, data.Gid, affectedEntities));
-
-                    }
-                    else if (type.Equals("SubGeographicalRegion"))
-                    {
-                        foreach (IdentifiedObject io in nmsCacheFlexibility.Values)
-                        {
-                            if (io.GetType().Name.Equals("GeographicalRegion"))
-                            {
-                                GeographicalRegion gr = (GeographicalRegion)nmsCacheFlexibility[io.GlobalId];
-
-                                foreach (long s in gr.Regions)
-                                {
-                                    SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCacheFlexibility[s];
-
-                                    if (subGeographicalRegion.GlobalId.Equals(data.Gid))
-                                    {
-
-                                        foreach (long sub in subGeographicalRegion.Substations)
-                                        {
-                                            Substation substation = (Substation)nmsCacheFlexibility[sub];
-
-                                            foreach (long gen in substation.Equipments)
-                                            {
-                                                if (nmsCacheFlexibility[gen].GetType().Name.Equals("Generator"))
-                                                {
-                                                    Generator generator = (Generator)nmsCacheFlexibility[gen];
-
-                                                    if (!affectedEntities.ContainsKey(gr.GlobalId))
-                                                        affectedEntities.Add(gr.GlobalId, gr);
-
-                                                    if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
-                                                        affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
-
-                                                    if (!affectedEntities.ContainsKey(substation.GlobalId))
-                                                        affectedEntities.Add(substation.GlobalId, substation);
-
-                                                    if (!affectedEntities.ContainsKey(generator.GlobalId))
-                                                        affectedEntities.Add(generator.GlobalId, generator);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewDerForecastDayAheadForSubGeoRegion(data.Flexibility, copyOfProductionCachedFlexibility, data.Gid, affectedEntities));
-                        listOfGeneratorsForScada = await derFlexibility.InvokeWithRetryAsync(client => client.Channel.TurnOnFlexibilityForSubGeoRegion(data.Flexibility, data.Gid, affectedEntities));
-                    }
-                    else if (type.Equals("GeographicalRegion"))
-                    {
-
-                        GeographicalRegion gr = (GeographicalRegion)nmsCacheFlexibility[data.Gid];
-
-                        foreach (long s in gr.Regions)
-                        {
-                            SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCacheFlexibility[s];
-
-                            foreach (long sub in subGeographicalRegion.Substations)
-                            {
-                                Substation substation = (Substation)nmsCacheFlexibility[sub];
-
-                                foreach (long gen in substation.Equipments)
-                                {
-                                    if (nmsCacheFlexibility[gen].GetType().Name.Equals("Generator"))
-                                    {
-                                        Generator generator = (Generator)nmsCacheFlexibility[gen];
-
-                                        if (!affectedEntities.ContainsKey(gr.GlobalId))
-                                            affectedEntities.Add(gr.GlobalId, gr);
-
-                                        if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
-                                            affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
-
-                                        if (!affectedEntities.ContainsKey(substation.GlobalId))
-                                            affectedEntities.Add(substation.GlobalId, substation);
-
-                                        if (!affectedEntities.ContainsKey(generator.GlobalId))
-                                            affectedEntities.Add(generator.GlobalId, generator);
-                                    }
-                                }
-                            }
-                        }
-
-                        await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewDerForecastDayAheadForGeoRegion(data.Flexibility, copyOfProductionCachedFlexibility, data.Gid, affectedEntities));
-                        listOfGeneratorsForScada = await derFlexibility.InvokeWithRetryAsync(client => client.Channel.TurnOnFlexibilityForGeoRegion(data.Flexibility, data.Gid, affectedEntities));
-                    }
-                    else if (type.Equals("NetworkModel"))
-                    {
-                        foreach (var grType in nmsCacheFlexibility.Values)
-                        {
-                            if (grType.GetType().Name.Equals("GeographicalRegion"))
-                            {
-                                GeographicalRegion gr = (GeographicalRegion)grType;
-
-                                foreach (long s in gr.Regions)
-                                {
-                                    SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)nmsCacheFlexibility[s];
-
-                                    foreach (long sub in subGeographicalRegion.Substations)
-                                    {
-                                        Substation substation = (Substation)nmsCacheFlexibility[sub];
-
-                                        foreach (long gen in substation.Equipments)
-                                        {
-                                            if (nmsCacheFlexibility[gen].GetType().Name.Equals("Generator"))
-                                            {
-                                                Generator generator = (Generator)nmsCacheFlexibility[gen];
-
-                                                if (!affectedEntities.ContainsKey(gr.GlobalId))
-                                                    affectedEntities.Add(gr.GlobalId, gr);
-
-                                                if (!affectedEntities.ContainsKey(subGeographicalRegion.GlobalId))
-                                                    affectedEntities.Add(subGeographicalRegion.GlobalId, subGeographicalRegion);
-
-                                                if (!affectedEntities.ContainsKey(substation.GlobalId))
-                                                    affectedEntities.Add(substation.GlobalId, substation);
-
-                                                if (!affectedEntities.ContainsKey(generator.GlobalId))
-                                                    affectedEntities.Add(generator.GlobalId, generator);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewDerForecastDayAheadForNetworkModel(data.Flexibility, copyOfProductionCachedFlexibility, data.Gid, affectedEntities));
-                        listOfGeneratorsForScada = await derFlexibility.InvokeWithRetryAsync(client => client.Channel.TurnOnFlexibilityForNetworkModel(data.Flexibility, data.Gid, affectedEntities));
-                    }
-                }
-
-                await CalculateNewCopyOfProductionCachedFlexibility(copyOfProductionCachedFlexibility);
-
-                dataForScada.DataFromCEToScada = listOfGeneratorsForScada;
-
-                await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(dataForScada, (int)Enums.Topics.Flexibility));
-
-                //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(listOfGeneratorsForScada);
-                ApplyChangesOnProductionCached(); // OVU LINIJU OBRISATI I POZVATI JE KAD SKADA POSALJE ODGOVOR
-            }
-        }
 
         public async Task CalculateNewCopyOfProductionCachedFlexibility(Dictionary<long, DerForecastDayAhead> copyOfProductionCachedFlexibility)
         {
             using (var tx = stateManager.CreateTransaction())
             {
-                copyOfProductionCached = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("copyOfProductionCached").Result;
+                IReliableDictionary<long, DerForecastDayAhead>  copyOfProductionCached = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("CopyOfProductionCachedDictionary").Result;
 
                 IAsyncEnumerable<KeyValuePair<long, DerForecastDayAhead>> copyOfProductionCachedEnumerable = copyOfProductionCached.CreateEnumerableAsync(tx).Result;
                 using (IAsyncEnumerator<KeyValuePair<long, DerForecastDayAhead>> copyOfProductionCachedEnumerator = copyOfProductionCachedEnumerable.GetAsyncEnumerator())
@@ -897,7 +607,7 @@ namespace CECacheMicroservice
         }
 
         //Poziva se iz metode koja ne bi trebalo da stoji u cache-u/
-        public async void ApplyChangesOnProductionCached() // KAD STIGNE POTVRDA SA SKADE DA SU PROMENE IZVRSENE, POZIVAMO OVU METODU KAKO BI NOVI PRORACUNI PROIZVODNJE ZA 24h BILI PRIMENJENI NA CACHE
+        public async Task ApplyChangesOnProductionCached(Dictionary<long, double> listOfGeneratorsForScada) // KAD STIGNE POTVRDA SA SKADE DA SU PROMENE IZVRSENE, POZIVAMO OVU METODU KAKO BI NOVI PRORACUNI PROIZVODNJE ZA 24h BILI PRIMENJENI NA CACHE
         {
             using (var tx = stateManager.CreateTransaction())
             {
@@ -918,12 +628,11 @@ namespace CECacheMicroservice
             }
 
             await SendDerForecastDayAhead();
-            await UpdateMinAndMaxFlexibilityForChangedGenerators();
+            await UpdateMinAndMaxFlexibilityForChangedGenerators(listOfGeneratorsForScada);
         }
-        //NOT COMPLETE PubSubCalculatioEngine *- Trebalo bi da se izmeni ako se bude zvalo iz nekog drugog servisa.
+
         public async Task SendDerForecastDayAhead()
         {
-            //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
             await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead));
         }
         //NOT COMPLETE CEUpdateThroughUI missing, PubSubCalculatioEngine
@@ -981,7 +690,7 @@ namespace CECacheMicroservice
             }
             float energyFromSource = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Balance(productionCachedDictionary, gid, nmsCacheDictionary, turnedOffGeneratorsList));
             await SendDerForecastDayAhead();
-            //PubSubCalculatioEngine.Instance.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead);
+
             //return energyFromSource;
             return 0;
         }
@@ -1239,54 +948,52 @@ namespace CECacheMicroservice
         //CalculateNewFlexibility
         //CHECK DA LI TREBA DA SE UBACE U interfejs
         //NOT COMPLETE -- Trebalo bi da stoje na nekom drugom servisu
-        public async Task UpdateMinAndMaxFlexibilityForChangedGenerators()
+        public async Task UpdateMinAndMaxFlexibilityForChangedGenerators(Dictionary<long, double> listOfGeneratorsForScada)
         {
-            using (var tx = stateManager.CreateTransaction())
+            double minProd = 0;
+            double maxProd = 0;
+            double currentProd = 0;
+
+            List<NetworkModelTreeClass> networkModelTreeClass = await GetNetworkModelTreeClass();
+            Dictionary<long, IdentifiedObject> nmsCache = await GetNMSModel();
+
+            foreach (NetworkModelTreeClass networkModelTreeClasses in networkModelTreeClass)
             {
-                double minProd = 0;
-                double maxProd = 0;
-                double currentProd = 0;
-
-                foreach (NetworkModelTreeClass networkModelTreeClasses in networkModelTreeClass)
+                foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
                 {
-                    foreach (GeographicalRegionTreeClass geographicalRegionTreeClass in networkModelTreeClasses.GeographicalRegions)
+                    foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
                     {
-                        foreach (GeographicalSubRegionTreeClass geographicalSubRegionTreeClass in geographicalRegionTreeClass.GeographicalSubRegions)
+                        foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
                         {
-                            foreach (SubstationTreeClass substationTreeClass in geographicalSubRegionTreeClass.Substations)
+                            foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
                             {
-                                foreach (SubstationElementTreeClass substationElementTreeClass in substationTreeClass.SubstationElements)
+                                if (substationElementTreeClass.Type.Equals(DMSType.GENERATOR))
                                 {
-                                    if (substationElementTreeClass.Type.Equals(DMSType.GENERATOR))
+                                    if (listOfGeneratorsForScada.ContainsKey(substationElementTreeClass.GID))
                                     {
-                                        if (listOfGeneratorsForScada.ContainsKey(substationElementTreeClass.GID))
-                                        {
-                                            ConditionalValue<IdentifiedObject> generator = nmsCache.TryGetValueAsync(tx, substationElementTreeClass.GID).Result;
+                                        IdentifiedObject gen = nmsCache[substationElementTreeClass.GID];
 
-                                            maxProd = substationElementTreeClass.P + substationElementTreeClass.P * (substationElementTreeClass.MaxFlexibility / 100);
-                                            minProd = substationElementTreeClass.P - substationElementTreeClass.P * (substationElementTreeClass.MinFlexibility / 100);
+                                        maxProd = substationElementTreeClass.P + substationElementTreeClass.P * (substationElementTreeClass.MaxFlexibility / 100);
+                                        minProd = substationElementTreeClass.P - substationElementTreeClass.P * (substationElementTreeClass.MinFlexibility / 100);
 
-                                            currentProd = substationElementTreeClass.P + substationElementTreeClass.P * (listOfGeneratorsForScada[substationElementTreeClass.GID] / 100);
+                                        currentProd = substationElementTreeClass.P + substationElementTreeClass.P * (listOfGeneratorsForScada[substationElementTreeClass.GID] / 100);
 
-                                            substationElementTreeClass.P = (float)currentProd;
-                                            substationElementTreeClass.MaxFlexibility = (float)(((maxProd - currentProd) * 100) / currentProd);
-                                            substationElementTreeClass.MinFlexibility = (float)(((currentProd - minProd) * 100) / currentProd);
+                                        substationElementTreeClass.P = (float)currentProd;
+                                        substationElementTreeClass.MaxFlexibility = (float)(((maxProd - currentProd) * 100) / currentProd);
+                                        substationElementTreeClass.MinFlexibility = (float)(((currentProd - minProd) * 100) / currentProd);
 
-                                            IdentifiedObject gen = generator.Value;
-                                            ((Generator)gen).ConsiderP = substationElementTreeClass.P;
-                                            ((Generator)gen).MaxFlexibility = substationElementTreeClass.MaxFlexibility;
-                                            ((Generator)gen).MinFlexibility = substationElementTreeClass.MinFlexibility;
-                                        }
+                                        ((Generator)gen).ConsiderP = substationElementTreeClass.P;
+                                        ((Generator)gen).MaxFlexibility = substationElementTreeClass.MaxFlexibility;
+                                        ((Generator)gen).MinFlexibility = substationElementTreeClass.MinFlexibility;
                                     }
                                 }
                             }
                         }
                     }
                 }
-
-                await CalculateFlexibility();
-
             }
+
+            await CalculateFlexibility();            
         }
         //NOT COMPLETE -- Trebalo bi da stoje na nekom drugom servisu
         private async Task CalculateFlexibility()
@@ -1306,6 +1013,8 @@ namespace CECacheMicroservice
             float minFlexibilityNetworkModel = 0;
             float maxFlexibilityNetworkModel = 0;
             float productionNetworkModel = 0;
+
+            List<NetworkModelTreeClass> networkModelTreeClass = await GetNetworkModelTreeClass();
 
             foreach (NetworkModelTreeClass networkModelTreeClasses in networkModelTreeClass)
             {

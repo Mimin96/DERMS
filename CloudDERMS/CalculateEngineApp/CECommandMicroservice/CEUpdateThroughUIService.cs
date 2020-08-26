@@ -826,7 +826,7 @@ namespace CalculationEngineService
             );
             await transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(dicForScada));
 
-            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateMinAndMaxFlexibilityForChangedGenerators());
+            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateMinAndMaxFlexibilityForChangedGenerators(dicForScada));
             //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(dicForScada);
 
             //CalculationEngineCache.Instance.UpdateMinAndMaxFlexibilityForChangedGenerators();

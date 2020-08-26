@@ -1,4 +1,5 @@
-﻿using DERMSCommon.DataModel.Core;
+﻿using DERMSCommon;
+using DERMSCommon.DataModel.Core;
 using DERMSCommon.WeatherForecast;
 using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
@@ -20,6 +21,8 @@ namespace CloudCommon.CalculateEngine
 		void TurnOnFlexibility(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid);
 		[OperationContract]
 		Task<bool> CheckFlexibilityForManualCommanding(long gid, Dictionary<long, IdentifiedObject> model);
+		[OperationContract]
+		Task CalculateNewFlexibility(DataToUI data);
 		[OperationContract]
 		Task CalculateNewDerForecastDayAheadForNetworkModel(double flexibilityValue, Dictionary<long, DerForecastDayAhead> derForcast, long gid, Dictionary<long, IdentifiedObject> affectedEntities);
 		[OperationContract]

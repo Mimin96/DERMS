@@ -33,8 +33,6 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Task PopulateProductionForecast(NetworkModelTransfer networkModel);
         [OperationContract]
-        Task CalculateNewFlexibility(DataToUI data);
-        [OperationContract]
         DataToUI CreateDataForUI();
         [OperationContract]
         Task<Dictionary<long, DerForecastDayAhead>> GetAllDerForecastDayAhead();
@@ -43,13 +41,13 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         void UpdateNewDataPoitns(List<DataPoint> points);
         [OperationContract]
-        void ApplyChangesOnProductionCached();
+        Task ApplyChangesOnProductionCached(Dictionary<long, double> listOfGeneratorsForScada);
         [OperationContract]
         Task SendDerForecastDayAhead();
         [OperationContract]
         Task<float> PopulateBalance(long gid);
         [OperationContract]
-        Task UpdateMinAndMaxFlexibilityForChangedGenerators();
+        Task UpdateMinAndMaxFlexibilityForChangedGenerators(Dictionary<long, double> listOfGeneratorsForScada);
         [OperationContract]
         Dictionary<long, List<DataPoint>> GetscadaPointsCached();
         [OperationContract]
@@ -140,6 +138,8 @@ namespace CloudCommon.CalculateEngine
         Task<Dictionary<long, Forecast>> GetWholeDerWeatherCached();
         [OperationContract]
         Task<List<long>> GetDisableAutomaticOptimizationList();
+        [OperationContract]
+        Task CalculateNewCopyOfProductionCachedFlexibility(Dictionary<long, DerForecastDayAhead> copyOfProductionCachedFlexibility);
 
     }
 }
