@@ -50,30 +50,8 @@ namespace dCom.ViewModel
                 datapoints.Add(dataPoint);
                 ProxyUI.ReceiveFromScada(datapoints);
 
-                /*
-                Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.CollectItem> collectItems = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.CollectItem>();
-                Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.DayItem> dayItems = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.DayItem>();
-                Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.MonthItem> monthItems = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.MonthItem>();
-                Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.YearItem> yearItems = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.YearItem>();
-
-                collectItems = scadaDB.ConvertDataPoints(datapoints);
-
-                string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SCADA;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-                string queryStmt1 = "INSERT INTO dbo.Collect(Timestamp, Gid, Production) VALUES(@Timestamp, @Gid, @Production)";
-                scadaDB.InsertInCollectTable(collectItems, queryStmt1, connectionString);
-
-                dayItems = scadaDB.ReadFromCollectTable(connectionString);
-                string queryStmt2 = "INSERT INTO dbo.Day(Gid, Pmin, Pmax, Pavg, E, Timestamp) VALUES(@Gid, @Pmin, @Pmax, @Pavg, @E, @Timestamp)";
-                scadaDB.InsertInDayTable(dayItems, queryStmt2, connectionString);
-
-                string queryStmt3 = "INSERT INTO dbo.Month(Gid, Pmin, Pmax, Pavg, E, Timestamp) VALUES(@Gid, @Pmin, @Pmax, @Pavg, @E, @Timestamp)";
-                monthItems = scadaDB.ReadFromDayTable(connectionString);
-                scadaDB.InsertInMonthTable(monthItems, queryStmt3, connectionString);
-
-                string queryStmt4 = "INSERT INTO dbo.Year(Gid, Pmin, Pmax, Pavg, E, Timestamp) VALUES(@Gid, @Pmin, @Pmax, @Pavg, @E, @Timestamp)";
-                yearItems = scadaDB.ReadFromMonthTable(connectionString);
-                scadaDB.InsertInYearTable(yearItems, queryStmt4, connectionString);
-                */
+                ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
+                sCADAClient.SetDatabaseData(datapoints);
             }
 
         }

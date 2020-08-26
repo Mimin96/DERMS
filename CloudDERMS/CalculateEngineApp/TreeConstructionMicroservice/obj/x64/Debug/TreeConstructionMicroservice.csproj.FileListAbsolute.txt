@@ -52,7 +52,6 @@ C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicro
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\MaterialDesignColors.pdb
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.OData.Edm.xml
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.Spatial.xml
-C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csprojAssemblyReference.cache
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csproj.CoreCompileInputs.cache
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csproj.CopyComplete
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.exe

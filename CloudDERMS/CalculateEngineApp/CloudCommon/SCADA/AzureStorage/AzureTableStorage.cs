@@ -10,14 +10,6 @@ namespace CloudCommon.SCADA.AzureStorage
 {
     public static class AzureTableStorage
     {
-        /*
-         Izmene treba napraviti u klasama:
-                MainViewModel               -> dCom.ViewModel
-                AnalogBase                  -> dCom.ViewModel
-                HistoryUserControlViewModel -> UI.ViewModel
-        */
-
-        //connectionString: "UseDevelopmentStorage=true;"
         public static bool AddTableEntityInDB<T>(T entity, string connectionString, string tableName) where T : TableEntity
         {
             try
@@ -146,7 +138,7 @@ namespace CloudCommon.SCADA.AzureStorage
 
             TableContinuationToken token = null;
             List<DayItem> entities = new List<DayItem>();
-           
+
             do
             {
                 var queryResult = table.ExecuteQuerySegmented(new TableQuery<DayItem>(), token);
@@ -200,39 +192,5 @@ namespace CloudCommon.SCADA.AzureStorage
 
             return entities;
         }
-
-        //public static bool DeleteEntityInDB(string partitionKey, string rowKey, string connectionString, string tableName)
-        //{
-        //    // Retrieve the storage account from the connection string.
-        //    CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-
-        //    // Create the table client.
-        //    CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-
-        //    // Create the CloudTable that represents the "people" table.
-        //    CloudTable table = tableClient.GetTableReference(tableName);
-
-        //    // Create a retrieve operation that expects a customer entity.
-        //    TableOperation retrieveOperation = TableOperation.Retrieve<ITableEntity>(partitionKey, rowKey);
-
-        //    // Execute the operation.
-        //    TableResult retrievedResult = table.Execute(retrieveOperation);
-
-        //    // Assign the result to a CustomerEntity.
-        //    UserEntity deleteEntity = (UserEntity)retrievedResult.Result;
-
-        //    // Create the Delete TableOperation.
-        //    if (deleteEntity != null)
-        //    {
-        //        TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
-        //        table.Execute(deleteOperation);
-
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
     }
 }

@@ -60,5 +60,10 @@ namespace DERMSCommon.SCADACommon
         {
             return Channel.SendEndpoints(endpoint);
         }
+
+        public Task SetDatabaseData(List<DataPoint> dataPoints)
+        {
+            return Channel.SetDatabaseData(dataPoints);
+        }
     }
 }

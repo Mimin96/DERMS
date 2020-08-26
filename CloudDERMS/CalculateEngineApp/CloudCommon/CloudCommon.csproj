@@ -250,6 +250,7 @@
     <Compile Include="SCADA\AzureStorage\Entities\MonthItem.cs" />
     <Compile Include="SCADA\AzureStorage\Entities\YearItem.cs" />
     <Compile Include="SCADA\AzureStorage\HistoryDataProcessing.cs" />
+    <Compile Include="SCADA\IHistoryDatabase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NMS\Communication\" />

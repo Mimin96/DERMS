@@ -24,13 +24,18 @@ namespace CloudCommon.SCADA.AzureStorage.Entities
         private double _e;
         [DataMember]
         private double _p;
-        [DataMember]
-        private DateTime _timestamp = DateTime.Now;
+        // [DataMember]
+        // private DateTime _timestamp = DateTime.Now;
         public DayItem() { }
         public DayItem(long gid, DateTime timestamp, double pMin, double pMax, double pAvg, double e, double p)
         {
-            Gid = gid;
             Timestamp = timestamp;
+            PartitionKey = "DayItem";
+            RowKey = gid.ToString();
+
+
+            Gid = gid;
+            //Timestamp = timestamp;
             PMin = pMin;
             PMax = pMax;
             PAvg = pAvg;
@@ -43,7 +48,7 @@ namespace CloudCommon.SCADA.AzureStorage.Entities
         public double PAvg { get => _pAvg; set => _pAvg = value; }
         public double PMax { get => _pMax; set => _pMax = value; }
         public double E { get => _e; set => _e = value; }
-        public DateTime Timestamp { get => _timestamp; set => _timestamp = value; }
+        // public DateTime Timestamp { get => _timestamp; set => _timestamp = value; }
         public double P { get => _p; set => _p = value; }
     }
 }

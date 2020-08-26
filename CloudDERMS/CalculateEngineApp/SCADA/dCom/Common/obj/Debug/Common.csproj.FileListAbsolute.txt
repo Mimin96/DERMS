@@ -563,3 +563,4 @@ C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Comm
 C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache

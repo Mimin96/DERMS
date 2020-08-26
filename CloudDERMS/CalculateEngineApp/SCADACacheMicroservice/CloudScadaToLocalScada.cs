@@ -1,4 +1,6 @@
-﻿using DERMSCommon.DataModel.Core;
+﻿using CloudCommon.SCADA.AzureStorage;
+using CloudCommon.SCADA.AzureStorage.Entities;
+using DERMSCommon.DataModel.Core;
 using DERMSCommon.SCADACommon;
 using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
@@ -136,6 +138,27 @@ namespace SCADACacheMicroservice
                 }
                 return GidoviDict[0];
             }
+        }
+
+        public async Task SetDatabaseData(List<DataPoint> dataPoints)
+        {
+            HistoryDataProcessing historyDataProcessing = new HistoryDataProcessing();
+            List<CollectItem> collectItems = new List<CollectItem>();
+            List<DayItem> dayItems = new List<DayItem>();
+            List<MonthItem> monthItems = new List<MonthItem>();
+            List<YearItem> yearItems = new List<YearItem>();
+
+            collectItems = historyDataProcessing.ConvertDataPoints(dataPoints);
+            AzureTableStorage.InsertEntitiesInDB(collectItems, "UseDevelopmentStorage=true;", "CollectItems");
+
+            dayItems = historyDataProcessing.CollectTableToDayItems(AzureTableStorage.GetAllCollectItems("UseDevelopmentStorage=true;", "CollectItems"));
+            AzureTableStorage.InsertEntitiesInDB(dayItems, "UseDevelopmentStorage=true;", "DayItems");
+
+            monthItems = historyDataProcessing.DayItemsToMonthItems(AzureTableStorage.GetAllDayItems("UseDevelopmentStorage=true;", "DayItems"));
+            AzureTableStorage.InsertEntitiesInDB(monthItems, "UseDevelopmentStorage=true;", "MonthItems");
+
+            yearItems = historyDataProcessing.MonthItemsToYearItems(AzureTableStorage.GetAllMonthItems("UseDevelopmentStorage=true;", "MonthItems"));
+            AzureTableStorage.InsertEntitiesInDB(yearItems, "UseDevelopmentStorage=true;", "YearItems");
         }
     }
 }

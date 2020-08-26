@@ -78,3 +78,13 @@ C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\C
 C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\CIMAdapter.csproj.CopyComplete
 C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.dll
 C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Cosmos.CRTCompat.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMAdapter.dll.config
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMAdapter.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMAdapter.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\CIMAdapter.csprojAssemblyReference.cache
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\CIMAdapter.csproj.CoreCompileInputs.cache
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\CIMAdapter.csproj.CopyComplete
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.pdb

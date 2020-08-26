@@ -27,5 +27,7 @@ namespace DERMSCommon.SCADACommon
         Task<Dictionary<List<long>, ushort>> GetGidoviNaAdresuModel();
         [OperationContract]
         Task<string> GetAddress();
+        [OperationContract]
+        Task SetDatabaseData(List<DataPoint> dataPoints);
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
+using CloudCommon.SCADA;
 using DERMSCommon.NMSCommuication;
 using DERMSCommon.SCADACommon;
 using Microsoft.ServiceFabric.Data.Collections;
@@ -63,6 +64,15 @@ namespace SCADACacheMicroservice
                         listenerBinding: new NetTcpBinding()
                     ),
                     name: "SCADAComunicationMicroserviceLocalListener"
+                ),
+                new ServiceReplicaListener((context) =>
+                    new WcfCommunicationListener<IHistoryDatabase>(
+                        wcfServiceObject: new HistoryDatabase(),
+                        serviceContext: context,
+                        address: new EndpointAddress("net.tcp://localhost:52399/SCADACacheMicroservice"),
+                        listenerBinding: new NetTcpBinding()
+                    ),
+                    name: "HistoryDatabaseListener"
                 )
             };
         }

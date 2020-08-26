@@ -16,11 +16,16 @@ namespace CloudCommon.SCADA.AzureStorage.Entities
         private long _gid;
         [DataMember]
         private double _p;
-        [DataMember]
-        private DateTime _timestamp = DateTime.Now;
+        //[DataMember]
+        //private DateTime _timestamp = DateTime.Now;
+
         public CollectItem() { }
         public CollectItem(long gid, float p, DateTime timestamp)
         {
+            Timestamp = timestamp;
+            PartitionKey = "CollectItem";
+            RowKey = gid.ToString();
+
             Gid = gid;
             Timestamp = timestamp;
             P = p;
@@ -28,7 +33,7 @@ namespace CloudCommon.SCADA.AzureStorage.Entities
 
         public long Gid { get => _gid; set => _gid = value; }
         public double P { get => _p; set => _p = value; }
-        public DateTime Timestamp { get => _timestamp; set => _timestamp = value; }
+        //public DateTime Timestamp { get => _timestamp; set => _timestamp = value; }
     }
 }
 
