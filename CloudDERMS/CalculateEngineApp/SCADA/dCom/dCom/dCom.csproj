@@ -199,6 +199,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\CloudCommon\CloudCommon.csproj">
+      <Project>{7FE86AFE-D2D4-44DD-81F4-39916C5AE1FA}</Project>
+      <Name>CloudCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Commons\CalculationEngineServiceCommon\CalculationEngineServiceCommon.csproj">
       <Project>{c6a1d90e-c842-4b98-958b-c3267664d121}</Project>
       <Name>CalculationEngineServiceCommon</Name>

@@ -1,6 +1,9 @@
 ﻿using CalculationEngineServiceCommon;
 using Common;
 using DERMSCommon.SCADACommon;
+using DERMSCommon.TransactionManager;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using Modbus;
 using Modbus.FunctionParameters;
 using ProcessingModule;
@@ -19,6 +22,7 @@ namespace dCom.ViewModel
         private int brojac = 0;
         private List<DataPoint> datapoints = new List<DataPoint>();
         //private ScadaDB scadaDB = new ScadaDB();
+        private CloudClient<ISendDataToCEThroughScada> transactionCoordinator;
 
         public AnalogBase(Common.IConfigItem c, Common.IFunctionExecutor commandExecutor, Common.IStateUpdater stateUpdater, Common.IConfiguration configuration, int i)
             : base(c, commandExecutor, stateUpdater, configuration, i)
@@ -39,16 +43,26 @@ namespace dCom.ViewModel
                 ProcessRawValue(newValue);
                 Timestamp = DateTime.Now;
                 DERMSCommon.SCADACommon.PointType dad = (DERMSCommon.SCADACommon.PointType)configItem.RegistryType;
-                NetTcpBinding binding = new NetTcpBinding();
-                binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-                factoryUI = new ChannelFactory<ISendDataToCEThroughScada>(binding, new EndpointAddress("net.tcp://localhost:19999/ISendDataToCEThroughScada"));
-                ProxyUI = factoryUI.CreateChannel();
-                Console.WriteLine("Connected: net.tcp://localhost:19999/ISendDataToCEThroughScada");
+                //NetTcpBinding binding = new NetTcpBinding();
+                //binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+                //factoryUI = new ChannelFactory<ISendDataToCEThroughScada>(binding, new EndpointAddress("net.tcp://localhost:19999/ISendDataToCEThroughScada"));
+                //ProxyUI = factoryUI.CreateChannel();
+                //Console.WriteLine("Connected: net.tcp://localhost:19999/ISendDataToCEThroughScada");
 
                 DataPoint dataPoint = new DataPoint((long)configItem.Gid, (DERMSCommon.SCADACommon.PointType)configItem.RegistryType, pointAddres, Timestamp, configItem.Description, DisplayValue, RawValue, (DERMSCommon.SCADACommon.AlarmType)alarm, configItem.GidGeneratora);
 
                 datapoints.Add(dataPoint);
-                ProxyUI.ReceiveFromScada(datapoints);
+
+                transactionCoordinator = new CloudClient<ISendDataToCEThroughScada>
+                (
+                    serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                    partitionKey: new ServicePartitionKey(0),
+                    clientBinding: WcfUtility.CreateTcpClientBinding(),
+                    listenerName: "SendDataToCEThroughScadaListener"
+                  );
+                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ReceiveFromScada(datapoints));
+
+               // ProxyUI.ReceiveFromScada(datapoints);
 
                 ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
                 sCADAClient.SetDatabaseData(datapoints);

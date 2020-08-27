@@ -5,6 +5,9 @@ using dCom.ViewModel;
 using DERMSCommon.DataModel.Core;
 using DERMSCommon.DataModel.Meas;
 using DERMSCommon.NMSCommuication;
+using DERMSCommon.TransactionManager;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using Modbus;
 using Modbus.Acquisition;
 using Modbus.Connection;
@@ -30,7 +33,7 @@ namespace dCom.Configuration
         private ObservableCollection<BasePointItem> PointsToAdd { get; set; }
         private ISendDataToCEThroughScada ProxyUI { get; set; }
         private ChannelFactory<ISendDataToCEThroughScada> factoryUI;
-
+        private CloudClient<ISendDataToCEThroughScada> transactionCoordinator;
 
         private object lockObject = new object();
         private Thread timerWorker;
@@ -130,14 +133,22 @@ namespace dCom.Configuration
                 datapoints.Add(dataPoint);
             }
 
-            NetTcpBinding binding = new NetTcpBinding();
-            binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-            factoryUI = new ChannelFactory<ISendDataToCEThroughScada>(binding, new EndpointAddress("net.tcp://localhost:19999/ISendDataToCEThroughScada"));
-            ProxyUI = factoryUI.CreateChannel();
-            Console.WriteLine("Connected: net.tcp://localhost:19999/ISendDataToCEThroughScada");
+            // NetTcpBinding binding = new NetTcpBinding();
+            // binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
+            // factoryUI = new ChannelFactory<ISendDataToCEThroughScada>(binding, new EndpointAddress("net.tcp://localhost:19999/ISendDataToCEThroughScada"));
+            // ProxyUI = factoryUI.CreateChannel();
+            // Console.WriteLine("Connected: net.tcp://localhost:19999/ISendDataToCEThroughScada");
 
+            transactionCoordinator = new CloudClient<ISendDataToCEThroughScada>
+                (
+                    serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                    partitionKey: new ServicePartitionKey(0),
+                    clientBinding: WcfUtility.CreateTcpClientBinding(),
+                    listenerName: "SendDataToCEThroughScadaListener"
+                  );
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ReceiveFromScada(datapoints));
 
-            ProxyUI.ReceiveFromScada(datapoints);
+            // ProxyUI.ReceiveFromScada(datapoints);
 
             //Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.CollectItem> collectItems = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.CollectItem>();
             //Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.DayItem> dayItems = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.DayItem>();
