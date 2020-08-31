@@ -41,7 +41,6 @@ namespace FTN.Services.NetworkModelService
             );
 
             await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Enlist("NMS"));
-            //proxyFromNMSToCE.Open();
 
             DataForSendingToCEandSCADA();
             networkModelTransfer.InitState = true;
@@ -54,14 +53,18 @@ namespace FTN.Services.NetworkModelService
                 listenerName: "CESendDataFromNMSListener"
             );
 
-            await nmsToCE.InvokeWithRetryAsync(client => client.Channel.CheckForTM(networkModelTransfer));
-            //result1 = proxyFromNMSToCE.sendToCE.CheckForTM(networkModelTransfer);
+            result = await nmsToCE.InvokeWithRetryAsync(client => client.Channel.CheckForTM(networkModelTransfer));
 
-            //proxyFromNMSToScada.Open();
-            //result = proxyFromNMSToScada.sendToScada.CheckForTM(signalsTransfer);
+            CloudClient<ISendDataFromNMSToScada> nmsToScada = new CloudClient<ISendDataFromNMSToScada>
+            (
+                serviceUri: new Uri($"fabric:/SCADAApp/SCADACacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0),
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "SCADACacheMicroserviceListener"
+            );
 
-            //proxyFromNMSToTM.sendToTM.FinishList(result && result1);
-            //nMSTMCloudClient.FinishList(result && result1);
+            result1 = await nmsToScada.InvokeWithRetryAsync(client => client.Channel.CheckForTM(signalsTransfer));
+            
             await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.FinishList(result && result1));
         }
 

@@ -44,7 +44,7 @@ namespace SCADACacheMicroservice
         {
             using (var tx = _stateManager.CreateTransaction())
             {
-                IReliableQueue<SignalsTransfer> queue = _stateManager.GetOrAddAsync<IReliableQueue<SignalsTransfer>>("networkModelTransfer").Result;
+                IReliableQueue<SignalsTransfer> queue = _stateManager.GetOrAddAsync<IReliableQueue<SignalsTransfer>>("signalsTransfer").Result;
 
                 signals = queue.TryPeekAsync(tx).Result.Value;
             }

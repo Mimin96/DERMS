@@ -1,5 +1,7 @@
 ﻿using DERMSCommon.NMSCommuication;
 using DERMSCommon.TransactionManager;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +24,15 @@ namespace SCADATransactionMicroservice
         }
         public async Task Commit()
         {
+            CloudClient<ISendDataFromNMSToScada> nmsToScada = new CloudClient<ISendDataFromNMSToScada>
+            (
+               serviceUri: new Uri($"fabric:/SCADAApp/SCADACacheMicroservice"),
+               partitionKey: new ServicePartitionKey(0),
+               clientBinding: WcfUtility.CreateTcpClientBinding(),
+               listenerName: "SCADACacheMicroserviceListener"
+            );
+
+            await nmsToScada.InvokeWithRetryAsync(client => client.Channel.SendGids(_st));
             //await _scada.SendGids(_st);
         }
 
