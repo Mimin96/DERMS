@@ -1,4 +1,6 @@
 ﻿using DERMSCommon.DataModel.Core;
+using DERMSCommon.DataModel.Meas;
+using DERMSCommon.DataModel.Wires;
 using FTN.Common;
 using System;
 using System.Collections.Generic;

@@ -48,3 +48,9 @@ C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\o
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\FTN.Common.dll
 C:\Users\Filip\Desktop\PUSH\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\FTN.Common.pdb
 C:\Users\BogdanKovacev\Desktop\MasterProj\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\3008\DERMS\CloudDERMS\CalculateEngineApp\Commons\bin64\FTN.Common.dll
+C:\Users\Caki\Desktop\3008\DERMS\CloudDERMS\CalculateEngineApp\Commons\bin64\FTN.Common.pdb
+C:\Users\Caki\Desktop\3008\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\3008\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\3008\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\FTN.Common.dll
+C:\Users\Caki\Desktop\3008\DERMS\CloudDERMS\CalculateEngineApp\Commons\Common\obj\x64\Debug\FTN.Common.pdb

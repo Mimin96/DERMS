@@ -49,6 +49,7 @@ namespace CECacheMicroservice
         private List<NetworkModelTreeClass> networkModelTreeClass;*/
         #endregion
 
+        private TreeNode<NodeData> graph;
         private CloudClient<IPubSub> pubSub;
         private CloudClient<IDERFlexibility> derFlexibility;
         private IReliableStateManager stateManager;
@@ -70,10 +71,13 @@ namespace CECacheMicroservice
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "DERFlexibilityListener"
             );
+            //
+            graph = null;
+            //
         }
         public CECacheService()
         {
-
+            graph = null;
         }
 
         //public void CalculateNewFlexibility(DataToUI data)
@@ -98,6 +102,9 @@ namespace CECacheMicroservice
                 {
                     AddNMSModelEntity(io);
                 }
+                //
+
+                //
             }
 
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> dictionary in networkModelTransfer.Update)
@@ -110,8 +117,51 @@ namespace CECacheMicroservice
             }
 
             PopulateGraph(networkModelTransfer);
+            SaveNetworkModelTransfer(networkModelTransfer);
         }
+
+        private async void SaveNetworkModelTransfer(NetworkModelTransfer networkModelTransfer)
+        {
+            using (var tx = stateManager.CreateTransaction())
+            {
+                var dictionary = stateManager.GetOrAddAsync<IReliableQueue<NetworkModelTransfer>>("NetworkModelTransferCachedQueue").Result;
+                await dictionary.TryDequeueAsync(tx);
+                await dictionary.EnqueueAsync(tx, networkModelTransfer);
+                await tx.CommitAsync();
+            }
+        }
+
+        private NetworkModelTransfer GetNetworkModelTransfer()
+        {
+            using (var tx = stateManager.CreateTransaction())
+            {
+                var dictionary = stateManager.GetOrAddAsync<IReliableQueue<NetworkModelTransfer>>("NetworkModelTransferCachedQueue").Result;
+                NetworkModelTransfer nmt = dictionary.TryPeekAsync(tx).Result.Value;
+                return nmt;
+            }
+        }
+
         public async Task<Dictionary<long, IdentifiedObject>> GetNMSModel()
+        {
+            using (var tx = stateManager.CreateTransaction())
+            {
+                IReliableDictionary<long, IdentifiedObject> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, IdentifiedObject>>("NetworkModelDictionary").Result;
+
+                Dictionary<long, IdentifiedObject> Nmsdictionary = new Dictionary<long, IdentifiedObject>();
+
+                IAsyncEnumerable<KeyValuePair<long, IdentifiedObject>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
+                using (IAsyncEnumerator<KeyValuePair<long, IdentifiedObject>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
+                {
+                    while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
+                    {
+                        Nmsdictionary.Add(dictEnumerator.Current.Key, dictEnumerator.Current.Value);
+                    }
+                }
+                return Nmsdictionary;
+            }
+        }
+
+        private Dictionary<long, IdentifiedObject> GetNMSModelLocal()
         {
             using (var tx = stateManager.CreateTransaction())
             {
@@ -155,6 +205,7 @@ namespace CECacheMicroservice
                     UpdateNMSModelEntity(io);
                 }
             }
+            SaveNetworkModelTransfer(networkModelTransfer);
         }
         private async void AddNMSModelEntity(IdentifiedObject io)
         {
@@ -269,7 +320,7 @@ namespace CECacheMicroservice
             CloudClient<IDarkSkyApi> transactionCoordinator = new CloudClient<IDarkSkyApi>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CEWeatherForecastMicroservice"),
-              partitionKey: new ServicePartitionKey(0), /*CJN*/
+              partitionKey: ServicePartitionKey.Singleton, /*CJN*/
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "DarkSkyApiListener"
             );
@@ -772,19 +823,29 @@ namespace CECacheMicroservice
             CloudClient<ITreeConstruction> transactionCoordinator = new CloudClient<ITreeConstruction>
             (
                 serviceUri: new Uri("fabric:/CalculateEngineApp/TreeConstructionMicroservice"),
-                partitionKey: new ServicePartitionKey(0),
+                partitionKey: ServicePartitionKey.Singleton,
                 clientBinding: WcfUtility.CreateTcpClientBinding(),
                 listenerName: "BuildTreeServiceListener"
             );
 
-            TreeNode<NodeData> graph = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ConstructTree1(networkModelTransfer));
+            graph = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ConstructTree1(networkModelTransfer));
 
-            using (var tx = stateManager.CreateTransaction())
-            {
-                var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, TreeNode<NodeData>>>("GraphCachedDictionary").Result;
-                await dictionary.AddOrUpdateAsync(tx, 0, graph, (key, value) => value = graph);
-                await tx.CommitAsync();
-            }
+            //using (var tx = stateManager.CreateTransaction())
+            //////{//GraphCachedDictionary
+            //////    var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, TreeNode<NodeData>>>("GraphCachedDictionary").Result;
+            //////    await dictionary.AddOrUpdateAsync(tx, 0, graph, (key, value) => value = graph);
+            //////    await tx.CommitAsync();
+            //////}
+
+
+            //using (var tx = stateManager.CreateTransaction())
+            //{//GraphCachedDictionary
+            //    var dictionary = stateManager.GetOrAddAsync<IReliableQueue<TreeNode<NodeData>>>("GraphCachedQueue").Result;
+            //    await dictionary.TryDequeueAsync(tx);
+            //    await dictionary.EnqueueAsync(tx,graph);
+            //   // await dictionary.AddOrUpdateAsync(tx, 0, graph, (key, value) => value = graph);
+            //    await tx.CommitAsync();
+            //}
 
             // ovaj deo koda nema smisla jer je graf vec tu iznad
             //networkModelTreeClass = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetNetworkModelTreeClass());
@@ -814,13 +875,27 @@ namespace CECacheMicroservice
         }
         public TreeNode<NodeData> GetGraph()
         {
-            TreeNode<NodeData> graph = new TreeNode<NodeData>();
+            CloudClient<ITreeConstruction> transactionCoordinator = new CloudClient<ITreeConstruction>
+            (
+                serviceUri: new Uri("fabric:/CalculateEngineApp/TreeConstructionMicroservice"),
+                partitionKey: ServicePartitionKey.Singleton,
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "BuildTreeServiceListener"
+            );
 
-            using (var tx = stateManager.CreateTransaction())
+            //TreeNode<NodeData> graph = new TreeNode<NodeData>();
+
+            //using (var tx = stateManager.CreateTransaction())
+            //{
+            //    IReliableDictionary<int, TreeNode<NodeData>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, TreeNode<NodeData>>>("GraphCachedDictionary").Result;
+
+            //    graph = dict.TryGetValueAsync(tx, 0).Result.Value;
+            //}
+
+            if (graph == null)
             {
-                IReliableDictionary<int, TreeNode<NodeData>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, TreeNode<NodeData>>>("GraphCachedDictionary").Result;
-
-                graph = dict.TryGetValueAsync(tx, 0).Result.Value;
+                NetworkModelTransfer nmt= GetNetworkModelTransfer();
+                graph =  transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ConstructTree1(nmt)).Result;
             }
 
             return graph;
@@ -1510,11 +1585,10 @@ namespace CECacheMicroservice
             using (var tx = stateManager.CreateTransaction())
             {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, List<NetworkModelTreeClass>>>("NetworkModelTreeClassCached").Result;
-                dictionary.AddOrUpdateAsync(tx, 0, networkModelTreeClass, (key, value) => value = networkModelTreeClass);
-                tx.CommitAsync();
+                await dictionary.AddOrUpdateAsync(tx, 0, networkModelTreeClass, (key, value) => value = networkModelTreeClass);
+                await tx.CommitAsync();
             }
         }
-
         public async Task<List<NetworkModelTreeClass>> GetNetworkModelTreeClass()
         {
             List<NetworkModelTreeClass> nmt = new List<NetworkModelTreeClass>();
