@@ -116,3 +116,11 @@ C:\Users\Nemanja\Desktop\MasterProject\DERMS\CloudDERMS\CalculateEngineApp\NMS\M
 C:\Users\Nemanja\Desktop\MasterProject\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csproj.CopyComplete
 C:\Users\Nemanja\Desktop\MasterProject\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.dll
 C:\Users\Nemanja\Desktop\MasterProject\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.pdb
+C:\Users\Caki\Desktop\0109\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.Services.NetworkModelService.dll.config
+C:\Users\Caki\Desktop\0109\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.Services.NetworkModelService.dll
+C:\Users\Caki\Desktop\0109\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.Services.NetworkModelService.pdb
+C:\Users\Caki\Desktop\0109\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\0109\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\0109\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csproj.CopyComplete
+C:\Users\Caki\Desktop\0109\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.dll
+C:\Users\Caki\Desktop\0109\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.pdb

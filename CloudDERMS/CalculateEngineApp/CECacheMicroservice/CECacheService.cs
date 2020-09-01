@@ -119,7 +119,6 @@ namespace CECacheMicroservice
             PopulateGraph(networkModelTransfer);
             SaveNetworkModelTransfer(networkModelTransfer);
         }
-
         private async void SaveNetworkModelTransfer(NetworkModelTransfer networkModelTransfer)
         {
             using (var tx = stateManager.CreateTransaction())
@@ -130,7 +129,6 @@ namespace CECacheMicroservice
                 await tx.CommitAsync();
             }
         }
-
         private NetworkModelTransfer GetNetworkModelTransfer()
         {
             using (var tx = stateManager.CreateTransaction())
@@ -140,7 +138,6 @@ namespace CECacheMicroservice
                 return nmt;
             }
         }
-
         public async Task<Dictionary<long, IdentifiedObject>> GetNMSModel()
         {
             using (var tx = stateManager.CreateTransaction())
@@ -160,7 +157,6 @@ namespace CECacheMicroservice
                 return Nmsdictionary;
             }
         }
-
         private Dictionary<long, IdentifiedObject> GetNMSModelLocal()
         {
             using (var tx = stateManager.CreateTransaction())
@@ -362,11 +358,11 @@ namespace CECacheMicroservice
         {
             using (var tx = stateManager.CreateTransaction())
             {
-                var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, List<Forecast>>>("DERWeatherCachedDictionary");
+                var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, Forecast>>("DERWeatherCachedDictionary");
 
-                if (!dictionary.Result.ContainsKeyAsync(tx, gid).Result)
+                if (dictionary.Result.ContainsKeyAsync(tx, gid).Result)
                 {
-                    Forecast forecast = dictionary.Result.TryGetValueAsync(tx, gid).Result.Value.ToList().First();
+                    Forecast forecast = dictionary.Result.TryGetValueAsync(tx, gid).Result.Value;
                     return forecast;
                 }
             }
@@ -379,7 +375,7 @@ namespace CECacheMicroservice
             CloudClient<IConsumptionCalculator> transactionCoordinator = new CloudClient<IConsumptionCalculator>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
-              partitionKey: new ServicePartitionKey(0), /*CJN*/
+              partitionKey: ServicePartitionKey.Singleton, /*CJN*/
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "ConsumptionCalculatorListener"
             );
@@ -436,14 +432,13 @@ namespace CECacheMicroservice
             await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Calculate(productionCachedDictionary, networkModel, substationDayAheadDictionary, derWeatherCachedDictionary));
             await SendDerForecastDayAhead();
         }
-
         public async Task PopulateProductionForecast(NetworkModelTransfer networkModel)
         {
             //Communication with Microservice in same application
             CloudClient<IProductionCalculator> transactionCoordinator = new CloudClient<IProductionCalculator>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
-              partitionKey: new ServicePartitionKey(0), /*CJN*/
+              partitionKey: ServicePartitionKey.Singleton, /*CJN*/
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "ProductionCalculatorListener"
             );
