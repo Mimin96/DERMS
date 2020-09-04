@@ -1,9 +1,12 @@
 ﻿using CloudCommon.CalculateEngine;
+using CloudCommon.CalculateEngine.Communication;
 using DarkSkyApi.Models;
 using DERMSCommon.DataModel.Core;
 using DERMSCommon.NMSCommuication;
 using DERMSCommon.WeatherForecast;
 using FTN.Common;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +19,35 @@ namespace CECalculationMicroservice
     {
         public async Task<DerForecastDayAhead> CalculateGenerator(Forecast forecast, Generator generator, Dictionary<long, DerForecastDayAhead> GeneratorForecastList)
         {
+            CloudClient<ICache> cache = new CloudClient<ICache>
+            (
+                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0),
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "CECacheServiceListener"
+            ); ;
+
             DerForecastDayAhead generatorForecast = new DerForecastDayAhead(generator.GlobalId);
 
             DayAhead dayAhead = generator.CalculateDayAhead(forecast, generator.GlobalId, new Substation(generator.GlobalId));
             generatorForecast.Production += dayAhead;
             GeneratorForecastList[generator.GlobalId] = generatorForecast;///
+
+            await cache.InvokeWithRetryAsync(client => client.Channel.AddToGeneratorForecastList(generator.GlobalId, generatorForecast));
+
             return generatorForecast;
         }
 
         public async Task<DerForecastDayAhead> CalculateSubstation(Forecast forecast, Substation substation, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> GeneratorForecastList, Dictionary<long, DerForecastDayAhead> SubstationsForecast)
         {
+
+            CloudClient<ICache> cache = new CloudClient<ICache>
+            (
+                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0),
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "CECacheServiceListener"
+            ); ;
 
             List<Generator> generators = new List<Generator>();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
@@ -50,7 +72,8 @@ namespace CECalculationMicroservice
                     // DayAhead dayAhead = generator.CalculateDayAhead(forecast, substation.GlobalId, substation);
                     substationForecast.Production += GeneratorForecastList[generator.GlobalId].Production;
 
-                    SubstationsForecast[substation.GlobalId] = substationForecast;
+                   // SubstationsForecast[substation.GlobalId] = substationForecast; // ovde poziv za bazu 
+                    await cache.InvokeWithRetryAsync(client => client.Channel.AddToSubstationsForecast(substation.GlobalId, substationForecast));
                 }
             }
             return substationForecast;
@@ -58,6 +81,14 @@ namespace CECalculationMicroservice
 
         public async Task<DerForecastDayAhead> CalculateSubRegion(SubGeographicalRegion subGeographicalRegion, NetworkModelTransfer networkModel, Dictionary<long, DerForecastDayAhead> SubstationsForecast, Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast)
         {
+            CloudClient<ICache> cache = new CloudClient<ICache>
+            (
+                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0),
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "CECacheServiceListener"
+            ); ;
+
             List<Substation> substations = new List<Substation>();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
@@ -79,7 +110,8 @@ namespace CECalculationMicroservice
 
                     subGeographicalRegionForecast.Production += SubstationsForecast[substation.GlobalId].Production;
 
-                    SubGeographicalRegionsForecast[subGeographicalRegion.GlobalId] = subGeographicalRegionForecast;
+                    //SubGeographicalRegionsForecast[subGeographicalRegion.GlobalId] = subGeographicalRegionForecast;
+                    await cache.InvokeWithRetryAsync(client => client.Channel.AddToSubGeographicalRegionsForecast(subGeographicalRegion.GlobalId, subGeographicalRegionForecast));
                 }
             }
             return subGeographicalRegionForecast;
@@ -105,7 +137,7 @@ namespace CECalculationMicroservice
             {
                 if (geographicalRegion.Regions.Contains(subGeo.GlobalId))
                 {
-                    geoRegionForecast.Production += SubGeographicalRegionsForecast[subGeo.GlobalId].Production;
+                    geoRegionForecast.Production += SubGeographicalRegionsForecast[subGeo.GlobalId].Production; 
                 }
             }
             return geoRegionForecast;

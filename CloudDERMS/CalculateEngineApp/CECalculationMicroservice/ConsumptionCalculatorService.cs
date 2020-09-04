@@ -1,9 +1,12 @@
 ﻿using CloudCommon.CalculateEngine;
+using CloudCommon.CalculateEngine.Communication;
 using DarkSkyApi.Models;
 using DERMSCommon.DataModel.Core;
 using DERMSCommon.NMSCommuication;
 using DERMSCommon.WeatherForecast;
 using FTN.Common;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +21,24 @@ namespace CECalculationMicroservice
         {
             Dictionary<long, DerForecastDayAhead> Forecasts;
             Forecasts = derForcast;
-            subDayAhead = CalculateDayAheadSubstation(networkModel, DerWeather);
+            subDayAhead = await CalculateDayAheadSubstation(networkModel, DerWeather);
             CalculateSubstations(derForcast, Forecasts, subDayAhead);
             CalculateSubRegion(derForcast, networkModel);
             CalculateGeoRegions(derForcast, networkModel);
         }
 
-        private Dictionary<long, DayAhead> CalculateDayAheadSubstation(NetworkModelTransfer networkModel, Dictionary<long, Forecast> DerWeather)
+        private async Task<Dictionary<long, DayAhead>> CalculateDayAheadSubstation(NetworkModelTransfer networkModel, Dictionary<long, Forecast> DerWeather)
         {
+            //Cak
+            CloudClient<ICache> cache = new CloudClient<ICache>
+            (
+                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0),
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "CECacheServiceListener"
+            ); ;
+            //
+
             List<EnergyConsumer> energyConsumers = new List<EnergyConsumer>();
             energyConsumers = GetEnergyConsumers(networkModel);
             Dictionary<long, DayAhead> calcDayAhead = new Dictionary<long, DayAhead>();//<-povratna
@@ -60,16 +73,25 @@ namespace CECalculationMicroservice
 
                         }
                         calcDayAhead.Add(kvpDic.Key, consumerDayAhead.Clone());//<-povratna
+                        await cache.InvokeWithRetryAsync(client => client.Channel.AddToSubstationDayAhead(kvpDic.Key, consumerDayAhead.Clone()));
                     }
-
                 }
 
             }
             return calcDayAhead;
         }
-
-        public void CalculateSubstations(Dictionary<long, DerForecastDayAhead> derForcast, Dictionary<long, DerForecastDayAhead> Forecasts, Dictionary<long, DayAhead> subDayAhead)
+        public async void CalculateSubstations(Dictionary<long, DerForecastDayAhead> derForcast, Dictionary<long, DerForecastDayAhead> Forecasts, Dictionary<long, DayAhead> subDayAhead)
         {
+            //Cak
+            CloudClient<ICache> cache = new CloudClient<ICache>
+            (
+                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0),
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "CECacheServiceListener"
+            ); ;
+            //
+
             Dictionary<long, DerForecastDayAhead> substationForecast = Forecasts;
             foreach (KeyValuePair<long, DerForecastDayAhead> kvp in derForcast)
             {
@@ -77,15 +99,23 @@ namespace CECalculationMicroservice
                 {
                     if (kvp.Key.Equals(kvp2.Key))
                     {
-                        kvp.Value.Consumption += subDayAhead[kvp.Key];
+                        kvp.Value.Consumption += subDayAhead[kvp.Key]; // Update na strani ceCache AddDerForecast
+                        await cache.InvokeWithRetryAsync(client => client.Channel.AddDerForecast(kvp.Value, kvp.Key,true));
                     }
                 }
             }
         }
-
-
-        public void CalculateSubRegion(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel)
+        public async void CalculateSubRegion(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel)
         {
+            //Cak
+            CloudClient<ICache> cache = new CloudClient<ICache>
+            (
+                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0),
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "CECacheServiceListener"
+            ); ;
+            //
             List<Substation> substations = new List<Substation>();
             substations = GetSubstations(networkModel);
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
@@ -101,16 +131,25 @@ namespace CECalculationMicroservice
                         {
                             if (gr.Substations.Contains(substation.GlobalId))
                             {
-                                derForcast[gr.GlobalId].Consumption += derForcast[substation.GlobalId].Consumption;
+                                derForcast[gr.GlobalId].Consumption += derForcast[substation.GlobalId].Consumption; // Update na strani ceCache
+                                await cache.InvokeWithRetryAsync(client => client.Channel.AddDerForecast(derForcast[gr.GlobalId], gr.GlobalId, true));
                             }
                         }
                     }
                 }
             }
         }
-
-        public void CalculateGeoRegions(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel)
+        public async void CalculateGeoRegions(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel)
         {
+            //Cak
+            CloudClient<ICache> cache = new CloudClient<ICache>
+            (
+                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0),
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "CECacheServiceListener"
+            ); ;
+            //
             List<SubGeographicalRegion> geographicalRegions = new List<SubGeographicalRegion>();
             geographicalRegions = GetSubGeographicalRegions(networkModel);
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
@@ -126,14 +165,14 @@ namespace CECalculationMicroservice
                         {
                             if (gr.Regions.Contains(subGeoRegion.GlobalId))
                             {
-                                derForcast[gr.GlobalId].Consumption += derForcast[subGeoRegion.GlobalId].Consumption;
+                                derForcast[gr.GlobalId].Consumption += derForcast[subGeoRegion.GlobalId].Consumption; // Update na strani ceCache
+                                await cache.InvokeWithRetryAsync(client => client.Channel.AddDerForecast(derForcast[gr.GlobalId], gr.GlobalId, true));
                             }
                         }
                     }
                 }
             }
         }
-
         public List<EnergyConsumer> GetEnergyConsumers(NetworkModelTransfer networkModel)
         {
             List<EnergyConsumer> energyConsumers = new List<EnergyConsumer>();
@@ -151,7 +190,6 @@ namespace CECalculationMicroservice
             }
             return energyConsumers;
         }
-
         public List<Substation> GetSubstations(NetworkModelTransfer networkModel)
         {
             List<Substation> energyConsumers = new List<Substation>();
@@ -169,7 +207,6 @@ namespace CECalculationMicroservice
             }
             return energyConsumers;
         }
-
         public List<SubGeographicalRegion> GetSubGeographicalRegions(NetworkModelTransfer networkModel)
         {
             List<SubGeographicalRegion> energyConsumers = new List<SubGeographicalRegion>();

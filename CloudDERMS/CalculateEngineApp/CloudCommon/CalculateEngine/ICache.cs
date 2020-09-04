@@ -51,7 +51,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Dictionary<long, List<DataPoint>> GetscadaPointsCached();
         [OperationContract]
-        TreeNode<NodeData> GetGraph();
+        Task<TreeNode<NodeData>> GetGraph();
         [OperationContract]
         List<DataPoint> GetDatapoints();
         [OperationContract]
@@ -85,13 +85,13 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Task AddToTempProductionCached(long gid, DerForecastDayAhead param);
         [OperationContract]
-        void AddToSubstationDayAhead(long gid, DayAhead param);
+        Task AddToSubstationDayAhead(long gid, DayAhead param);
         [OperationContract]
-        void AddToSubstationsForecast(long gid, DerForecastDayAhead param);
+        Task AddToSubstationsForecast(long gid, DerForecastDayAhead param);
         [OperationContract]
-        void AddToSubGeographicalRegionsForecast(long gid, DerForecastDayAhead param);
+        Task AddToSubGeographicalRegionsForecast(long gid, DerForecastDayAhead param);
         [OperationContract]
-        void AddToGeneratorForecastList(long gid, DerForecastDayAhead param);
+        Task AddToGeneratorForecastList(long gid, DerForecastDayAhead param);
         [OperationContract]
         void RemoveFromGeneratorForecastList(long gid);
         [OperationContract]
@@ -140,6 +140,7 @@ namespace CloudCommon.CalculateEngine
         Task<List<long>> GetDisableAutomaticOptimizationList();
         [OperationContract]
         Task CalculateNewCopyOfProductionCachedFlexibility(Dictionary<long, DerForecastDayAhead> copyOfProductionCachedFlexibility);
-
+        [OperationContract]
+        Task AddDerForecast(DerForecastDayAhead derForecastDayAhead, long gid, bool isInitState);
     }
 }

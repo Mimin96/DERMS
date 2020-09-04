@@ -15,3 +15,4 @@ C:\Users\Caki\Desktop\DJ2508\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\
 C:\Users\Caki\Desktop\3008\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache
 C:\Users\Nemanja\Desktop\MasterProject\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache
 C:\Users\Caki\Desktop\0109\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\0309\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache
