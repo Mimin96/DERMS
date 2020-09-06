@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
 		xmlns:converters ="clr-namespace:dCom.Converters"
-        Title="" Height="186" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="" Height="186" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Resources>
         <converters:ConnectionStateToColorConverter x:Key="ConnectionStateToColor" />
         <converters:StringToVisibilityConverter x:Key="StringToVisibility" />
@@ -47,10 +47,10 @@
                         </Label>
                     </StackPanel>
                 </StatusBarItem>
+                <Label Content="Simulator: " TextBlock.FontWeight="Bold" Foreground="#FF0398E2"/>
                 <StatusBarItem>
                     <Border Background="{Binding ConnectionState, Converter={StaticResource ResourceKey=ConnectionStateToColor}}" Opacity="0.9">
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Connection status with simulator: " TextBlock.FontWeight="Bold" Foreground="#FF0398E2"/>
                             <Label>
                                 <TextBlock Text="{Binding Path=ConnectionState}" TextBlock.FontWeight="Bold" />
                             </Label>

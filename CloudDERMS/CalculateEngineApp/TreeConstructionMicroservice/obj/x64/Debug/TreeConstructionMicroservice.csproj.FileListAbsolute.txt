@@ -1415,3 +1415,4 @@ C:\Users\Caki\Desktop\0309\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionM
 C:\Users\Caki\Desktop\0309\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csproj.CopyComplete
 C:\Users\Caki\Desktop\0309\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.exe
 C:\Users\Caki\Desktop\0309\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csprojAssemblyReference.cache
