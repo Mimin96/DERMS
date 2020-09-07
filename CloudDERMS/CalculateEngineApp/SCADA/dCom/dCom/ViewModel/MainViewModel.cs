@@ -160,6 +160,8 @@ namespace dCom.ViewModel
             var behaviour = ServiceHost.Description.Behaviors.Find<ServiceBehaviorAttribute>();
             behaviour.InstanceContextMode = InstanceContextMode.Single;
             NetTcpBinding binding = new NetTcpBinding();
+            binding.ReceiveTimeout = TimeSpan.FromMinutes(20);
+            binding.CloseTimeout = TimeSpan.FromMinutes(20);
             ServiceHost.AddServiceEndpoint(typeof(IScadaCloudServer), binding, ClientAddress);
             ServiceHost.Open();
 

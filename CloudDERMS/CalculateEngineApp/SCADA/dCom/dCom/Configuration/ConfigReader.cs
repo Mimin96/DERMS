@@ -6,6 +6,7 @@ using DERMSCommon.NMSCommuication;
 using DERMSCommon.TransactionManager;
 using Microsoft.Win32;
 using Modbus;
+using Modbus.Connection;
 using Modbus.FunctionParameters;
 using ProcessingModule;
 using System;
@@ -185,9 +186,6 @@ namespace dCom.Configuration
 
 
             }
-
-            ScadaManagaer scadaManagaer = new ScadaManagaer();
-            scadaManagaer.SendGids();
 
             //try
             //{

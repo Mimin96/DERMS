@@ -101,6 +101,8 @@ namespace SCADACacheMicroservice
                 } while (clientAddress == null || clientAddress == "");
 
                 NetTcpBinding binding = new NetTcpBinding();
+                binding.ReceiveTimeout = TimeSpan.FromMinutes(20);
+                binding.CloseTimeout = TimeSpan.FromMinutes(20);
                 var factory = new ChannelFactory<IScadaCloudServer>(binding, new EndpointAddress(clientAddress));
                 IScadaCloudServer Proxy = factory.CreateChannel();
                 Dictionary<List<long>, ushort> GidoviNaAdresu = Proxy.SendAnalogAndDigitalSignals(analogniStari, digitalniStari);

@@ -23,6 +23,9 @@ namespace dCom.ScadaServerSide
         public Dictionary<List<long>, ushort> SendAnalogAndDigitalSignals(Dictionary<long, IdentifiedObject> analogni, Dictionary<long, IdentifiedObject> digitalni)
         {
             configuration = new ConfigReader(analogni, digitalni);
+            commandExecutor = new FunctionExecutor(this, configuration);
+            scadaManagaer = new ScadaManagaer();
+            scadaManagaer.SendGids();
 
             return GidoviNaAdresu;
         }
@@ -36,7 +39,6 @@ namespace dCom.ScadaServerSide
         {
             ModbusWriteCommandParameters p = new ModbusWriteCommandParameters(length, functionCode, outputAddress, value, configuration);
             Common.IModbusFunction fn = FunctionFactory.CreateModbusFunction(p);
-            commandExecutor = new FunctionExecutor(this, configuration);
             commandExecutor.EnqueueCommand(fn);
         }
 

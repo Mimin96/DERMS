@@ -16,5 +16,6 @@ namespace dCom.Configuration
         public static Dictionary<List<long>, ushort> GidoviNaAdresu = new Dictionary<List<long>, ushort>();
         public static IFunctionExecutor commandExecutor;
         public static IConfiguration configuration;
+        public static ScadaManagaer scadaManagaer;
     }
 }

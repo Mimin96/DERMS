@@ -493,7 +493,7 @@ namespace CalculationEngineService
 
 			dataForScada.DataFromCEToScada = listOfGeneratorsForScada;
 
-			await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(dataForScada, (int)Enums.Topics.Flexibility));
+			//await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(dataForScada, (int)Enums.Topics.Flexibility));
 
 			CloudClient<ISendListOfGeneratorsToScada> transactionCoordinatorScada = new CloudClient<ISendListOfGeneratorsToScada>
 			(
