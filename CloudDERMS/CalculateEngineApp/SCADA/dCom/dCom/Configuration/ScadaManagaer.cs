@@ -117,7 +117,7 @@ namespace dCom.Configuration
         }
 
 
-        private void InitializePointCollection()
+        private async void InitializePointCollection()
         {
             List<DERMSCommon.SCADACommon.DataPoint> datapoints = new List<DERMSCommon.SCADACommon.DataPoint>();
             PointsToAdd = new ObservableCollection<BasePointItem>();
@@ -146,7 +146,7 @@ namespace dCom.Configuration
                     clientBinding: WcfUtility.CreateTcpClientBinding(),
                     listenerName: "SendDataToCEThroughScadaListener"
                   );
-            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ReceiveFromScada(datapoints));
+            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ReceiveFromScada(datapoints));
 
             // ProxyUI.ReceiveFromScada(datapoints);
 

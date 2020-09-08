@@ -852,12 +852,12 @@ namespace CECacheMicroservice
 
             //CalculateFlexibility();
         }
-        public async void UpdateGraphWithScadaValues(List<DataPoint> data)
+        public async Task UpdateGraphWithScadaValues(List<DataPoint> data)
         {
             CloudClient<ITreeConstruction> transactionCoordinator = new CloudClient<ITreeConstruction>
             (
                 serviceUri: new Uri("fabric:/CalculateEngineApp/TreeConstructionMicroservice"),
-                partitionKey: new ServicePartitionKey(0), /*CJN*/
+                partitionKey: ServicePartitionKey.Singleton, /*CJN*/
                 clientBinding: WcfUtility.CreateTcpClientBinding(),
                 listenerName: "BuildTreeServiceListener"
             );
@@ -867,7 +867,8 @@ namespace CECacheMicroservice
 
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, TreeNode<NodeData>>>("GraphCachedDictionary").Result;
                 //Upitno da li radi ovaj upit
-                TreeNode<NodeData> graphToSend = stateManager.GetOrAddAsync<IReliableDictionary<int, TreeNode<NodeData>>>("GraphCachedDictionary").Result.TryGetValueAsync(tx, 0).Result.Value;
+                //TreeNode<NodeData> graphToSend = stateManager.GetOrAddAsync<IReliableDictionary<int, TreeNode<NodeData>>>("GraphCachedDictionary").Result.TryGetValueAsync(tx, 0).Result.Value;
+                TreeNode<NodeData> graphToSend = await GetGraph();
                 TreeNode<NodeData> graph = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateGraphWithScadaValues(data, graphToSend)).Result;
                 await dictionary.AddOrUpdateAsync(tx, 0, graph, (key, value) => value = graph);
                 await tx.CommitAsync();
@@ -904,7 +905,7 @@ namespace CECacheMicroservice
 
         #region datapoints Methods
         //HAS TO BE CHECKED
-        public async void UpdateNewDataPoitns(List<DataPoint> points)
+        public async Task UpdateNewDataPoitns(List<DataPoint> points)
         {
             using (var tx = stateManager.CreateTransaction())
             {
@@ -913,14 +914,14 @@ namespace CECacheMicroservice
                 if (dataPoints == null)
                 {
                     dataPoints = new List<DataPoint>();
-                    await dictionary.AddOrUpdateAsync(tx, 0, dataPoints, (key, value) => value = dataPoints);
-                    await tx.CommitAsync();
+                    //await dictionary.AddOrUpdateAsync(tx, 0, dataPoints, (key, value) => value = dataPoints);
+                    //await tx.CommitAsync();
                 }
 
                 foreach (DataPoint data in points)
                 {
-                    foreach (DataPoint dp in dataPoints)
-                    {
+                   // foreach (DataPoint dp in dataPoints)
+                   // {
                         //
                         if (dataPoints.Where(x => x.Gid == data.Gid).Count() == 0)
                         {
@@ -930,11 +931,9 @@ namespace CECacheMicroservice
                         {
                             dataPoints[dataPoints.FindIndex(ind => ind.Gid == data.Gid)] = data;
                         }
-                        //
-                    }
-                    await dictionary.AddOrUpdateAsync(tx, 0, dataPoints, (key, value) => value = dataPoints);
-                    await tx.CommitAsync();
                 }
+                await dictionary.AddOrUpdateAsync(tx, 0, dataPoints, (key, value) => value = dataPoints);
+                await tx.CommitAsync();
             }
         }
         public List<DataPoint> GetDatapoints()

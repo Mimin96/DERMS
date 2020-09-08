@@ -30,7 +30,7 @@ namespace dCom.ViewModel
             ProcessRawValue(RawValue);
         }
 
-        protected override void CommandExecutor_UpdatePointEvent(Common.PointType type, ushort pointAddres, ushort newValue)
+        protected override async void CommandExecutor_UpdatePointEvent(Common.PointType type, ushort pointAddres, ushort newValue)
         {
             Thread.Sleep(100);
 
@@ -60,7 +60,7 @@ namespace dCom.ViewModel
                     clientBinding: WcfUtility.CreateTcpClientBinding(),
                     listenerName: "SendDataToCEThroughScadaListener"
                   );
-                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ReceiveFromScada(datapoints));
+                await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ReceiveFromScada(datapoints));
 
                // ProxyUI.ReceiveFromScada(datapoints);
 

@@ -86,7 +86,7 @@ namespace TreeConstructionMicroservice
             foreach (IdentifiedObject idOb in networkModelTransfer.Insert[DMSType.GEOGRAPHICALREGION].Values.ToList())
             {
 
-                TreeNode<NodeData> found = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == idOb.GlobalId);
+                TreeNode<NodeData> found = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == idOb.GlobalId).FirstOrDefault();
                 GeographicalRegion geographicalRegion = (GeographicalRegion)found.Data.IdentifiedObject;
                 foreach (long gid in geographicalRegion.Regions)
                 {
@@ -101,7 +101,7 @@ namespace TreeConstructionMicroservice
 
             foreach (IdentifiedObject idOb in networkModelTransfer.Insert[DMSType.SUBGEOGRAPHICALREGION].Values.ToList())
             {
-                TreeNode<NodeData> found = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == idOb.GlobalId);
+                TreeNode<NodeData> found = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == idOb.GlobalId).FirstOrDefault();
                 SubGeographicalRegion subRegion = (SubGeographicalRegion)found.Data.IdentifiedObject;
                 foreach (long gid in subRegion.Substations)
                 {
@@ -118,7 +118,7 @@ namespace TreeConstructionMicroservice
             {
                 SubstationTreeClass substationTreeClass = NetworkModelTreeClass[0].GeographicalRegions.SelectMany(x => x.GeographicalSubRegions.SelectMany(y => y.Substations.Where(z => z.GID == idOb.GlobalId))).FirstOrDefault();
 
-                TreeNode<NodeData> found = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == idOb.GlobalId);
+                TreeNode<NodeData> found = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == idOb.GlobalId).FirstOrDefault();
                 Substation substation = (Substation)found.Data.IdentifiedObject;
 
                 // Nadji eng,source nakacen na taj substaion
@@ -142,7 +142,7 @@ namespace TreeConstructionMicroservice
                             foreach (Terminal terminal in terminalOfEnergySrc)
                             {
                                 // Nadjemo cvor na koji je es nakacem i dodamo child
-                                TreeNode<NodeData> energySrcConnectedToTerminalFound = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == es.GlobalId);
+                                TreeNode<NodeData> energySrcConnectedToTerminalFound = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == es.GlobalId).FirstOrDefault();
                                 //energySrcConnectedToTerminalFound.AddChild(new NodeData(terminal, DMSType.TERMINAL, false));
 
                                 // U stvari funkcija 
@@ -156,7 +156,7 @@ namespace TreeConstructionMicroservice
 
             foreach (Discrete discrete in networkModelTransfer.Insert[DMSType.DISCRETE].Values.ToList())
             {
-                TreeNode<NodeData> found = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == discrete.PowerSystemResource);
+                TreeNode<NodeData> found = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == discrete.PowerSystemResource).FirstOrDefault();
 
                 if (found != null)
                 {
@@ -166,7 +166,7 @@ namespace TreeConstructionMicroservice
 
             foreach (Analog analog in networkModelTransfer.Insert[DMSType.ANALOG].Values.ToList())
             {
-                TreeNode<NodeData> found = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == analog.PowerSystemResource);
+                TreeNode<NodeData> found = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == analog.PowerSystemResource).FirstOrDefault();
 
                 if (found != null)
                 {
@@ -177,7 +177,7 @@ namespace TreeConstructionMicroservice
             //CAKI 0314
             foreach (ACLineSegment line in networkModelTransfer.Insert[DMSType.ACLINESEGMENT].Values.ToList())
             {
-                TreeNode<NodeData> found = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == line.GlobalId);
+                TreeNode<NodeData> found = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == line.GlobalId).FirstOrDefault();
 
                 if (found != null)
                 {
@@ -211,7 +211,7 @@ namespace TreeConstructionMicroservice
         private void DoStartTerminal(Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             // Get energy ESRC
-            TreeNode<NodeData> energySrcConnectedToTerminalFound = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.CondEq);
+            TreeNode<NodeData> energySrcConnectedToTerminalFound = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == terminal.CondEq).FirstOrDefault();
             // Add child to ESRC
             energySrcConnectedToTerminalFound.AddChild(new NodeData(terminal, DMSType.TERMINAL, false));
 
@@ -235,7 +235,7 @@ namespace TreeConstructionMicroservice
 
             foreach (long terminalGid in connectivityNode.Terminals)
             {
-                TreeNode<NodeData> foundTerminal = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminalGid);
+                TreeNode<NodeData> foundTerminal = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == terminalGid).FirstOrDefault();
 
                 if (foundTerminal != null)
                 {
@@ -259,7 +259,7 @@ namespace TreeConstructionMicroservice
         private void DoEndTerminal(Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             // Dodaj terminal na conn node 
-            TreeNode<NodeData> foundConnectivityNode = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.ConnectivityNode);
+            TreeNode<NodeData> foundConnectivityNode = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == terminal.ConnectivityNode).FirstOrDefault();
             foundConnectivityNode.AddChild(new NodeData(terminal, DMSType.TERMINAL, false));
 
             List<Breaker> breakersOfTerminal = networkModelTransfer.Insert[DMSType.BREAKER].Values.ToList().Cast<Breaker>().ToList().Where(x => x.Terminals.Contains(terminal.GlobalId)).ToList();
@@ -291,7 +291,7 @@ namespace TreeConstructionMicroservice
         private void DealWithBreakers(List<Breaker> breakers, Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             //GEt terminal
-            TreeNode<NodeData> foundTerminal = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId);
+            TreeNode<NodeData> foundTerminal = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId).FirstOrDefault();
 
             foreach (Breaker breaker in breakers)
             {
@@ -318,7 +318,7 @@ namespace TreeConstructionMicroservice
         }
         private void DealWithConsumers(List<EnergyConsumer> consumers, Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
-            TreeNode<NodeData> foundTerminal = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId);
+            TreeNode<NodeData> foundTerminal = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId).FirstOrDefault();
 
             foreach (EnergyConsumer consumer in consumers)
             {
@@ -342,7 +342,7 @@ namespace TreeConstructionMicroservice
         }
         private void DealWithGenerators(List<Generator> generators, Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
-            TreeNode<NodeData> foundTerminal = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId);
+            TreeNode<NodeData> foundTerminal = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId).FirstOrDefault();
 
             foreach (Generator generator in generators)
             {
@@ -366,7 +366,7 @@ namespace TreeConstructionMicroservice
         }
         private void DealWithACLines(List<ACLineSegment> acLines, Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
-            TreeNode<NodeData> foundTerminal = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId);
+            TreeNode<NodeData> foundTerminal = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId).FirstOrDefault();
 
             foreach (ACLineSegment acLine in acLines)
             {
@@ -390,7 +390,7 @@ namespace TreeConstructionMicroservice
 
         private void DealWithSources(List<EnergySource> sources, Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
-            TreeNode<NodeData> foundTerminal = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId);
+            TreeNode<NodeData> foundTerminal = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == terminal.GlobalId).FirstOrDefault();
 
             foreach (EnergySource source in sources)
             {
@@ -415,7 +415,8 @@ namespace TreeConstructionMicroservice
         }
         private void ColorGraph()
         {
-            TreeNode<NodeData> rootNode = graphCached.FindTreeNode(x => x.IsRoot);
+            //TreeNode<NodeData> rootNode = graphCached.FindTreeNode(x => x.IsRoot);
+            TreeNode<NodeData> rootNode = GraphCached.Where(x => x.IsRoot).FirstOrDefault();
 
             foreach (TreeNode<NodeData> node in rootNode.Children)
             {
@@ -447,7 +448,7 @@ namespace TreeConstructionMicroservice
             else if (node.Data.Type == DMSType.GENERATOR)
             {
                 //CAKI
-                TreeNode<NodeData> analog = graphCached.FindTreeNode(x => x.Data.Type == DMSType.ANALOG && ((Analog)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
+                TreeNode<NodeData> analog = graphCached.Where(x => x.Data.Type == DMSType.ANALOG && ((Analog)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId).FirstOrDefault();
                 if (analog != null)
                 {
                     if (((Analog)analog.Data.IdentifiedObject).NormalValue > 0)
@@ -474,7 +475,7 @@ namespace TreeConstructionMicroservice
                 //Posmatramo vr dig signala koji je zakacen za breaker 
                 //1705
                 Breaker breaker = (Breaker)node.Data.IdentifiedObject;
-                TreeNode<NodeData> digital = graphCached.FindTreeNode(x => x.Data.Type == DMSType.DISCRETE && ((Discrete)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
+                TreeNode<NodeData> digital = graphCached.Where(x => x.Data.Type == DMSType.DISCRETE && ((Discrete)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId).FirstOrDefault();
                 Discrete disc = (Discrete)digital.Data.IdentifiedObject;
 
                 if (disc != null)
@@ -512,7 +513,7 @@ namespace TreeConstructionMicroservice
         }
         private void SecondColoringPass()
         {
-            TreeNode<NodeData> rootNode = graphCached.FindTreeNode(x => x.IsRoot);
+            TreeNode<NodeData> rootNode = graphCached.Where(x => x.IsRoot).FirstOrDefault();
             foreach (TreeNode<NodeData> node in rootNode.Children)
             {
                 foundSinchronousMachine(node);
@@ -534,7 +535,7 @@ namespace TreeConstructionMicroservice
             {
                 //1705
                 Breaker breaker = (Breaker)node.Data.IdentifiedObject;
-                TreeNode<NodeData> digital = graphCached.FindTreeNode(x => x.Data.Type == DMSType.DISCRETE && ((Discrete)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
+                TreeNode<NodeData> digital = graphCached.Where(x => x.Data.Type == DMSType.DISCRETE && ((Discrete)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId).FirstOrDefault();
                 Discrete disc = (Discrete)digital.Data.IdentifiedObject;
                 if (disc != null)
                 {
@@ -633,7 +634,7 @@ namespace TreeConstructionMicroservice
             if (node.Data.Type == DMSType.BREAKER)
             {
                 Breaker breaker = (Breaker)node.Data.IdentifiedObject;
-                TreeNode<NodeData> digital = graphCached.FindTreeNode(x => x.Data.Type == DMSType.DISCRETE && ((Discrete)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId);
+                TreeNode<NodeData> digital = graphCached.Where(x => x.Data.Type == DMSType.DISCRETE && ((Discrete)x.Data.IdentifiedObject).PowerSystemResource == node.Data.IdentifiedObject.GlobalId).FirstOrDefault();
                 Discrete disc = (Discrete)digital.Data.IdentifiedObject;
                 if (disc.NormalValue == 1)
                 {
@@ -684,7 +685,8 @@ namespace TreeConstructionMicroservice
 
             foreach (DataPoint dp in data)
             {
-                TreeNode<NodeData> node = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == dp.Gid);
+                TreeNode<NodeData> node = GraphCached.Where(x=>x.Data.IdentifiedObject.GlobalId == dp.Gid).FirstOrDefault();
+                //TreeNode<NodeData> node = GraphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == dp.Gid);
                 if (node == null)
                     continue;
 
@@ -704,7 +706,7 @@ namespace TreeConstructionMicroservice
                 }
             }
 
-            ColorGraph();
+            ColorGraph(); 
             return GraphCached;
         }
         #endregion

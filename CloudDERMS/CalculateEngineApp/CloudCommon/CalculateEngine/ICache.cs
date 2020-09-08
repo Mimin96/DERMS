@@ -37,9 +37,9 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Task<Dictionary<long, DerForecastDayAhead>> GetAllDerForecastDayAhead();
         [OperationContract]
-        void UpdateGraphWithScadaValues(List<DataPoint> data);
+        Task UpdateGraphWithScadaValues(List<DataPoint> data);
         [OperationContract]
-        void UpdateNewDataPoitns(List<DataPoint> points);
+        Task UpdateNewDataPoitns(List<DataPoint> points);
         [OperationContract]
         Task ApplyChangesOnProductionCached(Dictionary<long, double> listOfGeneratorsForScada);
         [OperationContract]
