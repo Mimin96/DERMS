@@ -19,7 +19,7 @@ namespace dCom.ViewModel
         private double eguValue;
         private ISendDataToCEThroughScada ProxyUI { get; set; }
         private ChannelFactory<ISendDataToCEThroughScada> factoryUI;
-        private int brojac = 0;
+        private int brojac;
         private List<DataPoint> datapoints = new List<DataPoint>();
         //private ScadaDB scadaDB = new ScadaDB();
         private CloudClient<ISendDataToCEThroughScada> transactionCoordinator;
@@ -28,6 +28,7 @@ namespace dCom.ViewModel
             : base(c, commandExecutor, stateUpdater, configuration, i)
         {
             ProcessRawValue(RawValue);
+            brojac = 0;
         }
 
         protected override async void CommandExecutor_UpdatePointEvent(Common.PointType type, ushort pointAddres, ushort newValue)
@@ -62,10 +63,11 @@ namespace dCom.ViewModel
                   );
                 await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ReceiveFromScada(datapoints));
 
-               // ProxyUI.ReceiveFromScada(datapoints);
+                // ProxyUI.ReceiveFromScada(datapoints);
+
 
                 ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
-                sCADAClient.SetDatabaseData(datapoints);
+                await sCADAClient.SetDatabaseData(datapoints);
             }
 
         }

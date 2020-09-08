@@ -38,6 +38,9 @@ namespace CloudCommon.SCADA.AzureStorage
         }
         public static bool InsertEntitiesInDB<T>(List<T> entities, string connectionString, string tableName) where T : TableEntity
         {
+            if (entities.Count == 0)
+                return false;
+
             try
             {
                 // Retrieve the storage account from the connection string.
@@ -64,7 +67,7 @@ namespace CloudCommon.SCADA.AzureStorage
 
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 return false;
             }

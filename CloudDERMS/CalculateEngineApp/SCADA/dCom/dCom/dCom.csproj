@@ -39,6 +39,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>pngguru.com.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DarkSkyApi, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\DarkSkyApi.3.3\lib\netstandard1.1\DarkSkyApi.dll</HintPath>
@@ -222,6 +225,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pngguru.com.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -18,7 +18,7 @@ namespace DERMSCommon.SCADACommon
 
         public ComunicationSCADAClient(string endpoint) : base(endpoint)
         {
-
+            
         }
 
         public Task AddorUpdateAnalogniKontejnerModelEntity(Dictionary<long, IdentifiedObject> dict)
