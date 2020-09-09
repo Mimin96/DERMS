@@ -113,6 +113,10 @@
       <Project>{7FE86AFE-D2D4-44DD-81F4-39916C5AE1FA}</Project>
       <Name>CloudCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Commons\CalculationEngineServiceCommon\CalculationEngineServiceCommon.csproj">
+      <Project>{C6A1D90E-C842-4B98-958B-C3267664D121}</Project>
+      <Name>CalculationEngineServiceCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DERMSCommon\DERMSCommon.csproj">
       <Project>{71765178-17DC-4F93-9153-F73378BFE39F}</Project>
       <Name>DERMSCommon</Name>

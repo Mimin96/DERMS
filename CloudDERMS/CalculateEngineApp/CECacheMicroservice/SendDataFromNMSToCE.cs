@@ -1,7 +1,12 @@
 ﻿using CloudCommon.CalculateEngine;
+using CloudCommon.CalculateEngine.Communication;
+using DERMSCommon;
 using DERMSCommon.NMSCommuication;
+using DERMSCommon.UIModel.ThreeViewModel;
 using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,8 +73,17 @@ namespace CECacheMicroservice
             else
                 _cache.RestartCache(networkModel);
 
-            // pozvati pubSub na ovom mestu
-            //PubSubCalculatioEngine.Instance.Notify(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
+            CloudClient<IPubSub> pubSub = new CloudClient<IPubSub>
+            (
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CEPubSubMicroservice"),
+              partitionKey: new ServicePartitionKey(0), /*CJN*/
+              clientBinding: WcfUtility.CreateTcpClientBinding(),
+              listenerName: "CEPubSubMicroServiceListener"
+            );
+
+            TreeNode<NodeData> data = _cache.GetGraph().Result;
+            List<NetworkModelTreeClass> NetworkModelTreeClass = _cache.GetNetworkModelTreeClass().Result;
+            await pubSub.InvokeWithRetryAsync(client => client.Channel.NotifyTree(data, NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData));
 
             if (networkModel.Insert.Count != 0)
             {

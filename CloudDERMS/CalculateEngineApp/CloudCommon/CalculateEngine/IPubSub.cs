@@ -1,4 +1,6 @@
 ﻿using DERMSCommon;
+using DERMSCommon.SCADACommon;
+using DERMSCommon.UIModel.ThreeViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,11 @@ namespace CloudCommon.CalculateEngine
 	public interface IPubSub
 	{
 		[OperationContract]
-		Task<bool> Notify(DataToUI forcastDayAhead, long gidOfTopic);
+		Task<bool> Notify(DataToUI forcastDayAhead, int gidOfTopic);
+		[OperationContract]
+		Task<bool> NotifyDataPoint(List<DataPoint> data, int gidOfTopic);
+		[OperationContract]
+		Task<bool> NotifyTree(TreeNode<NodeData> data, List<NetworkModelTreeClass> NetworkModelTreeClass, int gidOfTopic);
 		[OperationContract]
 		Task<bool> SubscribeSubscriber(string clientAddress, int gidOfTopic);
 	}

@@ -1344,3 +1344,6 @@ C:\Users\Caki\Desktop\0709\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroserv
 C:\Users\Caki\Desktop\0709\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.csproj.CopyComplete
 C:\Users\Caki\Desktop\0709\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.exe
 C:\Users\Caki\Desktop\0709\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.dll
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.dll.config

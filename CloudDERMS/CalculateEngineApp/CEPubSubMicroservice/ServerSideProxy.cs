@@ -1,4 +1,5 @@
-﻿using CloudCommon.CalculateEngine;
+﻿using CalculationEngineServiceCommon;
+using CloudCommon.CalculateEngine;
 using DERMSCommon;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,9 @@ namespace CEPubSubMicroservice
 	public class ServerSideProxy
 	{
 		[IgnoreDataMember]
-		public ChannelFactory<ICECommunicationPubSub> factory { get; set; }
+		public ChannelFactory<ICalculationEnginePubSub> factory { get; set; }
 		[IgnoreDataMember]
-		public ICECommunicationPubSub Proxy { get; set; }
+		public ICalculationEnginePubSub Proxy { get; set; }
 		[DataMember]
 		public string ClientAddress { get; set; }
 
@@ -32,27 +33,8 @@ namespace CEPubSubMicroservice
 		public void Connect()
 		{
 			NetTcpBinding binding = new NetTcpBinding();
-			factory = new ChannelFactory<ICECommunicationPubSub>(binding, new EndpointAddress(ClientAddress));
+			factory = new ChannelFactory<ICalculationEnginePubSub>(binding, new EndpointAddress(ClientAddress));
 			Proxy = factory.CreateChannel();
-		}
-
-		public void SendInitialDerForecastDayAhead()
-		{
-			DataToUI data = new DataToUI();
-			try
-			{
-				Proxy.SendDataToUI(data);
-			}
-			catch (CommunicationException e)
-			{
-				Abort();
-				Connect();
-			}
-			catch (TimeoutException)
-			{
-				Abort();
-				Connect();
-			}
 		}
 
 		public void Abort()

@@ -39,7 +39,7 @@ namespace UI.ViewModel
 
         public MenuViewModel()
         {
-            /*Mediator.Register("SCADADataPoint", GetSCADAData);
+            Mediator.Register("SCADADataPoint", GetSCADAData);
             Mediator.Register("NMSNetworkModelData", GetNetworkModelFromProxy);
             Mediator.Register("NetworkModelTreeClass", NetworkModelTreeClassChangedMenu);
             Mediator.Register("Flexibility", DERDashboardFlexibility);
@@ -52,21 +52,9 @@ namespace UI.ViewModel
             _clientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
 
             _clientSideProxy.Subscribe((int)Enums.Topics.DataPoints);
-            _clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass_NodeData);*/
-
-            Mediator.Register("SendDataToUI", Temp);
-            ClientSideProxy.Instance.TempSubscribe();
-
-            //_proxy = new CommunicationProxy();
-            //_proxy.Open();
+            _clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass_NodeData);
 
             Logger.Log("UI is started.", Enums.Component.UI, Enums.LogLevel.Info);
-        }
-
-        public void Temp(object parameter)
-        {
-            DataToUI s = (DataToUI)parameter;
-            MessageBox.Show("Stiglo", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         #region Properties

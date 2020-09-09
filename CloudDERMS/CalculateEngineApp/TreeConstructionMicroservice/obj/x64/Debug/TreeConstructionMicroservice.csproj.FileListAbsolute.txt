@@ -1415,7 +1415,6 @@ C:\Users\Caki\Desktop\0309\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionM
 C:\Users\Caki\Desktop\0309\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csproj.CopyComplete
 C:\Users\Caki\Desktop\0309\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.exe
 C:\Users\Caki\Desktop\0309\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.pdb
-C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csprojAssemblyReference.cache
 C:\Users\Caki\Desktop\0709\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.Azure.Documents.ServiceInterop.dll
 C:\Users\Caki\Desktop\0709\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Cosmos.CRTCompat.dll
 C:\Users\Caki\Desktop\0709\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\TreeConstructionMicroservice.exe.config
@@ -1489,3 +1488,4 @@ C:\Users\Caki\Desktop\0709\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionM
 C:\Users\Caki\Desktop\0709\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csproj.CopyComplete
 C:\Users\Caki\Desktop\0709\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.exe
 C:\Users\Caki\Desktop\0709\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.pdb
+C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csprojAssemblyReference.cache

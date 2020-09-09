@@ -58,7 +58,7 @@ namespace CECacheMicroservice
             this.stateManager = stateManager;
             pubSub = new CloudClient<IPubSub>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CEPubSubMicroService"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CEPubSubMicroservice"),
               partitionKey: new ServicePartitionKey(0), /*CJN*/
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CEPubSubMicroServiceListener"
@@ -116,10 +116,10 @@ namespace CECacheMicroservice
                 }
             }
 
-            PopulateGraph(networkModelTransfer);
-            SaveNetworkModelTransfer(networkModelTransfer);
+            await PopulateGraph(networkModelTransfer);
+            await SaveNetworkModelTransfer(networkModelTransfer);
         }
-        private async void SaveNetworkModelTransfer(NetworkModelTransfer networkModelTransfer)
+        private async Task SaveNetworkModelTransfer(NetworkModelTransfer networkModelTransfer)
         {
             using (var tx = stateManager.CreateTransaction())
             {
@@ -568,7 +568,7 @@ namespace CECacheMicroservice
             }
 
             if (!isInitState)
-                SendDerForecastDayAhead();
+                await SendDerForecastDayAhead();
         }
         public void RemoveFromDerForecast(long gid)
         {
@@ -684,7 +684,7 @@ namespace CECacheMicroservice
 
         public async Task SendDerForecastDayAhead()
         {
-            //await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead));
+            await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead));
         }
         //NOT COMPLETE CEUpdateThroughUI missing, PubSubCalculatioEngine
         public async Task<float> PopulateBalance(long gid)
@@ -1155,7 +1155,7 @@ namespace CECacheMicroservice
 
             DataToUI data = new DataToUI();
             data.NetworkModelTreeClass = networkModelTreeClass;
-           // await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(data, (int)Enums.Topics.NetworkModelTreeClass));
+            await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(data, (int)Enums.Topics.NetworkModelTreeClass));
         }
         public Dictionary<long, double> GetListOfGeneratorsForScada()
         {

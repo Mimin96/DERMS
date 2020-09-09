@@ -43,9 +43,20 @@ namespace UI.Communication
             }
         }
 
-        public async void TempSubscribe()
+        public async void Subscribe(int gidOfTopic)
         {
-            bool ret = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SubscribeSubscriber(ClientAddress, 1));
+            bool ret = false;
+
+            while (!ret) {
+                try
+                {
+                    ret = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SubscribeSubscriber(ClientAddress, gidOfTopic));
+                }
+                catch
+                {
+
+                }
+            }
         }
 
         public void StartServiceHost(ICalculationEnginePubSub observerInstance)
@@ -67,7 +78,7 @@ namespace UI.Communication
             var behaviour = ServiceHost.Description.Behaviors.Find<ServiceBehaviorAttribute>();
             behaviour.InstanceContextMode = InstanceContextMode.Single;
             NetTcpBinding binding = new NetTcpBinding();
-            ServiceHost.AddServiceEndpoint(typeof(ICECommunicationPubSub), binding, ClientAddress);
+            ServiceHost.AddServiceEndpoint(typeof(ICalculationEnginePubSub), binding, ClientAddress);
             ServiceHost.Open();
         }
 

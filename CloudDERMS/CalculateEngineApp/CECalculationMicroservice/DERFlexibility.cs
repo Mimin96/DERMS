@@ -236,7 +236,7 @@ namespace CalculationEngineService
 
 			CloudClient<IPubSub> pubSub = new CloudClient<IPubSub>
 			(
-			  serviceUri: new Uri("fabric:/CalculateEngineApp/CEPubSubMicroService"),
+			  serviceUri: new Uri("fabric:/CalculateEngineApp/CEPubSubMicroservice"),
 			  partitionKey: new ServicePartitionKey(0), /*CJN*/
 			  clientBinding: WcfUtility.CreateTcpClientBinding(),
 			  listenerName: "CEPubSubMicroServiceListener"
@@ -493,7 +493,7 @@ namespace CalculationEngineService
 
 			dataForScada.DataFromCEToScada = listOfGeneratorsForScada;
 
-			//await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(dataForScada, (int)Enums.Topics.Flexibility));
+			await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(dataForScada, (int)Enums.Topics.Flexibility));
 
 			CloudClient<ISendListOfGeneratorsToScada> transactionCoordinatorScada = new CloudClient<ISendListOfGeneratorsToScada>
 			(

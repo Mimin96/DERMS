@@ -14,7 +14,7 @@ using UI.Resources.MediatorPattern;
 
 namespace UI.Communication
 {
-	public class CalculationEnginePubSub : ICalculationEnginePubSub, ICECommunicationPubSub
+	public class CalculationEnginePubSub : ICalculationEnginePubSub
 	{
 		public void SendDataUI(TreeNode<NodeData> data, List<NetworkModelTreeClass> NetworkModelTreeClass)
 		{
@@ -44,11 +44,6 @@ namespace UI.Communication
 		public void SendScadaDataToUIDataPoint(List<DataPoint> data)
 		{
 			Mediator.NotifyColleagues("SCADADataPoint", data);
-		}
-
-		public void SendDataToUI(DataToUI data)
-		{
-			Mediator.NotifyColleagues("SendDataToUI", data);
 		}
 	}
 }

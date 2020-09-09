@@ -8,6 +8,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using CloudCommon.CalculateEngine;
 using DERMSCommon;
+using DERMSCommon.SCADACommon;
+using DERMSCommon.UIModel.ThreeViewModel;
 using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
 
@@ -17,7 +19,6 @@ namespace CEPubSubMicroservice
 	{
 		private IReliableDictionary<string, ServerSideProxy> subscribers;
 		private TopicSubscriptions topicSubscriptions;
-
 		private IReliableStateManager stateManager;
 		private StatefulServiceContext context;
 
@@ -26,6 +27,20 @@ namespace CEPubSubMicroservice
 			this.context = context;
 			this.stateManager = StateManager;
 			topicSubscriptions = new TopicSubscriptions(stateManager);
+
+		    setNotFirstTime();
+		}
+
+		private async Task setNotFirstTime() 
+		{
+			using (var tx = stateManager.CreateTransaction())
+			{
+				IReliableQueue<bool> reliableQueue = stateManager.GetOrAddAsync<IReliableQueue<bool>>("notFirstTime").Result;
+				await reliableQueue.TryDequeueAsync(tx);
+				await reliableQueue.EnqueueAsync(tx, false);
+
+				await tx.CommitAsync();
+			}
 		}
 
 		public async Task<bool> SubscribeSubscriber(string clientAddress, int gidOfTopic)
@@ -42,10 +57,33 @@ namespace CEPubSubMicroservice
 
 				await topicSubscriptions.SubscribeAsync(clientAddress, gidOfTopic);
 			}
-			DataToUI data = new DataToUI();
-			data.Flexibility = 250;
-			data.Gid = 225883;
-			return await Notify(data, 1);
+
+			bool notFirstTime = false;
+			using (var tx = stateManager.CreateTransaction())
+			{
+				IReliableQueue<bool> reliableQueue = stateManager.GetOrAddAsync<IReliableQueue<bool>>("notFirstTime").Result;
+				notFirstTime = reliableQueue.TryPeekAsync(tx).Result.Value;
+			}
+
+			if (notFirstTime && (int)Enums.Topics.NetworkModelTreeClass_NodeData == gidOfTopic)
+			{
+				//Notify(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
+				//Notify(CalculationEngineCache.Instance.DataPoints, (int)Enums.Topics.DataPoints);
+			}
+
+			if ((int)Enums.Topics.NetworkModelTreeClass_NodeData == gidOfTopic) 
+			{
+				using (var tx = stateManager.CreateTransaction())
+				{
+					IReliableQueue<bool> reliableQueue = stateManager.GetOrAddAsync<IReliableQueue<bool>>("notFirstTime").Result;
+					await reliableQueue.TryDequeueAsync(tx);
+					await reliableQueue.EnqueueAsync(tx, true);
+
+					await tx.CommitAsync();
+				}
+			}
+
+			return true;
 		}
 
 		public async Task Unsubscribe(string clientAddress, long gidOfTopic, bool disconnect)
@@ -63,16 +101,97 @@ namespace CEPubSubMicroservice
 			topicSubscriptions.Unsubscribe(clientAddress, gidOfTopic);
 		}
 
-		public async Task<bool> Notify(DataToUI forcastDayAhead, long gidOfTopic)
+		private async Task RemoveDeadClients(List<string> deadClients)
 		{
-			if (forcastDayAhead == null)
+			using (var tx = this.stateManager.CreateTransaction())
+			{
+				subscribers = stateManager.GetOrAddAsync<IReliableDictionary<string, ServerSideProxy>>("subscribers").Result;
+				foreach (string clientAddress in deadClients)
+				{
+					await subscribers.TryRemoveAsync(tx, clientAddress);
+				}
+
+				await tx.CommitAsync();
+			}
+		}
+
+		private bool RetrySendForecast(ServerSideProxy proxy, DataToUI forecast)
+		{
+			proxy.Abort();
+			proxy.Connect();
+			try
+			{
+				proxy.Proxy.SendScadaDataToUI(forecast);
+			}
+			catch (CommunicationException e)
+			{
+				return false;
+			}
+			return true;
+		}
+
+		private bool RetrySendDataPoint(ServerSideProxy proxy, List<DataPoint> data)
+		{
+			proxy.Abort();
+			proxy.Connect();
+			try
+			{
+				proxy.Proxy.SendScadaDataToUIDataPoint(data);
+			}
+			catch (CommunicationException e)
+			{
+				return false;
+			}
+			return true;
+		}
+
+		private bool RetrySendTrees(ServerSideProxy proxy, TreeNode<NodeData> data, List<NetworkModelTreeClass> NetworkModelTreeClass)
+		{
+			proxy.Abort();
+			proxy.Connect();
+			try
+			{
+				proxy.Proxy.SendDataUI(data, NetworkModelTreeClass);
+			}
+			catch (CommunicationException e)
+			{
+				return false;
+			}
+			return true;
+		}
+
+		private Dictionary<string, ServerSideProxy> GetSubscribersCopy()
+		{
+			Dictionary<string, ServerSideProxy> subscribersCopy = new Dictionary<string, ServerSideProxy>();
+
+			using (var tx = this.stateManager.CreateTransaction())
+			{
+				subscribers = stateManager.GetOrAddAsync<IReliableDictionary<string, ServerSideProxy>>("subscribers").Result;
+				IAsyncEnumerable<KeyValuePair<string, ServerSideProxy>> subscribersEnumerable = subscribers.CreateEnumerableAsync(tx).Result;
+				using (IAsyncEnumerator<KeyValuePair<string, ServerSideProxy>> subcriberEnumerator = subscribersEnumerable.GetAsyncEnumerator())
+				{
+					while (subcriberEnumerator.MoveNextAsync(CancellationToken.None).Result)
+					{
+						subscribersCopy.Add(subcriberEnumerator.Current.Key, subcriberEnumerator.Current.Value);
+					}
+				}
+			}
+
+			return subscribersCopy;
+		}
+
+		public async Task<bool> Notify(DataToUI forcastDayAhead, int gidOfTopic)
+		{
+			Dictionary<string, ServerSideProxy> subscribersCopy;
+			subscribersCopy = GetSubscribersCopy();
+
+			if (forcastDayAhead == null || subscribersCopy.Count == 0)
 			{
 				return false;
 			}
 
-			Dictionary<string, ServerSideProxy> subscribersCopy;
+			forcastDayAhead.Topic = gidOfTopic;
 			List<string> deadClients = new List<string>();
-			subscribersCopy = GetSubscribersCopy();
 
 			List<string> topicSubscribers = topicSubscriptions.GetSubscribers(gidOfTopic);
 			List<string> deadSubscribers = new List<string>();
@@ -83,7 +202,7 @@ namespace CEPubSubMicroservice
 					ServerSideProxy subscriberProxy = subscribersCopy[subscriberAddress];
 					try
 					{
-						subscriberProxy.Proxy.SendDataToUI(forcastDayAhead);
+						subscriberProxy.Proxy.SendScadaDataToUI(forcastDayAhead);
 						return true;
 					}
 					catch (CommunicationException)
@@ -121,53 +240,125 @@ namespace CEPubSubMicroservice
 			return false;
 		}
 
-		private async Task RemoveDeadClients(List<string> deadClients)
-		{
-			using (var tx = this.stateManager.CreateTransaction())
-			{
-				subscribers = stateManager.GetOrAddAsync<IReliableDictionary<string, ServerSideProxy>>("subscribers").Result;
-				foreach (string clientAddress in deadClients)
-				{
-					await subscribers.TryRemoveAsync(tx, clientAddress);
-				}
+		public async Task<bool> NotifyDataPoint(List<DataPoint> data, int gidOfTopic)
+        {
+			Dictionary<string, ServerSideProxy> subscribersCopy;
+			subscribersCopy = GetSubscribersCopy();
 
-				await tx.CommitAsync();
-			}
-		}
-
-		private bool RetrySendForecast(ServerSideProxy proxy, DataToUI forecast)
-		{
-			proxy.Abort();
-			proxy.Connect();
-			try
-			{
-				proxy.Proxy.SendDataToUI(forecast);
-			}
-			catch (CommunicationException e)
+			if (data == null || subscribersCopy.Count == 0)
 			{
 				return false;
 			}
+
+			List<string> deadClients = new List<string>();
+
+
+			List<string> topicSubscribers = topicSubscriptions.GetSubscribers(gidOfTopic);
+			List<string> deadSubscribers = new List<string>();
+			foreach (string subscriberAddress in topicSubscribers)
+			{
+				if (subscribersCopy.ContainsKey(subscriberAddress))
+				{
+					ServerSideProxy subscriber = subscribersCopy[subscriberAddress];
+
+					try
+					{
+						subscriber.Proxy.SendScadaDataToUIDataPoint(data);
+					}
+					catch (CommunicationException)
+					{
+						if (RetrySendDataPoint(subscriber, data) == false)
+						{
+							deadClients.Add(subscriberAddress);
+						}
+						else
+						{
+							return true;
+						}
+					}
+					catch (TimeoutException)
+					{
+						if (RetrySendDataPoint(subscriber, data) == false)
+						{
+							deadClients.Add(subscriberAddress);
+						}
+						else
+						{
+							return true;
+						}
+					}
+				}
+				else
+				{
+					deadSubscribers.Add(subscriberAddress);
+				}
+
+				await topicSubscriptions.RemoveDeadSubscribersForTopicAsync(gidOfTopic, deadSubscribers);
+			}
+
+			await RemoveDeadClients(deadClients);
+
 			return true;
 		}
 
-		private Dictionary<string, ServerSideProxy> GetSubscribersCopy()
-		{
-			Dictionary<string, ServerSideProxy> subscribersCopy = new Dictionary<string, ServerSideProxy>();
+        public async Task<bool> NotifyTree(TreeNode<NodeData> data, List<NetworkModelTreeClass> NetworkModelTreeClass, int gidOfTopic)
+        {
+			Dictionary<string, ServerSideProxy> subscribersCopy;
+			subscribersCopy = GetSubscribersCopy();
 
-			using (var tx = this.stateManager.CreateTransaction())
+			if (data == null || NetworkModelTreeClass == null || subscribersCopy.Count == 0)
 			{
-				subscribers = stateManager.GetOrAddAsync<IReliableDictionary<string, ServerSideProxy>>("subscribers").Result;
-				IAsyncEnumerable<KeyValuePair<string, ServerSideProxy>> subscribersEnumerable = subscribers.CreateEnumerableAsync(tx).Result;
-				using (IAsyncEnumerator<KeyValuePair<string, ServerSideProxy>> subcriberEnumerator = subscribersEnumerable.GetAsyncEnumerator())
-				{
-					while (subcriberEnumerator.MoveNextAsync(CancellationToken.None).Result)
-					{
-						subscribersCopy.Add(subcriberEnumerator.Current.Key, subcriberEnumerator.Current.Value);
-					}
-				}
+				return false;
 			}
 
-			return subscribersCopy;
+			List<string> deadClients = new List<string>();
+
+			List<string> topicSubscribers = topicSubscriptions.GetSubscribers(gidOfTopic);
+			List<string> deadSubscribers = new List<string>();
+			foreach (string subscriberAddress in topicSubscribers)
+			{
+				if (subscribersCopy.ContainsKey(subscriberAddress))
+				{
+					ServerSideProxy subscriber = subscribersCopy[subscriberAddress];
+
+					try
+					{
+						subscriber.Proxy.SendDataUI(data, NetworkModelTreeClass);
+					}
+					catch (CommunicationException)
+					{
+						if (RetrySendTrees(subscriber, data, NetworkModelTreeClass) == false)
+						{
+							deadClients.Add(subscriberAddress);
+						}
+						else
+						{
+							return true;
+						}
+					}
+					catch (TimeoutException)
+					{
+						if (RetrySendTrees(subscriber, data, NetworkModelTreeClass) == false)
+						{
+							deadClients.Add(subscriberAddress);
+						}
+						else
+						{
+							return true;
+						}
+					}
+				}
+				else
+				{
+					deadSubscribers.Add(subscriberAddress);
+				}
+
+				await topicSubscriptions.RemoveDeadSubscribersForTopicAsync(gidOfTopic, deadSubscribers);
+			}
+
+			await RemoveDeadClients(deadClients);
+
+			return true;
 		}
-	}
+    }
 }
