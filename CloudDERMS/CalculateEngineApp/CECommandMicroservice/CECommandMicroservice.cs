@@ -47,7 +47,7 @@ namespace CECommandMicroservice
                         wcfServiceObject: new CEUpdateThroughUIService(),
                         serviceContext: context,
                         address: new EndpointAddress("net.tcp://localhost:55556/CECommandMicroservice"),
-                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                        listenerBinding: new NetTcpBinding()
                     ),
                     name: "CECommandMicroserviceListener"
                 ),
@@ -56,7 +56,7 @@ namespace CECommandMicroservice
                         wcfServiceObject: new FlexibilityFromUIToCEService(),
                         serviceContext: context,
                         address: new EndpointAddress("net.tcp://localhost:8080/CECommandMicroservice"),
-                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                        listenerBinding: new NetTcpBinding()
                     ),
                     name: "FlexibilityFromUIToCEServiceListener"
                 )

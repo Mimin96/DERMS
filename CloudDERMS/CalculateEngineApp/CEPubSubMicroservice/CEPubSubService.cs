@@ -7,11 +7,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CloudCommon.CalculateEngine;
+using CloudCommon.CalculateEngine.Communication;
 using DERMSCommon;
 using DERMSCommon.SCADACommon;
 using DERMSCommon.UIModel.ThreeViewModel;
 using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 
 namespace CEPubSubMicroservice
 {
@@ -67,8 +70,19 @@ namespace CEPubSubMicroservice
 
 			if (notFirstTime && (int)Enums.Topics.NetworkModelTreeClass_NodeData == gidOfTopic)
 			{
-				//Notify(CalculationEngineCache.Instance.GraphCached, CalculationEngineCache.Instance.NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
-				//Notify(CalculationEngineCache.Instance.DataPoints, (int)Enums.Topics.DataPoints);
+				CloudClient<ICache> cache = new CloudClient<ICache>
+				(
+					  serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+					  partitionKey: new ServicePartitionKey(0),
+					  clientBinding: WcfUtility.CreateTcpClientBinding(),
+					  listenerName: "CECacheServiceListener"
+				);
+				TreeNode<NodeData> tree = cache.InvokeWithRetryAsync(client => client.Channel.GetGraph()).Result; ; 
+				List<NetworkModelTreeClass> NetworkModelTreeClass = cache.InvokeWithRetryAsync(client => client.Channel.GetNetworkModelTreeClass()).Result;
+				List<DataPoint> dataPoints = cache.InvokeWithRetryAsync(client => client.Channel.GetDatapoints()).Result;
+
+				await NotifyTree(tree, NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
+				await NotifyDataPoint(dataPoints, (int)Enums.Topics.DataPoints);
 			}
 
 			if ((int)Enums.Topics.NetworkModelTreeClass_NodeData == gidOfTopic) 

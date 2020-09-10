@@ -251,6 +251,12 @@ namespace UI.ViewModel
                     ((GISUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
                     break;
                 case "DERDashboard":
+                    if (_dERDashboardDerForecastDayAhead == null)
+                    {
+                        PopUpWindow popUpWindow = new PopUpWindow("Data for this window is not yet collected.\n Try again later.");
+                        popUpWindow.ShowDialog();
+                        break;
+                    }
                     UserControlPresenter = new DERDashboardUserControl();
                     ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
                     ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;

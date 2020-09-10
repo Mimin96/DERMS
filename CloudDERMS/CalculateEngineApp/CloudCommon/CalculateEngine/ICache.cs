@@ -53,7 +53,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Task<TreeNode<NodeData>> GetGraph();
         [OperationContract]
-        List<DataPoint> GetDatapoints();
+        Task<List<DataPoint>> GetDatapoints();
         [OperationContract]
         Dictionary<long, DerForecastDayAhead> GetCopyOfProductionCached();
         [OperationContract]

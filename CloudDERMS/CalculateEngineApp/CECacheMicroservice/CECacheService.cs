@@ -936,7 +936,7 @@ namespace CECacheMicroservice
                 await tx.CommitAsync();
             }
         }
-        public List<DataPoint> GetDatapoints()
+        public async Task<List<DataPoint>> GetDatapoints()
         {
             List<DataPoint> dPoints = new List<DataPoint>();
 
