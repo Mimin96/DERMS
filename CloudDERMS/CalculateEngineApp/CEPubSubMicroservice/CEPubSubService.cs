@@ -30,21 +30,8 @@ namespace CEPubSubMicroservice
 			this.context = context;
 			this.stateManager = StateManager;
 			topicSubscriptions = new TopicSubscriptions(stateManager);
-
-		    setNotFirstTime();
 		}
 
-		private async Task setNotFirstTime() 
-		{
-			using (var tx = stateManager.CreateTransaction())
-			{
-				IReliableQueue<bool> reliableQueue = stateManager.GetOrAddAsync<IReliableQueue<bool>>("notFirstTime").Result;
-				await reliableQueue.TryDequeueAsync(tx);
-				await reliableQueue.EnqueueAsync(tx, false);
-
-				await tx.CommitAsync();
-			}
-		}
 
 		public async Task<bool> SubscribeSubscriber(string clientAddress, int gidOfTopic)
 		{
@@ -279,7 +266,7 @@ namespace CEPubSubMicroservice
 					{
 						subscriber.Proxy.SendScadaDataToUIDataPoint(data);
 					}
-					catch (CommunicationException)
+					catch (CommunicationException ee)
 					{
 						if (RetrySendDataPoint(subscriber, data) == false)
 						{
@@ -290,7 +277,7 @@ namespace CEPubSubMicroservice
 							return true;
 						}
 					}
-					catch (TimeoutException)
+					catch (TimeoutException dd)
 					{
 						if (RetrySendDataPoint(subscriber, data) == false)
 						{
