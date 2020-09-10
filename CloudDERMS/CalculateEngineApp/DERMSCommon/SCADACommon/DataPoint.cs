@@ -48,6 +48,7 @@ namespace DERMSCommon.SCADACommon
             _rawValue = rawValue;
             _alarm = alarm;
             _gidGeneratora = gidGeneratora;
+            _alarmImage = PackIconKind.NotificationsActive;
         }
 
         public PointType Type
