@@ -1214,7 +1214,8 @@ namespace CalculationEngineService
             return generators;
         }
         public async Task<List<Generator>> GeneratorOffCheck()
-        {
+        {//Ima gresaka 
+
             Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             List<long> TurnedOffGenerators = new List<long>();
 
@@ -1229,7 +1230,8 @@ namespace CalculationEngineService
             );
             networkModel = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetNMSModel()).Result;
             tempTurnedOffGenerators = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetTurnedOffGenerators()).Result;
-            TurnedOffGenerators = tempTurnedOffGenerators[0];
+            if(tempTurnedOffGenerators.Count>0)
+                TurnedOffGenerators = tempTurnedOffGenerators[0]; /// 
 
             List<Generator> generators = new List<Generator>();
             foreach (long genGid in TurnedOffGenerators)

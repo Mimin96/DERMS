@@ -41,9 +41,9 @@ namespace UI.Communication
             return Channel.BalanceNetworkModel();
         }
 
-        public Task<List<Generator>> GeneratorOffCheck()
+        public async Task<List<Generator>> GeneratorOffCheck()
         {
-            return Channel.GeneratorOffCheck();
+            return await Channel.GeneratorOffCheck();
         }
 
         public Task<List<long>> ListOfDisabledGenerators()

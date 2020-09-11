@@ -28,7 +28,7 @@ namespace CECommandMicroservice
             Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
@@ -41,7 +41,7 @@ namespace CECommandMicroservice
             prod = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetAllDerForecastDayAhead()).Result;
             CloudClient<IIslandCalculations> transactionCoordinatorIsland = new CloudClient<IIslandCalculations>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "IslandCalculationsListener"
@@ -53,7 +53,7 @@ namespace CECommandMicroservice
 
             tempTurnedOnGen = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetTurnedOnGenerators()).Result;
             tempTurnedOffGen = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetTurnedOffGenerators()).Result;
-            TurnedOffGenerators = tempTurnedOffGen[0];
+            TurnedOffGenerators = tempTurnedOffGen[0];/*Ovde pukne*/
             TurnedOnGenerators = tempTurnedOnGen[0];
             if (NormalOpen)
             {
