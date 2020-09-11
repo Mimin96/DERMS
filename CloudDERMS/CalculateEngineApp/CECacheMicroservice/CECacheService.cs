@@ -555,7 +555,7 @@ namespace CECacheMicroservice
                 }
             }
             
-            await SendDerForecastDayAhead();
+            //await SendDerForecastDayAhead();
         }
 
         public async Task AddDerForecast(DerForecastDayAhead derForecastDayAhead, long gid, bool isInitState)

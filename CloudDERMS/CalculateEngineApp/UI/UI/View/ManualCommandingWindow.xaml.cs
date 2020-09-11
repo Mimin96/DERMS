@@ -53,7 +53,7 @@ namespace UI.View
 					((ManualCommandingViewModel)DataContext).Command((-1) * Double.Parse(ValueKW.Text), FlexibilityIncDec.Decrease, Gid);
 				}
 
-				((ManualCommandingViewModel)DataContext).CloseConnection();
+				//((ManualCommandingViewModel)DataContext).CloseConnection();
 
 				Gid = 0;
 
@@ -62,7 +62,7 @@ namespace UI.View
             catch (Exception)
             {
 				PopUpWindow popUpWindow = new PopUpWindow("Please enter only numbers!");
-				((ManualCommandingViewModel)DataContext).CloseConnection();
+				//((ManualCommandingViewModel)DataContext).CloseConnection();
 				Gid = 0;
 				Close();
 				popUpWindow.ShowDialog();

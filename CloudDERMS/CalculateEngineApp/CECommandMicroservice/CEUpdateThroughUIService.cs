@@ -1222,7 +1222,7 @@ namespace CalculationEngineService
 
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"

@@ -125,8 +125,7 @@ namespace UI.ViewModel
 				binding.MaxBufferSize = 8000000;
 				binding.MaxReceivedMessageSize = 8000000;
 				binding.MaxBufferPoolSize = 8000000;
-				factoryCE = new ChannelFactory<IFlexibilityFromUIToCE>(binding, new EndpointAddress("net.tcp://localhost:19011/IFlexibilityFromUIToCE"));
-				ProxyCE = factoryCE.CreateChannel();
+
 			}
 			catch (Exception e)
 			{
