@@ -18,7 +18,7 @@ namespace CECacheMicroservice
     {
         private IReliableStateManager _stateManager;
         private ICache _cache;
-
+        static readonly object AddToDataPointsObjectLock = new object();
 
         public SendDataToCEThroughScada(IReliableStateManager stateManager, ICache cache)
         {
@@ -30,7 +30,10 @@ namespace CECacheMicroservice
         {
             await _cache.UpdateGraphWithScadaValues(data);
 
-            _cache.UpdateNewDataPoitns(data).Wait();
+            lock (AddToDataPointsObjectLock)
+            {
+                _cache.UpdateNewDataPoitns(data).Wait();
+            }
 
             CloudClient<IPubSub> pubSub = new CloudClient<IPubSub>
             (

@@ -950,19 +950,22 @@ namespace CECacheMicroservice
 
             return dPoints;
         }
+
+        
         public async Task AddToDataPoints(DataPoint datapoint)
         {
+                using (var tx = stateManager.CreateTransaction())
+                {
+                    IReliableDictionary<int, List<DataPoint>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<DataPoint>>>("DataPointsCachedDictionary").Result;
+                    List<DataPoint> points = dict.TryGetValueAsync(tx, 0).Result.Value;
+                    if (points == null)
+                        points = new List<DataPoint>();
+                    points.Add(datapoint);
 
-            using (var tx = stateManager.CreateTransaction())
-            {
-                IReliableDictionary<int, List<DataPoint>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<DataPoint>>>("DataPointsCachedDictionary").Result;
-                List<DataPoint> points = dict.TryGetValueAsync(tx, 0).Result.Value;
-                if (points == null)
-                    points = new List<DataPoint>();
-                points.Add(datapoint);
+                    await dict.AddOrUpdateAsync(tx, 0, points, (key, value) => value = points);
 
-                await dict.AddOrUpdateAsync(tx, 0, points, (key, value) => value = points);
-            }
+                    await tx.CommitAsync();
+                }
         }
         public void RemoveFromDataPoints(DataPoint datapoint)
         {
