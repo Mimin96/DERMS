@@ -69,7 +69,7 @@ namespace CECacheMicroservice
                 networkModel.InitState = true;
 
             if (networkModel.InitState)
-                 await _cache.PopulateNSMModelCache(networkModel);
+                 _cache.PopulateNSMModelCache(networkModel).Wait();
             else
                 _cache.RestartCache(networkModel);
 

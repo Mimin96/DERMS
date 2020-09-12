@@ -727,7 +727,7 @@ namespace CECacheMicroservice
             }
             using (var tx = stateManager.CreateTransaction())
             {
-                IReliableDictionary<int, List<long>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("turnedOffGeneratorsList").Result;
+                IReliableDictionary<int, List<long>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("TurnedOffGeneratorsCachedDictionary").Result;
 
                 IAsyncEnumerable<KeyValuePair<int, List<long>>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
                 using (IAsyncEnumerator<KeyValuePair<int, List<long>>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
@@ -848,9 +848,9 @@ namespace CECacheMicroservice
             //}
 
             // ovaj deo koda nema smisla jer je graf vec tu iznad
-            //networkModelTreeClass = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetNetworkModelTreeClass());
+            //List<NetworkModelTreeClass >nn = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetNetworkModelTreeClass());
 
-            //CalculateFlexibility();
+            //await CalculateFlexibility(nn);
         }
         public async Task UpdateGraphWithScadaValues(List<DataPoint> data)
         {
@@ -1066,11 +1066,11 @@ namespace CECacheMicroservice
                     }
                 }
             }
-
-            await CalculateFlexibility();            
+            
+            await CalculateFlexibility(networkModelTreeClass);            
         }
         //NOT COMPLETE -- Trebalo bi da stoje na nekom drugom servisu
-        private async Task CalculateFlexibility()
+        public async Task CalculateFlexibility(List<NetworkModelTreeClass> NetworkModelTreeClass)
         {
             float minFlexibilitySubstation = 0;
             float maxFlexibilitySubstation = 0;
@@ -1089,6 +1089,8 @@ namespace CECacheMicroservice
             float productionNetworkModel = 0;
 
             List<NetworkModelTreeClass> networkModelTreeClass = await GetNetworkModelTreeClass();
+            //if (networkModelTreeClass == null)
+                networkModelTreeClass = NetworkModelTreeClass; 
 
             foreach (NetworkModelTreeClass networkModelTreeClasses in networkModelTreeClass)
             {
@@ -1155,6 +1157,7 @@ namespace CECacheMicroservice
 
             DataToUI data = new DataToUI();
             data.NetworkModelTreeClass = networkModelTreeClass;
+            SetNetworkModelTreeClass(networkModelTreeClass).Wait();
             await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(data, (int)Enums.Topics.NetworkModelTreeClass));
         }
         public Dictionary<long, double> GetListOfGeneratorsForScada()
@@ -1277,7 +1280,7 @@ namespace CECacheMicroservice
 
             using (var tx = stateManager.CreateTransaction())
             {
-                IReliableDictionary<int, List<long>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("TurnedOffGeneratorsCachedDictionary").Result;
+                IReliableDictionary<int, List<long>> dict =  stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("TurnedOffGeneratorsCachedDictionary").Result;
 
                 IAsyncEnumerable<KeyValuePair<int, List<long>>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
                 using (IAsyncEnumerator<KeyValuePair<int, List<long>>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())

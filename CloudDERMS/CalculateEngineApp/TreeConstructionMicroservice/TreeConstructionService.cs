@@ -201,10 +201,10 @@ namespace TreeConstructionMicroservice
                 listenerName: "CECacheServiceListener"
             );
 
-            transactionCoordinator.InvokeWithRetry(client => client.Channel.SetNetworkModelTreeClass(NetworkModelTreeClass));
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SetNetworkModelTreeClass(NetworkModelTreeClass)).Wait();
 
             ColorGraph();
-            //CalculateFlexibility();
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.CalculateFlexibility(NetworkModelTreeClass)).Wait();
             //OBAVESTI UI DA JE DOSLO DO PROMENE I POSALJI OVAJ GRAPH
         }
 

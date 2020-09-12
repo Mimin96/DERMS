@@ -29,6 +29,7 @@ namespace CalculationEngineServiceCommon
         [OperationContract]
         Task<List<Generator>> ListOffTurnedOffGenerators();
         [OperationContract]
+        [ServiceKnownType(typeof(Generator))]
         Task<List<Generator>> GeneratorOffCheck();
     }
 }

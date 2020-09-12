@@ -19,6 +19,8 @@ namespace CloudCommon.CalculateEngine
     {
         //MUST HAVE GET CREATE UPDATE DELETE 
         [OperationContract]
+        Task CalculateFlexibility(List<NetworkModelTreeClass> NetworkModelTreeClass);
+        [OperationContract]
         Task PopulateNSMModelCache(NetworkModelTransfer networkModelTransfer);
         [OperationContract]
         Task<Dictionary<long, IdentifiedObject>> GetNMSModel();
