@@ -123,7 +123,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         void RemoveFromCopyOfProductionCached(long gid);
         [OperationContract]
-        void AddToDataPoints(DataPoint datapoint);
+        Task AddToDataPoints(DataPoint datapoint);
         [OperationContract]
         void RemoveFromDataPoints(DataPoint datapoint);
         [OperationContract]

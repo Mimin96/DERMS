@@ -909,8 +909,7 @@ namespace CECacheMicroservice
         {
             using (var tx = stateManager.CreateTransaction())
             {
-                var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, List<DataPoint>>>("DataPointsCachedDictionary").Result;
-                List<DataPoint> dataPoints = dictionary.TryGetValueAsync(tx, 0).Result.Value;
+                List<DataPoint> dataPoints = GetDatapoints().Result;
                 if (dataPoints == null)
                 {
                     dataPoints = new List<DataPoint>();
@@ -926,13 +925,15 @@ namespace CECacheMicroservice
                         if (dataPoints.Where(x => x.Gid == data.Gid).Count() == 0)
                         {
                             dataPoints.Add(data);
+                            await AddToDataPoints(data);
                         }
                         else
                         {
                             dataPoints[dataPoints.FindIndex(ind => ind.Gid == data.Gid)] = data;
-                        }
+                            await AddToDataPoints(data);
+                    }
                 }
-                await dictionary.AddOrUpdateAsync(tx, 0, dataPoints, (key, value) => value = dataPoints);
+                
                 await tx.CommitAsync();
             }
         }
@@ -949,16 +950,18 @@ namespace CECacheMicroservice
 
             return dPoints;
         }
-        public void AddToDataPoints(DataPoint datapoint)
+        public async Task AddToDataPoints(DataPoint datapoint)
         {
 
             using (var tx = stateManager.CreateTransaction())
             {
                 IReliableDictionary<int, List<DataPoint>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<DataPoint>>>("DataPointsCachedDictionary").Result;
                 List<DataPoint> points = dict.TryGetValueAsync(tx, 0).Result.Value;
+                if (points == null)
+                    points = new List<DataPoint>();
                 points.Add(datapoint);
 
-                dict.AddOrUpdateAsync(tx, 0, points, (key, value) => value = points);
+                await dict.AddOrUpdateAsync(tx, 0, points, (key, value) => value = points);
             }
         }
         public void RemoveFromDataPoints(DataPoint datapoint)

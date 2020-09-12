@@ -21,5 +21,7 @@ namespace CloudCommon.CalculateEngine
 		Task<bool> NotifyTree(TreeNode<NodeData> data, List<NetworkModelTreeClass> NetworkModelTreeClass, int gidOfTopic);
 		[OperationContract]
 		Task<bool> SubscribeSubscriber(string clientAddress, int gidOfTopic);
+		[OperationContract]
+		Task<bool> SubscribeOnMultipleTopics(string clientAddress, List<int> gidOfTopic);
 	}
 }

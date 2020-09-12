@@ -59,6 +59,23 @@ namespace UI.Communication
             }
         }
 
+        public async void SubscribeMultipleTopics(List<int> gidOfTopics)
+        {
+            bool ret = false;
+
+            while (!ret)
+            {
+                try
+                {
+                    ret = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SubscribeOnMultipleTopics(ClientAddress, gidOfTopics));
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
         public void StartServiceHost(ICalculationEnginePubSub observerInstance)
         {
             string ipAddress = GetLocalIPAddress();

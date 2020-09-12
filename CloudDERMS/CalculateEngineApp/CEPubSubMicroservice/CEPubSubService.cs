@@ -361,5 +361,70 @@ namespace CEPubSubMicroservice
 
 			return true;
 		}
+
+        public async Task<bool> SubscribeOnMultipleTopics(string clientAddress, List<int> gidOfTopics)
+        {
+			bool firstGo = false;
+			bool notFirstTime = false;
+			foreach (int gidOfTopic in gidOfTopics) {
+				notFirstTime = false;
+				using (var tx = stateManager.CreateTransaction())
+				{
+					subscribers = stateManager.GetOrAddAsync<IReliableDictionary<string, ServerSideProxy>>("subscribers").Result;
+
+					if (subscribers.GetCountAsync(tx).Result == 0)
+						firstGo = true;
+
+					if (subscribers.GetCountAsync(tx).Result > 0 && !firstGo && (int)Enums.Topics.NetworkModelTreeClass_NodeData == gidOfTopic)
+						notFirstTime = true;
+
+					if (!await subscribers.ContainsKeyAsync(tx, clientAddress))
+					{
+						await subscribers.AddAsync(tx, clientAddress, new ServerSideProxy(clientAddress));
+					}
+					await tx.CommitAsync();
+
+					await topicSubscriptions.SubscribeAsync(clientAddress, gidOfTopic);
+				}
+
+				//bool notFirstTime = false;
+				//using (var tx = stateManager.CreateTransaction())
+				//{
+				//	IReliableQueue<bool> reliableQueue = stateManager.GetOrAddAsync<IReliableQueue<bool>>("notFirstTime").Result;
+				//	notFirstTime = reliableQueue.TryPeekAsync(tx).Result.Value;
+				//}
+
+				if (notFirstTime && (int)Enums.Topics.NetworkModelTreeClass_NodeData == gidOfTopic)
+				{
+					CloudClient<ICache> cache = new CloudClient<ICache>
+					(
+						  serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+						  partitionKey: new ServicePartitionKey(0),
+						  clientBinding: WcfUtility.CreateTcpClientBinding(),
+						  listenerName: "CECacheServiceListener"
+					);
+					TreeNode<NodeData> tree = cache.InvokeWithRetryAsync(client => client.Channel.GetGraph()).Result; ;
+					List<NetworkModelTreeClass> NetworkModelTreeClass = cache.InvokeWithRetryAsync(client => client.Channel.GetNetworkModelTreeClass()).Result;
+					List<DataPoint> dataPoints = cache.InvokeWithRetryAsync(client => client.Channel.GetDatapoints()).Result;
+
+					await NotifyTree(tree, NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
+					await NotifyDataPoint(dataPoints, (int)Enums.Topics.DataPoints);
+				}
+
+				//if ((int)Enums.Topics.NetworkModelTreeClass_NodeData == gidOfTopic)
+				//{
+				//	using (var tx = stateManager.CreateTransaction())
+				//	{
+				//		IReliableQueue<bool> reliableQueue = stateManager.GetOrAddAsync<IReliableQueue<bool>>("notFirstTime").Result;
+				//		await reliableQueue.TryDequeueAsync(tx);
+				//		await reliableQueue.EnqueueAsync(tx, true);
+
+				//		await tx.CommitAsync();
+				//	}
+				//}
+			}
+
+			return true;
+		}
     }
 }

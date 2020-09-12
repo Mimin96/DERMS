@@ -23,6 +23,7 @@ namespace UI.ViewModel
     public class MenuViewModel : BindableBase
     {
         #region Variables
+        private bool data1, data2, data3;
         private LoadingWindow loadingWindow;
         private TreeNode<NodeData> _tree;
         private List<NetworkModelTreeClass> _networkModelTreeClass;
@@ -39,6 +40,7 @@ namespace UI.ViewModel
 
         public MenuViewModel()
         {
+            data1 = data2 = data3 = false;
             Mediator.Register("SCADADataPoint", GetSCADAData);
             Mediator.Register("NMSNetworkModelData", GetNetworkModelFromProxy);
             Mediator.Register("NetworkModelTreeClass", NetworkModelTreeClassChangedMenu);
@@ -46,13 +48,16 @@ namespace UI.ViewModel
             Mediator.Register("DerForecastDayAhead", DERDashboardDerForecastDayAhead);
 
             _clientSideProxy = ClientSideProxy.Instance;
-            
-            _clientSideProxy.Subscribe((int)Enums.Topics.DerForecastDayAhead);
-            _clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass);
-            _clientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
 
-            _clientSideProxy.Subscribe((int)Enums.Topics.DataPoints);
-            _clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass_NodeData);
+            _clientSideProxy.SubscribeMultipleTopics(new List<int>() { (int)Enums.Topics.DerForecastDayAhead, (int)Enums.Topics.NetworkModelTreeClass,
+                                                                       (int)Enums.Topics.Flexibility, (int)Enums.Topics.DataPoints,
+                                                                       (int)Enums.Topics.NetworkModelTreeClass_NodeData });
+            //_clientSideProxy.Subscribe((int)Enums.Topics.DerForecastDayAhead);
+            //_clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass);
+            //_clientSideProxy.Subscribe((int)Enums.Topics.Flexibility);
+
+            //_clientSideProxy.Subscribe((int)Enums.Topics.DataPoints);
+            //_clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass_NodeData);
 
             Logger.Log("UI is started.", Enums.Component.UI, Enums.LogLevel.Info);
         }
@@ -92,6 +97,10 @@ namespace UI.ViewModel
         #region Public Methods
         private void GetSCADAData(object parameter)
         {
+            data2 = true;
+            if (data1 && data2 && data3)
+                StartApp();
+
             List<DataPoint> pom = (List<DataPoint>)parameter;
             if (_SCADAData == null)
             {
@@ -127,11 +136,9 @@ namespace UI.ViewModel
         }
         private void GetNetworkModelFromProxy(object parameter)
         {
-            if (loadingWindow != null)
-            {
-                loadingWindow.Close();
-                loadingWindow = null;
-            }
+            data1 = true;
+            if(data1 && data2 && data3)
+                StartApp();
 
             List<object> obj = (List<object>)parameter;
             _tree = (TreeNode<NodeData>)obj[0];
@@ -152,6 +159,9 @@ namespace UI.ViewModel
 
         public void DERDashboardDerForecastDayAhead(object parameter) 
         {
+            data3 = true;
+            if (data1 && data2 && data3)
+                StartApp();
             _dERDashboardDerForecastDayAhead = parameter;
 
             if (UserControlPresenter.GetType().Name == "DERDashboardUserControl")
@@ -242,6 +252,14 @@ namespace UI.ViewModel
         #endregion
 
         #region Private Methods
+        private void StartApp() 
+        {
+            if (loadingWindow != null)
+            {
+                loadingWindow.Close();
+                loadingWindow = null;
+            }
+        }
         private void SetUserContro(string button)
         {
             switch (button)

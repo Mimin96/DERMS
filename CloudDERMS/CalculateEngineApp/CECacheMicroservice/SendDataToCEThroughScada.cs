@@ -30,7 +30,7 @@ namespace CECacheMicroservice
         {
             await _cache.UpdateGraphWithScadaValues(data);
 
-            await _cache.UpdateNewDataPoitns(data);
+            _cache.UpdateNewDataPoitns(data).Wait();
 
             CloudClient<IPubSub> pubSub = new CloudClient<IPubSub>
             (

@@ -61,7 +61,7 @@ namespace dCom.ViewModel
                     clientBinding: WcfUtility.CreateTcpClientBinding(),
                     listenerName: "SendDataToCEThroughScadaListener"
                   );
-                await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ReceiveFromScada(datapoints));
+                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ReceiveFromScada(datapoints)).Wait();
 
                 // ProxyUI.ReceiveFromScada(datapoints);
 
