@@ -102,9 +102,6 @@ namespace CECacheMicroservice
                 {
                     AddNMSModelEntity(io);
                 }
-                //
-
-                //
             }
 
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> dictionary in networkModelTransfer.Update)
@@ -201,7 +198,7 @@ namespace CECacheMicroservice
                     UpdateNMSModelEntity(io);
                 }
             }
-            SaveNetworkModelTransfer(networkModelTransfer);
+            SaveNetworkModelTransfer(networkModelTransfer).Wait();
         }
         private async void AddNMSModelEntity(IdentifiedObject io)
         {
@@ -221,7 +218,7 @@ namespace CECacheMicroservice
                 await tx.CommitAsync();
             }
         }
-        private async void UpdateNMSModelEntity(IdentifiedObject io)
+        private async Task UpdateNMSModelEntity(IdentifiedObject io)
         {
             using (var tx = stateManager.CreateTransaction())
             {
@@ -233,7 +230,7 @@ namespace CECacheMicroservice
         #endregion
 
         #region scadaPointsCached methods
-        public void AddScadaPoints(List<DataPoint> dataPoints)
+        public async Task AddScadaPoints(List<DataPoint> dataPoints)
         {
             List<DataPoint> temp = new List<DataPoint>();
             using (var tx = stateManager.CreateTransaction())
@@ -251,8 +248,8 @@ namespace CECacheMicroservice
                             }
                         }
                     }
-                    dictionary.Result.AddOrUpdateAsync(tx, dp.Gid, new List<DataPoint>(temp), (key, value) => value = temp);
-                    tx.CommitAsync();
+                    await dictionary.Result.AddOrUpdateAsync(tx, dp.Gid, new List<DataPoint>(temp), (key, value) => value = temp);
+                    await tx.CommitAsync();
                     temp.Clear();
                 }
             }
@@ -285,7 +282,6 @@ namespace CECacheMicroservice
                 IReliableDictionary<long, List<DataPoint>> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, List<DataPoint>>>("SCADAPointsDictionary").Result;
 
                 points = dict.TryGetValueAsync(tx, param).Result.Value;
-
             }
 
             return points;
@@ -311,8 +307,6 @@ namespace CECacheMicroservice
         #region derWeatherCached methods
         public async Task PopulateWeatherForecast(NetworkModelTransfer networkModel)
         {
-            //Communication with Microservice in same application
-            //ServicePartitionKey(0)
             CloudClient<IDarkSkyApi> transactionCoordinator = new CloudClient<IDarkSkyApi>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CEWeatherForecastMicroservice"),
@@ -329,17 +323,17 @@ namespace CECacheMicroservice
                     if (type.Name.Equals("Substation"))
                     {
                         var gr = (Substation)kvpDic.Value;
-                        await AddForecast(await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetWeatherForecastAsync(gr.Latitude, gr.Longitude)), kvpDic.Key);
+                        AddForecast(await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetWeatherForecastAsync(gr.Latitude, gr.Longitude)), kvpDic.Key).Wait();
                     }
                     else if (type.Name.Equals("Generator"))
                     {
                         var gr = (Generator)kvpDic.Value;
-                        await AddForecast(await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetWeatherForecastAsync(gr.Latitude, gr.Longitude)), kvpDic.Key);
+                        AddForecast(await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetWeatherForecastAsync(gr.Latitude, gr.Longitude)), kvpDic.Key).Wait();
                     }
                     else if (type.Name.Equals("EnergyConsumer"))
                     {
                         var gr = (EnergyConsumer)kvpDic.Value;
-                        await AddForecast(await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetWeatherForecastAsync(gr.Latitude, gr.Longitude)), kvpDic.Key);
+                        AddForecast(await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetWeatherForecastAsync(gr.Latitude, gr.Longitude)), kvpDic.Key).Wait();
                     }
 
                 }
@@ -368,10 +362,8 @@ namespace CECacheMicroservice
             }
             return null;
         }
-
         public async Task PopulateConsumptionForecast(NetworkModelTransfer networkModel)
         {
-            //Communication with Microservice in same application
             CloudClient<IConsumptionCalculator> transactionCoordinator = new CloudClient<IConsumptionCalculator>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
@@ -415,24 +407,11 @@ namespace CECacheMicroservice
 
             //derWeatherCached <long, Forecast> derWeatherCached; // DERWeatherCachedDictionary
             derWeatherCachedDictionary = await GetWholeDerWeatherCached();
-            //using (var tx = stateManager.CreateTransaction())
-            //{
-            //    IReliableDictionary<long, Forecast> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, Forecast>>("DERWeatherCachedDictionary").Result;
 
-            //    IAsyncEnumerable<KeyValuePair<long, Forecast>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
-            //    using (IAsyncEnumerator<KeyValuePair<long, Forecast>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
-            //    {
-            //        while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
-            //        {
-            //            derWeatherCachedDictionary.Add(dictEnumerator.Current.Key, dictEnumerator.Current.Value);
-            //        }
-            //    }
-            //}
             //consumptionCalculator.Calculate(productionCached, networkModel,SubstationDayAhead,derWeatherCached);
-            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Calculate(productionCachedDictionary, networkModel, substationDayAheadDictionary, derWeatherCachedDictionary));
-            await SendDerForecastDayAhead();
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Calculate(productionCachedDictionary, networkModel, substationDayAheadDictionary, derWeatherCachedDictionary)).Wait();
+            SendDerForecastDayAhead().Wait();
         }
-
         //SendDerForecastDayAhead Otkomentarisati metodu 
         public async Task PopulateProductionForecast(NetworkModelTransfer networkModel)
         {
@@ -446,7 +425,7 @@ namespace CECacheMicroservice
             );
 
             //<long, DerForecastDayAhead> generatorForecastList; // generatorForecastListCachedDictionary
-            Dictionary<long, DerForecastDayAhead> generatorForecastList = GetGeneratorForecastList();
+            Dictionary<long, DerForecastDayAhead> generatorForecastList = await GetGeneratorForecastList();
             //using (var tx = stateManager.CreateTransaction())
             //{
             //    IReliableDictionary<long, DerForecastDayAhead> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("GeneratorForecastListCachedDictionary").Result;
@@ -462,7 +441,7 @@ namespace CECacheMicroservice
             //}
 
             //private IReliableDictionary<long, DerForecastDayAhead> substationsForecast; SubstationsForecastCachedDictionary
-            Dictionary<long, DerForecastDayAhead> substationsForecast = GetSubstationsForecast();
+            Dictionary<long, DerForecastDayAhead> substationsForecast = await GetSubstationsForecast();
             //using (var tx = stateManager.CreateTransaction())
             //{
             //    IReliableDictionary<long, DerForecastDayAhead> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("SubstationsForecastCachedDictionary").Result;
@@ -478,7 +457,7 @@ namespace CECacheMicroservice
             //}
 
             //private IReliableDictionary<long, DerForecastDayAhead> subGeographicalRegionsForecast; // SubGeographicalRegionsForecastCachedDictionary
-            Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast = GetSubGeographicalRegionsForecast();
+            Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast = await GetSubGeographicalRegionsForecast();
             //using (var tx = stateManager.CreateTransaction())
             //{
             //    IReliableDictionary<long, DerForecastDayAhead> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("SubGeographicalRegionsForecastCachedDictionary").Result;
@@ -503,11 +482,11 @@ namespace CECacheMicroservice
                         var gr = (Generator)kvpDic.Value;
                         DerForecastDayAhead forecastDayAhead = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.CalculateGenerator(GetForecast(kvpDic.Key).Result, gr, generatorForecastList));
 
-                        await AddDerForecast(forecastDayAhead, kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
+                        AddDerForecast(forecastDayAhead, kvpDic.Key, true).Wait(); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
                     }
                 }
             }
-            generatorForecastList = GetGeneratorForecastList();
+            generatorForecastList = await GetGeneratorForecastList();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
                 foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
@@ -517,14 +496,14 @@ namespace CECacheMicroservice
                     {
                         var gr = (Substation)kvpDic.Value;
                         DerForecastDayAhead forecastDayAhead = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.CalculateSubstation(GetForecast(kvpDic.Key).Result, gr, networkModel, generatorForecastList, substationsForecast));
-                        await AddDerForecast(forecastDayAhead, kvpDic.Key, true);
+                        AddDerForecast(forecastDayAhead, kvpDic.Key, true).Wait();
                         //AddDerForecast(productionCalculator.CalculateSubstation(GetForecast(kvpDic.Key), gr, networkModel, GeneratorForecastList, SubstationsForecast), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
                     }
                 }
             }
 
-            substationsForecast = GetSubstationsForecast();
-            SubGeographicalRegionsForecast = GetSubGeographicalRegionsForecast();
+            substationsForecast = await GetSubstationsForecast();
+            SubGeographicalRegionsForecast = await GetSubGeographicalRegionsForecast();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
                 foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
@@ -535,11 +514,11 @@ namespace CECacheMicroservice
                         var gr = (SubGeographicalRegion)kvpDic.Value;
                         DerForecastDayAhead forecastDayAhead = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.CalculateSubRegion(gr, networkModel, substationsForecast, SubGeographicalRegionsForecast));
                         //AddDerForecast(productionCalculator.CalculateSubRegion(gr, networkModel, SubstationsForecast, SubGeographicalRegionsForecast), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
-                        await AddDerForecast(forecastDayAhead, kvpDic.Key, true);
+                        AddDerForecast(forecastDayAhead, kvpDic.Key, true).Wait();
                     }
                 }
             }
-            SubGeographicalRegionsForecast = GetSubGeographicalRegionsForecast();
+            SubGeographicalRegionsForecast = await GetSubGeographicalRegionsForecast();
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> kvp in networkModel.Insert)
             {
                 foreach (KeyValuePair<long, IdentifiedObject> kvpDic in kvp.Value)
@@ -550,14 +529,13 @@ namespace CECacheMicroservice
                         var gr = (GeographicalRegion)kvpDic.Value;
                         DerForecastDayAhead forecastDayAhead = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.CalculateGeoRegion(gr, networkModel, SubGeographicalRegionsForecast));
                         //AddDerForecast(productionCalculator.CalculateGeoRegion(gr, networkModel, SubGeographicalRegionsForecast), kvpDic.Key, true); // true DA NE BI ZA SVAKI DODATI DerForecastDayAhead PUB SUB SLAO SVIMA CEO Dictionary 
-                        await AddDerForecast(forecastDayAhead, kvpDic.Key, true);
+                        AddDerForecast(forecastDayAhead, kvpDic.Key, true).Wait();
                     }
                 }
             }
             
-            //await SendDerForecastDayAhead();
+            SendDerForecastDayAhead().Wait();
         }
-
         public async Task AddDerForecast(DerForecastDayAhead derForecastDayAhead, long gid, bool isInitState)
         {
             using (var tx = stateManager.CreateTransaction())
@@ -568,15 +546,15 @@ namespace CECacheMicroservice
             }
 
             if (!isInitState)
-                await SendDerForecastDayAhead();
+                SendDerForecastDayAhead().Wait();
         }
-        public void RemoveFromDerForecast(long gid)
+        public async Task RemoveFromDerForecast(long gid)
         {
             using (var tx = stateManager.CreateTransaction())
             {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("ProductionCachedDictionary").Result;
-                dictionary.TryRemoveAsync(tx, gid);
-                tx.CommitAsync();
+                await dictionary.TryRemoveAsync(tx, gid);
+                await tx.CommitAsync();
             }
         }
         public DerForecastDayAhead GetDerForecast(long gid)
@@ -613,6 +591,9 @@ namespace CECacheMicroservice
             }
             return derWeather;
         }
+
+
+
         #endregion
 
         #region productionCached methods
@@ -636,7 +617,6 @@ namespace CECacheMicroservice
                 }
             }
         }*/
-
         public async Task CalculateNewCopyOfProductionCachedFlexibility(Dictionary<long, DerForecastDayAhead> copyOfProductionCachedFlexibility)
         {
             using (var tx = stateManager.CreateTransaction())
@@ -656,7 +636,6 @@ namespace CECacheMicroservice
                 }
             }
         }
-
         //Poziva se iz metode koja ne bi trebalo da stoji u cache-u/
         public async Task ApplyChangesOnProductionCached(Dictionary<long, double> listOfGeneratorsForScada) // KAD STIGNE POTVRDA SA SKADE DA SU PROMENE IZVRSENE, POZIVAMO OVU METODU KAKO BI NOVI PRORACUNI PROIZVODNJE ZA 24h BILI PRIMENJENI NA CACHE
         {
@@ -678,73 +657,73 @@ namespace CECacheMicroservice
                 }
             }
 
-            await SendDerForecastDayAhead();
-            await UpdateMinAndMaxFlexibilityForChangedGenerators(listOfGeneratorsForScada);
+            SendDerForecastDayAhead().Wait();
+            UpdateMinAndMaxFlexibilityForChangedGenerators(listOfGeneratorsForScada).Wait();
         }
-
         public async Task SendDerForecastDayAhead()
         {
-            await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(CreateDataForUI(), (int)Enums.Topics.DerForecastDayAhead));
+            pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(CreateDataForUI().Result, (int)Enums.Topics.DerForecastDayAhead)).Wait();
         }
-        //NOT COMPLETE CEUpdateThroughUI missing, PubSubCalculatioEngine
-        public async Task<float> PopulateBalance(long gid)
-        {
-            CloudClient<ICEUpdateThroughUI> transactionCoordinator = new CloudClient<ICEUpdateThroughUI>
-            (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
-              partitionKey: new ServicePartitionKey(0), /*CJN*/
-              clientBinding: WcfUtility.CreateTcpClientBinding(),
-              listenerName: "CEUpdateThroughUIServiceListener"
-            );
-            Dictionary<long, DerForecastDayAhead> productionCachedDictionary = new Dictionary<long, DerForecastDayAhead>();
-            Dictionary<long, IdentifiedObject> nmsCacheDictionary = new Dictionary<long, IdentifiedObject>();
-            List<long> turnedOffGeneratorsList = new List<long>();
-            using (var tx = stateManager.CreateTransaction())
-            {
-                IReliableDictionary<long, DerForecastDayAhead> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("ProductionCachedDictionary").Result;
+        //NOT COMPLETE CEUpdateThroughUI missing, PubSubCalculatioEngine RETURN
+        //public async Task<float> PopulateBalance(long gid)
+        //{
+        //    CloudClient<ICEUpdateThroughUI> transactionCoordinator = new CloudClient<ICEUpdateThroughUI>
+        //    (
+        //      serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+        //      partitionKey: new ServicePartitionKey(0), /*CJN*/
+        //      clientBinding: WcfUtility.CreateTcpClientBinding(),
+        //      listenerName: "CEUpdateThroughUIServiceListener"
+        //    );
+        //    Dictionary<long, DerForecastDayAhead> productionCachedDictionary = new Dictionary<long, DerForecastDayAhead>();
+        //    Dictionary<long, IdentifiedObject> nmsCacheDictionary = new Dictionary<long, IdentifiedObject>();
+        //    List<long> turnedOffGeneratorsList = new List<long>();
 
-                IAsyncEnumerable<KeyValuePair<long, DerForecastDayAhead>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
-                using (IAsyncEnumerator<KeyValuePair<long, DerForecastDayAhead>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
-                {
-                    while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
-                    {
-                        productionCachedDictionary.Add(dictEnumerator.Current.Key, dictEnumerator.Current.Value);
-                    }
-                }
-            }
-            using (var tx = stateManager.CreateTransaction())
-            {
-                IReliableDictionary<long, IdentifiedObject> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, IdentifiedObject>>("NmsCacheDictionary").Result;
+        //    using (var tx = stateManager.CreateTransaction())
+        //    {
+        //        IReliableDictionary<long, DerForecastDayAhead> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("ProductionCachedDictionary").Result;
 
-                IAsyncEnumerable<KeyValuePair<long, IdentifiedObject>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
-                using (IAsyncEnumerator<KeyValuePair<long, IdentifiedObject>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
-                {
-                    while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
-                    {
-                        nmsCacheDictionary.Add(dictEnumerator.Current.Key, dictEnumerator.Current.Value);
-                    }
-                }
-            }
-            using (var tx = stateManager.CreateTransaction())
-            {
-                IReliableDictionary<int, List<long>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("TurnedOffGeneratorsCachedDictionary").Result;
+        //        IAsyncEnumerable<KeyValuePair<long, DerForecastDayAhead>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
+        //        using (IAsyncEnumerator<KeyValuePair<long, DerForecastDayAhead>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
+        //        {
+        //            while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
+        //            {
+        //                productionCachedDictionary.Add(dictEnumerator.Current.Key, dictEnumerator.Current.Value);
+        //            }
+        //        }
+        //    }
+        //    using (var tx = stateManager.CreateTransaction())
+        //    {
+        //        IReliableDictionary<long, IdentifiedObject> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, IdentifiedObject>>("NmsCacheDictionary").Result;
 
-                IAsyncEnumerable<KeyValuePair<int, List<long>>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
-                using (IAsyncEnumerator<KeyValuePair<int, List<long>>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
-                {
-                    while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
-                    {
-                        //-->>>PROVERITI DA LI JE OVA LISTA DOBRO POPUNJENA
-                        turnedOffGeneratorsList = dictEnumerator.Current.Value;
-                    }
-                }
-            }
-            float energyFromSource = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Balance(productionCachedDictionary, gid, nmsCacheDictionary, turnedOffGeneratorsList));
-            await SendDerForecastDayAhead();
+        //        IAsyncEnumerable<KeyValuePair<long, IdentifiedObject>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
+        //        using (IAsyncEnumerator<KeyValuePair<long, IdentifiedObject>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
+        //        {
+        //            while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
+        //            {
+        //                nmsCacheDictionary.Add(dictEnumerator.Current.Key, dictEnumerator.Current.Value);
+        //            }
+        //        }
+        //    }
+        //    using (var tx = stateManager.CreateTransaction())
+        //    {
+        //        IReliableDictionary<int, List<long>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("TurnedOffGeneratorsCachedDictionary").Result;
 
-            //return energyFromSource;
-            return 0;
-        }
+        //        IAsyncEnumerable<KeyValuePair<int, List<long>>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
+        //        using (IAsyncEnumerator<KeyValuePair<int, List<long>>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
+        //        {
+        //            while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
+        //            {
+        //                //-->>>PROVERITI DA LI JE OVA LISTA DOBRO POPUNJENA
+        //                turnedOffGeneratorsList = dictEnumerator.Current.Value;
+        //            }
+        //        }
+        //    }
+        //    float energyFromSource = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Balance(productionCachedDictionary, gid, nmsCacheDictionary, turnedOffGeneratorsList));
+        //    SendDerForecastDayAhead().Wait();
+
+        //    return energyFromSource;
+        //    //return 0;
+        //}
         //Ne koristi se nigde
         //public DerForecastDayAhead GetDerForecastDayAhead(long gid)
         //{
@@ -753,26 +732,30 @@ namespace CECacheMicroservice
         //    //return productionCached[gid];
         //    return null;
         //}
-        public DataToUI CreateDataForUI()
+        public async Task<DataToUI> CreateDataForUI()
         {
             Dictionary<long, DerForecastDayAhead> tempDictionary = new Dictionary<long, DerForecastDayAhead>();
             DataToUI data = new DataToUI();
+            tempDictionary = GetAllDerForecastDayAhead().Result;
 
-            using (var tx = stateManager.CreateTransaction())
-            {
-                IReliableDictionary<long, DerForecastDayAhead> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("ProductionCachedDictionary").Result;
+            data.Data = tempDictionary;
+            return data;
 
-                IAsyncEnumerable<KeyValuePair<long, DerForecastDayAhead>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
-                using (IAsyncEnumerator<KeyValuePair<long, DerForecastDayAhead>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
-                {
-                    while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
-                    {
-                        tempDictionary.Add(dictEnumerator.Current.Key, dictEnumerator.Current.Value);
-                    }
-                }
-                data.Data = tempDictionary;
-                return data;
-            }
+            //using (var tx = stateManager.CreateTransaction())
+            //{
+            //    IReliableDictionary<long, DerForecastDayAhead> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("ProductionCachedDictionary").Result;
+
+            //    IAsyncEnumerable<KeyValuePair<long, DerForecastDayAhead>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
+            //    using (IAsyncEnumerator<KeyValuePair<long, DerForecastDayAhead>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
+            //    {
+            //        while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
+            //        {
+            //            tempDictionary.Add(dictEnumerator.Current.Key, dictEnumerator.Current.Value);
+            //        }
+            //    }
+            //    data.Data = tempDictionary;
+            //    return data;
+            //}
         }
         public async Task<Dictionary<long, DerForecastDayAhead>> GetAllDerForecastDayAhead()
         {
@@ -794,25 +777,43 @@ namespace CECacheMicroservice
                 return tempDictionary;
             }
         }
-        public void AddDerForecastDayAhead(long id, DerForecastDayAhead forecast)
+        public async Task AddDerForecastDayAhead(long id, DerForecastDayAhead forecast)
         {
             using (var tx = stateManager.CreateTransaction())
             {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("ProductionCachedDictionary").Result;
-                dictionary.AddOrUpdateAsync(tx, id, forecast, (key, value) => value = forecast);
-                tx.CommitAsync();
+                await dictionary.AddOrUpdateAsync(tx, id, forecast, (key, value) => value = forecast);
+                await tx.CommitAsync();
             }
 
         }
-        public void RemoveFromDerForecastDayAhead(long id)
+        public async Task RemoveFromDerForecastDayAhead(long id)
         {
             using (var tx = stateManager.CreateTransaction())
             {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("ProductionCachedDictionary").Result;
-                dictionary.TryRemoveAsync(tx, id);
-                tx.CommitAsync();
+                await dictionary.TryRemoveAsync(tx, id);
+                await tx.CommitAsync();
             }
 
+        }
+        public async Task<Dictionary<long, DerForecastDayAhead>> GetDerForecasts()
+        {
+            Dictionary<long, DerForecastDayAhead> productionCachedDictionary = new Dictionary<long, DerForecastDayAhead>();
+            using (var tx = stateManager.CreateTransaction())
+            {
+                IReliableDictionary<long, DerForecastDayAhead> dict = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("ProductionCachedDictionary").Result;
+
+                IAsyncEnumerable<KeyValuePair<long, DerForecastDayAhead>> dictEnumerable = dict.CreateEnumerableAsync(tx).Result;
+                using (IAsyncEnumerator<KeyValuePair<long, DerForecastDayAhead>> dictEnumerator = dictEnumerable.GetAsyncEnumerator())
+                {
+                    while (dictEnumerator.MoveNextAsync(CancellationToken.None).Result)
+                    {
+                        productionCachedDictionary.Add(dictEnumerator.Current.Key, dictEnumerator.Current.Value);
+                    }
+                }
+            }
+            return productionCachedDictionary;
         }
         #endregion
 
@@ -828,10 +829,10 @@ namespace CECacheMicroservice
                 listenerName: "BuildTreeServiceListener"
             );
 
-            graph = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ConstructTree1(networkModelTransfer));
+            graph = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ConstructTree1(networkModelTransfer)).Result;
 
             using (var tx = stateManager.CreateTransaction())
-            {//GraphCachedDictionary
+            {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, TreeNode<NodeData>>>("GraphCachedDictionary").Result;
                 await dictionary.AddOrUpdateAsync(tx, 0, graph, (key, value) => value = graph);
                 await tx.CommitAsync();
@@ -849,8 +850,6 @@ namespace CECacheMicroservice
 
             // ovaj deo koda nema smisla jer je graf vec tu iznad
             //List<NetworkModelTreeClass >nn = await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetNetworkModelTreeClass());
-
-            //await CalculateFlexibility(nn);
         }
         public async Task UpdateGraphWithScadaValues(List<DataPoint> data)
         {
@@ -868,7 +867,7 @@ namespace CECacheMicroservice
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, TreeNode<NodeData>>>("GraphCachedDictionary").Result;
                 //Upitno da li radi ovaj upit
                 //TreeNode<NodeData> graphToSend = stateManager.GetOrAddAsync<IReliableDictionary<int, TreeNode<NodeData>>>("GraphCachedDictionary").Result.TryGetValueAsync(tx, 0).Result.Value;
-                TreeNode<NodeData> graphToSend = await GetGraph();
+                TreeNode<NodeData> graphToSend = GetGraph().Result;
                 TreeNode<NodeData> graph = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateGraphWithScadaValues(data, graphToSend)).Result;
                 await dictionary.AddOrUpdateAsync(tx, 0, graph, (key, value) => value = graph);
                 await tx.CommitAsync();
@@ -893,12 +892,6 @@ namespace CECacheMicroservice
                 graph = dict.TryGetValueAsync(tx, 0).Result.Value;
             }
 
-            //if (graph == null)
-            //{
-            //    NetworkModelTransfer nmt= GetNetworkModelTransfer();
-            //    graph =  transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ConstructTree1(nmt)).Result;
-            //}
-
             return graph;
         }
         #endregion
@@ -913,24 +906,19 @@ namespace CECacheMicroservice
                 if (dataPoints == null)
                 {
                     dataPoints = new List<DataPoint>();
-                    //await dictionary.AddOrUpdateAsync(tx, 0, dataPoints, (key, value) => value = dataPoints);
-                    //await tx.CommitAsync();
                 }
 
                 foreach (DataPoint data in points)
                 {
-                   // foreach (DataPoint dp in dataPoints)
-                   // {
-                        //
-                        if (dataPoints.Where(x => x.Gid == data.Gid).Count() == 0)
-                        {
-                            dataPoints.Add(data);
-                            await AddToDataPoints(data);
-                        }
-                        else
-                        {
-                            dataPoints[dataPoints.FindIndex(ind => ind.Gid == data.Gid)] = data;
-                            await AddToDataPoints(data);
+                    if (dataPoints.Where(x => x.Gid == data.Gid).Count() == 0)
+                    {
+                        dataPoints.Add(data);
+                        await AddToDataPoints(data);
+                    }
+                    else
+                    {
+                        dataPoints[dataPoints.FindIndex(ind => ind.Gid == data.Gid)] = data;
+                        await AddToDataPoints(data);
                     }
                 }
                 
@@ -950,33 +938,29 @@ namespace CECacheMicroservice
 
             return dPoints;
         }
-
-        
         public async Task AddToDataPoints(DataPoint datapoint)
         {
-                using (var tx = stateManager.CreateTransaction())
-                {
-                    IReliableDictionary<int, List<DataPoint>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<DataPoint>>>("DataPointsCachedDictionary").Result;
-                    List<DataPoint> points = dict.TryGetValueAsync(tx, 0).Result.Value;
-                    if (points == null)
-                        points = new List<DataPoint>();
-                    points.Add(datapoint);
+            using (var tx = stateManager.CreateTransaction())
+            {
+                IReliableDictionary<int, List<DataPoint>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<DataPoint>>>("DataPointsCachedDictionary").Result;
+                List<DataPoint> points = dict.TryGetValueAsync(tx, 0).Result.Value;
+                if (points == null)
+                    points = new List<DataPoint>();
+                points.Add(datapoint);
 
-                    await dict.AddOrUpdateAsync(tx, 0, points, (key, value) => value = points);
-
-                    await tx.CommitAsync();
-                }
+                await dict.AddOrUpdateAsync(tx, 0, points, (key, value) => value = points);
+                await tx.CommitAsync();
+            }
         }
-        public void RemoveFromDataPoints(DataPoint datapoint)
+        public async Task RemoveFromDataPoints(DataPoint datapoint)
         {
-
             using (var tx = stateManager.CreateTransaction())
             {
                 IReliableDictionary<int, List<DataPoint>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<DataPoint>>>("DataPointsCachedDictionary").Result;
                 List<DataPoint> points = dict.TryGetValueAsync(tx, 0).Result.Value;
                 points.Remove(datapoint);
 
-                dict.AddOrUpdateAsync(tx, 0, points, (key, value) => value = points);
+                await dict.AddOrUpdateAsync(tx, 0, points, (key, value) => value = points);
             }
         }
         #endregion
@@ -984,7 +968,7 @@ namespace CECacheMicroservice
         #region copyOfProductionCached methods
         //ApplyChangesOnProductionCached
         //CalculateNewFlexibility -- vec postoje 
-        public Dictionary<long, DerForecastDayAhead> GetCopyOfProductionCached()
+        public async Task<Dictionary<long, DerForecastDayAhead>> GetCopyOfProductionCached()
         {
             Dictionary<long, DerForecastDayAhead> CopyOfProductionCached = new Dictionary<long, DerForecastDayAhead>();
 
@@ -1004,22 +988,22 @@ namespace CECacheMicroservice
 
             return CopyOfProductionCached;
         }
-        public void AddToCopyOfProductionCached(long gid, DerForecastDayAhead forecast)
+        public async Task AddToCopyOfProductionCached(long gid, DerForecastDayAhead forecast)
         {
             using (var tx = stateManager.CreateTransaction())
             {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("CopyOfProductionCachedDictionary").Result;
-                dictionary.AddOrUpdateAsync(tx, gid, forecast, (key, value) => value = forecast);
-                tx.CommitAsync();
+                await dictionary.AddOrUpdateAsync(tx, gid, forecast, (key, value) => value = forecast);
+                await tx.CommitAsync();
             }
         }
-        public void RemoveFromCopyOfProductionCached(long gid)
+        public async Task RemoveFromCopyOfProductionCached(long gid)
         {
             using (var tx = stateManager.CreateTransaction())
             {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("CopyOfProductionCachedDictionary").Result;
-                dictionary.TryRemoveAsync(tx, gid);
-                tx.CommitAsync();
+                await dictionary.TryRemoveAsync(tx, gid);
+                await tx.CommitAsync();
             }
         }
         #endregion
@@ -1034,8 +1018,8 @@ namespace CECacheMicroservice
             double maxProd = 0;
             double currentProd = 0;
 
-            List<NetworkModelTreeClass> networkModelTreeClass = await GetNetworkModelTreeClass();
-            Dictionary<long, IdentifiedObject> nmsCache = await GetNMSModel();
+            List<NetworkModelTreeClass> networkModelTreeClass = GetNetworkModelTreeClass().Result;
+            Dictionary<long, IdentifiedObject> nmsCache = GetNMSModel().Result;
 
             foreach (NetworkModelTreeClass networkModelTreeClasses in networkModelTreeClass)
             {
@@ -1065,6 +1049,7 @@ namespace CECacheMicroservice
                                         ((Generator)gen).ConsiderP = substationElementTreeClass.P;
                                         ((Generator)gen).MaxFlexibility = substationElementTreeClass.MaxFlexibility;
                                         ((Generator)gen).MinFlexibility = substationElementTreeClass.MinFlexibility;
+                                        await UpdateNMSModelEntity(gen);
                                     }
                                 }
                             }
@@ -1072,8 +1057,9 @@ namespace CECacheMicroservice
                     }
                 }
             }
-            
-            await CalculateFlexibility(networkModelTreeClass);            
+
+            SetNetworkModelTreeClass(networkModelTreeClass).Wait();
+            CalculateFlexibility(networkModelTreeClass).Wait();            
         }
         //NOT COMPLETE -- Trebalo bi da stoje na nekom drugom servisu
         public async Task CalculateFlexibility(List<NetworkModelTreeClass> NetworkModelTreeClass)
@@ -1096,7 +1082,7 @@ namespace CECacheMicroservice
 
             List<NetworkModelTreeClass> networkModelTreeClass = await GetNetworkModelTreeClass();
             //if (networkModelTreeClass == null)
-                networkModelTreeClass = NetworkModelTreeClass; 
+            networkModelTreeClass = NetworkModelTreeClass; 
 
             foreach (NetworkModelTreeClass networkModelTreeClasses in networkModelTreeClass)
             {
@@ -1164,7 +1150,7 @@ namespace CECacheMicroservice
             DataToUI data = new DataToUI();
             data.NetworkModelTreeClass = networkModelTreeClass;
             SetNetworkModelTreeClass(networkModelTreeClass).Wait();
-            await pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(data, (int)Enums.Topics.NetworkModelTreeClass));
+            pubSub.InvokeWithRetryAsync(client => client.Channel.Notify(data, (int)Enums.Topics.NetworkModelTreeClass)).Wait();
         }
         public Dictionary<long, double> GetListOfGeneratorsForScada()
         {
@@ -1195,13 +1181,13 @@ namespace CECacheMicroservice
                 await tx.CommitAsync();
             }
         }
-        public void RemoveFromListOfGeneratorsForScada(long gid)
+        public async Task RemoveFromListOfGeneratorsForScada(long gid)
         {
             using (var tx = stateManager.CreateTransaction())
             {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, double>>("ListOfGeneratorsForScadaCachedDictionary").Result;
-                dictionary.TryRemoveAsync(tx, gid);
-                tx.CommitAsync();
+                await dictionary.TryRemoveAsync(tx, gid);
+                await tx.CommitAsync();
             }
         }
         #endregion
@@ -1233,44 +1219,37 @@ namespace CECacheMicroservice
 
             return DisableAutomaticOptimization;
         }
-
         public async Task<List<long>> GetDisableAutomaticOptimizationList()
         {
             List<long> lista = new List<long>();
-
-
             using (var tx = stateManager.CreateTransaction())
             {
                 IReliableDictionary<int, List<long>> dict = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("DisableAutomaticOptimizationCachedDictionary").Result;
 
                 lista = dict.TryGetValueAsync(tx, 0).Result.Value;
             }
-
-
             return lista;
         }
-        public void AddToDisableAutomaticOptimization(long param)
+        public async Task AddToDisableAutomaticOptimization(long param)
         {
             using (var tx = stateManager.CreateTransaction())
             {
-
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("DisableAutomaticOptimizationCachedDictionary").Result;
                 List<long> lista = dictionary.TryGetValueAsync(tx, 0).Result.Value;
                 lista.Add(param);
-                dictionary.AddOrUpdateAsync(tx, 0, lista, (key, value) => value = lista);
-                tx.CommitAsync();
+                await dictionary.AddOrUpdateAsync(tx, 0, lista, (key, value) => value = lista);
+                await tx.CommitAsync();
             }
         }
-        public void RemoveFromDisableAutomaticOptimization(long param)
+        public async Task RemoveFromDisableAutomaticOptimization(long param)
         {
             using (var tx = stateManager.CreateTransaction())
             {
-
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("DisableAutomaticOptimizationCachedDictionary").Result;
                 List<long> lista = dictionary.TryGetValueAsync(tx, 0).Result.Value;
                 lista.Remove(param);
-                dictionary.AddOrUpdateAsync(tx, 0, lista, (key, value) => value = lista);
-                tx.CommitAsync();
+                await dictionary.AddOrUpdateAsync(tx, 0, lista, (key, value) => value = lista);
+                await tx.CommitAsync();
             }
         }
         #endregion
@@ -1365,7 +1344,6 @@ namespace CECacheMicroservice
         {
             using (var tx = stateManager.CreateTransaction())
             {
-
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("TurnedOnGeneratorsCachedDictionary").Result;
                 List<long> lista = dictionary.TryGetValueAsync(tx, 0).Result.Value;
                 lista.Remove(param);
@@ -1461,7 +1439,7 @@ namespace CECacheMicroservice
 
         #region substationsForecast methods
         //PopulateProductionForecast GORE U KODU, tamo treba implementirati
-        public Dictionary<long, DerForecastDayAhead> GetSubstationsForecast() //SubstationsForecastCachedDictionary
+        public async Task<Dictionary<long, DerForecastDayAhead>> GetSubstationsForecast() //SubstationsForecastCachedDictionary
         {
             Dictionary<long, DerForecastDayAhead> SubstationsForecast = new Dictionary<long, DerForecastDayAhead>();
 
@@ -1503,7 +1481,7 @@ namespace CECacheMicroservice
 
         #region subGeographicalRegionsForecast methods
         //PopulateProductionForecast GORE U KODU, tamo treba implementirati
-        public Dictionary<long, DerForecastDayAhead> GetSubGeographicalRegionsForecast() // SubGeographicalRegionsForecastCachedDictionary
+        public async Task<Dictionary<long, DerForecastDayAhead>> GetSubGeographicalRegionsForecast() // SubGeographicalRegionsForecastCachedDictionary
         {
             Dictionary<long, DerForecastDayAhead> SubGeographicalRegionsForecast = new Dictionary<long, DerForecastDayAhead>();
 
@@ -1532,20 +1510,20 @@ namespace CECacheMicroservice
                 await tx.CommitAsync();
             }
         }
-        public void RemoveFromSubGeographicalRegionsForecast(long gid)
+        public async Task RemoveFromSubGeographicalRegionsForecast(long gid)
         {
             using (var tx = stateManager.CreateTransaction())
             {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("SubGeographicalRegionsForecastCachedDictionary").Result;
-                dictionary.TryRemoveAsync(tx, gid);
-                tx.CommitAsync();
+                await dictionary.TryRemoveAsync(tx, gid);
+                await tx.CommitAsync();
             }
         }
         #endregion
 
         #region generatorForecastList methods
         //PopulateProductionForecast GORE U KODU, tamo treba implementirati
-        public Dictionary<long, DerForecastDayAhead> GetGeneratorForecastList() // GeneratorForecastListCachedDictionary
+        public async Task<Dictionary<long, DerForecastDayAhead>> GetGeneratorForecastList() // GeneratorForecastListCachedDictionary
         {
             Dictionary<long, DerForecastDayAhead> GeneratorForecastList = new Dictionary<long, DerForecastDayAhead>();
 
@@ -1575,13 +1553,13 @@ namespace CECacheMicroservice
                 await tx.CommitAsync();
             }
         }
-        public void RemoveFromGeneratorForecastList(long gid)
+        public async Task RemoveFromGeneratorForecastList(long gid)
         {
             using (var tx = stateManager.CreateTransaction())
             {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("GeneratorForecastListCachedDictionary").Result;
-                dictionary.TryRemoveAsync(tx, gid);
-                tx.CommitAsync();
+                await dictionary.TryRemoveAsync(tx, gid);
+                await tx.CommitAsync();
             }
         }
         #endregion

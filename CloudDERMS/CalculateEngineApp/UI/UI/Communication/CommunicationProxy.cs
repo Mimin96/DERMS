@@ -38,8 +38,8 @@ namespace UI.Communication
                                             // new Uri("net.tcp://localhost:27777/ISendEventsToUI"));
 
             // Send to CE
-            factory = new ChannelFactory<ICEUpdateThroughUI>(new NetTcpBinding(),
-                                                                    new EndpointAddress("net.tcp://localhost:19001/ICEUpdateThroughUI"));
+            //factory = new ChannelFactory<ICEUpdateThroughUI>(new NetTcpBinding(),
+            //                                                        new EndpointAddress("net.tcp://localhost:19001/ICEUpdateThroughUI"));
         }
 
         public void Open()
@@ -52,7 +52,7 @@ namespace UI.Communication
         }
         public void Open2()
         {
-            sendToCE = factory.CreateChannel();
+            //sendToCE = factory.CreateChannel();
         }
 
         public void Close()

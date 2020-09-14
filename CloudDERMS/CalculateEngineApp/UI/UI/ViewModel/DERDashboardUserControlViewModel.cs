@@ -31,7 +31,7 @@ namespace UI.ViewModel
         private Thread timerWorker;
         private bool timerThreadStopSignal = true;
         private bool disposed = false;
-        CommunicationProxy proxy;
+        //CommunicationProxy proxy;
         DERDashboardUserControl dERDashboardUserControl;
         private SolidColorBrush color1;
         private SolidColorBrush color2;
@@ -556,7 +556,8 @@ namespace UI.ViewModel
                     float x = uIClient.UpdateThroughUI(GidForOptimization).Result;
                     energySourceOptimizedValue = CalculateDemand(GidForOptimization);
                     DisableOptimization(GidForOptimization);
-                    proxy.sendToCE.AllowOptimization(GidForOptimization);
+                    //proxy.sendToCE.AllowOptimization(GidForOptimization);
+                    uIClient.AllowOptimization(gidForOptimization);
                     canOptimizate = true;
                 }
                 else
@@ -583,7 +584,8 @@ namespace UI.ViewModel
                     float x = uIClient.BalanceNetworkModel().Result;
                     energySourceOptimizedValue = CalculateDemandForSource();
                     DisableOptimization(GidForOptimization);
-                    proxy.sendToCE.AllowOptimization(GidForOptimization);
+                    //proxy.sendToCE.AllowOptimization(GidForOptimization);
+                    uIClient.AllowOptimization(gidForOptimization);
                 }
                 else
                 {

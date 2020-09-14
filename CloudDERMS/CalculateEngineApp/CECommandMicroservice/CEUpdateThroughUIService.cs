@@ -24,16 +24,39 @@ namespace CalculationEngineService
             Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
             );
 
             networkModel = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetNMSModel()).Result;
-            float energyFromSource = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.PopulateBalance(data)).Result;
+            float energyFromSource = PopulateBalance(data).Result;
             return energyFromSource;
         }
+
+        public async Task<float> PopulateBalance(long gid)
+        {
+            CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
+            (
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+              partitionKey: new ServicePartitionKey(0), /*CJN*/
+              clientBinding: WcfUtility.CreateTcpClientBinding(),
+              listenerName: "CECacheServiceListener"
+            );
+            Dictionary<long, DerForecastDayAhead> productionCachedDictionary = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetDerForecasts()).Result;
+            Dictionary<long, IdentifiedObject> nmsCacheDictionary = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetNMSModel()).Result;
+            Dictionary<int, List<long>> temp = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetTurnedOffGenerators()).Result;
+            List<long> turnedOffGeneratorsList = new List<long>();
+            if (temp.Count > 0)
+                turnedOffGeneratorsList = temp[0];
+
+            float energyFromSource = Balance(productionCachedDictionary, gid, nmsCacheDictionary, turnedOffGeneratorsList).Result;
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait();
+
+            return energyFromSource;
+        }
+
         public async Task<float> Balance(Dictionary<long, DerForecastDayAhead> prod, long GidUi, Dictionary<long, IdentifiedObject> networkModel, List<long> TurnedOffGenerators)
         {
 
@@ -807,7 +830,7 @@ namespace CalculationEngineService
             //CalculationEngineCache.Instance.ListOfGenerators = dicForScada;
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECCacheMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
@@ -838,7 +861,7 @@ namespace CalculationEngineService
             Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
@@ -894,7 +917,7 @@ namespace CalculationEngineService
             int GeographicalRegionsCount = 0;
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
-                serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
                 partitionKey: new ServicePartitionKey(0),
                 clientBinding: WcfUtility.CreateTcpClientBinding(),
                 listenerName: "CECacheServiceListener"
@@ -1152,14 +1175,15 @@ namespace CalculationEngineService
             List<long> DisableAutomaticOptimization = new List<long>();
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
             );
             Dictionary<int, List<long>> tempDisableAutomaticOptimization = new Dictionary<int, List<long>>();
             tempDisableAutomaticOptimization = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetDisableAutomaticOptimization()).Result;
-            DisableAutomaticOptimization = tempDisableAutomaticOptimization[0];
+            if(tempDisableAutomaticOptimization.Count>0)
+                DisableAutomaticOptimization = tempDisableAutomaticOptimization[0];
             return DisableAutomaticOptimization;
         }
         public async Task<List<Generator>> ListOffTurnedOffGenerators()
@@ -1175,7 +1199,7 @@ namespace CalculationEngineService
 
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
@@ -1183,9 +1207,11 @@ namespace CalculationEngineService
 
             networkModel = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetNMSModel()).Result;
             tempTurnedOnGenerators = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetTurnedOnGenerators()).Result;
-            TurnedOnGenerators = tempTurnedOnGenerators[0];
+            if(tempTurnedOnGenerators.Count>0)
+                TurnedOnGenerators = tempTurnedOnGenerators[0];
             tempDisableAutomaticOptimization = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetDisableAutomaticOptimization()).Result;
-            DisableAutomaticOptimization = tempDisableAutomaticOptimization[0];
+            if (tempDisableAutomaticOptimization.Count > 0)
+                DisableAutomaticOptimization = tempDisableAutomaticOptimization[0];
 
             foreach (long gid in TurnedOnGenerators)
             {

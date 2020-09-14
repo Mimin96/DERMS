@@ -27,7 +27,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         void RestartCache(NetworkModelTransfer networkModelTransfer);
         [OperationContract]
-        void AddScadaPoints(List<DataPoint> dataPoints);
+        Task AddScadaPoints(List<DataPoint> dataPoints);
         [OperationContract]
         Task PopulateWeatherForecast(NetworkModelTransfer networkModel);
         [OperationContract]
@@ -35,7 +35,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Task PopulateProductionForecast(NetworkModelTransfer networkModel);
         [OperationContract]
-        DataToUI CreateDataForUI();
+        Task<DataToUI> CreateDataForUI();
         [OperationContract]
         Task<Dictionary<long, DerForecastDayAhead>> GetAllDerForecastDayAhead();
         [OperationContract]
@@ -46,8 +46,8 @@ namespace CloudCommon.CalculateEngine
         Task ApplyChangesOnProductionCached(Dictionary<long, double> listOfGeneratorsForScada);
         [OperationContract]
         Task SendDerForecastDayAhead();
-        [OperationContract]
-        Task<float> PopulateBalance(long gid);
+        //[OperationContract]
+        //Task<float> PopulateBalance(long gid);
         [OperationContract]
         Task UpdateMinAndMaxFlexibilityForChangedGenerators(Dictionary<long, double> listOfGeneratorsForScada);
         [OperationContract]
@@ -57,7 +57,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Task<List<DataPoint>> GetDatapoints();
         [OperationContract]
-        Dictionary<long, DerForecastDayAhead> GetCopyOfProductionCached();
+        Task<Dictionary<long, DerForecastDayAhead>> GetCopyOfProductionCached();
         [OperationContract]
         Dictionary<long, double> GetListOfGeneratorsForScada();
         [OperationContract]
@@ -71,17 +71,17 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Dictionary<long, DayAhead> GetSubstationDayAhead();
         [OperationContract]
-        Dictionary<long, DerForecastDayAhead> GetSubstationsForecast();
+        Task<Dictionary<long, DerForecastDayAhead>> GetSubstationsForecast();
         [OperationContract]
-        Dictionary<long, DerForecastDayAhead> GetSubGeographicalRegionsForecast();
+        Task<Dictionary<long, DerForecastDayAhead>> GetSubGeographicalRegionsForecast();
         [OperationContract]
-        Dictionary<long, DerForecastDayAhead> GetGeneratorForecastList();
+        Task<Dictionary<long, DerForecastDayAhead>> GetGeneratorForecastList();
         [OperationContract]
         List<DataPoint> GetScadaDataPoint(long param);
         [OperationContract]
         DerForecastDayAhead GetDerForecast(long gid);
         [OperationContract]
-        void AddDerForecastDayAhead(long id, DerForecastDayAhead forecast);
+        Task AddDerForecastDayAhead(long id, DerForecastDayAhead forecast);
         [OperationContract]
         Task AddToListOfGeneratorsForScada(long gid, double param);
         [OperationContract]
@@ -95,9 +95,9 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Task AddToGeneratorForecastList(long gid, DerForecastDayAhead param);
         [OperationContract]
-        void RemoveFromGeneratorForecastList(long gid);
+        Task RemoveFromGeneratorForecastList(long gid);
         [OperationContract]
-        void RemoveFromSubGeographicalRegionsForecast(long gid);
+        Task RemoveFromSubGeographicalRegionsForecast(long gid);
         [OperationContract]
         void RemoveFromSubstationsForecast(long gid);
         [OperationContract]
@@ -105,7 +105,7 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Task RemoveFromTempProductionCached(long gid);
         [OperationContract]
-        void AddToCopyOfProductionCached(long gid, DerForecastDayAhead forecast);
+        Task AddToCopyOfProductionCached(long gid, DerForecastDayAhead forecast);
         [OperationContract]
         Task AddToTurnedOnGenerators(long param);
         [OperationContract]
@@ -115,21 +115,21 @@ namespace CloudCommon.CalculateEngine
         [OperationContract]
         Task RemoveFromTurnedOffGenerators(long param);
         [OperationContract]
-        void AddToDisableAutomaticOptimization(long param);
+        Task AddToDisableAutomaticOptimization(long param);
         [OperationContract]
-        void RemoveFromDisableAutomaticOptimization(long param);
+        Task RemoveFromDisableAutomaticOptimization(long param);
         [OperationContract]
-        void RemoveFromListOfGeneratorsForScada(long gid);
+        Task RemoveFromListOfGeneratorsForScada(long gid);
         [OperationContract]
-        void RemoveFromCopyOfProductionCached(long gid);
+        Task RemoveFromCopyOfProductionCached(long gid);
         [OperationContract]
         Task AddToDataPoints(DataPoint datapoint);
         [OperationContract]
-        void RemoveFromDataPoints(DataPoint datapoint);
+        Task RemoveFromDataPoints(DataPoint datapoint);
         [OperationContract]
-        void RemoveFromDerForecastDayAhead(long id);
+        Task RemoveFromDerForecastDayAhead(long id);
         [OperationContract]
-        void RemoveFromDerForecast(long gid);
+        Task RemoveFromDerForecast(long gid);
         [OperationContract]
         void RemoveFromScadaDataPoint(long gid);
         [OperationContract]
@@ -144,5 +144,7 @@ namespace CloudCommon.CalculateEngine
         Task CalculateNewCopyOfProductionCachedFlexibility(Dictionary<long, DerForecastDayAhead> copyOfProductionCachedFlexibility);
         [OperationContract]
         Task AddDerForecast(DerForecastDayAhead derForecastDayAhead, long gid, bool isInitState);
+        [OperationContract]
+        Task<Dictionary<long, DerForecastDayAhead>> GetDerForecasts();
     }
 }

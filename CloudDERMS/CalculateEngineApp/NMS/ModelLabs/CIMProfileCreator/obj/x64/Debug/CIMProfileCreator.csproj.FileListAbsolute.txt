@@ -167,3 +167,16 @@ C:\Users\Caki\Desktop\1109\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIM
 C:\Users\Caki\Desktop\1109\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache
 C:\Users\Caki\Desktop\1109\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMProfileCreator.exe
 C:\Users\Caki\Desktop\1109\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMProfileCreator.pdb
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Predefined\PredefinedClasses.xml
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Predefined\PredefinedEnumerations.xml
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Predefined\PredefinedPackages.xml
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMProfileCreator.exe.config
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMProfileCreator.exe
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMProfileCreator.pdb
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\CIMProfileCreator.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMProfileCreator.CIMProfileCreatorForm.resources
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMProfileCreator.Properties.Resources.resources
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\CIMProfileCreator.csproj.GenerateResource.cache
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMProfileCreator.exe
+C:\Users\Caki\Desktop\1409\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMProfileCreator.pdb
