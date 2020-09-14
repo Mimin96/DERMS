@@ -58,7 +58,6 @@ C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\CIMProfileCreator\b
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.dll
 C:\Users\milan.petrovic\Desktop\DERMSGit\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.pdb
-C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csprojAssemblyReference.cache
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\DermsUI\CIMProfileCreator\bin\Debug\CIMProfileCreator.dll
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\DermsUI\CIMProfileCreator\bin\Debug\CIMProfileCreator.pdb
 C:\Users\Djole\Desktop\MASTER_PROJEKAT\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csprojAssemblyReference.cache
@@ -194,3 +193,4 @@ C:\Users\Djole\Desktop\projekat-7.28\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\D
 C:\Users\Djole\Desktop\projekat-7.28\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache
 C:\Users\Djole\Desktop\projekat-7.28\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.dll
 C:\Users\Djole\Desktop\projekat-7.28\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.pdb
+C:\Users\Filip\Desktop\DERMS\DERMS\DermsUI\CIMProfileCreator\obj\Debug\CIMProfileCreator.csproj.CoreCompileInputs.cache

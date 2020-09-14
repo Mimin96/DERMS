@@ -92,7 +92,6 @@ namespace CECacheMicroservice
                 await _cache.PopulateProductionForecast(networkModel);
                 await _cache.PopulateConsumptionForecast(networkModel);
 
-                //POZVATI SendDerForecastDayAh
                 return true;
             }
             else

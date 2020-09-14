@@ -22,9 +22,9 @@ namespace CECalculationMicroservice
             Dictionary<long, DerForecastDayAhead> Forecasts;
             Forecasts = derForcast;
             subDayAhead = await CalculateDayAheadSubstation(networkModel, DerWeather);
-            CalculateSubstations(derForcast, Forecasts, subDayAhead);
-            CalculateSubRegion(derForcast, networkModel);
-            CalculateGeoRegions(derForcast, networkModel);
+            CalculateSubstations(derForcast, Forecasts, subDayAhead).Wait();
+            CalculateSubRegion(derForcast, networkModel).Wait();
+            CalculateGeoRegions(derForcast, networkModel).Wait();
         }
 
         private async Task<Dictionary<long, DayAhead>> CalculateDayAheadSubstation(NetworkModelTransfer networkModel, Dictionary<long, Forecast> DerWeather)
@@ -80,7 +80,7 @@ namespace CECalculationMicroservice
             }
             return calcDayAhead;
         }
-        public async void CalculateSubstations(Dictionary<long, DerForecastDayAhead> derForcast, Dictionary<long, DerForecastDayAhead> Forecasts, Dictionary<long, DayAhead> subDayAhead)
+        public async Task CalculateSubstations(Dictionary<long, DerForecastDayAhead> derForcast, Dictionary<long, DerForecastDayAhead> Forecasts, Dictionary<long, DayAhead> subDayAhead)
         {
             //Cak
             CloudClient<ICache> cache = new CloudClient<ICache>
@@ -100,12 +100,12 @@ namespace CECalculationMicroservice
                     if (kvp.Key.Equals(kvp2.Key))
                     {
                         kvp.Value.Consumption += subDayAhead[kvp.Key]; // Update na strani ceCache AddDerForecast
-                        await cache.InvokeWithRetryAsync(client => client.Channel.AddDerForecast(kvp.Value, kvp.Key,true));
+                        cache.InvokeWithRetryAsync(client => client.Channel.AddDerForecast(kvp.Value, kvp.Key,true)).Wait();
                     }
                 }
             }
         }
-        public async void CalculateSubRegion(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel)
+        public async Task CalculateSubRegion(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel)
         {
             //Cak
             CloudClient<ICache> cache = new CloudClient<ICache>
@@ -132,14 +132,14 @@ namespace CECalculationMicroservice
                             if (gr.Substations.Contains(substation.GlobalId))
                             {
                                 derForcast[gr.GlobalId].Consumption += derForcast[substation.GlobalId].Consumption; // Update na strani ceCache
-                                await cache.InvokeWithRetryAsync(client => client.Channel.AddDerForecast(derForcast[gr.GlobalId], gr.GlobalId, true));
+                                cache.InvokeWithRetryAsync(client => client.Channel.AddDerForecast(derForcast[gr.GlobalId], gr.GlobalId, true)).Wait();
                             }
                         }
                     }
                 }
             }
         }
-        public async void CalculateGeoRegions(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel)
+        public async Task CalculateGeoRegions(Dictionary<long, DerForecastDayAhead> derForcast, NetworkModelTransfer networkModel)
         {
             //Cak
             CloudClient<ICache> cache = new CloudClient<ICache>
@@ -166,7 +166,7 @@ namespace CECalculationMicroservice
                             if (gr.Regions.Contains(subGeoRegion.GlobalId))
                             {
                                 derForcast[gr.GlobalId].Consumption += derForcast[subGeoRegion.GlobalId].Consumption; // Update na strani ceCache
-                                await cache.InvokeWithRetryAsync(client => client.Channel.AddDerForecast(derForcast[gr.GlobalId], gr.GlobalId, true));
+                                cache.InvokeWithRetryAsync(client => client.Channel.AddDerForecast(derForcast[gr.GlobalId], gr.GlobalId, true)).Wait();
                             }
                         }
                     }
