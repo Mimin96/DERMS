@@ -90,8 +90,8 @@ namespace SCADACommandMicroservice
 
             }
 
-            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddorUpdateAnalogniKontejnerModelEntity(analogniStari));
-            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddorUpdateDigitalniKontejnerModelEntity(digitalniStari));
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddorUpdateAnalogniKontejnerModelEntity(analogniStari)).Wait();
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddorUpdateDigitalniKontejnerModelEntity(digitalniStari)).Wait();
 
         }
     }

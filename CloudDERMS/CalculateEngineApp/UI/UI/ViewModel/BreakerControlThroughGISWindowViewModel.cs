@@ -57,7 +57,7 @@ namespace UI.ViewModel
                 bool NormalOpen = Open ? true : false;
 
                 UIClientFlexibilityFromUIToCE uIClient = new UIClientFlexibilityFromUIToCE("UIClientFlexibilityFromUIToCEEndpoint");
-                uIClient.ChangeBreakerStatus(GID, NormalOpen);
+                uIClient.ChangeBreakerStatus(GID, NormalOpen).Wait();
 
                 if(NormalOpen == true)
                     e = new Event("Breaker is opened", Enums.Component.SCADA, DateTime.Now);

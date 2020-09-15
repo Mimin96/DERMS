@@ -1049,7 +1049,7 @@ namespace CECacheMicroservice
                                         ((Generator)gen).ConsiderP = substationElementTreeClass.P;
                                         ((Generator)gen).MaxFlexibility = substationElementTreeClass.MaxFlexibility;
                                         ((Generator)gen).MinFlexibility = substationElementTreeClass.MinFlexibility;
-                                        await UpdateNMSModelEntity(gen);
+                                        UpdateNMSModelEntity(gen).Wait();
                                     }
                                 }
                             }

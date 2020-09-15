@@ -37,7 +37,7 @@ namespace CECommandMicroservice
             Breaker breaker = (Breaker)networkModel[GID];
             Dictionary<long, DerForecastDayAhead> prod = new Dictionary<long, DerForecastDayAhead>();
             Dictionary<long, DerForecastDayAhead> TempProductionCached = new Dictionary<long, DerForecastDayAhead>();
-            TempProductionCached = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetTempProductionCached()).Result;
+            TempProductionCached = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetTempProductionCached()).Result; //Returns nothing
             prod = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetAllDerForecastDayAhead()).Result;
             CloudClient<IIslandCalculations> transactionCoordinatorIsland = new CloudClient<IIslandCalculations>
             (
@@ -53,21 +53,23 @@ namespace CECommandMicroservice
 
             tempTurnedOnGen = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetTurnedOnGenerators()).Result;
             tempTurnedOffGen = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetTurnedOffGenerators()).Result;
-            TurnedOffGenerators = tempTurnedOffGen[0];/*Ovde pukne*/
-            TurnedOnGenerators = tempTurnedOnGen[0];
+            if(tempTurnedOffGen.Count >0)
+                TurnedOffGenerators = tempTurnedOffGen[0];/*Ovde pukne*/
+            if (tempTurnedOnGen.Count > 0)
+                TurnedOnGenerators = tempTurnedOnGen[0];
             if (NormalOpen)
             {
                 foreach (long generatorGid in breaker.Generators)
                 {
                     if (!TurnedOffGenerators.Contains(generatorGid))
                     {
-                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOffGenerators(generatorGid));
-                        await transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOff(generatorGid, prod));
-                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTempProductionCached(generatorGid, prod[generatorGid]));
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOffGenerators(generatorGid)).Wait();
+                        transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOff(generatorGid, prod)).Wait();
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTempProductionCached(generatorGid, prod[generatorGid])).Wait();
                         prod.Remove(generatorGid);
                         if (TurnedOnGenerators.Contains(generatorGid))
-                            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(generatorGid));
-                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead());
+                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(generatorGid)).Wait();
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait();
                     }
                 }
             }
@@ -77,26 +79,26 @@ namespace CECommandMicroservice
                 {
                     if (TurnedOffGenerators.Contains(generatorGid))
                     {
-                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOffGenerators(generatorGid));
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOffGenerators(generatorGid)).Wait();
 
                         prod.Add(generatorGid, TempProductionCached[generatorGid]);
-                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTempProductionCached(generatorGid));
-                        await transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOn(generatorGid, prod));
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTempProductionCached(generatorGid)).Wait();
+                        transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOn(generatorGid, prod)).Wait();
                         if (!TurnedOnGenerators.Contains(generatorGid))
-                            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOnGenerators(generatorGid));
-                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead());
+                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOnGenerators(generatorGid)).Wait();
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait();
                     }
                 }
             }
             //KAD SE URADI ClientSideCE RESITI OVU LINIJU
             CloudClient<ISendListOfGeneratorsToScada> transactionCoordinatorScada = new CloudClient<ISendListOfGeneratorsToScada>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/SCADACommandMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "SCADACommandingMicroserviceListener"
             );
-            await transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(keyValues));
+            transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(keyValues)).Wait();
 
             //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(keyValues);
         }

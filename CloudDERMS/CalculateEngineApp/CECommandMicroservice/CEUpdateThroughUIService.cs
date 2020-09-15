@@ -21,16 +21,6 @@ namespace CalculationEngineService
     {
         public async Task<float> UpdateThroughUI(long data)
         {
-            Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
-            CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
-            (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
-              partitionKey: new ServicePartitionKey(0),
-              clientBinding: WcfUtility.CreateTcpClientBinding(),
-              listenerName: "CECacheServiceListener"
-            );
-
-            networkModel = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetNMSModel()).Result;
             float energyFromSource = PopulateBalance(data).Result;
             return energyFromSource;
         }
@@ -830,29 +820,27 @@ namespace CalculationEngineService
             //CalculationEngineCache.Instance.ListOfGenerators = dicForScada;
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECCacheMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
             );
             foreach (KeyValuePair<long, double> kvp in dicForScada)
             {
-                await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToListOfGeneratorsForScada(kvp.Key, kvp.Value));
+                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToListOfGeneratorsForScada(kvp.Key, kvp.Value)).Wait();
             }
 
             CloudClient<ISendListOfGeneratorsToScada> transactionCoordinatorScada = new CloudClient<ISendListOfGeneratorsToScada>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/SCADACommandMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "SCADACommandingMicroserviceListener"
             );
-            await transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(dicForScada));
+            transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(dicForScada)).Wait();
 
-            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateMinAndMaxFlexibilityForChangedGenerators(dicForScada));
-            //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(dicForScada);
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateMinAndMaxFlexibilityForChangedGenerators(dicForScada)).Wait();
 
-            //CalculationEngineCache.Instance.UpdateMinAndMaxFlexibilityForChangedGenerators();
             return energyFromSource;
         }
 
