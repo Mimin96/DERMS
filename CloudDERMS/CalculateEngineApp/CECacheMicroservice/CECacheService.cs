@@ -1010,7 +1010,6 @@ namespace CECacheMicroservice
 
         #region listOfGeneratorsForScada methods
         //CalculateNewFlexibility
-        //CHECK DA LI TREBA DA SE UBACE U interfejs
         //NOT COMPLETE -- Trebalo bi da stoje na nekom drugom servisu
         public async Task UpdateMinAndMaxFlexibilityForChangedGenerators(Dictionary<long, double> listOfGeneratorsForScada)
         {

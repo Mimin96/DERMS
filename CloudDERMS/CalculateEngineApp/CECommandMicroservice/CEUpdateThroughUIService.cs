@@ -830,14 +830,39 @@ namespace CalculationEngineService
                 transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToListOfGeneratorsForScada(kvp.Key, kvp.Value)).Wait();
             }
 
+            /*
+             new ServiceInstanceListener((context) =>
+                    new WcfCommunicationListener<ISendListOfGeneratorsToScada>(
+                        wcfServiceObject: new CommandingService(),
+                        serviceContext: context,
+                        endpointResourceName: "SCADACommandingMicroserviceEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "SCADACommandingMicroserviceListener"
+                )
+             */
+
+            //CloudClient<IScadaCloudToScadaLocal> transactionCoordinatorScadaaaaa = new CloudClient<IScadaCloudToScadaLocal>
+            //(
+            //  serviceUri: new Uri("fabric:/CalculateEngineApp/SCADACacheMicroservice"),
+            //  partitionKey:  ServicePartitionKey.Singleton,
+            //  clientBinding: WcfUtility.CreateTcpClientBinding(),
+            //  listenerName: "SCADAComunicationMicroserviceListener"
+            //);
+
+            //string sss = transactionCoordinatorScadaaaaa.InvokeWithRetryAsync(client => client.Channel.GetAddress()).Result;
+
             CloudClient<ISendListOfGeneratorsToScada> transactionCoordinatorScada = new CloudClient<ISendListOfGeneratorsToScada>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/SCADACommandMicroservice"),
-              partitionKey: new ServicePartitionKey(0),
+              serviceUri: new Uri("fabric:/SCADAApp/SCADACommandMicroservice"),
+              partitionKey: ServicePartitionKey.Singleton,
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "SCADACommandingMicroserviceListener"
             );
+
+
             transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(dicForScada)).Wait();
+
 
             transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateMinAndMaxFlexibilityForChangedGenerators(dicForScada)).Wait();
 

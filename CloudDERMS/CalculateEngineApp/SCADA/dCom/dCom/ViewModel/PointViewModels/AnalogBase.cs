@@ -45,11 +45,6 @@ namespace dCom.ViewModel
                 ProcessRawValue(newValue);
                 Timestamp = DateTime.Now;
                 DERMSCommon.SCADACommon.PointType dad = (DERMSCommon.SCADACommon.PointType)configItem.RegistryType;
-                //NetTcpBinding binding = new NetTcpBinding();
-                //binding.Security = new NetTcpSecurity() { Mode = SecurityMode.None };
-                //factoryUI = new ChannelFactory<ISendDataToCEThroughScada>(binding, new EndpointAddress("net.tcp://localhost:19999/ISendDataToCEThroughScada"));
-                //ProxyUI = factoryUI.CreateChannel();
-                //Console.WriteLine("Connected: net.tcp://localhost:19999/ISendDataToCEThroughScada");
 
                 DataPoint dataPoint = new DataPoint((long)configItem.Gid, (DERMSCommon.SCADACommon.PointType)configItem.RegistryType, pointAddres, Timestamp, configItem.Description, DisplayValue, RawValue, (DERMSCommon.SCADACommon.AlarmType)alarm, configItem.GidGeneratora);
 
@@ -64,14 +59,12 @@ namespace dCom.ViewModel
                   );
                 transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ReceiveFromScada(datapoints)).Wait();
 
-                // ProxyUI.ReceiveFromScada(datapoints);
+                //ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
 
-                ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
-
-                lock (datapoints)
-                {
-                    sCADAClient.SetDatabaseData(datapoints).Wait();
-                }
+                //lock (datapoints)
+                //{
+                //    sCADAClient.SetDatabaseData(datapoints).Wait();
+                //}
             }
 
         }

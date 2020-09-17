@@ -93,7 +93,7 @@ namespace CECommandMicroservice
             //KAD SE URADI ClientSideCE RESITI OVU LINIJU
             CloudClient<ISendListOfGeneratorsToScada> transactionCoordinatorScada = new CloudClient<ISendListOfGeneratorsToScada>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/SCADACommandMicroservice"),
+              serviceUri: new Uri("fabric:/SCADAApp/SCADACommandMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "SCADACommandingMicroserviceListener"

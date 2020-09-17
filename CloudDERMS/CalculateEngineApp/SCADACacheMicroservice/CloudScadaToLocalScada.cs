@@ -143,10 +143,10 @@ namespace SCADACacheMicroservice
         public async Task SetDatabaseData(List<DataPoint> dataPoints)
         {
             HistoryDataProcessing historyDataProcessing = new HistoryDataProcessing();
-            List<CollectItem> collectItems = new List<CollectItem>();
-            List<DayItem> dayItems = new List<DayItem>();
-            List<MonthItem> monthItems = new List<MonthItem>();
-            List<YearItem> yearItems = new List<YearItem>();
+            List<CollectItem> collectItems;
+            List<DayItem> dayItems;
+            List<MonthItem> monthItems;
+            List<YearItem> yearItems;
 
             collectItems = historyDataProcessing.ConvertDataPoints(dataPoints);
             AzureTableStorage.InsertEntitiesInDB(collectItems, "UseDevelopmentStorage=true;", "CollectItems");

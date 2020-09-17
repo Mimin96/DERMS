@@ -18,11 +18,6 @@ namespace SCADACommandMicroservice
     public class CommandingService : ISendListOfGeneratorsToScada
     {
 
-        public CommandingService()
-        {
-
-        }
-
         public async Task SendListOfGenerators(Dictionary<long, double> generators)
         {
 

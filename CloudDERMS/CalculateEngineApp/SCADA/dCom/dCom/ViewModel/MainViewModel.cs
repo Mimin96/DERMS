@@ -526,8 +526,8 @@ namespace dCom.ViewModel
                 {
                     ret = ws.GetWeatherForecastAsyncSimulate().Result;
 
-                    //if(ret)
-                       //nes++;
+                    if(ret)
+                       nes++;
                 }
                 Thread.Sleep(1000);
             }
