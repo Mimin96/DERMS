@@ -66,10 +66,9 @@ namespace dCom.ViewModel
 
                 // ProxyUI.ReceiveFromScada(datapoints);
 
-
                 ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
 
-                lock (SetDatabaseDataObjectLock)
+                lock (datapoints)
                 {
                     sCADAClient.SetDatabaseData(datapoints).Wait();
                 }

@@ -1137,3 +1137,4 @@ C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\NMSTransaction
 C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\NMSTransactionMicroservice\obj\x64\Debug\NMSTransactionMicroservice.csproj.CopyComplete
 C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\NMSTransactionMicroservice\obj\x64\Debug\NMSTransactionMicroservice.exe
 C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\NMSTransactionMicroservice\obj\x64\Debug\NMSTransactionMicroservice.pdb
+C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\NMSTransactionMicroservice\obj\x64\Debug\NMSTransactionMicroservice.csprojAssemblyReference.cache

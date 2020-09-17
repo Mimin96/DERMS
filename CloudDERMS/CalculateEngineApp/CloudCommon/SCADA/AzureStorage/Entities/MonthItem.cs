@@ -31,7 +31,7 @@ namespace CloudCommon.SCADA.AzureStorage.Entities
         {
             Timestamp = timestamp;
             PartitionKey = "YearItem";
-            RowKey = gid.ToString();
+            RowKey = gid.ToString() + " " + timestamp.ToString("o");
 
             Gid = gid;
             //Timestamp = timestamp;

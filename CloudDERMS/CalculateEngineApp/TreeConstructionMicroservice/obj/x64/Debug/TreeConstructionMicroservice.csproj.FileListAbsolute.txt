@@ -1780,3 +1780,4 @@ C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructi
 C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csproj.CopyComplete
 C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.exe
 C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.pdb
+C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csprojAssemblyReference.cache
