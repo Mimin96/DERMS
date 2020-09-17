@@ -38,12 +38,14 @@ namespace dCom.Simulation
             darkSkyProxy = new DarkSkyService("e67254e31e12e23461c61e0fb0489142");
         }
 
-        public async void GetWeatherForecastAsyncSimulate()
+        public async Task<bool> GetWeatherForecastAsyncSimulate()
         {
             //MOCK_Start
             bool isFileFull = true;
-            //Dictionary<long, List<HourDataPoint>> keyValuePairs = new Dictionary<long, List<HourDataPoint>>();
-            Dictionary<long, List<HourDataPoint>> keyValuePairs = cache.ReadFromFileDataPoint();
+            Dictionary<long, List<HourDataPoint>> keyValuePairs = new Dictionary<long, List<HourDataPoint>>();
+            //Dictionary<long, List<HourDataPoint>> keyValuePairs = cache.ReadFromFileDataPoint();
+            ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
+            analogniStari = await sCADAClient.GetAnalogniKontejnerModel();
 
             if (keyValuePairs.Count == 0)
                 isFileFull = false;
@@ -107,15 +109,22 @@ namespace dCom.Simulation
                         catch (Exception ex)
                         {
                             string message = $"{ex.TargetSite.ReflectedType.Name}.{ex.TargetSite.Name}: {ex.Message}";
-
+                            return false;
                         }
                     }
 
                 }
             }
 
-            ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
-            await sCADAClient.AddorUpdateAnalogniKontejnerModelEntity(analogniStari);
+            try
+            {
+                await sCADAClient.AddorUpdateAnalogniKontejnerModelEntity(analogniStari);
+            }
+            catch (Exception e)
+            {
+                string message = $"{e.TargetSite.ReflectedType.Name}.{e.TargetSite.Name}: {e.Message}";
+                return false;
+            }
 
 
             //transactionCoordinator = new CloudClient<IScadaCloudToScadaLocal>
@@ -152,6 +161,10 @@ namespace dCom.Simulation
             //    }
             //}
 
+            if (analogniStari.Count.Equals(0))
+                return false;            
+
+            return true;
 
         }
 

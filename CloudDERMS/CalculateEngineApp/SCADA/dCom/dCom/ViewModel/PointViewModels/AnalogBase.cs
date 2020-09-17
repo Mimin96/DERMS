@@ -23,6 +23,7 @@ namespace dCom.ViewModel
         private List<DataPoint> datapoints = new List<DataPoint>();
         //private ScadaDB scadaDB = new ScadaDB();
         private CloudClient<ISendDataToCEThroughScada> transactionCoordinator;
+        static readonly object SetDatabaseDataObjectLock = new object();
 
         public AnalogBase(Common.IConfigItem c, Common.IFunctionExecutor commandExecutor, Common.IStateUpdater stateUpdater, Common.IConfiguration configuration, int i)
             : base(c, commandExecutor, stateUpdater, configuration, i)
@@ -67,7 +68,11 @@ namespace dCom.ViewModel
 
 
                 ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
-                await sCADAClient.SetDatabaseData(datapoints);
+
+                lock (SetDatabaseDataObjectLock)
+                {
+                    sCADAClient.SetDatabaseData(datapoints).Wait();
+                }
             }
 
         }

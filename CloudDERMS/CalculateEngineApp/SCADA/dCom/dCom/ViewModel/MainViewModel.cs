@@ -511,6 +511,8 @@ namespace dCom.ViewModel
         private void TimerWorker_DoWork()
         {
             int nes = 1;
+            bool ret = false;
+
             while (timerThreadStopSignal)
             {
                 if (disposed)
@@ -522,8 +524,10 @@ namespace dCom.ViewModel
                 acquisitionTrigger.Set();
                 if (brojac % 30 == 0 && nes < 2)
                 {
-                    ws.GetWeatherForecastAsyncSimulate();
-                    nes++;
+                    ret = ws.GetWeatherForecastAsyncSimulate().Result;
+
+                    if(ret)
+                        nes++;
                 }
                 Thread.Sleep(1000);
             }

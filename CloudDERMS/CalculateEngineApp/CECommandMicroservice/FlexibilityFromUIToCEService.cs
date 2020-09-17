@@ -119,7 +119,7 @@ namespace CECommandMicroservice
               listenerName: "DERFlexibilityListener"
             );
 
-            await derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewFlexibility(data));
+            derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewFlexibility(data)).Wait();
 
         }
     }
