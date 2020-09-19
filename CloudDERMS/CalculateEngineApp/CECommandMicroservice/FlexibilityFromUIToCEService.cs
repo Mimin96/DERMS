@@ -42,7 +42,7 @@ namespace CECommandMicroservice
             CloudClient<IIslandCalculations> transactionCoordinatorIsland = new CloudClient<IIslandCalculations>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
-              partitionKey: new ServicePartitionKey(0),
+              partitionKey: ServicePartitionKey.Singleton,
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "IslandCalculationsListener"
             );
@@ -67,14 +67,18 @@ namespace CECommandMicroservice
                         transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOff(generatorGid, prod)).Wait();
                         transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTempProductionCached(generatorGid, prod[generatorGid])).Wait();
                         prod.Remove(generatorGid);
+                        //
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromDerForecastDayAhead(generatorGid)).Wait();
+                        ////
                         if (TurnedOnGenerators.Contains(generatorGid))
                             transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(generatorGid)).Wait();
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait();
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait(); // Ovde pubsub zezne
                     }
                 }
             }
             else
             {
+
                 foreach (long generatorGid in breaker.Generators)
                 {
                     if (TurnedOffGenerators.Contains(generatorGid))
@@ -82,6 +86,9 @@ namespace CECommandMicroservice
                         transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOffGenerators(generatorGid)).Wait();
 
                         prod.Add(generatorGid, TempProductionCached[generatorGid]);
+                        //
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddDerForecastDayAhead(generatorGid, TempProductionCached[generatorGid])).Wait();
+                        //
                         transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTempProductionCached(generatorGid)).Wait();
                         transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOn(generatorGid, prod)).Wait();
                         if (!TurnedOnGenerators.Contains(generatorGid))
@@ -90,11 +97,11 @@ namespace CECommandMicroservice
                     }
                 }
             }
-            //KAD SE URADI ClientSideCE RESITI OVU LINIJU
+            ////KAD SE URADI ClientSideCE RESITI OVU LINIJU
             CloudClient<ISendListOfGeneratorsToScada> transactionCoordinatorScada = new CloudClient<ISendListOfGeneratorsToScada>
             (
               serviceUri: new Uri("fabric:/SCADAApp/SCADACommandMicroservice"),
-              partitionKey: new ServicePartitionKey(0),
+              partitionKey: ServicePartitionKey.Singleton,
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "SCADACommandingMicroserviceListener"
             );

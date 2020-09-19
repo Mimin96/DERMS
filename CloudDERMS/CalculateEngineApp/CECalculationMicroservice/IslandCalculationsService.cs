@@ -19,7 +19,7 @@ namespace CECalculationMicroservice
             Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
-              serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+              serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
               partitionKey: new ServicePartitionKey(0),
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "CECacheServiceListener"
@@ -37,9 +37,18 @@ namespace CECalculationMicroservice
                     if (substation.Equipments.Contains(generatorGid))
                     {
                         prod[gid].Production -= prod[generatorGid].Production;
+                        //
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddDerForecastDayAhead(gid, prod[gid])).Wait();
+                        //
                         SubGeographicalRegion subgr = (SubGeographicalRegion)networkModel[substation.SubGeoReg];
                         prod[subgr.GlobalId].Production -= prod[generatorGid].Production;
+                        //
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddDerForecastDayAhead(subgr.GlobalId, prod[subgr.GlobalId])).Wait();
+                        //
                         prod[subgr.GeoReg].Production -= prod[generatorGid].Production;
+                        //
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddDerForecastDayAhead(subgr.GeoReg, prod[subgr.GeoReg])).Wait();
+                        //
 
                     }
                 }
