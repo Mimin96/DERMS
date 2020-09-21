@@ -23,7 +23,7 @@ namespace SCADACommandMicroservice
 
             CloudClient<IScadaCloudToScadaLocal> transactionCoordinator = new CloudClient<IScadaCloudToScadaLocal>
             (
-                serviceUri: new Uri($"fabric:/SCADAApp/SCADACacheMicroservice"),
+                serviceUri: new Uri("fabric:/SCADAApp/SCADACacheMicroservice"),
                 partitionKey: new ServicePartitionKey(0),
                 clientBinding: WcfUtility.CreateTcpClientBinding(),
                 listenerName: "SCADAComunicationMicroserviceListener"

@@ -637,6 +637,17 @@ namespace UI.ViewModel
         {
             // TREBA IMPLEMENTIRATI
             dERDashboardUserControl.ProductionFromGenerators.Value = ((DataToUI)parameter).Flexibility;
+            foreach (HourDataPoint hdp in ProductionDerForecastDayAhead[CurrentSelectedGid].Production.Hourly)
+            {
+                if (hdp.Time.Hour.Equals(DateTime.Now.Hour))
+                {
+                    float x = hdp.ActivePower;
+                    string temp = String.Format("{0:0.00}", x);
+                    double y = Double.Parse(temp);
+                    float z = (float)y;
+                    dERDashboardUserControl.ProductionFromGenerators.Value = y;
+                }
+            }
         }
 
         public void DERDashboardDerForecastDayAhead(object parameter)

@@ -541,8 +541,10 @@ namespace CECacheMicroservice
             using (var tx = stateManager.CreateTransaction())
             {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("ProductionCachedDictionary").Result;
-                    await dictionary.AddOrUpdateAsync(tx, gid, derForecastDayAhead, (key, value) => value = derForecastDayAhead);
-                    await tx.CommitAsync();
+                var dictionaryCopy = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("CopyOfProductionCachedDictionary").Result;
+                await dictionary.AddOrUpdateAsync(tx, gid, derForecastDayAhead, (key, value) => value = derForecastDayAhead);
+                await dictionaryCopy.AddOrUpdateAsync(tx, gid, derForecastDayAhead, (key, value) => value = derForecastDayAhead);
+                await tx.CommitAsync();
             }
 
             if (!isInitState)
@@ -623,17 +625,23 @@ namespace CECacheMicroservice
             {
                 IReliableDictionary<long, DerForecastDayAhead>  copyOfProductionCached = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("CopyOfProductionCachedDictionary").Result;
 
-                IAsyncEnumerable<KeyValuePair<long, DerForecastDayAhead>> copyOfProductionCachedEnumerable = copyOfProductionCached.CreateEnumerableAsync(tx).Result;
+                /*IAsyncEnumerable<KeyValuePair<long, DerForecastDayAhead>> copyOfProductionCachedEnumerable = copyOfProductionCached.CreateEnumerableAsync(tx).Result;
                 using (IAsyncEnumerator<KeyValuePair<long, DerForecastDayAhead>> copyOfProductionCachedEnumerator = copyOfProductionCachedEnumerable.GetAsyncEnumerator())
                 {
                     while (copyOfProductionCachedEnumerator.MoveNextAsync(CancellationToken.None).Result)
                     {
-                        if (copyOfProductionCachedFlexibility.ContainsKey(copyOfProductionCachedEnumerator.Current.Key))
-                        {
-                            await copyOfProductionCached.AddOrUpdateAsync(tx, copyOfProductionCachedEnumerator.Current.Key, copyOfProductionCachedFlexibility[copyOfProductionCachedEnumerator.Current.Key], (key, value) => value = copyOfProductionCachedFlexibility[copyOfProductionCachedEnumerator.Current.Key]);
-                        }
+                        await copyOfProductionCached.AddOrUpdateAsync(tx, copyOfProductionCachedEnumerator.Current.Key, copyOfProductionCachedFlexibility[copyOfProductionCachedEnumerator.Current.Key], (key, value) => value = copyOfProductionCachedFlexibility[copyOfProductionCachedEnumerator.Current.Key]);
                     }
                 }
+                */
+
+                foreach(DerForecastDayAhead der in copyOfProductionCachedFlexibility.Values)
+				{
+                    long gid = copyOfProductionCachedFlexibility.Where(x => x.Value.Equals(der)).FirstOrDefault().Key;
+                    await copyOfProductionCached.AddOrUpdateAsync(tx,gid,der,(key,value) => value = der);
+                }
+
+                await tx.CommitAsync();
             }
         }
         //Poziva se iz metode koja ne bi trebalo da stoji u cache-u/

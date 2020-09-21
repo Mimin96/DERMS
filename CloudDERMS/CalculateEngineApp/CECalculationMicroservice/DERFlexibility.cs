@@ -228,7 +228,7 @@ namespace CalculationEngineService
 		{
 			CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
 			(
-			  serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
+			  serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
 			  partitionKey: new ServicePartitionKey(0),
 			  clientBinding: WcfUtility.CreateTcpClientBinding(),
 			  listenerName: "CECacheServiceListener"
@@ -497,12 +497,17 @@ namespace CalculationEngineService
 
 			CloudClient<ISendListOfGeneratorsToScada> transactionCoordinatorScada = new CloudClient<ISendListOfGeneratorsToScada>
 			(
-			  serviceUri: new Uri("fabric:/CalculateEngineApp/CECommandMicroservice"),
-			  partitionKey: new ServicePartitionKey(0),
+			  serviceUri: new Uri("fabric:/SCADAApp/SCADACommandMicroservice"),
+			  partitionKey: ServicePartitionKey.Singleton,
 			  clientBinding: WcfUtility.CreateTcpClientBinding(),
 			  listenerName: "SCADACommandingMicroserviceListener"
 			);
-			await transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(listOfGeneratorsForScada));
+			try
+			{
+				await transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(listOfGeneratorsForScada));
+			}catch(AggregateException ex)
+			{
+			}
 
 			await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ApplyChangesOnProductionCached(listOfGeneratorsForScada));						
 		}

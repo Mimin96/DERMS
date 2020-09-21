@@ -121,7 +121,7 @@ namespace CECommandMicroservice
             CloudClient<IDERFlexibility> derFlexibility = new CloudClient<IDERFlexibility>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
-              partitionKey: new ServicePartitionKey(0), /*CJN*/
+              partitionKey: ServicePartitionKey.Singleton, /*CJN*/
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "DERFlexibilityListener"
             );

@@ -25,6 +25,7 @@
       <Endpoint Name="ConsumptionCalculatorEndpoint" />
       <Endpoint Name="ProductionCalculatorEndpoint" />
       <Endpoint Name="IslandCalculationsEndpoint" />
+      <Endpoint Name="DERFlexibilityEndpoint" />
     </Endpoints>
   </Resources>
 </ServiceManifest>
