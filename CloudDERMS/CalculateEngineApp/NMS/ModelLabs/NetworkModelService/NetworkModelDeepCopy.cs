@@ -45,7 +45,6 @@ namespace FTN.Services.NetworkModelService
 
                 await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Enlist("NMS"));
 
-                //ovde se salje model
                 DataForSendingToCEandSCADA();
                 networkModelTransfer.InitState = true;
 
@@ -130,9 +129,7 @@ namespace FTN.Services.NetworkModelService
 
         public UpdateResult Apply(Delta delta)
         {
-            //ovde
             counter++;
-
             lastDelta = delta;
             networkModelCopy = new NetworkModel(networkModel);
             UpdateResult updateResult = networkModel.ApplyDelta(delta);
@@ -182,8 +179,10 @@ namespace FTN.Services.NetworkModelService
                         insertCE[dmst].Add(key, container.Entities[key]);
                     }
                     //}
+
                     //ovde nije potrebno ovo zato sto smo sa insertom oradili sve, jer smo dodavanjem xml po xml odradili update(doslo je sve od jednom a ne xml po xml)
                     //update
+
                     //if (networkModel.update.Contains(key))
                     //{
                     //    if (!updateCE.ContainsKey(dmst))
@@ -240,6 +239,3 @@ namespace FTN.Services.NetworkModelService
 
     }
 }
-
-
-

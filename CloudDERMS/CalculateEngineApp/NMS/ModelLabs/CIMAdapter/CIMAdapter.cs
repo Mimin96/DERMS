@@ -116,6 +116,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 						{
 							valid = true;
 						}
+
 						log = modelBuildResult.Report.ToString();
 					}
 					else
@@ -132,6 +133,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 			{
 				Thread.CurrentThread.CurrentCulture = culture;
 			}
+
 			return valid;
 		}
 
