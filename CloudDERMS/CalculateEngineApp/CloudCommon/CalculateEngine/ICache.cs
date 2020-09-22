@@ -146,5 +146,7 @@ namespace CloudCommon.CalculateEngine
         Task AddDerForecast(DerForecastDayAhead derForecastDayAhead, long gid, bool isInitState);
         [OperationContract]
         Task<Dictionary<long, DerForecastDayAhead>> GetDerForecasts();
+        [OperationContract]
+        Task UpdateProductionCached(Dictionary<long, DerForecastDayAhead> prod);
     }
 }

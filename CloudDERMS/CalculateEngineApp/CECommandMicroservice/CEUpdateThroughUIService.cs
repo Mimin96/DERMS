@@ -597,7 +597,7 @@ namespace CalculationEngineService
                     }
                 }
                 prod[sub.GlobalId].Production = tempSubValue.Production;
-
+                
                 SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)networkModel[sub.SubGeoReg];
                 GeographicalRegion geographicalRegion = (GeographicalRegion)networkModel[subGeographicalRegion.GeoReg];
 
@@ -829,7 +829,7 @@ namespace CalculationEngineService
             {
                 transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToListOfGeneratorsForScada(kvp.Key, kvp.Value)).Wait();
             }
-
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateProductionCached(prod)).Wait();
             /*
              new ServiceInstanceListener((context) =>
                     new WcfCommunicationListener<ISendListOfGeneratorsToScada>(

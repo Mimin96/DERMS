@@ -96,7 +96,7 @@
             <Property id="GENERATOR_MINQ" value="0" />
             <Property id="GENERATOR_CONSIDERP" value="700" />
             <Property id="EQUIPMENT_CONTAINER" value="0x0000000affffffff" />
-            <Property id="GENERATOR_BREAKER" value="0x00000002ffffffff" />
+            <Property id="GENERATOR_BREAKER" value="0x00000002fffffffe" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>

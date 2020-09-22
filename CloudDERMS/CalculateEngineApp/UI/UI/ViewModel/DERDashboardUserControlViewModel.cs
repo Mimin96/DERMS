@@ -553,7 +553,14 @@ namespace UI.ViewModel
                     //    proxy = new CommunicationProxy();
                     //proxy.Open2();
                     energySourceOptimizedValue = 0;
-                    float x = uIClient.UpdateThroughUI(GidForOptimization).Result;
+                    try
+                    {
+                        float x = uIClient.UpdateThroughUI(GidForOptimization).Result;
+                    }
+					catch (Exception e)
+					{
+                        MessageBox.Show("BreakerControlThroughGISWindowViewModel: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                     energySourceOptimizedValue = CalculateDemand(GidForOptimization);
                     DisableOptimization(GidForOptimization);
                     //proxy.sendToCE.AllowOptimization(GidForOptimization);
@@ -633,22 +640,22 @@ namespace UI.ViewModel
                 value.Value = r.Next(0, 10);
             }
         }
-        public void DERDashboardFlexibility(object parameter)
-        {
-            // TREBA IMPLEMENTIRATI
-            dERDashboardUserControl.ProductionFromGenerators.Value = ((DataToUI)parameter).Flexibility;
-            foreach (HourDataPoint hdp in ProductionDerForecastDayAhead[CurrentSelectedGid].Production.Hourly)
-            {
-                if (hdp.Time.Hour.Equals(DateTime.Now.Hour))
-                {
-                    float x = hdp.ActivePower;
-                    string temp = String.Format("{0:0.00}", x);
-                    double y = Double.Parse(temp);
-                    float z = (float)y;
-                    dERDashboardUserControl.ProductionFromGenerators.Value = y;
-                }
-            }
-        }
+        //public void DERDashboardFlexibility(object parameter)
+        //{
+        //    // TREBA IMPLEMENTIRATI
+        //    dERDashboardUserControl.ProductionFromGenerators.Value = ((DataToUI)parameter).Flexibility;
+        //    foreach (HourDataPoint hdp in ProductionDerForecastDayAhead[CurrentSelectedGid].Production.Hourly)
+        //    {
+        //        if (hdp.Time.Hour.Equals(DateTime.Now.Hour))
+        //        {
+        //            float x = hdp.ActivePower;
+        //            string temp = String.Format("{0:0.00}", x);
+        //            double y = Double.Parse(temp);
+        //            float z = (float)y;
+        //            dERDashboardUserControl.ProductionFromGenerators.Value = y;
+        //        }
+        //    }
+        //}
 
         public void DERDashboardDerForecastDayAhead(object parameter)
         {

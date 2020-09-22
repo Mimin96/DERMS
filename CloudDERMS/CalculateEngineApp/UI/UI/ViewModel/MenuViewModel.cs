@@ -153,8 +153,8 @@ namespace UI.ViewModel
         {
             _dERDashboardFlexibility = parameter;
 
-            if (UserControlPresenter.GetType().Name == "DERDashboardUserControl")
-                ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).DERDashboardFlexibility(parameter);
+            //if (UserControlPresenter.GetType().Name == "DERDashboardUserControl")
+            //    ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).DERDashboardFlexibility(parameter);
         }
 
         public void DERDashboardDerForecastDayAhead(object parameter) 
@@ -278,8 +278,8 @@ namespace UI.ViewModel
                     UserControlPresenter = new DERDashboardUserControl();
                     ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
                     ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).NetworkModel = _networkModelTreeClass;
-                    if(_dERDashboardFlexibility != null)
-                        ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).DERDashboardFlexibility(_dERDashboardFlexibility);
+                    //if(_dERDashboardFlexibility != null)
+                    //    ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).DERDashboardFlexibility(_dERDashboardFlexibility);
                     ((DERDashboardUserControlViewModel)UserControlPresenter.DataContext).DERDashboardDerForecastDayAhead(_dERDashboardDerForecastDayAhead);
                     break;
                 case "NetworkModel":

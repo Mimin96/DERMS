@@ -644,6 +644,31 @@ namespace CECacheMicroservice
                 await tx.CommitAsync();
             }
         }
+        public async Task UpdateProductionCached(Dictionary<long, DerForecastDayAhead> prod)
+        {
+            using (var tx = stateManager.CreateTransaction())
+            {
+                IReliableDictionary<long, DerForecastDayAhead> ProductionCached = stateManager.GetOrAddAsync<IReliableDictionary<long, DerForecastDayAhead>>("ProductionCachedDictionary").Result;
+
+                /*IAsyncEnumerable<KeyValuePair<long, DerForecastDayAhead>> copyOfProductionCachedEnumerable = copyOfProductionCached.CreateEnumerableAsync(tx).Result;
+                using (IAsyncEnumerator<KeyValuePair<long, DerForecastDayAhead>> copyOfProductionCachedEnumerator = copyOfProductionCachedEnumerable.GetAsyncEnumerator())
+                {
+                    while (copyOfProductionCachedEnumerator.MoveNextAsync(CancellationToken.None).Result)
+                    {
+                        await copyOfProductionCached.AddOrUpdateAsync(tx, copyOfProductionCachedEnumerator.Current.Key, copyOfProductionCachedFlexibility[copyOfProductionCachedEnumerator.Current.Key], (key, value) => value = copyOfProductionCachedFlexibility[copyOfProductionCachedEnumerator.Current.Key]);
+                    }
+                }
+                */
+
+                foreach (DerForecastDayAhead der in prod.Values)
+                {
+                    long gid = prod.Where(x => x.Value.Equals(der)).FirstOrDefault().Key;
+                    await ProductionCached.AddOrUpdateAsync(tx, gid, der, (key, value) => value = der);
+                }
+
+                await tx.CommitAsync();
+            }
+        }
         //Poziva se iz metode koja ne bi trebalo da stoji u cache-u/
         public async Task ApplyChangesOnProductionCached(Dictionary<long, double> listOfGeneratorsForScada) // KAD STIGNE POTVRDA SA SKADE DA SU PROMENE IZVRSENE, POZIVAMO OVU METODU KAKO BI NOVI PRORACUNI PROIZVODNJE ZA 24h BILI PRIMENJENI NA CACHE
         {
@@ -1344,6 +1369,8 @@ namespace CECacheMicroservice
 
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("TurnedOnGeneratorsCachedDictionary").Result;
                 List<long> lista = dictionary.TryGetValueAsync(tx, 0).Result.Value;
+                if (lista == null)
+                    lista = new List<long>();
                 lista.Add(param);
                 await dictionary.AddOrUpdateAsync(tx, 0, lista, (key, value) => value = lista);
                 await tx.CommitAsync();
@@ -1355,6 +1382,8 @@ namespace CECacheMicroservice
             {
                 var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<int, List<long>>>("TurnedOnGeneratorsCachedDictionary").Result;
                 List<long> lista = dictionary.TryGetValueAsync(tx, 0).Result.Value;
+                if (lista == null)
+                    lista = new List<long>();
                 lista.Remove(param);
                 await dictionary.AddOrUpdateAsync(tx, 0, lista, (key, value) => value = lista);
                 await tx.CommitAsync();

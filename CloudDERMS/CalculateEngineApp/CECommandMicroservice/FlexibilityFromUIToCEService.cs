@@ -53,15 +53,27 @@ namespace CECommandMicroservice
 
             tempTurnedOnGen = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetTurnedOnGenerators()).Result;
             tempTurnedOffGen = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetTurnedOffGenerators()).Result;
-            if(tempTurnedOffGen.Count >0)
-                TurnedOffGenerators = tempTurnedOffGen[0];/*Ovde pukne*/
-            if (tempTurnedOnGen.Count > 0)
-                TurnedOnGenerators = tempTurnedOnGen[0];
+            
             if (NormalOpen)
             {
                 foreach (long generatorGid in breaker.Generators)
                 {
-                    if (!TurnedOffGenerators.Contains(generatorGid))
+                    foreach (KeyValuePair<int, List<long>> tempOff in tempTurnedOffGen) { 
+                        if (!tempOff.Value.Contains(generatorGid))
+                        {
+                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOffGenerators(generatorGid)).Wait();
+                            transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOff(generatorGid, prod)).Wait();
+                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTempProductionCached(generatorGid, prod[generatorGid])).Wait();
+                            prod.Remove(generatorGid);
+                            //
+                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromDerForecastDayAhead(generatorGid)).Wait();
+                            ////
+                            if (tempTurnedOnGen[0].Contains(generatorGid))
+                                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(generatorGid)).Wait();
+                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait(); // Ovde pubsub zezne
+                        }
+                    }
+                    if (tempTurnedOffGen.Count == 0)
                     {
                         transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOffGenerators(generatorGid)).Wait();
                         transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOff(generatorGid, prod)).Wait();
@@ -70,30 +82,55 @@ namespace CECommandMicroservice
                         //
                         transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromDerForecastDayAhead(generatorGid)).Wait();
                         ////
-                        if (TurnedOnGenerators.Contains(generatorGid))
-                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(generatorGid)).Wait();
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait(); // Ovde pubsub zezne
+                        if(tempTurnedOnGen.Count != 0)
+						{
+                            foreach (KeyValuePair<int, List<long>> tempOn in tempTurnedOnGen)
+                            {
+                                if (tempOn.Value.Contains(generatorGid))
+                                {
+                                    transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(generatorGid)).Wait();
+                                }
+                            }
+
+                        }  
+                        //transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait(); // Ovde pubsub zezne
                     }
                 }
+                
             }
             else
             {
 
                 foreach (long generatorGid in breaker.Generators)
                 {
-                    if (TurnedOffGenerators.Contains(generatorGid))
+                    foreach (KeyValuePair<int, List<long>> tempOff in tempTurnedOffGen)
                     {
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOffGenerators(generatorGid)).Wait();
+                        if (tempOff.Value.Contains(generatorGid))
+                        {
+                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOffGenerators(generatorGid)).Wait();
 
-                        prod.Add(generatorGid, TempProductionCached[generatorGid]);
-                        //
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddDerForecastDayAhead(generatorGid, TempProductionCached[generatorGid])).Wait();
-                        //
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTempProductionCached(generatorGid)).Wait();
-                        transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOn(generatorGid, prod)).Wait();
-                        if (!TurnedOnGenerators.Contains(generatorGid))
-                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOnGenerators(generatorGid)).Wait();
-                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait();
+                            prod.Add(generatorGid, TempProductionCached[generatorGid]);
+                            //
+                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddDerForecastDayAhead(generatorGid, TempProductionCached[generatorGid])).Wait();
+                            //
+                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTempProductionCached(generatorGid)).Wait();
+                            transactionCoordinatorIsland.InvokeWithRetryAsync(client => client.Channel.GeneratorOn(generatorGid, prod)).Wait();
+                            if (tempTurnedOnGen.Count == 0)
+                            {
+                                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOnGenerators(generatorGid)).Wait();
+                            }
+							else { 
+                                foreach (KeyValuePair<int, List<long>> tempOn in tempTurnedOnGen)
+                                {
+                                    if (!tempOn.Value.Contains(generatorGid))
+                                    {
+                                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToTurnedOnGenerators(generatorGid)).Wait();
+                                    }
+                                }
+
+                            }
+                            //transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait();
+                        }
                     }
                 }
             }
@@ -106,6 +143,7 @@ namespace CECommandMicroservice
               listenerName: "SCADACommandingMicroserviceListener"
             );
             transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(keyValues)).Wait();
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait();
 
             //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(keyValues);
         }
