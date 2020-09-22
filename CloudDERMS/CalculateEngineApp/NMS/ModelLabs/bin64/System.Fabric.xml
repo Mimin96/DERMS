@@ -17056,6 +17056,17 @@
             <para>See <see cref="P:System.Fabric.Description.ServiceDescription.DefaultMoveCost" /></para>
             </remarks>
         </member>
+        <member name="P:System.Fabric.Description.ServiceUpdateDescription.ServiceDnsName">
+            <summary>
+            <para>Gets or sets DNS name for the service.</para>
+            </summary>
+            <value>
+            <para>Service DNS name</para>
+            </value>
+            <remarks>
+            <para>See <see cref="P:System.Fabric.Description.ServiceDescription.ServiceDnsName" /></para>
+            </remarks>
+        </member>
         <member name="P:System.Fabric.Description.ServiceUpdateDescription.ScalingPolicies">
             <summary>
             <para>

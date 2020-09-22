@@ -188,3 +188,11 @@ C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csproj.CopyComplete
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.dll
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.pdb
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.Services.NetworkModelService.dll.config
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.Services.NetworkModelService.dll
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.Services.NetworkModelService.pdb
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csprojAssemblyReference.cache
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csproj.CoreCompileInputs.cache
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\NetworkModelService.csproj.CopyComplete
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.dll
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\obj\x64\Debug\FTN.Services.NetworkModelService.pdb

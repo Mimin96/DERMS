@@ -210,3 +210,13 @@ C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.csproj.CopyComplete
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.exe
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.pdb
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Microsoft.Azure.Documents.ServiceInterop.dll
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Cosmos.CRTCompat.dll
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\NMSTestClient.exe.config
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\NMSTestClient.exe
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\NMSTestClient.pdb
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.csprojAssemblyReference.cache
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.csproj.CoreCompileInputs.cache
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.csproj.CopyComplete
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.exe
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.pdb

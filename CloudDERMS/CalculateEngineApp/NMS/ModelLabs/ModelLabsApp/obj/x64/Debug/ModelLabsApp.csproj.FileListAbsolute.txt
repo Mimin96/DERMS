@@ -259,3 +259,16 @@ C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csproj.CopyComplete
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.exe
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.pdb
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Microsoft.Azure.Documents.ServiceInterop.dll
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Cosmos.CRTCompat.dll
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\ModelLabsApp.exe.config
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\ModelLabsApp.exe
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\ModelLabsApp.pdb
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csprojAssemblyReference.cache
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.ModelLabsAppForm.resources
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.Properties.Resources.resources
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csproj.GenerateResource.cache
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csproj.CoreCompileInputs.cache
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csproj.CopyComplete
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.exe
+E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.pdb

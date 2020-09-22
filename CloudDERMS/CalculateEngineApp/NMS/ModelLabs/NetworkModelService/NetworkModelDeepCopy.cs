@@ -18,6 +18,7 @@ namespace FTN.Services.NetworkModelService
         NetworkModel networkModel = null;
         NetworkModel networkModelCopy = null;
         Delta lastDelta = null;
+        int counter = 0;
 
         NetworkModelTransfer networkModelTransfer;
         SignalsTransfer signalsTransfer;
@@ -32,40 +33,45 @@ namespace FTN.Services.NetworkModelService
             bool result = true;
             bool result1 = true;
 
-            CloudClient<ITransactionListing> transactionCoordinator = new CloudClient<ITransactionListing>
-            (
-                serviceUri: new Uri($"fabric:/TransactionCoordinatorApp/TransactionCoordinatorMicroservice"),
-                partitionKey: new ServicePartitionKey(0),
-                clientBinding: WcfUtility.CreateTcpClientBinding(),
-                listenerName: "TMNMSListener"
-            );
+            if (counter > 2)
+            {
+                CloudClient<ITransactionListing> transactionCoordinator = new CloudClient<ITransactionListing>
+                (
+                    serviceUri: new Uri($"fabric:/TransactionCoordinatorApp/TransactionCoordinatorMicroservice"),
+                    partitionKey: new ServicePartitionKey(0),
+                    clientBinding: WcfUtility.CreateTcpClientBinding(),
+                    listenerName: "TMNMSListener"
+                );
 
-            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Enlist("NMS"));
+                await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.Enlist("NMS"));
 
-            DataForSendingToCEandSCADA();
-            networkModelTransfer.InitState = true;
+                //ovde se salje model
+                DataForSendingToCEandSCADA();
+                networkModelTransfer.InitState = true;
 
-            CloudClient<ISendDataFromNMSToCE> nmsToCE = new CloudClient<ISendDataFromNMSToCE>
-            (
-                serviceUri: new Uri($"fabric:/CalculateEngineApp/CECacheMicroservice"),
-                partitionKey: new ServicePartitionKey(0),
-                clientBinding: WcfUtility.CreateTcpClientBinding(),
-                listenerName: "CESendDataFromNMSListener"
-            );
+                CloudClient<ISendDataFromNMSToCE> nmsToCE = new CloudClient<ISendDataFromNMSToCE>
+                (
+                    serviceUri: new Uri($"fabric:/CalculateEngineApp/CECacheMicroservice"),
+                    partitionKey: new ServicePartitionKey(0),
+                    clientBinding: WcfUtility.CreateTcpClientBinding(),
+                    listenerName: "CESendDataFromNMSListener"
+                );
 
-            result = await nmsToCE.InvokeWithRetryAsync(client => client.Channel.CheckForTM(networkModelTransfer));
+                result = await nmsToCE.InvokeWithRetryAsync(client => client.Channel.CheckForTM(networkModelTransfer));
 
-            CloudClient<ISendDataFromNMSToScada> nmsToScada = new CloudClient<ISendDataFromNMSToScada>
-            (
-                serviceUri: new Uri($"fabric:/SCADAApp/SCADACacheMicroservice"),
-                partitionKey: new ServicePartitionKey(0),
-                clientBinding: WcfUtility.CreateTcpClientBinding(),
-                listenerName: "SCADACacheMicroserviceListener"
-            );
+                CloudClient<ISendDataFromNMSToScada> nmsToScada = new CloudClient<ISendDataFromNMSToScada>
+                (
+                    serviceUri: new Uri($"fabric:/SCADAApp/SCADACacheMicroservice"),
+                    partitionKey: new ServicePartitionKey(0),
+                    clientBinding: WcfUtility.CreateTcpClientBinding(),
+                    listenerName: "SCADACacheMicroserviceListener"
+                );
 
-            result1 = await nmsToScada.InvokeWithRetryAsync(client => client.Channel.CheckForTM(signalsTransfer));
+                result1 = await nmsToScada.InvokeWithRetryAsync(client => client.Channel.CheckForTM(signalsTransfer));
+
+                await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.FinishList(result && result1));
+            }
             
-            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.FinishList(result && result1));
         }
 
         #region Find
@@ -124,6 +130,8 @@ namespace FTN.Services.NetworkModelService
 
         public UpdateResult Apply(Delta delta)
         {
+            //ovde
+            counter++;
 
             lastDelta = delta;
             networkModelCopy = new NetworkModel(networkModel);
@@ -156,62 +164,62 @@ namespace FTN.Services.NetworkModelService
                 foreach (long key in container.Entities.Keys)
                 {
                     //insert
-                    if (networkModel.insert.Contains(key))
+                    //if (networkModel.insert.Contains(key))
+                    //{
+                    if (!insertCE.ContainsKey(dmst))
                     {
-                        if (!insertCE.ContainsKey(dmst))
-                        {
-                            Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
-                            helper.Add(key, container.Entities[key]);
-                            insertCE[dmst] = helper;
-                            //if (dmst == DMSType.ANALOG || dmst == DMSType.DISCRETE)
-                            if (dmst == DMSType.ANALOG)
-                                insertSCADA[1] = helper;
-                            else if (dmst == DMSType.DISCRETE)
-                                insertSCADA[0] = helper;
-                        }
-                        else
-                        {
-                            insertCE[dmst].Add(key, container.Entities[key]);
-                        }
+                        Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
+                        helper.Add(key, container.Entities[key]);
+                        insertCE[dmst] = helper;
+                        //if (dmst == DMSType.ANALOG || dmst == DMSType.DISCRETE)
+                        if (dmst == DMSType.ANALOG)
+                            insertSCADA[1] = helper;
+                        else if (dmst == DMSType.DISCRETE)
+                            insertSCADA[0] = helper;
                     }
-
+                    else
+                    {
+                        insertCE[dmst].Add(key, container.Entities[key]);
+                    }
+                    //}
+                    //ovde nije potrebno ovo zato sto smo sa insertom oradili sve, jer smo dodavanjem xml po xml odradili update(doslo je sve od jednom a ne xml po xml)
                     //update
-                    if (networkModel.update.Contains(key))
-                    {
-                        if (!updateCE.ContainsKey(dmst))
-                        {
-                            Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
-                            helper.Add(key, container.Entities[key]);
-                            updateCE[dmst] = helper;
-                            if (dmst == DMSType.ANALOG)
-                                updateSCADA[1] = helper;
-                            else if (dmst == DMSType.DISCRETE)
-                                updateSCADA[0] = helper;
-                        }
-                        else
-                        {
-                            updateCE[dmst].Add(key, container.Entities[key]);
-                        }
-                    }
+                    //if (networkModel.update.Contains(key))
+                    //{
+                    //    if (!updateCE.ContainsKey(dmst))
+                    //    {
+                    //        Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
+                    //        helper.Add(key, container.Entities[key]);
+                    //        updateCE[dmst] = helper;
+                    //        if (dmst == DMSType.ANALOG)
+                    //            updateSCADA[1] = helper;
+                    //        else if (dmst == DMSType.DISCRETE)
+                    //            updateSCADA[0] = helper;
+                    //    }
+                    //    else
+                    //    {
+                    //        updateCE[dmst].Add(key, container.Entities[key]);
+                    //    }
+                    //}
 
-                    //delete
-                    if (networkModel.delete.Contains(key))
-                    {
-                        if (!deleteCE.ContainsKey(dmst))
-                        {
-                            Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
-                            helper.Add(key, container.Entities[key]);
-                            deleteCE[dmst] = helper;
-                            if (dmst == DMSType.ANALOG)
-                                deleteSCADA[1] = helper;
-                            else if (dmst == DMSType.DISCRETE)
-                                deleteSCADA[0] = helper;
-                        }
-                        else
-                        {
-                            deleteCE[dmst].Add(key, container.Entities[key]);
-                        }
-                    }
+                    ////delete
+                    //if (networkModel.delete.Contains(key))
+                    //{
+                    //    if (!deleteCE.ContainsKey(dmst))
+                    //    {
+                    //        Dictionary<long, IdentifiedObject> helper = new Dictionary<long, IdentifiedObject>();
+                    //        helper.Add(key, container.Entities[key]);
+                    //        deleteCE[dmst] = helper;
+                    //        if (dmst == DMSType.ANALOG)
+                    //            deleteSCADA[1] = helper;
+                    //        else if (dmst == DMSType.DISCRETE)
+                    //            deleteSCADA[0] = helper;
+                    //    }
+                    //    else
+                    //    {
+                    //        deleteCE[dmst].Add(key, container.Entities[key]);
+                    //    }
+                    //}
                 }
             }
 

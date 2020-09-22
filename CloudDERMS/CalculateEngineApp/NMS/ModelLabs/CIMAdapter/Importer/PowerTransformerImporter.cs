@@ -177,6 +177,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                         rd = CreatePointResourceDescription(cimPoint);
                         if (rd != null)
                         {
+
                             delta.AddDeltaOperation(DeltaOpType.Insert, rd, true);
                             report.Report.Append("Point ID = ").Append(cimPoint.ID).Append(" SUCCESSFULLY converted to GID = ").AppendLine(rd.Id.ToString());
                         }
