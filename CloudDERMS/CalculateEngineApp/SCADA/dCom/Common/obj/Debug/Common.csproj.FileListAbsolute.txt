@@ -650,3 +650,10 @@ E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\D
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.dll
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\Common.dll
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\Common.pdb
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.dll
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.pdb

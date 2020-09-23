@@ -195,5 +195,28 @@ namespace CloudCommon.SCADA.AzureStorage
 
             return entities;
         }
+
+        public static List<EventStorage> GetAllEventStorageItems(string connectionString, string tableName)
+        {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+
+            // Create the table client.
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            // Create the CloudTable object that represents the "people" table.
+            CloudTable table = tableClient.GetTableReference(tableName);
+
+            TableContinuationToken token = null;
+            List<EventStorage> entities = new List<EventStorage>();
+
+            do
+            {
+                var queryResult = table.ExecuteQuerySegmented(new TableQuery<EventStorage>(), token);
+                entities.AddRange(queryResult.Results);
+                token = queryResult.ContinuationToken;
+            } while (token != null);
+
+            return entities;
+        }
     }
 }

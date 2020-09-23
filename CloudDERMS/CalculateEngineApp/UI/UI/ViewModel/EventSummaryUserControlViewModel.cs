@@ -11,8 +11,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using UI.Communication;
 using UI.Model;
 using UI.Resources;
+using UI.Resources.MediatorPattern;
 
 namespace UI.ViewModel
 {
@@ -26,12 +28,13 @@ namespace UI.ViewModel
         private ObservableCollection<Event> _events;
         private ObservableCollection<Event> _allEvents;
        
-        List<Event> listOfEvents = new List<Event>();
-        EventsLogger events = new EventsLogger();
+        //List<Event> listOfEvents = new List<Event>();
+        //EventsLogger events = new EventsLogger();
         #endregion
 
         public EventSummaryUserControlViewModel()
         {
+            Mediator.Register("Events", GetEvents);
             EventsSummaryFilter = new LoggesSummaryFilter();
             FilterComponent = new List<string>() { "", Enums.Component.UI.ToString(), Enums.Component.SCADA.ToString(), Enums.Component.NMS.ToString(), Enums.Component.TransactionCoordinator.ToString(), Enums.Component.CalculationEngine.ToString() };
             FilterVisibility = Visibility.Collapsed;
@@ -110,16 +113,20 @@ namespace UI.ViewModel
         #endregion
 
         #region Private Method
+        private void GetEvents(object parameter)
+        {
+            Event eventt = parameter as Event;
+
+            if(eventt != null) 
+            {
+                _allEvents.Add(eventt);
+                Events = new ObservableCollection<Event>(_allEvents);
+            }
+        }
         private void ShowCommanding()
         {
-            //_allEvents = new ObservableCollection<Event>();
-            //_allEvents.Add(new Event("dasdd", Enums.Component.SCADA, DateTime.Now));
-            //_allEvents.Add(new Event("dasdd", Enums.Component.SCADA, DateTime.Now.AddDays(7)));
-            //_allEvents.Add(new Event("dasdd", Enums.Component.SCADA, DateTime.Now));
-            //_allEvents.Add(new Event("sdsdfg", Enums.Component.UI, DateTime.Now));
-            //_allEvents.Add(new Event("dasdd", Enums.Component.SCADA, DateTime.Now));
-            //_allEvents.Add(new Event("ggfgfg", Enums.Component.NMS, DateTime.Now));
-            _allEvents = new ObservableCollection<Event>(events.ReadFromFile());
+            UIClientEvents uIClientEvents = new UIClientEvents("GetEventsEndpoint");
+            _allEvents = new ObservableCollection<Event>(uIClientEvents.GetEvents().Result);
 
             Events = new ObservableCollection<Event>(_allEvents);
         }

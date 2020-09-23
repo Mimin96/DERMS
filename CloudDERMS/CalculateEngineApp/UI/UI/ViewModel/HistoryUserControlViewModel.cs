@@ -16,6 +16,7 @@ using DERMSCommon.UIModel;
 using DERMSCommon.SCADACommon;
 using DERMSCommon.UIModel.ThreeViewModel;
 using CloudCommon.SCADA.AzureStorage.Entities;
+using UI.Communication;
 
 namespace UI.ViewModel
 {
@@ -36,9 +37,9 @@ namespace UI.ViewModel
         private string _selectedMesec;
         private string _selectedGodina;
         private string _selectedDan;
-        private ObservableCollection<DayItem> _itemsDay;
-        private ObservableCollection<MonthItem> _itemsMonth;
-        private ObservableCollection<YearItem> _itemsYear;
+        private ObservableCollection<DayItemUI> _itemsDay;
+        private ObservableCollection<MonthItemUI> _itemsMonth;
+        private ObservableCollection<YearItemUI> _itemsYear;
 
         #endregion
 
@@ -51,9 +52,9 @@ namespace UI.ViewModel
             Period = new List<string>() { "Day", "Month", "Year" };
             Mesec = new List<string>() { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
             Godina = new List<string>() { "2020", "2019", "2018", "2017", "2016", "2015" };
-            _itemsDay = new ObservableCollection<DayItem>();
-            _itemsMonth = new ObservableCollection<MonthItem>();
-            _itemsYear = new ObservableCollection<YearItem>();
+            _itemsDay = new ObservableCollection<DayItemUI>();
+            _itemsMonth = new ObservableCollection<MonthItemUI>();
+            _itemsYear = new ObservableCollection<YearItemUI>();
             SelectedPeriod = Period[0];
             IsDan = Visibility.Visible;
             _chartValues = new ChartValues<double>();
@@ -255,9 +256,9 @@ namespace UI.ViewModel
         }
 
 
-        public ObservableCollection<DayItem> ItemsDay { get => _itemsDay; set { _itemsDay = value; OnPropertyChanged("ItemsDay"); } }
-        public ObservableCollection<MonthItem> ItemsMonth { get => _itemsMonth; set { _itemsMonth = value; OnPropertyChanged("ItemsMonth"); } }
-        public ObservableCollection<YearItem> ItemsYear { get => _itemsYear; set { _itemsYear = value; OnPropertyChanged("ItemsYear"); } }
+        public ObservableCollection<DayItemUI> ItemsDay { get => _itemsDay; set { _itemsDay = value; OnPropertyChanged("ItemsDay"); } }
+        public ObservableCollection<MonthItemUI> ItemsMonth { get => _itemsMonth; set { _itemsMonth = value; OnPropertyChanged("ItemsMonth"); } }
+        public ObservableCollection<YearItemUI> ItemsYear { get => _itemsYear; set { _itemsYear = value; OnPropertyChanged("ItemsYear"); } }
         #endregion
 
         #region TreeView Commands Execute
@@ -375,150 +376,6 @@ namespace UI.ViewModel
 
         }
 
-        private Dictionary<Tuple<long, DateTime>, DayItem> ReadFromDayTable(string connectionString)
-        {
-            //Tuple<long, DateTime> key = null;
-            //Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.DayItem> dayItemsData = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.DayItem>();
-            //using (System.Data.SqlClient.SqlConnection _con = new System.Data.SqlClient.SqlConnection(connectionString))
-            //{
-
-            //    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SELECT Timestamp, Gid, E, PMax, PMin, PAvg FROM dbo.Day", _con))
-            //    {
-            //        _con.Open();
-            //        using (System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader())
-            //        {
-            //            // Check is the reader has any rows at all before starting to read.
-            //            if (reader.HasRows)
-            //            {
-            //                // Read advances to the next row.
-            //                while (reader.Read())
-            //                {
-            //                    DERMSCommon.SCADACommon.DayItem c = new DERMSCommon.SCADACommon.DayItem();
-            //                    // To avoid unexpected bugs access columns by name.
-            //                    try
-            //                    {
-            //                        c.E = reader.GetDouble(reader.GetOrdinal("E"));
-            //                        c.PAvg = reader.GetDouble(reader.GetOrdinal("PAvg"));
-            //                        c.PMax = reader.GetDouble(reader.GetOrdinal("PMax"));
-            //                        c.PMin = reader.GetDouble(reader.GetOrdinal("PMin"));
-            //                        c.Timestamp = reader.GetDateTime(reader.GetOrdinal("Timestamp"));
-            //                        c.Gid = reader.GetInt64(reader.GetOrdinal("Gid"));
-            //                        //c.P = reader.GetDouble(reader.GetOrdinal("P"));
-            //                        key = new Tuple<long, DateTime>(c.Gid, c.Timestamp);
-
-            //                        dayItemsData.Add(key, c);
-            //                    }
-            //                    catch (Exception e)
-            //                    { }
-            //                }
-            //            }
-            //        }
-
-            //        _con.Close();
-            //    }
-            //}
-
-            //foreach (var d in dayItemsData)
-            //    _itemsDay.Add(d.Value);
-            return null;
-        }
-
-        private Dictionary<Tuple<long, DateTime>, MonthItem> ReadFromMonthTable(string connectionString)
-        {
-            //Tuple<long, DateTime> key = null;
-            //Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.MonthItem> monthItemsData = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.MonthItem>();
-            //using (System.Data.SqlClient.SqlConnection _con = new System.Data.SqlClient.SqlConnection(connectionString))
-            //{
-
-            //    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SELECT Timestamp, Gid, E, PMax, PMin, PAvg FROM dbo.Month", _con))
-            //    {
-            //        _con.Open();
-            //        using (System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader())
-            //        {
-            //            // Check is the reader has any rows at all before starting to read.
-            //            if (reader.HasRows)
-            //            {
-            //                // Read advances to the next row.
-            //                while (reader.Read())
-            //                {
-            //                    DERMSCommon.SCADACommon.MonthItem c = new DERMSCommon.SCADACommon.MonthItem();
-            //                    // To avoid unexpected bugs access columns by name.
-            //                    try
-            //                    {
-            //                        c.E = reader.GetDouble(reader.GetOrdinal("E"));
-            //                        c.PAvg = reader.GetDouble(reader.GetOrdinal("PAvg"));
-            //                        c.PMax = reader.GetDouble(reader.GetOrdinal("PMax"));
-            //                        c.PMin = reader.GetDouble(reader.GetOrdinal("PMin"));
-            //                        c.Timestamp = reader.GetDateTime(reader.GetOrdinal("Timestamp"));
-            //                        c.Gid = reader.GetInt64(reader.GetOrdinal("Gid"));
-            //                        //c.P = reader.GetDouble(reader.GetOrdinal("P"));
-            //                        key = new Tuple<long, DateTime>(c.Gid, c.Timestamp);
-
-            //                        monthItemsData.Add(key, c);
-            //                    }
-            //                    catch (Exception e)
-            //                    { }
-            //                }
-            //            }
-            //        }
-
-            //        _con.Close();
-            //    }
-            //}
-
-            //foreach (var d in monthItemsData)
-            //    _itemsMonth.Add(d.Value);
-            return null;
-        }
-
-        private Dictionary<Tuple<long, DateTime>, YearItem> ReadFromYearTable(string connectionString)
-        {
-            //Tuple<long, DateTime> key = null;
-            //Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.YearItem> yearItemsData = new Dictionary<Tuple<long, DateTime>, DERMSCommon.SCADACommon.YearItem>();
-            //using (System.Data.SqlClient.SqlConnection _con = new System.Data.SqlClient.SqlConnection(connectionString))
-            //{
-
-            //    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SELECT Timestamp, Gid, E, PMax, PMin, PAvg FROM dbo.Year", _con))
-            //    {
-            //        _con.Open();
-            //        using (System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader())
-            //        {
-            //            // Check is the reader has any rows at all before starting to read.
-            //            if (reader.HasRows)
-            //            {
-            //                // Read advances to the next row.
-            //                while (reader.Read())
-            //                {
-            //                    DERMSCommon.SCADACommon.YearItem c = new DERMSCommon.SCADACommon.YearItem();
-            //                    // To avoid unexpected bugs access columns by name.
-            //                    try
-            //                    {
-            //                        c.E = reader.GetDouble(reader.GetOrdinal("E"));
-            //                        c.PAvg = reader.GetDouble(reader.GetOrdinal("PAvg"));
-            //                        c.PMax = reader.GetDouble(reader.GetOrdinal("PMax"));
-            //                        c.PMin = reader.GetDouble(reader.GetOrdinal("PMin"));
-            //                        c.Timestamp = reader.GetDateTime(reader.GetOrdinal("Timestamp"));
-            //                        c.Gid = reader.GetInt64(reader.GetOrdinal("Gid"));
-            //                        //c.P = reader.GetDouble(reader.GetOrdinal("P"));
-            //                        key = new Tuple<long, DateTime>(c.Gid, c.Timestamp);
-
-            //                        yearItemsData.Add(key, c);
-            //                    }
-            //                    catch (Exception e)
-            //                    { }
-            //                }
-            //            }
-            //        }
-
-            //        _con.Close();
-            //    }
-            //}
-
-            //foreach (var d in yearItemsData)
-            //    _itemsYear.Add(d.Value);
-            return null;
-        }
-
         private void ApplyFilter(object obj)
         {
             if (_selectedGID != 0)
@@ -532,11 +389,11 @@ namespace UI.ViewModel
                         return;
                     }
 
-                    string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SCADA;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                    UIClientHistory uIClient = new UIClientHistory("GetHistoryEndpoint");
+                    _itemsDay = new ObservableCollection<DayItemUI>(uIClient.GetDayItems());
+                    _itemsMonth = new ObservableCollection<MonthItemUI>(uIClient.GetMonthItems());
+                    _itemsYear = new ObservableCollection<YearItemUI>(uIClient.GetYearItems());
 
-                    ReadFromDayTable(connectionString);
-                    ReadFromMonthTable(connectionString);
-                    ReadFromYearTable(connectionString);
                     for (int j = 0; j <= 24; j++)
                         _chartValues[j] = -100.0;
                     for (int j = 0; j <= 31; j++)
@@ -551,9 +408,9 @@ namespace UI.ViewModel
                     double min = Double.MaxValue;
                     double max = Double.MinValue;
 
-                    List<DayItem> listDayItems = new List<DayItem>();
-                    List<MonthItem> listMonthItems = new List<MonthItem>();
-                    List<YearItem> listYearItems = new List<YearItem>();
+                    List<DayItemUI> listDayItems = new List<DayItemUI>();
+                    List<MonthItemUI> listMonthItems = new List<MonthItemUI>();
+                    List<YearItemUI> listYearItems = new List<YearItemUI>();
 
                     foreach (var i in _itemsDay)
                     {

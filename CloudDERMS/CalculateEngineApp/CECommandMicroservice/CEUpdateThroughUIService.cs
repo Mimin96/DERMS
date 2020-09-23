@@ -1,6 +1,8 @@
 ﻿using CalculationEngineServiceCommon;
 using CloudCommon.CalculateEngine;
 using CloudCommon.CalculateEngine.Communication;
+using CloudCommon.SCADA;
+using DERMSCommon;
 using DERMSCommon.DataModel.Core;
 using DERMSCommon.NMSCommuication;
 using DERMSCommon.SCADACommon;
@@ -22,6 +24,17 @@ namespace CalculationEngineService
         public async Task<float> UpdateThroughUI(long data)
         {
             float energyFromSource = PopulateBalance(data).Result;
+
+            CloudClient<IEvetnsDatabase> transactionCoordinator = new CloudClient<IEvetnsDatabase>
+            (
+                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0), /*CJN*/
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "SetEventsToDatabaseListener"
+            );
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SetEvent(new Event("Automatic optimization is executed. ", Enums.Component.CalculationEngine, DateTime.Now))).Wait();
+            
+
             return energyFromSource;
         }
 

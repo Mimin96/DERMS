@@ -235,7 +235,9 @@
     <Compile Include="Communication\SendNetworkModelToUI.cs" />
     <Compile Include="Communication\SendSCADADataToUI.cs" />
     <Compile Include="Communication\UIClientCEUpdateThorughUI.cs" />
+    <Compile Include="Communication\UIClientEvents.cs" />
     <Compile Include="Communication\UIClientFlexibilityFromUIToCE.cs" />
+    <Compile Include="Communication\UIClientHistory.cs" />
     <Compile Include="Model\ComboData.cs" />
     <Compile Include="Model\LoggesSummaryFilter.cs" />
     <Compile Include="Model\NetworkModelViewClass.cs" />

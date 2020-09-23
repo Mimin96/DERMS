@@ -246,10 +246,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCADA\AzureStorage\AzureTableStorage.cs" />
     <Compile Include="SCADA\AzureStorage\Entities\CollectItem.cs" />
+    <Compile Include="SCADA\AzureStorage\Entities\CollectItemUI.cs" />
     <Compile Include="SCADA\AzureStorage\Entities\DayItem.cs" />
+    <Compile Include="SCADA\AzureStorage\Entities\DayItemUI.cs" />
+    <Compile Include="SCADA\AzureStorage\Entities\EventStorage.cs" />
     <Compile Include="SCADA\AzureStorage\Entities\MonthItem.cs" />
+    <Compile Include="SCADA\AzureStorage\Entities\MonthItemUI.cs" />
     <Compile Include="SCADA\AzureStorage\Entities\YearItem.cs" />
+    <Compile Include="SCADA\AzureStorage\Entities\YearItemUI.cs" />
     <Compile Include="SCADA\AzureStorage\HistoryDataProcessing.cs" />
+    <Compile Include="SCADA\IEvetnsDatabase.cs" />
     <Compile Include="SCADA\IHistoryDatabase.cs" />
   </ItemGroup>
   <ItemGroup>

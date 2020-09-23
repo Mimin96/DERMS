@@ -59,12 +59,12 @@ namespace dCom.ViewModel
                   );
                 transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.ReceiveFromScada(datapoints)).Wait();
 
-                //ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
+                ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
 
-                //lock (datapoints)
-                //{
-                //    sCADAClient.SetDatabaseData(datapoints).Wait();
-                //}
+                lock ((SetDatabaseDataObjectLock))
+                {
+                    sCADAClient.SetDatabaseData(datapoints).Wait();
+                }
             }
 
         }

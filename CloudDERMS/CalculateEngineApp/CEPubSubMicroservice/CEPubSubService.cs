@@ -116,6 +116,21 @@ namespace CEPubSubMicroservice
 			}
 		}
 
+		private bool RetrySendEvent(ServerSideProxy proxy, Event @event)
+		{
+			proxy.Abort();
+			proxy.Connect();
+			try
+			{
+				proxy.Proxy.GetNewEvent(@event);
+			}
+			catch (CommunicationException e)
+			{
+				return false;
+			}
+			return true;
+		}
+
 		private bool RetrySendForecast(ServerSideProxy proxy, DataToUI forecast)
 		{
 			proxy.Abort();
@@ -360,6 +375,65 @@ namespace CEPubSubMicroservice
 			await RemoveDeadClients(deadClients);
 
 			return true;
+		}
+
+		public async Task<bool> NotifyEvents(Event @event, int gidOfTopic)
+		{
+			Dictionary<string, ServerSideProxy> subscribersCopy;
+			subscribersCopy = GetSubscribersCopy();
+
+			if (@event == null || subscribersCopy.Count == 0)
+			{
+				return false;
+			}
+
+			List<string> deadClients = new List<string>();
+			List<string> topicSubscribers = topicSubscriptions.GetSubscribers(gidOfTopic);
+			List<string> deadSubscribers = new List<string>();
+
+			foreach (string subscriberAddress in topicSubscribers)
+			{
+				if (subscribersCopy.ContainsKey(subscriberAddress))
+				{
+					ServerSideProxy subscriberProxy = subscribersCopy[subscriberAddress];
+					try
+					{
+						subscriberProxy.Proxy.GetNewEvent(@event);
+						return true;
+					}
+					catch (CommunicationException)
+					{
+						if (RetrySendEvent(subscriberProxy, @event) == false)
+						{
+							deadClients.Add(subscriberAddress);
+						}
+						else
+						{
+							return true;
+						}
+					}
+					catch (TimeoutException)
+					{
+						if (RetrySendEvent(subscriberProxy, @event) == false)
+						{
+							deadClients.Add(subscriberAddress);
+						}
+						else
+						{
+							return true;
+						}
+					}
+				}
+				else
+				{
+					deadSubscribers.Add(subscriberAddress);
+				}
+
+				await topicSubscriptions.RemoveDeadSubscribersForTopicAsync(gidOfTopic, deadSubscribers);
+			}
+
+			await RemoveDeadClients(deadClients);
+			return false;
 		}
 
         public async Task<bool> SubscribeOnMultipleTopics(string clientAddress, List<int> gidOfTopics)

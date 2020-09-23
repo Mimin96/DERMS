@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\obj\Debug\
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\obj\Debug\
 UI
 none
 false
 DEBUG;TRACE
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\App.xaml
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\UI\UI\App.xaml
 12615951116
 
-411367987010
-1601507413224
+432116543233
+1601961150918
 Resources\AppDictionary.xaml;View\BreakerControlThroughGISWindow.xaml;View\DERDashboardUserControl.xaml;View\EventSummaryUserControl.xaml;View\GISUserControl.xaml;View\HistoryUserControl.xaml;View\LoadingWindow.xaml;View\MainWindow.xaml;View\ManualCommandingWindow.xaml;View\NetworkModelUserControl.xaml;View\PopUpWindow.xaml;View\SignalsSummaryUserControl.xaml;
 
 False

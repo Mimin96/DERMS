@@ -51,7 +51,7 @@ namespace UI.ViewModel
 
             _clientSideProxy.SubscribeMultipleTopics(new List<int>() { (int)Enums.Topics.DerForecastDayAhead, (int)Enums.Topics.NetworkModelTreeClass,
                                                                        (int)Enums.Topics.Flexibility, (int)Enums.Topics.DataPoints,
-                                                                       (int)Enums.Topics.NetworkModelTreeClass_NodeData });
+                                                                       (int)Enums.Topics.NetworkModelTreeClass_NodeData, (int)Enums.Topics.Events });
             //_clientSideProxy.Subscribe((int)Enums.Topics.DerForecastDayAhead);
             //_clientSideProxy.Subscribe((int)Enums.Topics.NetworkModelTreeClass);
             //_clientSideProxy.Subscribe((int)Enums.Topics.Flexibility);

@@ -49,6 +49,8 @@ namespace CalculationEngineServiceCommon
         [ServiceKnownType(typeof(LinkedList<TreeNode<NodeData>>))]
         [OperationContract]
         void SendDataUI(TreeNode<NodeData> data, List<NetworkModelTreeClass> NetworkModelTreeClass);
+        [OperationContract]
+        void GetNewEvent(Event @event);
     }
     
 }

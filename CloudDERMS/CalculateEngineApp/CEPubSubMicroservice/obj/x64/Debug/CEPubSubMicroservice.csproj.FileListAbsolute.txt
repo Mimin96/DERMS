@@ -1879,3 +1879,6 @@ E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\ob
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.csproj.CopyComplete
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.exe
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.pdb
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.dll
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.dll.config

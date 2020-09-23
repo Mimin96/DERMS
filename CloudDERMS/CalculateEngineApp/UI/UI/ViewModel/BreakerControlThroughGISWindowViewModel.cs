@@ -19,14 +19,11 @@ namespace UI.ViewModel
         #region Variables
         private IFlexibilityFromUIToCE ProxyCE { get; set; }
         private ChannelFactory<IFlexibilityFromUIToCE> factoryCE;
-        Event e = new Event();
 
         private RelayCommand<object> _breakerOnOff;
         public bool Open { get; set; }
         public bool Close { get; set; }
         public long GID { get; set; }
-
-        EventsLogger events = new EventsLogger();
 
         #endregion
         public BreakerControlThroughGISWindowViewModel()
@@ -58,14 +55,6 @@ namespace UI.ViewModel
 
                 UIClientFlexibilityFromUIToCE uIClient = new UIClientFlexibilityFromUIToCE("UIClientFlexibilityFromUIToCEEndpoint");
                 uIClient.ChangeBreakerStatus(GID, NormalOpen).Wait();
-
-                if(NormalOpen == true)
-                    e = new Event("Breaker is opened", Enums.Component.SCADA, DateTime.Now);
-                else
-                    e = new Event("Breaker is closed", Enums.Component.SCADA, DateTime.Now);
-
-
-                events.WriteToFile(e);
 
                 if (NormalOpen == true)
                 {

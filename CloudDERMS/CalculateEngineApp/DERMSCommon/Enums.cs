@@ -31,7 +31,8 @@ namespace DERMSCommon
             Flexibility,
 			NetworkModelTreeClass,
             DataPoints,
-            NetworkModelTreeClass_NodeData
+            NetworkModelTreeClass_NodeData,
+            Events
             //TREBA VIDETI SA CAVICEM KO SE SVE PRETPLACUJE NA PUBSUB
         }
 

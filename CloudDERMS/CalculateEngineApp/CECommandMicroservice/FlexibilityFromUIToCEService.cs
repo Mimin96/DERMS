@@ -1,6 +1,7 @@
 ﻿using CalculationEngineServiceCommon;
 using CloudCommon.CalculateEngine;
 using CloudCommon.CalculateEngine.Communication;
+using CloudCommon.SCADA;
 using DERMSCommon;
 using DERMSCommon.DataModel.Core;
 using DERMSCommon.DataModel.Wires;
@@ -146,6 +147,18 @@ namespace CECommandMicroservice
             transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait();
 
             //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(keyValues);
+
+            CloudClient<IEvetnsDatabase> transactionCoordinatorr = new CloudClient<IEvetnsDatabase>
+            (
+                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0), /*CJN*/
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "SetEventsToDatabaseListener"
+            );
+            
+            string oc = (NormalOpen) ? "opened" : "closed";
+            transactionCoordinatorr.InvokeWithRetryAsync(client => client.Channel.SetEvent(new Event("Breaker is " + oc, Enums.Component.SCADA, DateTime.Now))).Wait();
+            
         }
 
         public async Task UpdateFlexibilityFromUIToCE(double valueKW, FlexibilityIncDec incOrDec, long gid)
@@ -166,6 +179,14 @@ namespace CECommandMicroservice
 
             derFlexibility.InvokeWithRetryAsync(client => client.Channel.CalculateNewFlexibility(data)).Wait();
 
+            CloudClient<IEvetnsDatabase> transactionCoordinator = new CloudClient<IEvetnsDatabase>
+            (
+                serviceUri: new Uri("fabric:/CalculateEngineApp/CECacheMicroservice"),
+                partitionKey: new ServicePartitionKey(0), /*CJN*/
+                clientBinding: WcfUtility.CreateTcpClientBinding(),
+                listenerName: "SetEventsToDatabaseListener"
+            );
+            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SetEvent(new Event("Manual optimization was performed. ", Enums.Component.CalculationEngine, DateTime.Now))).Wait();
         }
     }
 }

@@ -627,7 +627,6 @@ C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicro
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\bin\x64\Debug\MaterialDesignColors.pdb
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\bin\x64\Debug\Microsoft.OData.Edm.xml
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\bin\x64\Debug\Microsoft.Spatial.xml
-C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.csprojAssemblyReference.cache
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.csproj.CoreCompileInputs.cache
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.csproj.CopyComplete
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CECommandMicroservice\obj\x64\Debug\CECommandMicroservice.exe

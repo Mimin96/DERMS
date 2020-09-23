@@ -45,5 +45,10 @@ namespace UI.Communication
 		{
 			Mediator.NotifyColleagues("SCADADataPoint", data);
 		}
+
+		public void GetNewEvent(Event @event)
+		{
+			Mediator.NotifyColleagues("Events", @event);
+		}
 	}
 }

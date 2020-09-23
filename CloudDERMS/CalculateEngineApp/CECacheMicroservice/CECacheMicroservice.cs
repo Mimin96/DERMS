@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Fabric;
 using System.Linq;
+using CloudCommon.SCADA;
+using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
 using CalculationEngineServiceCommon;
@@ -66,7 +68,25 @@ namespace CECacheMicroservice
                         listenerBinding: WcfUtility.CreateTcpListenerBinding()
                     ),
                     name: "SendDataToCEThroughScadaListener"
-                )
+                ),
+                 new ServiceReplicaListener((context) =>
+                    new WcfCommunicationListener<IEvetnsDatabase>(
+                        wcfServiceObject: new EventsDatabase(),
+                        serviceContext: context,
+                        endpointResourceName: "SetEventsToDatabaseEndpoint",
+                        listenerBinding: WcfUtility.CreateTcpListenerBinding()
+                    ),
+                    name: "SetEventsToDatabaseListener"
+                ),
+                new ServiceReplicaListener((context) =>
+                    new WcfCommunicationListener<IEvetnsDatabase>(
+                        wcfServiceObject: new EventsDatabase(),
+                        serviceContext: context,
+                        address: new EndpointAddress("net.tcp://localhost:45556/CECacheMicroservice"),
+                        listenerBinding: new NetTcpBinding()
+                    ),
+                    name: "CECacheMicroserviceListener"
+                 )
             };
         }
 

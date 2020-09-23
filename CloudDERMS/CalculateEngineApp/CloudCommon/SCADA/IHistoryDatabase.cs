@@ -12,12 +12,12 @@ namespace CloudCommon.SCADA
     public interface IHistoryDatabase
     {
         [OperationContract]
-        List<CollectItem> GetCollectItems();
+        List<CollectItemUI> GetCollectItems();
         [OperationContract]
-        List<DayItem> GetDayItems();
+        List<DayItemUI> GetDayItems();
         [OperationContract]
-        List<MonthItem> GetMonthItems();
+        List<MonthItemUI> GetMonthItems();
         [OperationContract]
-        List<YearItem> GetYearItems();
+        List<YearItemUI> GetYearItems();
     }
 }
