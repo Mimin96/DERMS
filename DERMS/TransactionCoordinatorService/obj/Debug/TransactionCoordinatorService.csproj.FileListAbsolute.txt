@@ -1032,3 +1032,24 @@ C:\Users\Caki\Desktop\1109\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\T
 C:\Users\Caki\Desktop\1109\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CopyComplete
 C:\Users\Caki\Desktop\1109\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
 C:\Users\Caki\Desktop\1109\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\TransactionCoordinatorService.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\TransactionCoordinatorService.pdb
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DERMSCommon.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DarkSkyApi.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\Polenter.SharpSerializer.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\FTN.Common.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\Innovative.Geometry.Angle.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\MaterialDesignColors.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\DERMSCommon.pdb
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\Polenter.SharpSerializer.xml
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\FTN.Common.pdb
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\bin\Debug\MaterialDesignColors.pdb
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csprojAssemblyReference.cache
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CoreCompileInputs.cache
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.csproj.CopyComplete
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinatorService\obj\Debug\TransactionCoordinatorService.pdb

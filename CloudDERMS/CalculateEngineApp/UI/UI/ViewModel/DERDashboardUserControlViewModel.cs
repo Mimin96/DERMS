@@ -588,7 +588,15 @@ namespace UI.ViewModel
                     //    proxy = new CommunicationProxy();
                     energySourceOptimizedValue = 0;
                     //proxy.Open2();
-                    float x = uIClient.BalanceNetworkModel().Result;
+                    try
+                    {
+                        float x = uIClient.BalanceNetworkModel().Result;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("BreakerControlThroughGISWindowViewModel: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    
                     energySourceOptimizedValue = CalculateDemandForSource();
                     DisableOptimization(GidForOptimization);
                     //proxy.sendToCE.AllowOptimization(GidForOptimization);

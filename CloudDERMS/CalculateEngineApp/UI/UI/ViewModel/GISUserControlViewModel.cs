@@ -33,6 +33,7 @@ namespace UI.ViewModel
         private Dictionary<string, bool> _visibilityOfElements;
         private RelayCommand<object> _searchCommand;
         private string _searchParam;
+        private List<NetworkModelTreeClass> _networkModelTreeClass;
         CommunicationProxy proxy;
         private List<Generator> TurnedOffGenerators { get; set; }
         #endregion
@@ -41,7 +42,7 @@ namespace UI.ViewModel
         {
             Mediator.Register("NMSNetworkModelDataGIS", NMSNetworkModelDataGIS);
             TurnedOffGenerators = new List<Generator>();
-
+            _networkModelTreeClass = new List<NetworkModelTreeClass>();
             VisibilityOfElements = new Dictionary<string, bool>();
             VisibilityOfElementPopulate();
             SearchParameter = "Element Name";
@@ -121,7 +122,11 @@ namespace UI.ViewModel
         {
             List<object> obj = (List<object>)parameter;
             Tree = (TreeNode<NodeData>)obj[0];
-        }
+            List<NetworkModelTreeClass>  _networkModelTreeClassTemp = new List<NetworkModelTreeClass>();
+            _networkModelTreeClassTemp = (List<NetworkModelTreeClass>)obj[1];
+            if(_networkModelTreeClassTemp.Count > 0)
+                _networkModelTreeClass = (List<NetworkModelTreeClass>)obj[1]; 
+    }
         public void GetCoordinatesOnMouseClick(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
@@ -165,6 +170,26 @@ namespace UI.ViewModel
                 bool canManualCommand = true;
                 string text = "";
                 Generator generator = (Generator)selected.Data.IdentifiedObject;
+                foreach(NetworkModelTreeClass networkModelTreeClass in _networkModelTreeClass)
+				{            
+                    foreach(GeographicalRegionTreeClass gr in networkModelTreeClass.GeographicalRegions)
+					{
+                        foreach(GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
+						{
+                            foreach(SubstationTreeClass sub in sgr.Substations)
+							{
+                                foreach(SubstationElementTreeClass gen in sub.SubstationElements)
+								{
+                                    if(gen.GID.Equals(generator.GlobalId))
+									{
+                                        generator.MaxFlexibility = gen.MaxFlexibility;
+                                        generator.MinFlexibility = gen.MinFlexibility;
+									}                                        
+								}
+							}
+						}
+					}
+				}
                 //proxy = new CommunicationProxy();
                 //proxy.Open2();
                 TurnedOffGenerators = uIClient.GeneratorOffCheck().Result;

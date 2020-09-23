@@ -926,6 +926,7 @@ namespace CalculationEngineService
         {
             Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             List<long> DisableAutomaticOptimization = new List<long>();
+            List<NetworkModelTreeClass> NetworkModelTreeClass = new List<NetworkModelTreeClass>();
             Dictionary<int, List<long>> tempDisableAutomaticOptimization = new Dictionary<int, List<long>>();
             int GeographicalRegionsCount = 0;
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
@@ -938,250 +939,288 @@ namespace CalculationEngineService
 
             networkModel = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetNMSModel()).Result;
             tempDisableAutomaticOptimization = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetDisableAutomaticOptimization()).Result;
-            DisableAutomaticOptimization = tempDisableAutomaticOptimization[0];
-            foreach (KeyValuePair<long, IdentifiedObject> kvp in networkModel)
+            NetworkModelTreeClass = transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.GetNetworkModelTreeClass()).Result;
+            if(tempDisableAutomaticOptimization.Count != 0)
+                DisableAutomaticOptimization = tempDisableAutomaticOptimization[0];
+            foreach (NetworkModelTreeClass networkModelTreeClasses in NetworkModelTreeClass)
             {
-                IdentifiedObject io = kvp.Value;
-                var type = io.GetType();
-
-                if (type.Name.Equals("GeographicalRegion"))
+                if (gid.Equals(networkModelTreeClasses.GID))
                 {
-                    GeographicalRegionsCount++;
-                }
-            }
-            if (gid == -1)
-            {
-                foreach (KeyValuePair<long, IdentifiedObject> kvp in networkModel)
-                {
-                    IdentifiedObject io = kvp.Value;
-                    var type = io.GetType();
-
-                    if (type.Name.Equals("GeographicalRegion") || type.Name.Equals("SubGeographicalRegion") || type.Name.Equals("Substation"))
+                    if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
                     {
-                        if (!DisableAutomaticOptimization.Contains(kvp.Key))
-                        {
-                            DisableAutomaticOptimization.Add(kvp.Key);
-                        }
+                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(networkModelTreeClasses.GID)).Wait();
+                        DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
                     }
-                }
-            }
-            if (networkModel.ContainsKey(gid))
-            {
-                IdentifiedObject io = networkModel[gid];
-                var type = io.GetType();
-
-                if (type.Name.Equals("GeographicalRegion"))
-                {
-                    GeographicalRegion geographicalRegion = (GeographicalRegion)io;
-                    if (!DisableAutomaticOptimization.Contains(geographicalRegion.GlobalId))
+                    foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
                     {
-                        DisableAutomaticOptimization.Add(geographicalRegion.GlobalId);
-                    }
-                    foreach (var item in geographicalRegion.Regions)
-                    {
-                        SubGeographicalRegion subgeo = (SubGeographicalRegion)networkModel[item];
-                        if (!DisableAutomaticOptimization.Contains(subgeo.GlobalId))
+                        if (!DisableAutomaticOptimization.Contains(gr.GID))
                         {
-                            DisableAutomaticOptimization.Add(subgeo.GlobalId);
+                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(gr.GID)).Wait();
+                            DisableAutomaticOptimization.Add(gr.GID);
                         }
-                        foreach (var sub in subgeo.Substations)
+                        foreach (GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
                         {
-                            Substation substation = (Substation)networkModel[sub];
-                            if (!DisableAutomaticOptimization.Contains(substation.GlobalId))
+                            if (!DisableAutomaticOptimization.Contains(sgr.GID))
                             {
-                                DisableAutomaticOptimization.Add(substation.GlobalId);
+                                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(sgr.GID)).Wait();
+                                DisableAutomaticOptimization.Add(sgr.GID);
+                            }
+                            foreach (SubstationTreeClass sub in sgr.Substations)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(sub.GID))
+                                {
+                                    transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(sub.GID)).Wait();
+                                    DisableAutomaticOptimization.Add(sub.GID);
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+
+
+                foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
+                {
+                    if (gid.Equals(gr.GID))
+                    {
+                        if (!DisableAutomaticOptimization.Contains(gr.GID))
+                        {
+                            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(gr.GID)).Wait();
+                            DisableAutomaticOptimization.Add(gr.GID);
+                        }
+                        foreach (GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
+                        {
+                            if (!DisableAutomaticOptimization.Contains(sgr.GID))
+                            {
+                                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(sgr.GID)).Wait();
+                                DisableAutomaticOptimization.Add(sgr.GID);
+                            }
+                            foreach (SubstationTreeClass sub in sgr.Substations)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(sub.GID))
+                                {
+                                    transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(sub.GID)).Wait();
+                                    DisableAutomaticOptimization.Add(sub.GID);
+                                }
+
+                            }
+
+                        }
+                        if (networkModelTreeClasses.GeographicalRegions.Count == 1)
+                        {
+                            if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
+                            {
+                                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(networkModelTreeClasses.GID)).Wait();
+                                DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
                             }
                         }
-                    }
-                    if (GeographicalRegionsCount == 1)
-                    {
-                        if (!DisableAutomaticOptimization.Contains(-1))
+                        bool tempProvera = true;
+                        foreach (var item in networkModelTreeClasses.GeographicalRegions)
                         {
-                            DisableAutomaticOptimization.Add(-1);
-                        }
-                    }
-                    bool tempProvera = true;
-                    foreach (KeyValuePair<long, IdentifiedObject> kvp in networkModel)
-                    {
-                        IdentifiedObject io2 = kvp.Value;
-                        var type2 = io.GetType();
-
-                        if (type2.Name.Equals("GeographicalRegion"))
-                        {
-                            if (!DisableAutomaticOptimization.Contains(kvp.Key))
+                            if (!DisableAutomaticOptimization.Contains(item.GID))
                             {
                                 tempProvera = false;
                                 break;
                             }
                         }
-                    }
-                    if (tempProvera)
-                    {
-                        if (!DisableAutomaticOptimization.Contains(-1))
+                        if (tempProvera)
                         {
-                            DisableAutomaticOptimization.Add(-1);
-                        }
-                    }
-
-                }
-                if (type.Name.Equals("SubGeographicalRegion"))
-                {
-                    SubGeographicalRegion subgeo = (SubGeographicalRegion)io;
-                    if (!DisableAutomaticOptimization.Contains(subgeo.GlobalId))
-                    {
-                        DisableAutomaticOptimization.Add(subgeo.GlobalId);
-                    }
-                    foreach (var sub in subgeo.Substations)
-                    {
-                        Substation substation = (Substation)networkModel[sub];
-                        if (!DisableAutomaticOptimization.Contains(substation.GlobalId))
-                        {
-                            DisableAutomaticOptimization.Add(substation.GlobalId);
-                        }
-                    }
-                    GeographicalRegion geographicalRegion = (GeographicalRegion)networkModel[subgeo.GeoReg];
-                    if (geographicalRegion.Regions.Count == 1)
-                    {
-                        if (!DisableAutomaticOptimization.Contains(geographicalRegion.GlobalId))
-                        {
-                            DisableAutomaticOptimization.Add(geographicalRegion.GlobalId);
-                        }
-                    }
-                    bool tempProvera = true;
-                    foreach (var item in geographicalRegion.Regions)
-                    {
-                        if (!DisableAutomaticOptimization.Contains(item))
-                        {
-                            tempProvera = false;
-                            break;
-                        }
-                    }
-                    if (tempProvera)
-                    {
-                        if (!DisableAutomaticOptimization.Contains(geographicalRegion.GlobalId))
-                        {
-                            DisableAutomaticOptimization.Add(geographicalRegion.GlobalId);
-                        }
-                    }
-                    if (GeographicalRegionsCount == 1 && DisableAutomaticOptimization.Contains(geographicalRegion.GlobalId))
-                    {
-                        if (!DisableAutomaticOptimization.Contains(-1))
-                        {
-                            DisableAutomaticOptimization.Add(-1);
-                        }
-                    }
-                    tempProvera = true;
-                    foreach (KeyValuePair<long, IdentifiedObject> kvp in networkModel)
-                    {
-                        IdentifiedObject io2 = kvp.Value;
-                        var type2 = io.GetType();
-
-                        if (type2.Name.Equals("GeographicalRegion"))
-                        {
-                            if (!DisableAutomaticOptimization.Contains(kvp.Key))
+                            if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
                             {
-                                tempProvera = false;
-                                break;
+                                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(networkModelTreeClasses.GID)).Wait();
+                                DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
                             }
                         }
                     }
 
-                    if (tempProvera)
-                    {
-                        if (!DisableAutomaticOptimization.Contains(-1))
-                        {
-                            DisableAutomaticOptimization.Add(-1);
-                        }
-                    }
                 }
-                if (type.Name.Equals("Substation"))
-                {
-                    Substation substation = (Substation)io;
-                    if (!DisableAutomaticOptimization.Contains(substation.GlobalId))
-                    {
-                        DisableAutomaticOptimization.Add(substation.GlobalId);
-                    }
-                    SubGeographicalRegion subgeo = (SubGeographicalRegion)networkModel[substation.SubGeoReg];
-                    if (subgeo.Substations.Count == 1)
-                    {
-                        if (!DisableAutomaticOptimization.Contains(subgeo.GlobalId))
-                        {
-                            DisableAutomaticOptimization.Add(subgeo.GlobalId);
-                        }
-                    }
-                    bool tempProvera = true;
-                    foreach (var item in subgeo.Substations)
-                    {
-                        if (!DisableAutomaticOptimization.Contains(item))
-                        {
-                            tempProvera = false;
-                            break;
-                        }
-                    }
-                    if (tempProvera)
-                    {
-                        if (!DisableAutomaticOptimization.Contains(subgeo.GlobalId))
-                        {
-                            DisableAutomaticOptimization.Add(subgeo.GlobalId);
-                        }
-                    }
-                    tempProvera = true;
-                    GeographicalRegion geographicalRegion = (GeographicalRegion)networkModel[subgeo.GeoReg];
-                    if (geographicalRegion.Regions.Count == 1 && DisableAutomaticOptimization.Contains(subgeo.GlobalId))
-                    {
-                        if (!DisableAutomaticOptimization.Contains(geographicalRegion.GlobalId))
-                        {
-                            DisableAutomaticOptimization.Add(geographicalRegion.GlobalId);
-                        }
-                    }
-                    foreach (var item in geographicalRegion.Regions)
-                    {
-                        if (!DisableAutomaticOptimization.Contains(item))
-                        {
-                            tempProvera = false;
-                            break;
-                        }
-                    }
-                    if (tempProvera)
-                    {
-                        if (!DisableAutomaticOptimization.Contains(geographicalRegion.GlobalId))
-                        {
-                            DisableAutomaticOptimization.Add(geographicalRegion.GlobalId);
-                        }
-                    }
-                    if (GeographicalRegionsCount == 1 && DisableAutomaticOptimization.Contains(geographicalRegion.GlobalId))
-                    {
-                        if (!DisableAutomaticOptimization.Contains(-1))
-                        {
-                            DisableAutomaticOptimization.Add(-1);
-                        }
-                    }
-                    tempProvera = true;
-                    foreach (KeyValuePair<long, IdentifiedObject> kvp in networkModel)
-                    {
-                        IdentifiedObject io2 = kvp.Value;
-                        var type2 = io.GetType();
 
-                        if (type2.Name.Equals("GeographicalRegion"))
-                        {
-                            if (!DisableAutomaticOptimization.Contains(kvp.Key))
-                            {
-                                tempProvera = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (tempProvera)
+                foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
+                {
+
+                    foreach (GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
                     {
-                        if (!DisableAutomaticOptimization.Contains(-1))
+                        if (gid.Equals(sgr.GID))
                         {
-                            DisableAutomaticOptimization.Add(-1);
+                            if (!DisableAutomaticOptimization.Contains(sgr.GID))
+                            {
+                                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(sgr.GID)).Wait();
+                                DisableAutomaticOptimization.Add(sgr.GID);
+                            }
+
+                            foreach (SubstationTreeClass sub in sgr.Substations)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(sub.GID))
+                                {
+                                    transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(sub.GID)).Wait();
+                                    DisableAutomaticOptimization.Add(sub.GID);
+                                }
+
+                            }
+
+                            if (gr.GeographicalSubRegions.Count == 1)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(gr.GID))
+                                {
+                                    transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(gr.GID)).Wait();
+                                    DisableAutomaticOptimization.Add(gr.GID);
+                                }
+                            }
+                            bool tempProvera = true;
+                            foreach (var item in gr.GeographicalSubRegions)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(item.GID))
+                                {
+                                    tempProvera = false;
+                                    break;
+                                }
+                            }
+                            if (tempProvera)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(gr.GID))
+                                {
+                                    transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(gr.GID)).Wait();
+                                    DisableAutomaticOptimization.Add(gr.GID);
+                                }
+                            }
+                            if (networkModelTreeClasses.GeographicalRegions.Count == 1 && DisableAutomaticOptimization.Contains(gr.GID))
+                            {
+                                if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
+                                {
+                                    transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(networkModelTreeClasses.GID)).Wait();
+                                    DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
+                                }
+                            }
+                            tempProvera = true;
+                            foreach (var item in networkModelTreeClasses.GeographicalRegions)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(item.GID))
+                                {
+                                    tempProvera = false;
+                                    break;
+                                }
+                            }
+                            if (tempProvera)
+                            {
+                                if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
+                                {
+                                    transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(networkModelTreeClasses.GID)).Wait();
+                                    DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
+                                }
+                            }
+
                         }
+
                     }
+
+
                 }
+                foreach (GeographicalRegionTreeClass gr in networkModelTreeClasses.GeographicalRegions)
+                {
+
+                    foreach (GeographicalSubRegionTreeClass sgr in gr.GeographicalSubRegions)
+                    {
+
+                        foreach (SubstationTreeClass sub in sgr.Substations)
+                        {
+                            if (gid.Equals(sub.GID))
+                            {
+                                if (!DisableAutomaticOptimization.Contains(sub.GID))
+                                {
+                                    transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(sub.GID)).Wait();
+                                    DisableAutomaticOptimization.Add(sub.GID);
+                                }
+                                if (sgr.Substations.Count == 1)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(sgr.GID))
+                                    {
+                                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(sgr.GID)).Wait();
+                                        DisableAutomaticOptimization.Add(sgr.GID);
+                                    }
+                                }
+                                bool tempProvera = true;
+                                foreach (var item in sgr.Substations)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(item.GID))
+                                    {
+                                        tempProvera = false;
+                                        break;
+                                    }
+                                }
+                                if (tempProvera)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(sgr.GID))
+                                    {
+                                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(sgr.GID)).Wait();
+                                        DisableAutomaticOptimization.Add(sgr.GID);
+                                    }
+                                }
+                                tempProvera = true;
+                                if (gr.GeographicalSubRegions.Count == 1 && DisableAutomaticOptimization.Contains(sgr.GID))
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(gr.GID))
+                                    {
+                                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(gr.GID)).Wait();
+                                        DisableAutomaticOptimization.Add(gr.GID);
+                                    }
+                                }
+                                foreach (var item in gr.GeographicalSubRegions)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(item.GID))
+                                    {
+                                        tempProvera = false;
+                                        break;
+                                    }
+                                }
+                                if (tempProvera)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(gr.GID))
+                                    {
+                                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(gr.GID)).Wait();
+                                        DisableAutomaticOptimization.Add(gr.GID);
+                                    }
+                                }
+                                if (networkModelTreeClasses.GeographicalRegions.Count == 1 && DisableAutomaticOptimization.Contains(gr.GID))
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
+                                    {
+                                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(networkModelTreeClasses.GID)).Wait();
+                                        DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
+                                    }
+                                }
+                                tempProvera = true;
+                                foreach (var item in networkModelTreeClasses.GeographicalRegions)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(item.GID))
+                                    {
+                                        tempProvera = false;
+                                        break;
+                                    }
+                                }
+                                if (tempProvera)
+                                {
+                                    if (!DisableAutomaticOptimization.Contains(networkModelTreeClasses.GID))
+                                    {
+                                        transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.AddToDisableAutomaticOptimization(networkModelTreeClasses.GID)).Wait();
+                                        DisableAutomaticOptimization.Add(networkModelTreeClasses.GID);
+                                    }
+                                }
+
+
+                            }
+
+                        }
+
+                    }
+
+
+
+                }
+
             }
-
             return DisableAutomaticOptimization;
+
         }
         public async Task<List<long>> ListOfDisabledGenerators()
         {
