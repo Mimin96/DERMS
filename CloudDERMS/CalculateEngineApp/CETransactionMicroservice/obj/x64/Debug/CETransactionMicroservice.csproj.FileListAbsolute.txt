@@ -1002,7 +1002,6 @@ C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroser
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\bin\x64\Debug\MaterialDesignColors.pdb
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\bin\x64\Debug\Microsoft.OData.Edm.xml
 C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\bin\x64\Debug\Microsoft.Spatial.xml
-C:\Users\Filip\Desktop\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.exe.config
 C:\Users\Caki\Desktop\3008\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\bin\x64\Debug\Microsoft.Azure.Documents.ServiceInterop.dll
 C:\Users\Caki\Desktop\3008\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\bin\x64\Debug\Cosmos.CRTCompat.dll
 C:\Users\Caki\Desktop\3008\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\bin\x64\Debug\CETransactionMicroservice.exe.config

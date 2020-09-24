@@ -61,7 +61,7 @@ namespace dCom.ViewModel
 
                 ComunicationSCADAClient sCADAClient = new ComunicationSCADAClient("SCADAEndpoint");
 
-                lock ((SetDatabaseDataObjectLock))
+                lock (SetDatabaseDataObjectLock)
                 {
                     sCADAClient.SetDatabaseData(datapoints).Wait();
                 }

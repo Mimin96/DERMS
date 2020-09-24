@@ -48,7 +48,6 @@ namespace UI.ViewModel
             var mapper = new LiveCharts.Configurations.CartesianMapper<double>().X((values, index) => index).Y((values) => values).Fill((v, i) => i == DateTime.Now.Hour ? Brushes.White : Brushes.White).Stroke((v, i) => i == DateTime.Now.Hour ? Brushes.White : Brushes.White);
 
             LiveCharts.Charting.For<double>(mapper, LiveCharts.SeriesOrientation.Horizontal);
-
             Period = new List<string>() { "Day", "Month", "Year" };
             Mesec = new List<string>() { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
             Godina = new List<string>() { "2020", "2019", "2018", "2017", "2016", "2015" };
@@ -378,6 +377,7 @@ namespace UI.ViewModel
 
         private void ApplyFilter(object obj)
         {
+            bool bool1 = false, bool2 = false, bool3 = false;
             if (_selectedGID != 0)
             {
                 if (_min || _max || _avg)
@@ -448,8 +448,7 @@ namespace UI.ViewModel
                         }
                         else
                         {
-                            PopUpWindow popUpWindow = new PopUpWindow("Data for that day doesnt exist.");
-                            popUpWindow.ShowDialog();
+                            bool1 = true;
                         }
 
                     }
@@ -469,8 +468,7 @@ namespace UI.ViewModel
                         }
                         else
                         {
-                            PopUpWindow popUpWindow = new PopUpWindow("Data for that month doesnt exist.");
-                            popUpWindow.ShowDialog();
+                            bool2 = true;
                         }
                     }
                     else if (_min && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
@@ -489,8 +487,7 @@ namespace UI.ViewModel
                         }
                         else
                         {
-                            PopUpWindow popUpWindow = new PopUpWindow("Data for that year doesnt exist.");
-                            popUpWindow.ShowDialog();
+                            bool3 = true;
                         }
                     }
 
@@ -511,8 +508,7 @@ namespace UI.ViewModel
                         }
                         else
                         {
-                            PopUpWindow popUpWindow = new PopUpWindow("Data for that day doesnt exist.");
-                            popUpWindow.ShowDialog();
+                            bool1 = true;
                         }
 
                     }
@@ -532,8 +528,7 @@ namespace UI.ViewModel
                         }
                         else
                         {
-                            PopUpWindow popUpWindow = new PopUpWindow("Data for that month doesnt exist.");
-                            popUpWindow.ShowDialog();
+                            bool2 = true;
                         }
                     }
                     else if (_max && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
@@ -552,8 +547,7 @@ namespace UI.ViewModel
                         }
                         else
                         {
-                            PopUpWindow popUpWindow = new PopUpWindow("Data for that year doesnt exist.");
-                            popUpWindow.ShowDialog();
+                            bool3 = true;
                         }
                     }
 
@@ -571,8 +565,7 @@ namespace UI.ViewModel
                         }
                         else
                         {
-                            PopUpWindow popUpWindow = new PopUpWindow("Data for that day doesnt exist.");
-                            popUpWindow.ShowDialog();
+                            bool1 = true;
                         }
                     }
                     else if (_avg && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
@@ -589,8 +582,7 @@ namespace UI.ViewModel
                         }
                         else
                         {
-                            PopUpWindow popUpWindow = new PopUpWindow("Data for that month doesnt exist.");
-                            popUpWindow.ShowDialog();
+                            bool2 = true;
                         }
                     }
                     else if (_avg && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
@@ -607,9 +599,26 @@ namespace UI.ViewModel
                         }
                         else
                         {
-                            PopUpWindow popUpWindow = new PopUpWindow("Data for that year doesnt exist.");
-                            popUpWindow.ShowDialog();
+                            bool3 = true;
                         }
+                    }
+
+                    if (bool1) 
+                    {
+                        PopUpWindow popUpWindow = new PopUpWindow("Data for that day doesnt exist.");
+                        popUpWindow.ShowDialog();
+                    }
+
+                    if (bool2) 
+                    {
+                        PopUpWindow popUpWindow = new PopUpWindow("Data for that month doesnt exist.");
+                        popUpWindow.ShowDialog();
+                    }
+
+                    if (bool3)
+                    {
+                        PopUpWindow popUpWindow = new PopUpWindow("Data for that year doesnt exist.");
+                        popUpWindow.ShowDialog();
                     }
                 }
                 else

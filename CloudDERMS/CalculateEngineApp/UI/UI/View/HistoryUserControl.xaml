@@ -72,7 +72,7 @@
                     </i:Interaction.Triggers>
                 </ComboBox>
 
-                <ComboBox Margin="11,109,0,0" ToolTip="Month" Foreground="#FF0398E2" HorizontalContentAlignment="Center" ItemsSource="{Binding Godina}" SelectedItem="{Binding SelectedGodina}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" BorderThickness="1" BorderBrush="#FF0398E2" Visibility="{Binding IsGodina}">
+                <ComboBox Margin="11,109,0,0" ToolTip="Year" Foreground="#FF0398E2" HorizontalContentAlignment="Center" ItemsSource="{Binding Godina}" SelectedItem="{Binding SelectedGodina}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" BorderThickness="1" BorderBrush="#FF0398E2" Visibility="{Binding IsGodina}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:CallMethodAction MethodName="HistorySelectGodina" TargetObject="{Binding}" />
@@ -133,7 +133,7 @@
                 <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom" Visibility="{Binding IsDan}">H</Label>
                 <lvc:CartesianChart Margin="0,0,0,24">
                     <lvc:CartesianChart.Series>
-                        <lvc:ScatterSeries Values="{Binding ChartValues}" Visibility="{Binding IsDan}"  />
+                        <lvc:ScatterSeries Values="{Binding ChartValues}" Visibility="{Binding IsDan}" />
                     </lvc:CartesianChart.Series>
                 </lvc:CartesianChart>
             </Grid>

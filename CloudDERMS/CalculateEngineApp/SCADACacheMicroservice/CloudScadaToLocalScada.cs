@@ -149,6 +149,10 @@ namespace SCADACacheMicroservice
             List<YearItem> yearItems;
 
             collectItems = historyDataProcessing.ConvertDataPoints(dataPoints);
+
+            if (collectItems.Count == 0)
+                return;
+
             AzureTableStorage.InsertEntitiesInDB(collectItems, "UseDevelopmentStorage=true;", "CollectItems");
 
             dayItems = historyDataProcessing.CollectTableToDayItems(AzureTableStorage.GetAllCollectItems("UseDevelopmentStorage=true;", "CollectItems"));
