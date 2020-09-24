@@ -1718,7 +1718,6 @@ C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\CETransactionM
 C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\bin\x64\Debug\Microsoft.OData.Edm.xml
 C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\bin\x64\Debug\Microsoft.Spatial.xml
 C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.csprojAssemblyReference.cache
-C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.exe.config
 C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.csproj.CoreCompileInputs.cache
 C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.csproj.CopyComplete
 C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\CETransactionMicroservice\obj\x64\Debug\CETransactionMicroservice.exe

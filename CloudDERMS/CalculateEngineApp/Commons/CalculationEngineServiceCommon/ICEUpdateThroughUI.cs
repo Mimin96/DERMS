@@ -15,11 +15,11 @@ namespace CalculationEngineServiceCommon
     public interface ICEUpdateThroughUI
     {
         [OperationContract]
-        Task<float> UpdateThroughUI(long data);
+        Task UpdateThroughUI(long data);
         [OperationContract]
-        Task<float> Balance(Dictionary<long, DerForecastDayAhead> prod, long GidUi, Dictionary<long, IdentifiedObject> networkModel, List<long> TurnedOffGenerators);
+        Task Balance(Dictionary<long, DerForecastDayAhead> prod, long GidUi, Dictionary<long, IdentifiedObject> networkModel, List<long> TurnedOffGenerators);
         [OperationContract]
-        Task<float> BalanceNetworkModel();
+        Task BalanceNetworkModel();
         [OperationContract]
         Task<List<long>> AllGeoRegions();
         [OperationContract]

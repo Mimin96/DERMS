@@ -31,12 +31,12 @@ namespace UI.Communication
             return Channel.AllowOptimization(gid);
         }
 
-        public Task<float> Balance(Dictionary<long, DerForecastDayAhead> prod, long GidUi, Dictionary<long, IdentifiedObject> networkModel, List<long> TurnedOffGenerators)
+        public Task Balance(Dictionary<long, DerForecastDayAhead> prod, long GidUi, Dictionary<long, IdentifiedObject> networkModel, List<long> TurnedOffGenerators)
         {
-            return Balance(prod, GidUi, networkModel, TurnedOffGenerators);
+            return Channel.Balance(prod, GidUi, networkModel, TurnedOffGenerators);
         }
 
-        public Task<float> BalanceNetworkModel()
+        public Task BalanceNetworkModel()
         {
             return Channel.BalanceNetworkModel();
         }
@@ -56,7 +56,7 @@ namespace UI.Communication
             return Channel.ListOffTurnedOffGenerators();
         }
 
-        public Task<float> UpdateThroughUI(long data)
+        public Task UpdateThroughUI(long data)
         {
             return Channel.UpdateThroughUI(data);
         }

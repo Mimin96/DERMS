@@ -1973,3 +1973,5 @@ E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\obj
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\obj\x64\Debug\CECacheMicroservice.pdb
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\bin\x64\Debug\System.Collections.Immutable.dll
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\bin\x64\Debug\System.Collections.Immutable.xml
+C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\bin\x64\Debug\System.Collections.Immutable.dll
+C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\bin\x64\Debug\System.Collections.Immutable.xml

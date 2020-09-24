@@ -143,8 +143,24 @@ namespace CECommandMicroservice
               clientBinding: WcfUtility.CreateTcpClientBinding(),
               listenerName: "SCADACommandingMicroserviceListener"
             );
-            transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(keyValues)).Wait();
-            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait();
+
+            try
+            {
+                transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(keyValues)).Wait();
+            }
+            catch (AggregateException ex)
+            {
+
+            }
+
+            try
+            {
+                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait();
+            }
+            catch (AggregateException ex)
+            {
+
+            }
 
             //ClientSideCE.Instance.ProxyScadaListOfGenerators.SendListOfGenerators(keyValues);
 

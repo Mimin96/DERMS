@@ -21,9 +21,9 @@ namespace CalculationEngineService
 {
     public class CEUpdateThroughUIService : ICEUpdateThroughUI
     {
-        public async Task<float> UpdateThroughUI(long data)
+        public async Task UpdateThroughUI(long data)
         {
-            float energyFromSource = PopulateBalance(data).Result;
+            PopulateBalance(data).Wait();
 
             CloudClient<IEvetnsDatabase> transactionCoordinator = new CloudClient<IEvetnsDatabase>
             (
@@ -33,12 +33,9 @@ namespace CalculationEngineService
                 listenerName: "SetEventsToDatabaseListener"
             );
             transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SetEvent(new Event("Automatic optimization is executed. ", Enums.Component.CalculationEngine, DateTime.Now))).Wait();
-            
-
-            return energyFromSource;
         }
 
-        public async Task<float> PopulateBalance(long gid)
+        public async Task PopulateBalance(long gid)
         {
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
             (
@@ -54,13 +51,11 @@ namespace CalculationEngineService
             if (temp.Count > 0)
                 turnedOffGeneratorsList = temp[0];
 
-            float energyFromSource = Balance(productionCachedDictionary, gid, nmsCacheDictionary, turnedOffGeneratorsList).Result;
+            Balance(productionCachedDictionary, gid, nmsCacheDictionary, turnedOffGeneratorsList).Wait();
             transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait();
-
-            return energyFromSource;
         }
 
-        public async Task<float> Balance(Dictionary<long, DerForecastDayAhead> prod, long GidUi, Dictionary<long, IdentifiedObject> networkModel, List<long> TurnedOffGenerators)
+        public async Task Balance(Dictionary<long, DerForecastDayAhead> prod, long GidUi, Dictionary<long, IdentifiedObject> networkModel, List<long> TurnedOffGenerators)
         {
 
             Dictionary<long, double> battery = new Dictionary<long, double>();
@@ -70,7 +65,7 @@ namespace CalculationEngineService
             Dictionary<long, DerForecastDayAhead> tempDiffrence = new Dictionary<long, DerForecastDayAhead>();
             Dictionary<long, double> dicForScada = new Dictionary<long, double>();
             List<long> changeFlexOfGen = new List<long>();
-            float energyFromSource = 0;
+
             IdentifiedObject io = networkModel[GidUi];
             var type = io.GetType();
 
@@ -873,16 +868,26 @@ namespace CalculationEngineService
               listenerName: "SCADACommandingMicroserviceListener"
             );
 
+            try
+            {
+                transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(dicForScada)).Wait();
+            }
+            catch (AggregateException ex)
+            {
 
-            transactionCoordinatorScada.InvokeWithRetryAsync(client => client.Channel.SendListOfGenerators(dicForScada)).Wait();
+            }
 
+            try
+            {
+                transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateMinAndMaxFlexibilityForChangedGenerators(dicForScada)).Wait();
+            }
+            catch (AggregateException ex2)
+            {
 
-            transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.UpdateMinAndMaxFlexibilityForChangedGenerators(dicForScada)).Wait();
-
-            return energyFromSource;
+            }
         }
 
-        public async Task<float> BalanceNetworkModel()
+        public async Task BalanceNetworkModel()
         {
             Dictionary<long, IdentifiedObject> networkModel = new Dictionary<long, IdentifiedObject>();
             CloudClient<ICache> transactionCoordinator = new CloudClient<ICache>
@@ -900,13 +905,12 @@ namespace CalculationEngineService
                 var type = kvp.Value.GetType();
                 if (type.Name.Equals("GeographicalRegion"))
                 {
-                    energyFromSource += UpdateThroughUI(kvp.Key).Result;
+                    UpdateThroughUI(kvp.Key);
                 }
             }
             ///POGLEDAJ METODA OD KESA
             await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead());
             //CalculationEngineCache.Instance.NetworkModelBalanced();
-            return energyFromSource;
         }
 
         public async Task<List<long>> AllGeoRegions()

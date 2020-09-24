@@ -551,7 +551,7 @@ namespace UI.ViewModel
                     energySourceOptimizedValue = 0;
                     try
                     {
-                        float x = uIClient.UpdateThroughUI(GidForOptimization).Result;
+                        uIClient.UpdateThroughUI(GidForOptimization);
                     }
 					catch (Exception e)
 					{
@@ -586,7 +586,7 @@ namespace UI.ViewModel
                     //proxy.Open2();
                     try
                     {
-                        float x = uIClient.BalanceNetworkModel().Result;
+                        uIClient.BalanceNetworkModel();
                     }
                     catch (Exception e)
                     {
