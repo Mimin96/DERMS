@@ -79,7 +79,7 @@
                     <ColumnDefinition Width="155*"/>
                     <ColumnDefinition Width="26*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock  Margin="0,-3,0,0" TextWrapping="Wrap" Text="Production from generators"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Tomato" VerticalAlignment="Top" Height="80" Grid.ColumnSpan="2"/>
+                <TextBlock  Margin="40,-3,0,0" TextWrapping="Wrap" Text="DER production"  FontFamily="Cambria" FontSize="14" FontWeight="Bold" Foreground="Tomato" VerticalAlignment="Top" Height="80" Grid.ColumnSpan="2"/>
                 <lvc:Gauge Grid.Column="0" Margin="10,10,0,25" Name="ProductionFromGenerators"
                    From="0" To="2500" Value="{Binding ProductionGenerators,StringFormat={}{0:N2}}" Foreground="Tomato" HorizontalAlignment="Left" Width="169" Grid.ColumnSpan="2">
                     <lvc:Gauge.GaugeActiveFill>
@@ -123,7 +123,7 @@
 
             <Grid Grid.Row="1">
                 <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,-20,727,206">kW</Label>
-                <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom">H</Label>
+                <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-20.8,-19.4" HorizontalAlignment="Right" Width="54" Height="38" VerticalAlignment="Bottom" RenderTransformOrigin="-0.648,1.268">Hour</Label>
                 <lvc:CartesianChart x:Name="cartesianChart" Margin="0,0,5,24">
                     <lvc:CartesianChart.Series>
                         <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Fill="{Binding Color1}"  Values="{Binding ChartValues2}" Visibility="{Binding VisibilityConsumption}" />

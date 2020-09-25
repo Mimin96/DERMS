@@ -56,7 +56,7 @@ namespace UI.ViewModel
                 UIClientFlexibilityFromUIToCE uIClient = new UIClientFlexibilityFromUIToCE("UIClientFlexibilityFromUIToCEEndpoint");
                 try
                 {
-                    uIClient.ChangeBreakerStatus(GID, NormalOpen).Wait();
+                    uIClient.ChangeBreakerStatus(GID, NormalOpen);
                 }
                 catch(Exception ex)
 				{

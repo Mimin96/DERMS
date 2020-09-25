@@ -31,3 +31,4 @@ C:\Users\admin\Desktop\master\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngin
 C:\Users\Caki\Desktop\1909\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache
+C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\CalculateEngineApp\obj\x64\Debug\CalculateEngineApp.sfproj.CoreCompileInputs.cache

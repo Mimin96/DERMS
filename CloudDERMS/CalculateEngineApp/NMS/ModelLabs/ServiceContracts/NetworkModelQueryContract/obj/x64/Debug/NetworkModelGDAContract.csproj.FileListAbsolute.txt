@@ -82,3 +82,10 @@ C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ServiceContracts\NetworkModelQueryContract\obj\x64\Debug\NetworkModelGDAContract.csproj.CopyComplete
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ServiceContracts\NetworkModelQueryContract\obj\x64\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.dll
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ServiceContracts\NetworkModelQueryContract\obj\x64\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.pdb
+C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.dll
+C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.pdb
+C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ServiceContracts\NetworkModelQueryContract\obj\x64\Debug\NetworkModelGDAContract.csprojAssemblyReference.cache
+C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ServiceContracts\NetworkModelQueryContract\obj\x64\Debug\NetworkModelGDAContract.csproj.CoreCompileInputs.cache
+C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ServiceContracts\NetworkModelQueryContract\obj\x64\Debug\NetworkModelGDAContract.csproj.CopyComplete
+C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ServiceContracts\NetworkModelQueryContract\obj\x64\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.dll
+C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ServiceContracts\NetworkModelQueryContract\obj\x64\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.pdb
