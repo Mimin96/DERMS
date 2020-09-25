@@ -123,7 +123,7 @@
 
             <Grid Grid.Row="1">
                 <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,-20,727,206">kW</Label>
-                <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-20.8,-19.4" HorizontalAlignment="Right" Width="54" Height="38" VerticalAlignment="Bottom" RenderTransformOrigin="-0.648,1.268">Hour</Label>
+                <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-20.8,-10.4" HorizontalAlignment="Right" Width="54" Height="38" VerticalAlignment="Bottom" RenderTransformOrigin="-0.648,1.268">Hour</Label>
                 <lvc:CartesianChart x:Name="cartesianChart" Margin="0,0,5,24">
                     <lvc:CartesianChart.Series>
                         <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Fill="{Binding Color1}"  Values="{Binding ChartValues2}" Visibility="{Binding VisibilityConsumption}" />

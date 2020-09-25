@@ -660,7 +660,6 @@ C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\Common.dll
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\Common.pdb
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
-C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.dll

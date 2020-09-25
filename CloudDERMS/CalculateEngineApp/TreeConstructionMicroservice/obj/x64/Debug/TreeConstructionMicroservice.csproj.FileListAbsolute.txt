@@ -2067,7 +2067,6 @@ C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\TreeConstru
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\MaterialDesignColors.pdb
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.OData.Edm.xml
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\bin\x64\Debug\Microsoft.Spatial.xml
-C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csprojAssemblyReference.cache
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csproj.CoreCompileInputs.cache
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.csproj.CopyComplete
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\TreeConstructionMicroservice\obj\x64\Debug\TreeConstructionMicroservice.exe

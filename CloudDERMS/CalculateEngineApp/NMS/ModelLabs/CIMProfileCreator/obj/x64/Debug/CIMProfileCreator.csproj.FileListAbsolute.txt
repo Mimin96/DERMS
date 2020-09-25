@@ -237,7 +237,6 @@ C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLa
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMProfileCreator.exe.config
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMProfileCreator.exe
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMProfileCreator.pdb
-C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\CIMProfileCreator.csprojAssemblyReference.cache
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMProfileCreator.CIMProfileCreatorForm.resources
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMProfileCreator.Properties.Resources.resources
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMProfileCreator\obj\x64\Debug\CIMProfileCreator.csproj.GenerateResource.cache

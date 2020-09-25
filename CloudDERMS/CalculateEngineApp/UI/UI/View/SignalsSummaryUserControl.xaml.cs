@@ -27,5 +27,6 @@ namespace UI.View
 
             DataContext = new SignalsSummaryUserControlViewModel();
         }
+
     }
 }

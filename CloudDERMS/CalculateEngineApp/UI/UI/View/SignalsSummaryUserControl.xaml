@@ -80,7 +80,7 @@
         </Grid>
         <Grid Grid.Row="1">
             <DataGrid BorderThickness="1" BorderBrush="#FF0398E2" ItemsControl.ItemsSource="{Binding Points}" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False"
-				  CanUserDeleteRows="False" CanUserResizeRows="False" SelectionUnit="FullRow" Background="Transparent" SelectedItem="{Binding SelectedDataItem}" Foreground="#FF0398E2" FontWeight="Bold" FontSize="14">
+				  CanUserDeleteRows="False" CanUserResizeRows="False" SelectionUnit="FullRow" Background="Transparent" SelectedItem="{Binding SelectedDataItem}" Foreground="#FF0398E2" FontWeight="Bold" FontSize="14" >
                 <DataGrid.InputBindings>
                     <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding SelectedPointCommand}" CommandParameter="{Binding Points}"/>
                 </DataGrid.InputBindings>
@@ -137,19 +137,14 @@
                             <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Timestamp</Label>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Alarm}" IsReadOnly="True" Width="Auto" MinWidth="210" >
-                        <DataGridTextColumn.Header>
-                            <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Alarm</Label>
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding GidGeneratora}" IsReadOnly="True" Width="Auto" SortDirection="Descending">
                         <DataGridTextColumn.Header>
-                            <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Owners GID</Label>
+                            <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Elements GID</Label>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Gid}" IsReadOnly="True" Width="Auto" >
                         <DataGridTextColumn.Header>
-                            <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">GID</Label>
+                            <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Signal GID</Label>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                 </DataGrid.Columns>
