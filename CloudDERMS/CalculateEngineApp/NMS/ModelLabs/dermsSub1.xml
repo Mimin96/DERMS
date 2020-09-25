@@ -181,8 +181,8 @@
 		<cim:IdentifiedObject.mRID>b_281</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.description>b281</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.name>B281</cim:IdentifiedObject.name>
-		<cim:ConductingEquipment.longitude>45.261610</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>19.802417</cim:ConductingEquipment.latitude>
+		<cim:ConductingEquipment.longitude>45.257052</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.798155</cim:ConductingEquipment.latitude>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>
 	</cim:Breaker>	
 	
@@ -399,8 +399,8 @@
 		<cim:IdentifiedObject.name>EC281234</cim:IdentifiedObject.name>
 		<cim:EnergyConsumer.pfixed>80</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
-		<cim:ConductingEquipment.longitude>45.257052</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>19.798155</cim:ConductingEquipment.latitude>
+		<cim:ConductingEquipment.longitude>45.261610</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.802417</cim:ConductingEquipment.latitude>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>		
 	</cim:EnergyConsumer>
 	
@@ -485,6 +485,7 @@
 		<cim:ConductingEquipment.longitude>45.254756</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.791160</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Solar</cim:Generator.generatorType>
+		<cim:Generator.breaker rdf:resource="#b_281"/>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>		
 	</cim:Generator>
 	
@@ -951,7 +952,7 @@
 		<cim:ConductingEquipment.longitude>45.277772</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.799303</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Wind</cim:Generator.generatorType>
-		<cim:Generator.breaker rdf:resource="#b_281"/>
+		<cim:Generator.breaker rdf:resource="#b_22"/>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_1"/>		
 	</cim:Generator>
 	

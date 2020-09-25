@@ -54,7 +54,14 @@ namespace UI.ViewModel
                 bool NormalOpen = Open ? true : false;
 
                 UIClientFlexibilityFromUIToCE uIClient = new UIClientFlexibilityFromUIToCE("UIClientFlexibilityFromUIToCEEndpoint");
-                uIClient.ChangeBreakerStatus(GID, NormalOpen).Wait();
+                try
+                {
+                    uIClient.ChangeBreakerStatus(GID, NormalOpen).Wait();
+                }
+                catch(Exception ex)
+				{
+
+				}
 
                 if (NormalOpen == true)
                 {

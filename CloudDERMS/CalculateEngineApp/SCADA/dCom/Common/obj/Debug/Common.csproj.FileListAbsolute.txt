@@ -634,14 +634,6 @@ C:\Users\Caki\Desktop\1909\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common
 C:\Users\Caki\Desktop\1909\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\Caki\Desktop\1909\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\Caki\Desktop\1909\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.pdb
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\Common.dll
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\Common.pdb
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.dll
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.pdb
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\Common.dll
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\Common.pdb
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
@@ -657,3 +649,11 @@ C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Com
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\Filip\Desktop\ToPush\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\Common.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\Common.pdb
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.pdb

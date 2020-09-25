@@ -490,8 +490,8 @@
 		<cim:IdentifiedObject.mRID>b_28</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.description>b28</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.name>B28</cim:IdentifiedObject.name>
-		<cim:ConductingEquipment.longitude>45.275960</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>19.804217</cim:ConductingEquipment.latitude>
+		<cim:ConductingEquipment.longitude>45.278648</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.823143</cim:ConductingEquipment.latitude>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_2"/>
 	</cim:Breaker>	
 	
@@ -745,8 +745,8 @@
 		<cim:IdentifiedObject.name>EC280123</cim:IdentifiedObject.name>
 		<cim:EnergyConsumer.pfixed>90</cim:EnergyConsumer.pfixed>
 		<cim:EnergyConsumer.qfixed>0</cim:EnergyConsumer.qfixed>
-		<cim:ConductingEquipment.longitude>45.278648</cim:ConductingEquipment.longitude>
-		<cim:ConductingEquipment.latitude>19.823143</cim:ConductingEquipment.latitude>
+		<cim:ConductingEquipment.longitude>45.275960</cim:ConductingEquipment.longitude>
+		<cim:ConductingEquipment.latitude>19.804217</cim:ConductingEquipment.latitude>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_2"/>		
 	</cim:EnergyConsumer>
 	
@@ -797,6 +797,7 @@
 		<cim:ConductingEquipment.longitude>45.282136</cim:ConductingEquipment.longitude>
 		<cim:ConductingEquipment.latitude>19.821018</cim:ConductingEquipment.latitude>
 		<cim:Generator.generatorType>Wind</cim:Generator.generatorType>
+		<cim:Generator.breaker rdf:resource="#b_28"/>
 		<cim:Equipment.EquipmentContainer rdf:resource="#s_2"/>		
 	</cim:Generator>
 	

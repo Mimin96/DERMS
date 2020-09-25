@@ -44,8 +44,8 @@
             <Property id="IDOBJ_MRID" value="b_426" />
             <Property id="IDOBJ_DESCRIPTION" value="b426" />
             <Property id="IDOBJ_NAME" value="B426" />
-            <Property id="CONDEQ_LONGITUDE" value="45.2702675" />
-            <Property id="CONDEQ_LATITUDE" value="19.8463" />
+            <Property id="CONDEQ_LONGITUDE" value="45.26999" />
+            <Property id="CONDEQ_LATITUDE" value="19.8528442" />
             <Property id="SWITCH_NORMAL_OPEN" value="0" />
             <Property id="SWITCH_FEEDER_ID1" value="feeder1" />
             <Property id="SWITCH_FEEDER_ID2" value="feeder2" />
@@ -68,6 +68,7 @@
             <Property id="GENERATOR_MINQ" value="0" />
             <Property id="GENERATOR_CONSIDERP" value="600" />
             <Property id="EQUIPMENT_CONTAINER" value="0x0000000affffffff" />
+            <Property id="GENERATOR_BREAKER" value="0x00000002fffffffe" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -199,8 +200,8 @@
             <Property id="IDOBJ_MRID" value="ec_281121" />
             <Property id="IDOBJ_DESCRIPTION" value="ec281121" />
             <Property id="IDOBJ_NAME" value="EC281121" />
-            <Property id="CONDEQ_LONGITUDE" value="45.26999" />
-            <Property id="CONDEQ_LATITUDE" value="19.8528442" />
+            <Property id="CONDEQ_LONGITUDE" value="45.2702675" />
+            <Property id="CONDEQ_LATITUDE" value="19.8463" />
             <Property id="ENERGYCONSUMER_PFIXED" value="100" />
             <Property id="ENERGYCONSUMER_QFIXED" value="0" />
             <Property id="EQUIPMENT_CONTAINER" value="0x0000000affffffff" />
@@ -1007,8 +1008,8 @@
             <Property id="DISCRETE_MAX_VALUE" value="1" />
             <Property id="DISCRETE_MIN_VALUE" value="0" />
             <Property id="DISCRETE_NORMAL_VALUE" value="0" />
-            <Property id="MEASUREMENT_LATITUDE" value="19.8463" />
-            <Property id="MEASUREMENT_LONGITUDE" value="45.2702675" />
+            <Property id="MEASUREMENT_LATITUDE" value="19.8528442" />
+            <Property id="MEASUREMENT_LONGITUDE" value="45.26999" />
             <Property id="MEASUREMENT_PSR" value="0x00000002fffffffe" />
           </Properties>
         </ResourceDescription>

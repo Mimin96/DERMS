@@ -188,16 +188,6 @@ C:\Users\Caki\Desktop\1909\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIM
 C:\Users\Caki\Desktop\1909\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\CIMAdapter.csproj.CopyComplete
 C:\Users\Caki\Desktop\1909\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.dll
 C:\Users\Caki\Desktop\1909\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.pdb
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Microsoft.Azure.Documents.ServiceInterop.dll
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Cosmos.CRTCompat.dll
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMAdapter.dll.config
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMAdapter.dll
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMAdapter.pdb
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\CIMAdapter.csprojAssemblyReference.cache
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\CIMAdapter.csproj.CoreCompileInputs.cache
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\CIMAdapter.csproj.CopyComplete
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.dll
-C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.pdb
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Microsoft.Azure.Documents.ServiceInterop.dll
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Cosmos.CRTCompat.dll
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMAdapter.dll.config
@@ -208,3 +198,13 @@ E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapte
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\CIMAdapter.csproj.CopyComplete
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.dll
 E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.pdb
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Cosmos.CRTCompat.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMAdapter.dll.config
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMAdapter.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\FTN.ESI.SIMES.CIM.CIMAdapter.pdb
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\CIMAdapter.csprojAssemblyReference.cache
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\CIMAdapter.csproj.CoreCompileInputs.cache
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\CIMAdapter.csproj.CopyComplete
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.dll
+C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\CIMAdapter\obj\x64\Debug\FTN.ESI.SIMES.CIM.CIMAdapter.pdb
