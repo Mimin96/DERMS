@@ -133,7 +133,10 @@
                 <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom" Visibility="{Binding IsDan}">H</Label>
                 <lvc:CartesianChart Margin="0,0,0,24">
                     <lvc:CartesianChart.Series>
-                        <lvc:ScatterSeries Values="{Binding ChartValues}" Visibility="{Binding IsDan}" />
+                        <!--<lvc:ScatterSeries Values="{Binding ChartValues}" Visibility="{Binding IsDan}" />-->
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Values="{Binding DayMin}" Visibility="{Binding IsDanMinVisible}" />
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Values="{Binding DayMax}" Visibility="{Binding IsDanMaxVisible}" />
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Values="{Binding DayAvg}" Visibility="{Binding IsDanAvgVisible}" />
                     </lvc:CartesianChart.Series>
                 </lvc:CartesianChart>
             </Grid>
@@ -143,7 +146,10 @@
                 <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom" Visibility="{Binding IsMesec}">D</Label>
                 <lvc:CartesianChart Margin="0,0,0,24">
                     <lvc:CartesianChart.Series>
-                        <lvc:ScatterSeries Values="{Binding ChartValuesMonth}" Visibility="{Binding IsMesec}"  />
+                        <!--<lvc:ScatterSeries Values="{Binding ChartValuesMonth}" Visibility="{Binding IsMesec}"  />-->
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Values="{Binding MonthMin}" Visibility="{Binding IsMonthMinVisible}" />
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Values="{Binding MonthMax}" Visibility="{Binding IsMonthMaxVisible}" />
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Values="{Binding MonthAvg}" Visibility="{Binding IsMonthAvgVisible}" />
                     </lvc:CartesianChart.Series>
                 </lvc:CartesianChart>
             </Grid>
@@ -153,7 +159,10 @@
                 <Label FontStyle="Italic" FontFamily="Cambria" FontSize="14" TextBlock.Foreground="DeepSkyBlue" Margin="0,0,-14,10" HorizontalAlignment="Right" Width="25" Height="38" VerticalAlignment="Bottom" Visibility="{Binding IsGodinaa}">M</Label>
                 <lvc:CartesianChart Margin="0,0,0,24">
                     <lvc:CartesianChart.Series>
-                        <lvc:ScatterSeries Values="{Binding ChartValuesYear}" Visibility="{Binding IsGodinaa}"  />
+                        <!--<lvc:ScatterSeries Values="{Binding ChartValuesYear}" Visibility="{Binding IsGodinaa}"  />-->
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Values="{Binding YearMin}" Visibility="{Binding IsYearMinVisible}" />
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Values="{Binding YearMax}" Visibility="{Binding IsYearMaxVisible}" />
+                        <lvc:StepLineSeries Configuration="{Binding mapper}" PointGeometrySize="12" PointForeground="White" Values="{Binding YearAvg}" Visibility="{Binding IsYearAvgVisible}" />
                     </lvc:CartesianChart.Series>
                 </lvc:CartesianChart>
             </Grid>

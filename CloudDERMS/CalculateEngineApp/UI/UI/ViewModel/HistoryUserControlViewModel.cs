@@ -40,7 +40,21 @@ namespace UI.ViewModel
         private ObservableCollection<DayItemUI> _itemsDay;
         private ObservableCollection<MonthItemUI> _itemsMonth;
         private ObservableCollection<YearItemUI> _itemsYear;
+        //
+        private IChartValues _dayMin;
+        private IChartValues _dayMax;
+        private IChartValues _dayAvg;
 
+        private IChartValues _monthMin;
+        private IChartValues _monthMax;
+        private IChartValues _monthAvg;
+
+        private IChartValues _yearMin;
+        private IChartValues _yearMax;
+        private IChartValues _yearAvg;
+
+        //
+        //
         #endregion
 
         public HistoryUserControlViewModel()
@@ -70,7 +84,261 @@ namespace UI.ViewModel
             _avg = false;
             _selectedGID = 0;
 
+            //
+            populateInitialLinesValues();
+            _isDanMinVisible = Visibility.Hidden;
+            _isDanMaxVisible = Visibility.Hidden;
+            _isDanAvgVisible = Visibility.Hidden;
+            //
+
         }
+
+        //
+        private void populateInitialLinesValues()
+        {
+            _dayMax = new ChartValues<double>();
+            _dayMin = new ChartValues<double>();
+            _dayAvg = new ChartValues<double>();
+            _monthMin = new ChartValues<double>();
+            _monthMax = new ChartValues<double>();
+            _monthAvg = new ChartValues<double>();
+            _yearMin = new ChartValues<double>();
+            _yearMax = new ChartValues<double>();
+            _yearAvg = new ChartValues<double>();
+
+            for (int j = 0; j <= 24; j++)
+                _dayMax.Add((double)0);
+
+            for (int j = 0; j <= 24; j++)
+                _dayMin.Add((double)0);
+
+            for (int j = 0; j <= 24; j++)
+                _dayAvg.Add((double)0);
+
+            for (int j = 0; j <= 31; j++)
+                _monthMin.Add((double)0);
+
+            for (int j = 0; j <= 31; j++)
+                _monthMax.Add((double)0);
+
+            for (int j = 0; j <= 31; j++)
+                _monthAvg.Add((double)0);
+
+            for (int j = 0; j <= 12; j++)
+                _yearMin.Add((double)0);
+
+            for (int j = 0; j <= 12; j++)
+                _yearMax.Add((double)0);
+
+            for (int j = 0; j <= 12; j++)
+                _yearAvg.Add((double)0);
+        }
+        public IChartValues DayMin
+        {
+            get { return _dayMin; }
+            set
+            {
+                _dayMin = value;
+                OnPropertyChanged("DayMin");
+            }
+        }
+        public IChartValues DayMax
+        {
+            get { return _dayMax; }
+            set
+            {
+                _dayMax = value;
+                OnPropertyChanged("DayMax");
+            }
+        }
+        public IChartValues DayAvg
+        {
+            get { return _dayAvg; }
+            set
+            {
+                _dayAvg = value;
+                OnPropertyChanged("DayAvg");
+            }
+        }
+        public IChartValues MonthMin
+        {
+            get { return _monthMin; }
+            set
+            {
+                _monthMin = value;
+                OnPropertyChanged("MonthMin");
+            }
+        }
+        public IChartValues MonthMax
+        {
+            get { return _monthMax; }
+            set
+            {
+                _monthMax = value;
+                OnPropertyChanged("MonthMax");
+            }
+        }
+        public IChartValues MonthAvg
+        {
+            get { return _monthAvg; }
+            set
+            {
+                _monthAvg = value;
+                OnPropertyChanged("MonthAvg");
+            }
+        }
+        public IChartValues YearMin
+        {
+            get { return _yearMin; }
+            set
+            {
+                _yearMin = value;
+                OnPropertyChanged("YearMin");
+            }
+        }
+        public IChartValues YearMax
+        {
+            get { return _yearMax; }
+            set
+            {
+                _yearMax = value;
+                OnPropertyChanged("YearMax");
+            }
+        }
+        public IChartValues YearAvg
+        {
+            get { return _yearAvg; }
+            set
+            {
+                _yearAvg = value;
+                OnPropertyChanged("YearAvg");
+            }
+        }
+        private Visibility _isDanMinVisible;
+        public Visibility IsDanMinVisible
+        {
+            get
+            {
+                if (_min && IsDan == Visibility.Visible)
+                    return _isDanMinVisible = Visibility.Visible;
+                else
+                    return _isDanMinVisible = Visibility.Collapsed;
+               // return _isDanMinVisible;
+            }
+            set
+            {
+                _isDanMinVisible = value; OnPropertyChanged("IsDanMinVisible");
+            }
+        }
+        private Visibility _isDanMaxVisible;
+        public Visibility IsDanMaxVisible
+        {
+            get
+            {
+                //if (_max && IsDan == Visibility.Visible)
+                //    return Visibility.Visible;
+                //else
+                //    return Visibility.Collapsed;
+                return _isDanMaxVisible;
+            }
+            set
+            {
+                _isDanMaxVisible = value; OnPropertyChanged("IsDanMaxVisible");
+            }
+        }
+        private Visibility _isDanAvgVisible;
+        public Visibility IsDanAvgVisible
+        {
+            get
+            {
+                //if (_avg && IsDan == Visibility.Visible)
+                //    return Visibility.Visible;
+                //else
+                //    return Visibility.Collapsed;
+                return _isDanAvgVisible;
+            }
+            set
+            {
+                _isDanAvgVisible = value; OnPropertyChanged("IsDanAvgVisible");
+            }
+        }
+        private Visibility _isMonthMinVisible;
+        public Visibility IsMonthMinVisible
+        {
+            get
+            {
+                if (_min && IsMesec == Visibility.Visible)
+                    return _isMonthMinVisible = Visibility.Visible;
+                else
+                    return _isMonthMinVisible = Visibility.Collapsed;
+                // return _isDanMinVisible;
+            }
+            set
+            {
+                _isMonthMinVisible = value; OnPropertyChanged("IsMonthMinVisible");
+            }
+        }
+        private Visibility _isMonthMaxVisible;
+        public Visibility IsMonthMaxVisible
+        {
+            get
+            {
+                return _isMonthMaxVisible;
+            }
+            set
+            {
+                _isMonthMaxVisible = value; OnPropertyChanged("IsMonthMaxVisible");
+            }
+        }
+        private Visibility _isMonthAvgVisible;
+        public Visibility IsMonthAvgVisible
+        {
+            get
+            {
+                return _isMonthAvgVisible;
+            }
+            set
+            {
+                _isMonthAvgVisible = value; OnPropertyChanged("IsMonthAvgVisible");
+            }
+        }
+        private Visibility _isYearMinVisible;
+        public Visibility IsYearMinVisible
+        {
+            get
+            {
+                return _isYearMinVisible;
+            }
+            set
+            {
+                _isYearMinVisible = value; OnPropertyChanged("IsYearMinVisible");
+            }
+        }
+        private Visibility _isYearMaxVisible;
+        public Visibility IsYearMaxVisible
+        {
+            get
+            {
+                return _isYearMaxVisible;
+            }
+            set
+            {
+                _isYearMaxVisible = value; OnPropertyChanged("IsYearMaxVisible");
+            }
+        }
+        private Visibility _isYearAvgVisible;
+        public Visibility IsYearAvgVisible
+        {
+            get
+            {
+                return _isYearAvgVisible;
+            }
+            set
+            {
+                _isYearAvgVisible = value; OnPropertyChanged("IsYearAvgVisible");
+            }
+        }
+        //
 
         #region Properties
         public string SelectedPeriod { get => _selectedPeriod; set { _selectedPeriod = value; OnPropertyChanged("SelectedPeriod"); } }
@@ -377,6 +645,20 @@ namespace UI.ViewModel
 
         private void ApplyFilter(object obj)
         {
+            //
+            IsDanMinVisible = Visibility.Hidden;
+            IsDanMaxVisible = Visibility.Hidden;
+            IsDanAvgVisible = Visibility.Hidden;
+
+            IsMonthMinVisible = Visibility.Hidden;
+            IsMonthMaxVisible = Visibility.Hidden;
+            IsMonthAvgVisible = Visibility.Hidden;
+
+            IsYearMinVisible = Visibility.Hidden;
+            IsYearMaxVisible = Visibility.Hidden;
+            IsYearAvgVisible = Visibility.Hidden;
+            //
+
             bool bool1 = false, bool2 = false, bool3 = false;
             if (_selectedGID != 0)
             {
@@ -394,12 +676,15 @@ namespace UI.ViewModel
                     _itemsMonth = new ObservableCollection<MonthItemUI>(uIClient.GetMonthItems());
                     _itemsYear = new ObservableCollection<YearItemUI>(uIClient.GetYearItems());
 
-                    for (int j = 0; j <= 24; j++)
-                        _chartValues[j] = -100.0;
-                    for (int j = 0; j <= 31; j++)
-                        _chartValuesMonth[j] = -100.0;
-                    for (int j = 0; j <= 12; j++)
-                        _chartValuesYear[j] = -100.0;
+                    //for (int j = 0; j <= 24; j++)
+                    //    _chartValues[j] = -100.0;
+                    //for (int j = 0; j <= 31; j++)
+                    //    _chartValuesMonth[j] = -100.0;
+                    //for (int j = 0; j <= 12; j++)
+                    //    _chartValuesYear[j] = -100.0;
+
+                    populateInitialLinesValues();
+
                     int hour = 0;
                     int day = 0;
                     int month = 0;
@@ -431,40 +716,86 @@ namespace UI.ViewModel
                     }
                     //
                     //
+                    DayItemUI ll = new DayItemUI();
+                    ll.Timestamp = DateTime.Now;
+                    ll.PMin = -3;
+                    listDayItems.Add(ll);
+                    listDayItems = listDayItems.OrderBy(x => x.Timestamp).ToList();
 
+                    MonthItemUI mm = new MonthItemUI();
+                    mm.Timestamp = DateTime.Now;
+                    mm.PMin = -5;
+                    listMonthItems.Add(mm);
+                    listMonthItems = listMonthItems.OrderBy(x => x.Timestamp).ToList();
+
+                    YearItemUI uu = new YearItemUI();
+                    uu.Timestamp = DateTime.Now;
+                    uu.PMin = -72;
+                    listYearItems.Add(uu);
+                    //
+                    //My day mins by hour
                     if (_min && IsDan == Visibility.Visible)
                     {
+                        IsDanMinVisible = Visibility.Visible;
                         if (listDayItems.Count > 0)
                         {
+                            DateTime currentTime = listDayItems[0].Timestamp;
                             foreach (var l in listDayItems)
                             {
-                                if (l.PMin < min)
+                                //find min for that hour
+                                if (currentTime.Hour == l.Timestamp.Hour)
                                 {
-                                    min = l.PMin;
-                                    hour = l.Timestamp.Hour;
+                                    if (l.PMin < min)
+                                    {
+                                        min = l.PMin;
+                                        hour = l.Timestamp.Hour;
+                                    }
                                 }
+                                else
+                                {
+                                    DayMin[hour] = min;
+                                    hour = l.Timestamp.Hour;
+                                    currentTime = l.Timestamp;
+                                    min = l.PMin;
+                                }
+                                //
+                                DayMin[hour] = min;
                             }
-                            _chartValues[hour] = min;
+                            OnPropertyChanged("DayMin");
                         }
                         else
                         {
                             bool1 = true;
                         }
-
                     }
                     else if (_min && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
                     {
+                        IsMonthMinVisible = Visibility.Visible;
                         if (listMonthItems.Count > 0)
                         {
+                            DateTime currentTime = listMonthItems[0].Timestamp;
                             foreach (var l in listMonthItems)
                             {
-                                if (l.PMin < min)
+                                //find min for that hour
+                                if (currentTime.Day == l.Timestamp.Day)
                                 {
-                                    min = l.PMin;
-                                    day = l.Timestamp.Day;
+                                    if (l.PMin < min)
+                                    {
+                                        min = l.PMin;
+                                        day = l.Timestamp.Day;
+                                    }
                                 }
+                                else
+                                {
+                                    MonthMin[day] = min;
+                                    day = l.Timestamp.Day;
+                                    currentTime = l.Timestamp;
+                                    min = l.PMin;
+                                }
+                                //
+                                MonthMin[day] = min;
                             }
-                            _chartValuesMonth[day] = min;
+                            OnPropertyChanged("MonthMin");
                         }
                         else
                         {
@@ -473,17 +804,30 @@ namespace UI.ViewModel
                     }
                     else if (_min && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
                     {
+                        IsYearMinVisible = Visibility.Visible;
                         if (listYearItems.Count > 0)
                         {
+                            DateTime currentTime = listMonthItems[0].Timestamp;
                             foreach (var l in listYearItems)
                             {
-                                if (l.PMin < min)
+                                if (currentTime.Month == l.Timestamp.Month)
                                 {
-                                    min = l.PMin;
-                                    month = l.Timestamp.Month;
+                                    if (l.PMin < min)
+                                    {
+                                        min = l.PMin;
+                                        month = l.Timestamp.Month;
+                                    }
                                 }
+                                else
+                                {
+                                    YearMin[month] = min;
+                                    month = l.Timestamp.Month;
+                                    currentTime = l.Timestamp;
+                                    min = l.PMin;
+                                }
+                                YearMin[month] = min;
                             }
-                            _chartValuesYear[month] = min;
+                            OnPropertyChanged("YearMin");
                         }
                         else
                         {
@@ -493,18 +837,33 @@ namespace UI.ViewModel
 
                     if (_max && IsDan == Visibility.Visible)
                     {
+                        IsDanMaxVisible = Visibility.Visible;
                         if (listDayItems.Count > 0)
                         {
+                            DateTime currentTime = listDayItems[0].Timestamp;
                             foreach (var l in listDayItems)
                             {
-                                if (l.PMax >= max)
+                                if (currentTime.Hour == l.Timestamp.Hour)
                                 {
-                                    max = l.PMax;
-                                    hour = l.Timestamp.Hour;
+                                    if (l.PMax >= max)
+                                    {
+                                        max = l.PMax;
+                                        hour = l.Timestamp.Hour;
+                                    }
                                 }
+                                else
+                                {
+                                    DayMax[hour] = max;
+                                    hour = l.Timestamp.Hour;
+                                    currentTime = l.Timestamp;
+                                    max = l.PMax;
+                                }
+                                //
+                                DayMax[hour] = max;
 
                             }
-                            _chartValues[hour] = max;
+                            OnPropertyChanged("DayMax");
+                            //_chartValues[hour] = max;
                         }
                         else
                         {
@@ -514,17 +873,32 @@ namespace UI.ViewModel
                     }
                     else if (_max && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
                     {
+                        IsMonthMaxVisible = Visibility.Visible;
                         if (listMonthItems.Count > 0)
                         {
+                            DateTime currentTime = listMonthItems[0].Timestamp;
                             foreach (var l in listMonthItems)
                             {
-                                if (l.PMax >= max)
+                                if (currentTime.Day == l.Timestamp.Day)
                                 {
-                                    max = l.PMax;
-                                    day = l.Timestamp.Day;
+                                    if (l.PMax >= max)
+                                    {
+                                        max = l.PMax;
+                                        day = l.Timestamp.Day;
+                                    }
                                 }
+                                else
+                                {
+                                    MonthMax[day] = max;
+                                    day = l.Timestamp.Hour;
+                                    currentTime = l.Timestamp;
+                                    max = l.PMax;
+                                }
+                                //
+                                MonthMax[day] = max;
+
                             }
-                            _chartValuesMonth[day] = max;
+                            OnPropertyChanged("MonthMax");
                         }
                         else
                         {
@@ -533,17 +907,31 @@ namespace UI.ViewModel
                     }
                     else if (_max && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
                     {
+                        IsYearMaxVisible = Visibility.Visible;
                         if (listYearItems.Count > 0)
                         {
+                            DateTime currentTime = listMonthItems[0].Timestamp;
                             foreach (var l in listYearItems)
                             {
-                                if (l.PMax >= max)
+                                if (currentTime.Month == l.Timestamp.Month)
                                 {
-                                    max = l.PMax;
-                                    month = l.Timestamp.Month;
+                                    if (l.PMax >= max)
+                                    {
+                                        max = l.PMax;
+                                        month = l.Timestamp.Month;
+                                    }
                                 }
+                                else
+                                {
+                                    YearMax[month] = max;
+                                    month = l.Timestamp.Hour;
+                                    currentTime = l.Timestamp;
+                                    max = l.PMax;
+                                }
+                                //
+                                YearMax[month] = max;
                             }
-                            _chartValuesYear[month] = max;
+                            OnPropertyChanged("YearMax");
                         }
                         else
                         {
@@ -551,17 +939,37 @@ namespace UI.ViewModel
                         }
                     }
 
+                    double sumForHour = 0;
+                    double sumForDay = 0;
                     if (_avg && IsDan == Visibility.Visible)
                     {
+                        IsDanAvgVisible = Visibility.Visible;
                         if (listDayItems.Count > 0)
                         {
+
+                            DateTime currentTime = listDayItems[0].Timestamp;
                             foreach (var l in listDayItems)
                             {
-                                sum += l.PAvg;
-                                counter++;
+                                if (currentTime.Hour == l.Timestamp.Hour)
+                                {
+                                    sum += l.PAvg;
+                                    counter++;
+                                    hour = l.Timestamp.Hour;
+                                }
+                                else
+                                {
+                                    sumForHour = sum / counter;
+                                    DayAvg[hour] = sumForHour;
+                                    hour = l.Timestamp.Hour;
+                                    currentTime = l.Timestamp;
+                                    counter = 1;
+                                    sum = l.PAvg;
+                                }
+                                //
+                                sumForHour = sum / counter;
+                                DayAvg[hour] = sumForHour;
                             }
-
-                            _chartValues[0] = sum / counter;
+                            OnPropertyChanged("DayAvg");
                         }
                         else
                         {
@@ -570,15 +978,32 @@ namespace UI.ViewModel
                     }
                     else if (_avg && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
                     {
+                        IsMonthAvgVisible = Visibility.Visible;
                         if (listMonthItems.Count > 0)
                         {
+                            DateTime currentTime = listMonthItems[0].Timestamp;
                             foreach (var l in listMonthItems)
                             {
-                                sum += l.PAvg;
-                                counter++;
+                                if (currentTime.Day == l.Timestamp.Day)
+                                {
+                                    sum += l.PAvg;
+                                    counter++;
+                                    day = l.Timestamp.Day;
+                                }
+                                else
+                                {
+                                    sumForDay = sum / counter;
+                                    MonthAvg[day] = sumForDay;
+                                    day = l.Timestamp.Day;
+                                    currentTime = l.Timestamp;
+                                    counter = 1;
+                                    sum = l.PAvg;
+                                }
+                                //
+                                sumForDay = sum / counter;
+                                MonthAvg[day] = sumForDay;
                             }
-
-                            _chartValuesMonth[0] = sum / counter;
+                            OnPropertyChanged("MonthAvg");
                         }
                         else
                         {
@@ -587,15 +1012,41 @@ namespace UI.ViewModel
                     }
                     else if (_avg && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
                     {
+                        double sumForMonth = 0;
+                        IsYearAvgVisible = Visibility.Visible;
                         if (listYearItems.Count > 0)
                         {
+                            //foreach (var l in listYearItems)
+                            //{
+                            //    sum += l.PAvg;
+                            //    counter++;
+                            //}
+
+                            //_chartValuesYear[0] = sum / counter;
+                            DateTime currentTime = listYearItems[0].Timestamp;
                             foreach (var l in listYearItems)
                             {
-                                sum += l.PAvg;
-                                counter++;
+                                if (currentTime.Month == l.Timestamp.Month)
+                                {
+                                    sum += l.PAvg;
+                                    counter++;
+                                    month = l.Timestamp.Month;
+                                }
+                                else
+                                {
+                                    sumForMonth = sum / counter;
+                                    YearAvg[month] = sumForMonth;
+                                    month = l.Timestamp.Month;
+                                    currentTime = l.Timestamp;
+                                    counter = 1;
+                                    sum = l.PAvg;
+                                }
+                                //
+                                sumForMonth = sum / counter;
+                                YearAvg[month] = sumForMonth;
                             }
+                            OnPropertyChanged("YearAvg");
 
-                            _chartValuesYear[0] = sum / counter;
                         }
                         else
                         {
