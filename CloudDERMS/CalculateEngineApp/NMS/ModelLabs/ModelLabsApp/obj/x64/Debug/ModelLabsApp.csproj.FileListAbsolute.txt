@@ -298,3 +298,16 @@ C:\Users\Caki\Desktop\2609\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\Mod
 C:\Users\Caki\Desktop\2609\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csproj.CopyComplete
 C:\Users\Caki\Desktop\2609\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.exe
 C:\Users\Caki\Desktop\2609\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.pdb
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Cosmos.CRTCompat.dll
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\ModelLabsApp.exe.config
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\ModelLabsApp.exe
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\ModelLabsApp.pdb
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csprojAssemblyReference.cache
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.ModelLabsAppForm.resources
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.Properties.Resources.resources
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csproj.GenerateResource.cache
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csproj.CoreCompileInputs.cache
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.csproj.CopyComplete
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.exe
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\ModelLabsApp\obj\x64\Debug\ModelLabsApp.pdb

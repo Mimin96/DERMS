@@ -1291,21 +1291,26 @@ namespace CalculationEngineService
                     {
                         Substation substation = (Substation)networkModel[generator.Container];
                         DisableAutomaticOptimization.Remove(substation.GlobalId);
+                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(generator.GlobalId));
+                        await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromDisableAutomaticOptimization(substation.GlobalId)); 
                         if (DisableAutomaticOptimization.Contains(substation.SubGeoReg))
                         {
                             SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)networkModel[substation.SubGeoReg];
                             DisableAutomaticOptimization.Remove(subGeographicalRegion.GlobalId);
+                            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(subGeographicalRegion.GlobalId));
+                            await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromDisableAutomaticOptimization(subGeographicalRegion.GlobalId));
                             if (DisableAutomaticOptimization.Contains(subGeographicalRegion.GeoReg))
                             {
                                 GeographicalRegion geographicalRegion = (GeographicalRegion)networkModel[subGeographicalRegion.GeoReg];
                                 DisableAutomaticOptimization.Remove(geographicalRegion.GlobalId);
+                                await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(geographicalRegion.GlobalId));
+                                await transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromDisableAutomaticOptimization(geographicalRegion.GlobalId));
                             }
                         }
                     }
                 }
                 generators.Add(generator);
             }
-
             return generators;
         }
         public async Task<List<Generator>> GeneratorOffCheck()

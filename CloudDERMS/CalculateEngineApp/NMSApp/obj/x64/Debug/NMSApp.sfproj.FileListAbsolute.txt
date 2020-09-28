@@ -26,3 +26,4 @@ E:\Master\22.09.2020\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NM
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache
 C:\Users\Caki\Desktop\2609\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache
+C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache
