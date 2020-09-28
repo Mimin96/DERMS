@@ -19,5 +19,11 @@ namespace CloudCommon.SCADA
         List<MonthItemUI> GetMonthItems();
         [OperationContract]
         List<YearItemUI> GetYearItems();
+        [OperationContract]
+        List<CollectItemUI> GetCollectItemsDateTime(DateTime dateTime, long gid);
+        [OperationContract]
+        List<DayItemUI> GetDayItemsDateTime(DateTime dateTime, long gid);
+        [OperationContract]
+        List<MonthItemUI> GetMonthItemsDateTime(DateTime dateTime, long gid);
     }
 }

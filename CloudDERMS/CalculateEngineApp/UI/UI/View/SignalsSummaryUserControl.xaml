@@ -79,7 +79,7 @@
             <CheckBox Content="Filter by time" HorizontalAlignment="Left" IsChecked="{Binding SignalsSummaryFilter.FilterByTime}" Margin="560, 75, 0, 5" Background="#FF0398E2" BorderThickness="1" BorderBrush="#FF0398E2" Foreground="#FF0398E2" Visibility="{Binding Path=FilterVisibility}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <DataGrid BorderThickness="1" BorderBrush="#FF0398E2" ItemsControl.ItemsSource="{Binding Points}" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False"
+            <DataGrid BorderThickness="1" BorderBrush="#FF0398E2" ItemsControl.ItemsSource="{Binding PointsUI}" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False"
 				  CanUserDeleteRows="False" CanUserResizeRows="False" SelectionUnit="FullRow" Background="Transparent" SelectedItem="{Binding SelectedDataItem}" Foreground="#FF0398E2" FontWeight="Bold" FontSize="14" >
                 <DataGrid.InputBindings>
                     <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding SelectedPointCommand}" CommandParameter="{Binding Points}"/>
@@ -132,7 +132,7 @@
                             <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Value</Label>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Timestamp}" IsReadOnly="True" Width="Auto" MinWidth="200" >
+                    <DataGridTextColumn Binding="{Binding Timestamp, StringFormat='MM/dd/yyyy HH:mm:ss'}" IsReadOnly="True" Width="Auto" MinWidth="200" >
                         <DataGridTextColumn.Header>
                             <Label  Foreground="#FF0398E2" FontWeight="Bold" FontSize="16">Timestamp</Label>
                         </DataGridTextColumn.Header>

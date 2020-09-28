@@ -26,12 +26,14 @@ namespace UI.ViewModel
         private RelayCommand<object> _applyFilterCommand;
         private ObservableCollection<DataPoint> _points;
         private ObservableCollection<DataPoint> _allPoints;
+        private ObservableCollection<DataPointUI> _pointsUI;
         private DataPoint _selectedDataItem;
         private ICommand _selectedPointCommand;
         #endregion
 
         public SignalsSummaryUserControlViewModel()
         {
+            PointsUI = new ObservableCollection<DataPointUI>();
             SignalsSummaryFilter = new SignalsSummaryFilter();
             FilterVisibility = Visibility.Collapsed;
 
@@ -86,8 +88,29 @@ namespace UI.ViewModel
             set;
         }
         public double MinHeightFilter { get { return _minHeightFilter; } set { _minHeightFilter = value; OnPropertyChanged("MinHeightFilter"); } }
-        public ObservableCollection<DataPoint> Points { get { return _points; } set { _points = value; OnPropertyChanged("Points"); } }
-        public DataPoint SelectedDataItem
+        public ObservableCollection<DataPoint> Points 
+        {
+            get { return _points; } 
+            set 
+            { 
+                _points = value;
+                PointsUI.Clear();
+
+                foreach (DataPoint dataPoint in _points) 
+                {
+                    PointsUI.Add(new DataPointUI(dataPoint.Gid, dataPoint.Type, dataPoint.Address, dataPoint.Timestamp,
+                                                 dataPoint.Name, dataPoint.Value,
+                                                 (dataPoint.Type == PointType.ANALOG_INPUT || dataPoint.Type == PointType.ANALOG_OUTPUT) ? dataPoint.RawValue + " kW" :
+                                                 (dataPoint.RawValue == 1) ? "OPEN" : "CLOSE",
+                                                 dataPoint.Alarm, dataPoint.GidGeneratora)
+                    { AlarmImageColor = dataPoint.AlarmImageColor, AlarmImage = dataPoint.AlarmImage, Value = dataPoint.Value
+});
+                }
+            } 
+        }
+        public ObservableCollection<DataPointUI> PointsUI { get { return _pointsUI; } set { _pointsUI = value; OnPropertyChanged("PointsUI"); } }
+
+public DataPoint SelectedDataItem
         {
             get
             {

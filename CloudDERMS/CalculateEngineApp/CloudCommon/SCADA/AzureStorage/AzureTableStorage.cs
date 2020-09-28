@@ -196,6 +196,94 @@ namespace CloudCommon.SCADA.AzureStorage
             return entities;
         }
 
+        public static List<CollectItem> GetCollectItems(string connectionString, string tableName, string dateTime)
+        {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+
+            // Create the table client.
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            // Create the CloudTable object that represents the "people" table.
+            CloudTable table = tableClient.GetTableReference(tableName);
+
+            TableContinuationToken token = null;
+            List<CollectItem> entities = new List<CollectItem>();
+
+            do
+            {
+                TableQuery<CollectItem> itemStockQuery = new TableQuery<CollectItem>().Where(
+                                                                    TableQuery.GenerateFilterCondition("Date", QueryComparisons.Equal, dateTime)
+                                                               );
+
+                var queryResult = table.ExecuteQuerySegmented(itemStockQuery, token);
+                entities.AddRange(queryResult.Results);
+                token = queryResult.ContinuationToken;
+            } while (token != null);
+
+            //entities = entities.Where(x => x.Timestamp.DateTime.Year == dateTime.Year &&
+            //                               x.Timestamp.DateTime.Month == dateTime.Month &&
+           //                               x.Timestamp.DateTime.Day == dateTime.Day).ToList();
+            return entities;
+        }
+        public static List<DayItem> GetDayItems(string connectionString, string tableName, string dateTime)
+        {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+
+            // Create the table client.
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            // Create the CloudTable object that represents the "people" table.
+            CloudTable table = tableClient.GetTableReference(tableName);
+
+            TableContinuationToken token = null;
+            List<DayItem> entities = new List<DayItem>();
+
+            do
+            {
+                TableQuery<DayItem> itemStockQuery = new TableQuery<DayItem>().Where(
+                                                                    TableQuery.GenerateFilterCondition("Date", QueryComparisons.Equal, dateTime)
+                                                               );
+
+                var queryResult = table.ExecuteQuerySegmented(itemStockQuery, token);
+                // new TableQuery<DayItem>().Where(x => x.Timestamp.Day == day)
+                entities.AddRange(queryResult.Results);
+                token = queryResult.ContinuationToken;
+            } while (token != null);
+
+            //entities = entities.Where(x => x.Timestamp.DateTime.Year == dateTime.Year &&
+            //                              x.Timestamp.DateTime.Month == dateTime.Month).ToList();
+
+            return entities;
+        }
+        public static List<MonthItem> GetMonthItems(string connectionString, string tableName, string dateTime)
+        {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+
+            // Create the table client.
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            // Create the CloudTable object that represents the "people" table.
+            CloudTable table = tableClient.GetTableReference(tableName);
+
+            TableContinuationToken token = null;
+            List<MonthItem> entities = new List<MonthItem>();
+
+            do
+            {
+                TableQuery<MonthItem> itemStockQuery = new TableQuery<MonthItem>().Where(
+                                                                    TableQuery.GenerateFilterCondition("Date", QueryComparisons.Equal, dateTime)
+                                                               );
+
+                var queryResult = table.ExecuteQuerySegmented(itemStockQuery, token);
+                entities.AddRange(queryResult.Results);
+                token = queryResult.ContinuationToken;
+            } while (token != null);
+
+            // entities = entities.Where(x => x.Timestamp.DateTime.Year == dateTime.Year).ToList();
+
+            return entities;
+        }
+
         public static List<EventStorage> GetAllEventStorageItems(string connectionString, string tableName)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);

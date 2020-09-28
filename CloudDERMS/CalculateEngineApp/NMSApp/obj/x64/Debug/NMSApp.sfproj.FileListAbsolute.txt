@@ -27,3 +27,4 @@ C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\CloudDERMS\CalculateEngineApp
 C:\Users\boske\Desktop\poslednje\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache
 C:\Users\Caki\Desktop\2609\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache
 C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache
+C:\Users\Filip\Desktop\new\DERMS\CloudDERMS\CalculateEngineApp\NMSApp\obj\x64\Debug\NMSApp.sfproj.CoreCompileInputs.cache

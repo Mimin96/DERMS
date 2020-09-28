@@ -16,6 +16,8 @@ namespace CloudCommon.SCADA.AzureStorage.Entities
         private long _gid;
         [DataMember]
         private double _p;
+        [DataMember]
+        private string _date;
         //[DataMember]
         //private DateTime _timestamp = DateTime.Now;
 
@@ -26,11 +28,13 @@ namespace CloudCommon.SCADA.AzureStorage.Entities
             PartitionKey = "CollectItem";
             RowKey = gid.ToString() + " " + timestamp.ToString("o");
 
+            Date = timestamp.Date.Year + "-" + timestamp.Date.Month + "-" + timestamp.Date.Day;
             Gid = gid;
             Timestamp = timestamp;
             P = p;
         }
 
+        public string Date { get => _date; set => _date = value; }
         public long Gid { get => _gid; set => _gid = value; }
         public double P { get => _p; set => _p = value; }
         //public DateTime Timestamp { get => _timestamp; set => _timestamp = value; }

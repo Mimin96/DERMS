@@ -12,7 +12,7 @@
              d:DesignHeight="533" d:DesignWidth="1024">
     <Grid>
         <Border Background="Transparent" Width="250" HorizontalAlignment="Left">
-            <TreeView BorderThickness="1" BorderBrush="#FF0398E2" x:Name="MainTreeView" HorizontalAlignment="Stretch" Margin="10" ItemsSource="{Binding NetworkModel}">
+            <TreeView BorderThickness="1" BorderBrush="#FF0398E2" x:Name="MainTreeView" HorizontalAlignment="Stretch" Margin="10" ItemsSource="{Binding NetworkModelUI}">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding GeographicalRegions}" DataType="{x:Type TreeView:NetworkModelTreeClass}">
                         <Button Command="{Binding ElementName=MainTreeView, Path=DataContext.NetworkModelCommand}" Click="SelectedElementFromTree" CommandParameter="{Binding GID}" Background="Transparent" Style="{DynamicResource HoverButtonEffect}">

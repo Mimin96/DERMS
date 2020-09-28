@@ -24,6 +24,8 @@ namespace CloudCommon.SCADA.AzureStorage.Entities
         private double _e;
         [DataMember]
         private double _p;
+        [DataMember]
+        private string _date;
         //[DataMember]
         //private DateTime _timestamp;
         public YearItem() { }
@@ -33,6 +35,7 @@ namespace CloudCommon.SCADA.AzureStorage.Entities
             PartitionKey = "YearItem";
             RowKey = gid.ToString() + " " + timestamp.ToString("o");
 
+            Date = timestamp.Date.Year.ToString();
             Gid = gid;
             PMin = pMin;
             PMax = pMax;
@@ -41,6 +44,7 @@ namespace CloudCommon.SCADA.AzureStorage.Entities
             P = p;
         }
 
+        public string Date { get => _date; set => _date = value; }
         public long Gid { get => _gid; set => _gid = value; }
         public double PMin { get => _pMin; set => _pMin = value; }
         public double PAvg { get => _pAvg; set => _pAvg = value; }

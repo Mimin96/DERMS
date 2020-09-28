@@ -797,3 +797,12 @@ C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp
 C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
 C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
 C:\Users\djordje.tosic\Desktop\Projekat 28.0\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb
+C:\Users\Filip\Desktop\new\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.dll
+C:\Users\Filip\Desktop\new\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\bin\Debug\ProcessingModule.pdb
+C:\Users\Filip\Desktop\new\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\bin\Debug\Common.dll
+C:\Users\Filip\Desktop\new\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\bin\Debug\Common.pdb
+C:\Users\Filip\Desktop\new\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csprojAssemblyReference.cache
+C:\Users\Filip\Desktop\new\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CoreCompileInputs.cache
+C:\Users\Filip\Desktop\new\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.csproj.CopyComplete
+C:\Users\Filip\Desktop\new\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.dll
+C:\Users\Filip\Desktop\new\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\ProcessingModule\obj\Debug\ProcessingModule.pdb

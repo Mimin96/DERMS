@@ -192,6 +192,7 @@
   <ItemGroup>
     <Compile Include="CloudScadaToLocalScada.cs" />
     <Compile Include="HistoryDatabase.cs" />
+    <Compile Include="MockDatabaseData\MockHistoryDatabaseData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCADACacheMicroservice.cs" />
     <Compile Include="Program.cs" />

@@ -62,5 +62,53 @@ namespace SCADACacheMicroservice
 
             return yearItemUIs;
         }
+
+        public List<CollectItemUI> GetCollectItemsDateTime(DateTime dateTime, long gid)
+        {
+            List<CollectItem> collectItems = AzureTableStorage.GetCollectItems("UseDevelopmentStorage=true;", "CollectItems",
+                                                                                                                            dateTime.Year + "-" + dateTime.Month + "-" + dateTime.Day
+                                                                                                                            );
+            List<CollectItemUI> collectItemUIs = new List<CollectItemUI>();
+
+            foreach (CollectItem collectItem in collectItems)
+            {
+                if (collectItem.Gid == gid)
+                    collectItemUIs.Add(new CollectItemUI(collectItem.Gid, collectItem.P, collectItem.Timestamp.DateTime));
+            }
+
+            return collectItemUIs;
+        }
+
+        public List<DayItemUI> GetDayItemsDateTime(DateTime dateTime, long gid)
+        {
+            List<DayItem> dayItems = AzureTableStorage.GetDayItems("UseDevelopmentStorage=true;", "DayItems",
+                                                                                                              dateTime.Year + "-" + dateTime.Month
+                                                                                                              );
+            List<DayItemUI> dayItemUIs = new List<DayItemUI>();
+
+            foreach (DayItem dayItem in dayItems)
+            {
+                if (dayItem.Gid == gid)
+                    dayItemUIs.Add(new DayItemUI(dayItem.Gid, dayItem.Timestamp.DateTime, dayItem.PMin, dayItem.PMax, dayItem.PAvg, dayItem.E, dayItem.P));
+            }
+
+            return dayItemUIs;
+        }
+
+        public List<MonthItemUI> GetMonthItemsDateTime(DateTime dateTime, long gid)
+        {
+            List<MonthItem> monthItems = AzureTableStorage.GetMonthItems("UseDevelopmentStorage=true;", "MonthItems",
+                                                                                                                    dateTime.Year.ToString()
+                                                                                                                    );
+            List<MonthItemUI> monthItemUIs = new List<MonthItemUI>();
+
+            foreach (MonthItem monthItem in monthItems)
+            {
+                if (monthItem.Gid == gid)
+                    monthItemUIs.Add(new MonthItemUI(monthItem.Gid, monthItem.Timestamp.DateTime, monthItem.PMin, monthItem.PMax, monthItem.PAvg, monthItem.E, monthItem.P));
+            }
+
+            return monthItemUIs;
+        }
     }
 }

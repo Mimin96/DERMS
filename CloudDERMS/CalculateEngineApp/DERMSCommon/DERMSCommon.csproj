@@ -152,6 +152,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCADACommon\ComunicationSCADAClient.cs" />
     <Compile Include="SCADACommon\DataPoint.cs" />
+    <Compile Include="SCADACommon\DataPointUI.cs" />
     <Compile Include="SCADACommon\Enums.cs" />
     <Compile Include="SCADACommon\IConfigItem.cs" />
     <Compile Include="SCADACommon\IConfiguration.cs" />

@@ -26,14 +26,29 @@ namespace UI.Communication
             return Channel.GetCollectItems();
         }
 
+        public List<CollectItemUI> GetCollectItemsDateTime(DateTime dateTime, long gid)
+        {
+            return Channel.GetCollectItemsDateTime(dateTime, gid);
+        }
+
         public List<DayItemUI> GetDayItems()
         {
             return Channel.GetDayItems();
         }
 
+        public List<DayItemUI> GetDayItemsDateTime(DateTime dateTime, long gid)
+        {
+            return Channel.GetDayItemsDateTime(dateTime, gid);
+        }
+
         public List<MonthItemUI> GetMonthItems()
         {
             return Channel.GetMonthItems();
+        }
+
+        public List<MonthItemUI> GetMonthItemsDateTime(DateTime dateTime, long gid)
+        {
+            return Channel.GetMonthItemsDateTime(dateTime, gid);
         }
 
         public List<YearItemUI> GetYearItems()

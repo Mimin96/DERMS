@@ -29,208 +29,154 @@ namespace CloudCommon.SCADA.AzureStorage
             return collectItems;
         }
 
-        public List<DayItem> CollectTableToDayItems(List<CollectItem> collectItems)
+        public DayItem CollectTableToDayItems(List<CollectItem> collectItems)
         {
-            List<DayItem> dayItems = new List<DayItem>();
             DayItem dayItem;
 
-            foreach (var d in collectItems)
-            {
-                dayItem = new DayItem(d.Gid,
-                                      d.Timestamp.Date.AddHours(d.Timestamp.Hour),
-                                      MinProductionPerHour(d.Timestamp.Hour, d.Timestamp.DayOfYear, collectItems, d.Gid),
-                                      MaxProductionPerHour(d.Timestamp.Hour, d.Timestamp.DayOfYear, collectItems, d.Gid),
-                                      AvgProductionPerHour(d.Timestamp.Hour, d.Timestamp.DayOfYear, collectItems, d.Gid),
-                                      0,
-                                      d.P);
-
-                if (dayItems.Where(x => x.Gid == dayItem.Gid && x.Timestamp == dayItem.Timestamp).FirstOrDefault() == null)
-                    dayItems.Add(dayItem);
-            }
+            dayItem = new DayItem(collectItems[0].Gid,
+                                    collectItems[0].Timestamp.DateTime,
+                                    MinProductionPerHour(collectItems),
+                                    MaxProductionPerHour(collectItems),
+                                    AvgProductionPerHour(collectItems),
+                                    0,
+                                    0);
 
 
-            return dayItems;
+            return dayItem;
         }
 
-        public List<MonthItem> DayItemsToMonthItems(List<DayItem> dayItems)
+        public MonthItem DayItemsToMonthItems(List<DayItem> dayItems)
         {
-            List<MonthItem> monthItems = new List<MonthItem>();
             MonthItem monthItem;
 
-            foreach (var d in dayItems)
-            {
-                monthItem = new MonthItem(d.Gid,
-                                          d.Timestamp.Date,
-                                          MinProductionPerDay(d.Timestamp.DayOfYear, d.Timestamp.Month, dayItems, d.Gid),
-                                          MaxProductionPerDay(d.Timestamp.DayOfYear, d.Timestamp.Month, dayItems, d.Gid),
-                                          AvgProductionPerDay(d.Timestamp.DayOfYear, d.Timestamp.Month, dayItems, d.Gid),
-                                          0,
-                                          d.P);
+            monthItem = new MonthItem(dayItems[0].Gid,
+                                        dayItems[0].Timestamp.DateTime,
+                                        MinProductionPerDay(dayItems),
+                                        MaxProductionPerDay(dayItems),
+                                        AvgProductionPerDay(dayItems),
+                                        0,
+                                        0);
 
-                if (monthItems.Where(x => x.Gid == monthItem.Gid && x.Timestamp == monthItem.Timestamp).FirstOrDefault() == null)
-                    monthItems.Add(monthItem);
-            }
-
-            return monthItems;
+            return monthItem;
         }
 
-        public List<YearItem> MonthItemsToYearItems(List<MonthItem> monthItems)
+        public YearItem MonthItemsToYearItems(List<MonthItem> monthItems)
         {
-            List<YearItem> yearItems = new List<YearItem>();
             YearItem yearItem;
-            bool ok;
 
-            foreach (var d in monthItems)
-            {
-                ok = false;
-                yearItem = new YearItem(d.Gid,
-                                        d.Timestamp.Date,
-                                        MinProductionPerMonth(d.Timestamp.Month, d.Timestamp.Year, monthItems, d.Gid),
-                                        MaxProductionPerMonth(d.Timestamp.Month, d.Timestamp.Year, monthItems, d.Gid),
-                                        AvgProductionPerMonth(d.Timestamp.Month, d.Timestamp.Year, monthItems, d.Gid),
-                                        0,
-                                        d.P);
+            yearItem = new YearItem(monthItems[0].Gid,
+                                    monthItems[0].Timestamp.DateTime,
+                                    MinProductionPerMonth(monthItems),
+                                    MaxProductionPerMonth(monthItems),
+                                    AvgProductionPerMonth(monthItems),
+                                    0,
+                                    0);
 
-                if (yearItems.Count > 0)
-                {
-                    foreach (var y in yearItems)
-                    {
-                        if (!(y.Timestamp.Month == d.Timestamp.Month && y.Gid == d.Gid))
-                            ok = true;
-                        else
-                        {
-                            ok = false;
-                            break;
-                        }
-                    }
-
-                    if (ok)
-                        yearItems.Add(yearItem);
-                }
-                else
-                    yearItems.Add(yearItem);
-            }
-
-            return yearItems;
+            return yearItem;
         }
 
         #region Hour
-        public double MinProductionPerHour(int hour, int day, List<CollectItem> collectItems, long key)//u kom satu u toku dana je minimalna vrednost ovog dera
+        public double MinProductionPerHour(List<CollectItem> collectItems)//u kom satu u toku dana je minimalna vrednost ovog dera
         {
             double minPerHour = double.MaxValue;
             foreach (var d in collectItems)
             {
-                if (d.Timestamp.DayOfYear.Equals(day) && d.Gid.Equals(key) && d.P < minPerHour)
+                if (d.P < minPerHour)
                     minPerHour = d.P;
             }
 
             return minPerHour;
         }
-        public double MaxProductionPerHour(int hour, int day, List<CollectItem> collectItems, long key)
+        public double MaxProductionPerHour(List<CollectItem> collectItems)
         {
             double maxPerHour = double.MinValue;
             foreach (var d in collectItems)
             {
-                if (d.Timestamp.DayOfYear.Equals(day) && d.Gid.Equals(key) && d.P > maxPerHour)
+                if (d.P > maxPerHour)
                     maxPerHour = d.P;
             }
 
             return maxPerHour;
         }
-        public double AvgProductionPerHour(int hour, int day, List<CollectItem> collectItems, long key)
+        public double AvgProductionPerHour(List<CollectItem> collectItems)
         {
-            int counter = 0;
             double sumPerHour = 0;
             foreach (var d in collectItems)
             {
-                if (d.Timestamp.DayOfYear.Equals(day) && d.Gid.Equals(key))
-                {
-                    counter++;
                     sumPerHour += d.P;
-                }
             }
 
-            return sumPerHour / counter;
+            return sumPerHour / collectItems.Count;
         }
         #endregion
 
         #region Day
-        public double MinProductionPerDay(int day, int month, List<DayItem> dayItems, long key)//u kom danu u toku meseca je minimalna vrednost ovog dera
+        public double MinProductionPerDay(List<DayItem> dayItems)//u kom danu u toku meseca je minimalna vrednost ovog dera
         {
             double minPerDay = double.MaxValue;
             foreach (var d in dayItems)
             {
-                if (d.Timestamp.DayOfYear.Equals(day) && d.Timestamp.Month.Equals(month) && d.Gid.Equals(key) && d.PMin < minPerDay)
+                if (d.PMin < minPerDay)
                     minPerDay = d.PMin;
             }
 
             return minPerDay;
         }
-        public double MaxProductionPerDay(int day, int month, List<DayItem> dayItems, long key)
+        public double MaxProductionPerDay(List<DayItem> dayItems)
         {
             double maxPerDay = double.MinValue;
             foreach (var d in dayItems)
             {
-                if (d.Timestamp.DayOfYear.Equals(day) && d.Timestamp.Month.Equals(month) && d.Gid.Equals(key) && d.PMax > maxPerDay)
+                if (d.PMax > maxPerDay)
                     maxPerDay = d.PMax;
             }
 
             return maxPerDay;
         }
-        public double AvgProductionPerDay(int day, int month, List<DayItem> dayItems, long key)
+        public double AvgProductionPerDay(List<DayItem> dayItems)
         {
-            int counter = 0;
             double sumPerDay = 0;
             foreach (var d in dayItems)
             {
-                if (d.Timestamp.DayOfYear.Equals(day) && d.Timestamp.Month.Equals(month) && d.Gid.Equals(key))
-                {
-                    counter++;
                     sumPerDay += d.PAvg;
-                }
             }
 
-            return sumPerDay / counter;
+            return sumPerDay / dayItems.Count;
         }
         #endregion
 
         #region Month
-        public double MinProductionPerMonth(int month, int year, List<MonthItem> monthItems, long key)//u kom danu u toku meseca je minimalna vrednost ovog dera
+        public double MinProductionPerMonth(List<MonthItem> monthItems)//u kom danu u toku meseca je minimalna vrednost ovog dera
         {
             double minPerMonth = double.MaxValue;
             foreach (var d in monthItems)
             {
-                if (d.Timestamp.Month.Equals(month) && d.Timestamp.Year.Equals(year) && d.Gid.Equals(key) && d.PMin < minPerMonth)
+                if (d.PMin < minPerMonth)
                     minPerMonth = d.PMin;
             }
 
             return minPerMonth;
         }
-        public double MaxProductionPerMonth(int month, int year, List<MonthItem> monthItems, long key)
+        public double MaxProductionPerMonth(List<MonthItem> monthItems)
         {
             double maxPerMonth = double.MinValue;
             foreach (var d in monthItems)
             {
-                if (d.Timestamp.Month.Equals(month) && d.Timestamp.Year.Equals(year) && d.Gid.Equals(key) && d.PMax > maxPerMonth)
+                if (d.PMax > maxPerMonth)
                     maxPerMonth = d.PMax;
             }
 
             return maxPerMonth;
         }
-        public double AvgProductionPerMonth(int month, int year, List<MonthItem> monthItems, long key)
+        public double AvgProductionPerMonth(List<MonthItem> monthItems)
         {
-            int counter = 0;
             double sumPerMonth = 0;
             foreach (var d in monthItems)
             {
-                if (d.Timestamp.Month.Equals(month) && d.Timestamp.Year.Equals(year) && d.Gid.Equals(key))
-                {
-                    counter++;
                     sumPerMonth += d.PAvg;
-                }
             }
 
-            return sumPerMonth / counter;
+            return sumPerMonth / monthItems.Count;
         }
         #endregion
 

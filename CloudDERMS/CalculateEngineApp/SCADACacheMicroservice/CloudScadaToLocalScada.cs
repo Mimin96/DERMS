@@ -144,25 +144,33 @@ namespace SCADACacheMicroservice
         {
             HistoryDataProcessing historyDataProcessing = new HistoryDataProcessing();
             List<CollectItem> collectItems;
-            List<DayItem> dayItems;
-            List<MonthItem> monthItems;
-            List<YearItem> yearItems;
+            List<CollectItem> collectItemsRange;
+
+            int count, index = 0, range = 5;
 
             collectItems = historyDataProcessing.ConvertDataPoints(dataPoints);
 
             if (collectItems.Count == 0)
                 return;
 
-            AzureTableStorage.InsertEntitiesInDB(collectItems, "UseDevelopmentStorage=true;", "CollectItems");
+            count = collectItems.Count;
 
-            dayItems = historyDataProcessing.CollectTableToDayItems(AzureTableStorage.GetAllCollectItems("UseDevelopmentStorage=true;", "CollectItems"));
-            AzureTableStorage.InsertEntitiesInDB(dayItems, "UseDevelopmentStorage=true;", "DayItems");
+            while (count != 0)
+            {
+                if (count >= range)
+                {
+                    collectItemsRange = collectItems.GetRange(index, range);
+                    index += range;
+                    count -= range;
+                }
+                else
+                {
+                    collectItemsRange = collectItems.GetRange(index, count);
+                    count = 0;
+                }
 
-            monthItems = historyDataProcessing.DayItemsToMonthItems(AzureTableStorage.GetAllDayItems("UseDevelopmentStorage=true;", "DayItems"));
-            AzureTableStorage.InsertEntitiesInDB(monthItems, "UseDevelopmentStorage=true;", "MonthItems");
-
-            yearItems = historyDataProcessing.MonthItemsToYearItems(AzureTableStorage.GetAllMonthItems("UseDevelopmentStorage=true;", "MonthItems"));
-            AzureTableStorage.InsertEntitiesInDB(yearItems, "UseDevelopmentStorage=true;", "YearItems");
+                AzureTableStorage.InsertEntitiesInDB(collectItemsRange, "UseDevelopmentStorage=true;", "CollectItems");
+            }
         }
     }
 }

@@ -37,6 +37,7 @@ namespace UI.ViewModel
         private string _selectedMesec;
         private string _selectedGodina;
         private string _selectedDan;
+        private List<NetworkModelTreeClass> _networkModelUI;
         private ObservableCollection<DayItemUI> _itemsDay;
         private ObservableCollection<MonthItemUI> _itemsMonth;
         private ObservableCollection<YearItemUI> _itemsYear;
@@ -59,6 +60,7 @@ namespace UI.ViewModel
 
         public HistoryUserControlViewModel()
         {
+            NetworkModelUI = new List<NetworkModelTreeClass>();
             var mapper = new LiveCharts.Configurations.CartesianMapper<double>().X((values, index) => index).Y((values) => values).Fill((v, i) => i == DateTime.Now.Hour ? Brushes.White : Brushes.White).Stroke((v, i) => i == DateTime.Now.Hour ? Brushes.White : Brushes.White);
 
             LiveCharts.Charting.For<double>(mapper, LiveCharts.SeriesOrientation.Horizontal);
@@ -132,6 +134,18 @@ namespace UI.ViewModel
 
             for (int j = 0; j <= 12; j++)
                 _yearAvg.Add((double)0);
+        }
+        public List<NetworkModelTreeClass> NetworkModelUI
+        {
+            get
+            {
+                return _networkModelUI;
+            }
+            set
+            {
+                _networkModelUI = value;
+                OnPropertyChanged("NetworkModelUI");
+            }
         }
         public IChartValues DayMin
         {
@@ -458,7 +472,41 @@ namespace UI.ViewModel
             set
             {
                 _networkModel = value;
-                OnPropertyChanged("NetworkModel");
+                NetworkModelUI.Clear();
+                
+                                foreach (NetworkModelTreeClass treeClass in NetworkModel)
+                                    {
+                    NetworkModelTreeClass treeClassUI = new NetworkModelTreeClass(treeClass.Name, treeClass.GID, treeClass.Type, treeClass.MinFlexibility, treeClass.MinFlexibility);
+                    
+                                        foreach (GeographicalRegionTreeClass geographicalRegion in treeClass.GeographicalRegions)
+                                            {
+                        GeographicalRegionTreeClass geographicalRegionUI = new GeographicalRegionTreeClass(geographicalRegion.Name, geographicalRegion.GID, geographicalRegion.Type, geographicalRegion.MinFlexibility, geographicalRegion.MaxFlexibility);
+                        
+                                                foreach (GeographicalSubRegionTreeClass geographicalSub in geographicalRegion.GeographicalSubRegions)
+                                                    {
+                            GeographicalSubRegionTreeClass geographicalSubUI = new GeographicalSubRegionTreeClass(geographicalSub.Name, geographicalSub.GID, geographicalSub.Type, geographicalSub.MinFlexibility, geographicalSub.MaxFlexibility);
+                            
+                                                        foreach (SubstationTreeClass substation in geographicalSub.Substations)
+                                                            {
+                                SubstationTreeClass substationUI = new SubstationTreeClass(substation.Name, substation.GID, substation.Type, substation.MinFlexibility, substation.MaxFlexibility);
+                                
+                                                                foreach (SubstationElementTreeClass substationElement in substation.SubstationElements)
+                                                                    {
+                                                                        if (substationElement.Type == FTN.Common.DMSType.GENERATOR)
+                                        substationUI.SubstationElements.Add(new SubstationElementTreeClass(substationElement.Name, substationElement.GID, substationElement.Type, substationElement.P, substationElement.MinFlexibility, substationElement.MaxFlexibility));
+                                                                    }
+                                
+                                geographicalSubUI.Substations.Add(substationUI);
+                                                            }
+                            
+                            geographicalRegionUI.GeographicalSubRegions.Add(geographicalSubUI);
+                                                    }
+                        
+                        treeClassUI.GeographicalRegions.Add(geographicalRegionUI);
+                                            }
+                    
+                    NetworkModelUI.Add(treeClassUI);
+                                    }
             }
         }
         public ICommand NetworkModelCommand
