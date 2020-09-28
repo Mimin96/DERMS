@@ -23,7 +23,7 @@ namespace CloudCommon.SCADA.AzureStorage.Entities
         [DataMember]
         private double _p;
         [DataMember]
-        private DateTime _timestamp = DateTime.Now;
+        private DateTime _timestamp;
         public DayItemUI() { }
         public DayItemUI(long gid, DateTime timestamp, double pMin, double pMax, double pAvg, double e, double p)
         {

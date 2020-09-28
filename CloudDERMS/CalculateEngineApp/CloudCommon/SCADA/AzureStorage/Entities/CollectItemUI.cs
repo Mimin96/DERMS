@@ -15,7 +15,7 @@ namespace CloudCommon.SCADA.AzureStorage.Entities
         [DataMember]
         private double _p;
         [DataMember]
-        private DateTime _timestamp = DateTime.Now;
+        private DateTime _timestamp;
 
         public CollectItemUI() { }
         public CollectItemUI(long gid, double p, DateTime timestamp)

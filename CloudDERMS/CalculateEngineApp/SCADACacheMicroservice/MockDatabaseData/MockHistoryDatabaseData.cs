@@ -126,7 +126,7 @@ namespace SCADACacheMicroservice.MockDatabaseData
             {
                 for (int i = 0; i < 24; i++)
                 {
-                    dateTime = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, i, i + 1, i + 5);
+                    dateTime = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, i , i + 1, i + 5);
 
                     _collectItems.Add(new CollectItem(21474836481, random.Next(random.Next(0, 15), random.Next(190, 250)), dateTime));//solar
                     _collectItems.Add(new CollectItem(21474836483, random.Next(random.Next(0, 15), random.Next(190, 250)), dateTime));//solar
@@ -136,8 +136,10 @@ namespace SCADACacheMicroservice.MockDatabaseData
                     _collectItems.Add(new CollectItem(21474836485, random.Next(random.Next(0, 15), random.Next(90, 100)), dateTime));//wind
                 }
 
-                dateTime = dateTime.AddDays(1);
+                dateTime = new DateTime(2019, 10, 1);
                 counter++;
+                dateTime = dateTime.AddDays(counter);
+
             } while (counter < 370);
 
             dateTime = new DateTime(2019, 10, 1);

@@ -126,14 +126,59 @@ namespace UI.ViewModel
             for (int j = 0; j <= 31; j++)
                 _monthAvg.Add((double)0);
 
-            for (int j = 0; j <= 12; j++)
+            for (int j = 0; j <= 13; j++)
                 _yearMin.Add((double)0);
 
-            for (int j = 0; j <= 12; j++)
+            for (int j = 0; j <= 13; j++)
                 _yearMax.Add((double)0);
 
-            for (int j = 0; j <= 12; j++)
+            for (int j = 0; j <= 13; j++)
                 _yearAvg.Add((double)0);
+        }
+
+        private void PopulateMonthDays(string month)
+        {
+            _monthMin = new ChartValues<double>();
+            _monthMax = new ChartValues<double>();
+            _monthAvg = new ChartValues<double>();
+
+            //{ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+            if (month == "Jan" || month == "Mar" || month == "May" || month == "Jul" || month == "Aug" || month == "Oct" || month == "Dec")
+            {
+                for (int j = 0; j <= 32; j++)
+                    _monthMin.Add((double)0);
+
+                for (int j = 0; j <= 32; j++)
+                    _monthMax.Add((double)0);
+
+                for (int j = 0; j <= 32; j++)
+                    _monthAvg.Add((double)0);
+
+            }
+            else if (month == "Feb")
+            {
+                for (int j = 0; j <= 29; j++)
+                    _monthMin.Add((double)0);
+
+                for (int j = 0; j <= 29; j++)
+                    _monthMax.Add((double)0);
+
+                for (int j = 0; j <= 29; j++)
+                    _monthAvg.Add((double)0);
+            }
+            else
+            {
+                for (int j = 0; j <= 31; j++)
+                    _monthMin.Add((double)0);
+
+                for (int j = 0; j <= 31; j++)
+                    _monthMax.Add((double)0);
+
+                for (int j = 0; j <= 31; j++)
+                    _monthAvg.Add((double)0);
+            }
+
+
         }
         public List<NetworkModelTreeClass> NetworkModelUI
         {
@@ -720,18 +765,10 @@ namespace UI.ViewModel
                     }
 
                     UIClientHistory uIClient = new UIClientHistory("GetHistoryEndpoint");
-                    _itemsDay = new ObservableCollection<DayItemUI>(uIClient.GetDayItems());
-                    _itemsMonth = new ObservableCollection<MonthItemUI>(uIClient.GetMonthItems());
-                    _itemsYear = new ObservableCollection<YearItemUI>(uIClient.GetYearItems());
-
-                    //for (int j = 0; j <= 24; j++)
-                    //    _chartValues[j] = -100.0;
-                    //for (int j = 0; j <= 31; j++)
-                    //    _chartValuesMonth[j] = -100.0;
-                    //for (int j = 0; j <= 12; j++)
-                    //    _chartValuesYear[j] = -100.0;
+                    List<CollectItemUI> collectItems = new List<CollectItemUI>();
 
                     populateInitialLinesValues();
+                    PopulateMonthDays(SelectedMesec);
 
                     int hour = 0;
                     int day = 0;
@@ -741,61 +778,41 @@ namespace UI.ViewModel
                     double min = Double.MaxValue;
                     double max = Double.MinValue;
 
-                    List<DayItemUI> listDayItems = new List<DayItemUI>();
-                    List<MonthItemUI> listMonthItems = new List<MonthItemUI>();
-                    List<YearItemUI> listYearItems = new List<YearItemUI>();
-
-                    foreach (var i in _itemsDay)
-                    {
-                        if (i.Gid == _selectedGID && SelectedDan == i.Timestamp.Date.ToString())
-                            listDayItems.Add(i);
-                    }
-
-                    foreach (var i in _itemsYear)
-                    {
-                        if (i.Gid == _selectedGID && SelectedGodina == i.Timestamp.Year.ToString())
-                            listYearItems.Add(i);
-                    }
-
-                    foreach (var i in _itemsMonth)
-                    {
-                        if (i.Gid == _selectedGID && SelectedMesec == i.Timestamp.Month.ToString() && SelectedGodina == i.Timestamp.Year.ToString())
-                            listMonthItems.Add(i);
-                    }
-                    //
-                    //
-                    DayItemUI ll = new DayItemUI();
-                    ll.Timestamp = DateTime.Now;
-                    ll.PMin = -3;
-                    listDayItems.Add(ll);
-                    listDayItems = listDayItems.OrderBy(x => x.Timestamp).ToList();
-
-                    MonthItemUI mm = new MonthItemUI();
-                    mm.Timestamp = DateTime.Now;
-                    mm.PMin = -5;
-                    listMonthItems.Add(mm);
-                    listMonthItems = listMonthItems.OrderBy(x => x.Timestamp).ToList();
-
-                    YearItemUI uu = new YearItemUI();
-                    uu.Timestamp = DateTime.Now;
-                    uu.PMin = -72;
-                    listYearItems.Add(uu);
                     //
                     //My day mins by hour
+                    if (IsDan == Visibility.Visible)
+                    {
+                        collectItems = uIClient.GetCollectItemsDateTime(DateTime.Parse(SelectedDan), _selectedGID);
+                        collectItems = collectItems.OrderBy(x => x.Timestamp.Hour).ToList();
+                    }
+                    else if (IsMesec == Visibility.Visible)
+                    {
+                        DateTime dateTime = new DateTime(Int32.Parse(SelectedGodina), Int32.Parse(SelectedMesec), 1);
+                        _itemsDay = new ObservableCollection<DayItemUI>(uIClient.GetDayItemsDateTime(dateTime, _selectedGID));
+                        _itemsDay = new ObservableCollection<DayItemUI>(_itemsDay.OrderBy(x=>x.Timestamp).ToList());
+                    }
+                    else if (IsGodina == Visibility.Visible)
+                    {
+                        DateTime dateTime = new DateTime(Int32.Parse(SelectedGodina), 1, 1);
+                        _itemsMonth = new ObservableCollection<MonthItemUI>(uIClient.GetMonthItemsDateTime(dateTime, _selectedGID));
+                        _itemsMonth = new ObservableCollection<MonthItemUI>(_itemsMonth.OrderBy(x => x.Timestamp).ToList());
+                    }
+
                     if (_min && IsDan == Visibility.Visible)
                     {
+
                         IsDanMinVisible = Visibility.Visible;
-                        if (listDayItems.Count > 0)
+                        if (collectItems.Count > 0)
                         {
-                            DateTime currentTime = listDayItems[0].Timestamp;
-                            foreach (var l in listDayItems)
+                            DateTime currentTime = collectItems[0].Timestamp;
+                            foreach (var l in collectItems)
                             {
                                 //find min for that hour
                                 if (currentTime.Hour == l.Timestamp.Hour)
                                 {
-                                    if (l.PMin < min)
+                                    if (l.P < min)
                                     {
-                                        min = l.PMin;
+                                        min = l.P;
                                         hour = l.Timestamp.Hour;
                                     }
                                 }
@@ -804,7 +821,7 @@ namespace UI.ViewModel
                                     DayMin[hour] = min;
                                     hour = l.Timestamp.Hour;
                                     currentTime = l.Timestamp;
-                                    min = l.PMin;
+                                    min = l.P;
                                 }
                                 //
                                 DayMin[hour] = min;
@@ -819,29 +836,31 @@ namespace UI.ViewModel
                     else if (_min && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
                     {
                         IsMonthMinVisible = Visibility.Visible;
-                        if (listMonthItems.Count > 0)
+                        if (_itemsDay.Count > 0)
                         {
-                            DateTime currentTime = listMonthItems[0].Timestamp;
-                            foreach (var l in listMonthItems)
+                            //DateTime currentTime = listMonthItems[0].Timestamp;
+                            foreach (var l in _itemsDay)
                             {
                                 //find min for that hour
-                                if (currentTime.Day == l.Timestamp.Day)
-                                {
-                                    if (l.PMin < min)
-                                    {
-                                        min = l.PMin;
-                                        day = l.Timestamp.Day;
-                                    }
-                                }
-                                else
-                                {
-                                    MonthMin[day] = min;
-                                    day = l.Timestamp.Day;
-                                    currentTime = l.Timestamp;
-                                    min = l.PMin;
-                                }
-                                //
-                                MonthMin[day] = min;
+                                //if (currentTime.Day == l.Timestamp.Day)
+                                //{
+                                //    if (l.PMin < min)
+                                //    {
+                                //        min = l.PMin;
+                                //        day = l.Timestamp.Day;
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    MonthMin[day] = min;
+                                //    day = l.Timestamp.Day;
+                                //    currentTime = l.Timestamp;
+                                //    min = l.PMin;
+                                //}
+                                ////
+                                //MonthMin[day] = min;
+                                MonthMin[l.Timestamp.Day] = l.PMin;
+
                             }
                             OnPropertyChanged("MonthMin");
                         }
@@ -853,27 +872,28 @@ namespace UI.ViewModel
                     else if (_min && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
                     {
                         IsYearMinVisible = Visibility.Visible;
-                        if (listYearItems.Count > 0)
+                        if (_itemsMonth.Count > 0)
                         {
-                            DateTime currentTime = listMonthItems[0].Timestamp;
-                            foreach (var l in listYearItems)
+                            //DateTime currentTime = listMonthItems[0].Timestamp;
+                            foreach (var l in _itemsMonth)
                             {
-                                if (currentTime.Month == l.Timestamp.Month)
-                                {
-                                    if (l.PMin < min)
-                                    {
-                                        min = l.PMin;
-                                        month = l.Timestamp.Month;
-                                    }
-                                }
-                                else
-                                {
-                                    YearMin[month] = min;
-                                    month = l.Timestamp.Month;
-                                    currentTime = l.Timestamp;
-                                    min = l.PMin;
-                                }
-                                YearMin[month] = min;
+                                //if (currentTime.Month == l.Timestamp.Month)
+                                //{
+                                //    if (l.PMin < min)
+                                //    {
+                                //        min = l.PMin;
+                                //        month = l.Timestamp.Month;
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    YearMin[month] = min;
+                                //    month = l.Timestamp.Month;
+                                //    currentTime = l.Timestamp;
+                                //    min = l.PMin;
+                                //}
+                                //YearMin[month] = min;
+                                YearMin[l.Timestamp.Month] = l.PMin;
                             }
                             OnPropertyChanged("YearMin");
                         }
@@ -886,16 +906,16 @@ namespace UI.ViewModel
                     if (_max && IsDan == Visibility.Visible)
                     {
                         IsDanMaxVisible = Visibility.Visible;
-                        if (listDayItems.Count > 0)
+                        if (collectItems.Count > 0)
                         {
-                            DateTime currentTime = listDayItems[0].Timestamp;
-                            foreach (var l in listDayItems)
+                            DateTime currentTime = collectItems[0].Timestamp;
+                            foreach (var l in collectItems)
                             {
                                 if (currentTime.Hour == l.Timestamp.Hour)
                                 {
-                                    if (l.PMax >= max)
+                                    if (l.P >= max)
                                     {
-                                        max = l.PMax;
+                                        max = l.P;
                                         hour = l.Timestamp.Hour;
                                     }
                                 }
@@ -904,7 +924,7 @@ namespace UI.ViewModel
                                     DayMax[hour] = max;
                                     hour = l.Timestamp.Hour;
                                     currentTime = l.Timestamp;
-                                    max = l.PMax;
+                                    max = l.P;
                                 }
                                 //
                                 DayMax[hour] = max;
@@ -922,28 +942,29 @@ namespace UI.ViewModel
                     else if (_max && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
                     {
                         IsMonthMaxVisible = Visibility.Visible;
-                        if (listMonthItems.Count > 0)
+                        if (_itemsDay.Count > 0)
                         {
-                            DateTime currentTime = listMonthItems[0].Timestamp;
-                            foreach (var l in listMonthItems)
+                            //DateTime currentTime = listMonthItems[0].Timestamp;
+                            foreach (var l in _itemsDay)
                             {
-                                if (currentTime.Day == l.Timestamp.Day)
-                                {
-                                    if (l.PMax >= max)
-                                    {
-                                        max = l.PMax;
-                                        day = l.Timestamp.Day;
-                                    }
-                                }
-                                else
-                                {
-                                    MonthMax[day] = max;
-                                    day = l.Timestamp.Hour;
-                                    currentTime = l.Timestamp;
-                                    max = l.PMax;
-                                }
-                                //
-                                MonthMax[day] = max;
+                                //if (currentTime.Day == l.Timestamp.Day)
+                                //{
+                                //    if (l.PMax >= max)
+                                //    {
+                                //        max = l.PMax;
+                                //        day = l.Timestamp.Day;
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    MonthMax[day] = max;
+                                //    day = l.Timestamp.Hour;
+                                //    currentTime = l.Timestamp;
+                                //    max = l.PMax;
+                                //}
+                                ////
+                                //MonthMax[day] = max;
+                                MonthMax[l.Timestamp.Day] = l.PMax;
 
                             }
                             OnPropertyChanged("MonthMax");
@@ -956,28 +977,29 @@ namespace UI.ViewModel
                     else if (_max && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
                     {
                         IsYearMaxVisible = Visibility.Visible;
-                        if (listYearItems.Count > 0)
+                        if (_itemsMonth.Count > 0)
                         {
-                            DateTime currentTime = listMonthItems[0].Timestamp;
-                            foreach (var l in listYearItems)
+                            //DateTime currentTime = listMonthItems[0].Timestamp;
+                            foreach (var l in _itemsMonth)
                             {
-                                if (currentTime.Month == l.Timestamp.Month)
-                                {
-                                    if (l.PMax >= max)
-                                    {
-                                        max = l.PMax;
-                                        month = l.Timestamp.Month;
-                                    }
-                                }
-                                else
-                                {
-                                    YearMax[month] = max;
-                                    month = l.Timestamp.Hour;
-                                    currentTime = l.Timestamp;
-                                    max = l.PMax;
-                                }
+                                //if (currentTime.Month == l.Timestamp.Month)
+                                //{
+                                //    if (l.PMax >= max)
+                                //    {
+                                //        max = l.PMax;
+                                //        month = l.Timestamp.Month;
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    YearMax[month] = max;
+                                //    month = l.Timestamp.Hour;
+                                //    currentTime = l.Timestamp;
+                                //    max = l.PMax;
+                                //}
                                 //
-                                YearMax[month] = max;
+
+                                YearMax[l.Timestamp.Month] = l.PMax;
                             }
                             OnPropertyChanged("YearMax");
                         }
@@ -988,19 +1010,19 @@ namespace UI.ViewModel
                     }
 
                     double sumForHour = 0;
-                    double sumForDay = 0;
+                    //double sumForDay = 0;
                     if (_avg && IsDan == Visibility.Visible)
                     {
                         IsDanAvgVisible = Visibility.Visible;
-                        if (listDayItems.Count > 0)
+                        if (collectItems.Count > 0)
                         {
 
-                            DateTime currentTime = listDayItems[0].Timestamp;
-                            foreach (var l in listDayItems)
+                            DateTime currentTime = collectItems[0].Timestamp;
+                            foreach (var l in collectItems)
                             {
                                 if (currentTime.Hour == l.Timestamp.Hour)
                                 {
-                                    sum += l.PAvg;
+                                    sum += l.P;
                                     counter++;
                                     hour = l.Timestamp.Hour;
                                 }
@@ -1011,7 +1033,7 @@ namespace UI.ViewModel
                                     hour = l.Timestamp.Hour;
                                     currentTime = l.Timestamp;
                                     counter = 1;
-                                    sum = l.PAvg;
+                                    sum = l.P;
                                 }
                                 //
                                 sumForHour = sum / counter;
@@ -1027,29 +1049,30 @@ namespace UI.ViewModel
                     else if (_avg && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
                     {
                         IsMonthAvgVisible = Visibility.Visible;
-                        if (listMonthItems.Count > 0)
+                        if (_itemsDay.Count > 0)
                         {
-                            DateTime currentTime = listMonthItems[0].Timestamp;
-                            foreach (var l in listMonthItems)
+                            DateTime currentTime = _itemsDay[0].Timestamp;
+                            foreach (var l in _itemsDay)
                             {
-                                if (currentTime.Day == l.Timestamp.Day)
-                                {
-                                    sum += l.PAvg;
-                                    counter++;
-                                    day = l.Timestamp.Day;
-                                }
-                                else
-                                {
-                                    sumForDay = sum / counter;
-                                    MonthAvg[day] = sumForDay;
-                                    day = l.Timestamp.Day;
-                                    currentTime = l.Timestamp;
-                                    counter = 1;
-                                    sum = l.PAvg;
-                                }
-                                //
-                                sumForDay = sum / counter;
-                                MonthAvg[day] = sumForDay;
+                                //if (currentTime.Day == l.Timestamp.Day)
+                                //{
+                                //    sum += l.PAvg;
+                                //    counter++;
+                                //    day = l.Timestamp.Day;
+                                //}
+                                //else
+                                //{
+                                //    sumForDay = sum / counter;
+                                //    MonthAvg[day] = sumForDay;
+                                //    day = l.Timestamp.Day;
+                                //    currentTime = l.Timestamp;
+                                //    counter = 1;
+                                //    sum = l.PAvg;
+                                //}
+                                ////
+                                //sumForDay = sum / counter;
+
+                                MonthAvg[l.Timestamp.Day] = l.PAvg ;
                             }
                             OnPropertyChanged("MonthAvg");
                         }
@@ -1062,7 +1085,7 @@ namespace UI.ViewModel
                     {
                         double sumForMonth = 0;
                         IsYearAvgVisible = Visibility.Visible;
-                        if (listYearItems.Count > 0)
+                        if (_itemsMonth.Count > 0)
                         {
                             //foreach (var l in listYearItems)
                             //{
@@ -1071,28 +1094,29 @@ namespace UI.ViewModel
                             //}
 
                             //_chartValuesYear[0] = sum / counter;
-                            DateTime currentTime = listYearItems[0].Timestamp;
-                            foreach (var l in listYearItems)
+                            //DateTime currentTime = listYearItems[0].Timestamp;
+                            foreach (var l in _itemsMonth)
                             {
-                                if (currentTime.Month == l.Timestamp.Month)
-                                {
-                                    sum += l.PAvg;
-                                    counter++;
-                                    month = l.Timestamp.Month;
-                                }
-                                else
-                                {
-                                    sumForMonth = sum / counter;
-                                    YearAvg[month] = sumForMonth;
-                                    month = l.Timestamp.Month;
-                                    currentTime = l.Timestamp;
-                                    counter = 1;
-                                    sum = l.PAvg;
-                                }
-                                //
-                                sumForMonth = sum / counter;
-                                YearAvg[month] = sumForMonth;
+                            //    if (currentTime.Month == l.Timestamp.Month)
+                            //    {
+                            //        sum += l.PAvg;
+                            //        counter++;
+                            //        month = l.Timestamp.Month;
+                            //    }
+                            //    else
+                            //    {
+                            //        sumForMonth = sum / counter;
+                            //        YearAvg[month] = sumForMonth;
+                            //        month = l.Timestamp.Month;
+                            //        currentTime = l.Timestamp;
+                            //        counter = 1;
+                            //        sum = l.PAvg;
+                            //    }
+                            //    //
+                            //    sumForMonth = sum / counter;
+                                YearAvg[l.Timestamp.Month] = l.PAvg;
                             }
+
                             OnPropertyChanged("YearAvg");
 
                         }

@@ -18,7 +18,7 @@ namespace SCADACacheMicroservice
 
             foreach (CollectItem collectItem in collectItems)
             {
-                collectItemUIs.Add(new CollectItemUI(collectItem.Gid, collectItem.P, collectItem.Timestamp.DateTime));
+                collectItemUIs.Add(new CollectItemUI(collectItem.Gid, collectItem.P, collectItem.DateTime));
             }
 
             return collectItemUIs;
@@ -31,7 +31,7 @@ namespace SCADACacheMicroservice
 
             foreach (DayItem dayItem in dayItems)
             {
-                dayItemUIs.Add(new DayItemUI(dayItem.Gid, dayItem.Timestamp.DateTime, dayItem.PMin, dayItem.PMax, dayItem.PAvg, dayItem.E, dayItem.P));
+                dayItemUIs.Add(new DayItemUI(dayItem.Gid, dayItem.DateTime, dayItem.PMin, dayItem.PMax, dayItem.PAvg, dayItem.E, dayItem.P));
             }
 
             return dayItemUIs;
@@ -44,7 +44,7 @@ namespace SCADACacheMicroservice
 
             foreach (MonthItem monthItem in monthItems)
             {
-                monthItemUIs.Add(new MonthItemUI(monthItem.Gid, monthItem.Timestamp.DateTime, monthItem.PMin, monthItem.PMax, monthItem.PAvg, monthItem.E, monthItem.P));
+                monthItemUIs.Add(new MonthItemUI(monthItem.Gid, monthItem.DateTime, monthItem.PMin, monthItem.PMax, monthItem.PAvg, monthItem.E, monthItem.P));
             }
 
             return monthItemUIs;
@@ -57,7 +57,7 @@ namespace SCADACacheMicroservice
 
             foreach (YearItem yearItem in yearItems)
             {
-                yearItemUIs.Add(new YearItemUI(yearItem.Gid, yearItem.Timestamp.DateTime, yearItem.PMin, yearItem.PMax, yearItem.PAvg, yearItem.E, yearItem.P));
+                yearItemUIs.Add(new YearItemUI(yearItem.Gid, yearItem.DateTime, yearItem.PMin, yearItem.PMax, yearItem.PAvg, yearItem.E, yearItem.P));
             }
 
             return yearItemUIs;
@@ -73,7 +73,7 @@ namespace SCADACacheMicroservice
             foreach (CollectItem collectItem in collectItems)
             {
                 if (collectItem.Gid == gid)
-                    collectItemUIs.Add(new CollectItemUI(collectItem.Gid, collectItem.P, collectItem.Timestamp.DateTime));
+                    collectItemUIs.Add(new CollectItemUI(collectItem.Gid, collectItem.P, collectItem.DateTime));
             }
 
             return collectItemUIs;
@@ -89,7 +89,7 @@ namespace SCADACacheMicroservice
             foreach (DayItem dayItem in dayItems)
             {
                 if (dayItem.Gid == gid)
-                    dayItemUIs.Add(new DayItemUI(dayItem.Gid, dayItem.Timestamp.DateTime, dayItem.PMin, dayItem.PMax, dayItem.PAvg, dayItem.E, dayItem.P));
+                    dayItemUIs.Add(new DayItemUI(dayItem.Gid, dayItem.DateTime, dayItem.PMin, dayItem.PMax, dayItem.PAvg, dayItem.E, dayItem.P));
             }
 
             return dayItemUIs;
@@ -105,7 +105,7 @@ namespace SCADACacheMicroservice
             foreach (MonthItem monthItem in monthItems)
             {
                 if (monthItem.Gid == gid)
-                    monthItemUIs.Add(new MonthItemUI(monthItem.Gid, monthItem.Timestamp.DateTime, monthItem.PMin, monthItem.PMax, monthItem.PAvg, monthItem.E, monthItem.P));
+                    monthItemUIs.Add(new MonthItemUI(monthItem.Gid, monthItem.DateTime, monthItem.PMin, monthItem.PMax, monthItem.PAvg, monthItem.E, monthItem.P));
             }
 
             return monthItemUIs;
