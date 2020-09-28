@@ -64,15 +64,20 @@ namespace CEPubSubMicroservice
 					  clientBinding: WcfUtility.CreateTcpClientBinding(),
 					  listenerName: "CECacheServiceListener"
 				);
-				TreeNode<NodeData> tree = cache.InvokeWithRetryAsync(client => client.Channel.GetGraph()).Result; ; 
-				List<NetworkModelTreeClass> NetworkModelTreeClass = cache.InvokeWithRetryAsync(client => client.Channel.GetNetworkModelTreeClass()).Result;
-				List<DataPoint> dataPoints = cache.InvokeWithRetryAsync(client => client.Channel.GetDatapoints()).Result;
+				TreeNode<NodeData> tree = cache.InvokeWithRetryAsync(client => client.Channel.GetGraph()).Result;
+				if (tree != null)
+				{
+					List<NetworkModelTreeClass> NetworkModelTreeClass = cache.InvokeWithRetryAsync(client => client.Channel.GetNetworkModelTreeClass()).Result;
+					List<DataPoint> dataPoints = cache.InvokeWithRetryAsync(client => client.Channel.GetDatapoints()).Result;
+					DataToUI dataToUI = cache.InvokeWithRetryAsync(client => client.Channel.CreateDataForUI()).Result;
 
-				await NotifyTree(tree, NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
-				await NotifyDataPoint(dataPoints, (int)Enums.Topics.DataPoints);
+					await NotifyTree(tree, NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
+					await NotifyDataPoint(dataPoints, (int)Enums.Topics.DataPoints);
+					await Notify(dataToUI, (int)Enums.Topics.DerForecastDayAhead);
+				}
 			}
 
-			if ((int)Enums.Topics.NetworkModelTreeClass_NodeData == gidOfTopic) 
+			if ((int)Enums.Topics.NetworkModelTreeClass_NodeData == gidOfTopic)
 			{
 				using (var tx = stateManager.CreateTransaction())
 				{
@@ -219,7 +224,7 @@ namespace CEPubSubMicroservice
 					try
 					{
 						subscriberProxy.Proxy.SendScadaDataToUI(forcastDayAhead);
-						return true;
+						//return true;
 					}
 					catch (CommunicationException)
 					{
@@ -257,7 +262,7 @@ namespace CEPubSubMicroservice
 		}
 
 		public async Task<bool> NotifyDataPoint(List<DataPoint> data, int gidOfTopic)
-        {
+		{
 			Dictionary<string, ServerSideProxy> subscribersCopy;
 			subscribersCopy = GetSubscribersCopy();
 
@@ -317,8 +322,8 @@ namespace CEPubSubMicroservice
 			return true;
 		}
 
-        public async Task<bool> NotifyTree(TreeNode<NodeData> data, List<NetworkModelTreeClass> NetworkModelTreeClass, int gidOfTopic)
-        {
+		public async Task<bool> NotifyTree(TreeNode<NodeData> data, List<NetworkModelTreeClass> NetworkModelTreeClass, int gidOfTopic)
+		{
 			Dictionary<string, ServerSideProxy> subscribersCopy;
 			subscribersCopy = GetSubscribersCopy();
 
@@ -399,7 +404,7 @@ namespace CEPubSubMicroservice
 					try
 					{
 						subscriberProxy.Proxy.GetNewEvent(@event);
-						return true;
+						//return true;
 					}
 					catch (CommunicationException)
 					{
@@ -436,11 +441,12 @@ namespace CEPubSubMicroservice
 			return false;
 		}
 
-        public async Task<bool> SubscribeOnMultipleTopics(string clientAddress, List<int> gidOfTopics)
-        {
+		public async Task<bool> SubscribeOnMultipleTopics(string clientAddress, List<int> gidOfTopics)
+		{
 			bool firstGo = false;
 			bool notFirstTime = false;
-			foreach (int gidOfTopic in gidOfTopics) {
+			foreach (int gidOfTopic in gidOfTopics)
+			{
 				notFirstTime = false;
 				using (var tx = stateManager.CreateTransaction())
 				{
@@ -477,12 +483,19 @@ namespace CEPubSubMicroservice
 						  clientBinding: WcfUtility.CreateTcpClientBinding(),
 						  listenerName: "CECacheServiceListener"
 					);
-					TreeNode<NodeData> tree = cache.InvokeWithRetryAsync(client => client.Channel.GetGraph()).Result; ;
-					List<NetworkModelTreeClass> NetworkModelTreeClass = cache.InvokeWithRetryAsync(client => client.Channel.GetNetworkModelTreeClass()).Result;
-					List<DataPoint> dataPoints = cache.InvokeWithRetryAsync(client => client.Channel.GetDatapoints()).Result;
 
-					await NotifyTree(tree, NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
-					await NotifyDataPoint(dataPoints, (int)Enums.Topics.DataPoints);
+					TreeNode<NodeData> tree = cache.InvokeWithRetryAsync(client => client.Channel.GetGraph()).Result;
+
+					if (tree != null)
+					{
+						List<NetworkModelTreeClass> NetworkModelTreeClass = cache.InvokeWithRetryAsync(client => client.Channel.GetNetworkModelTreeClass()).Result;
+						List<DataPoint> dataPoints = cache.InvokeWithRetryAsync(client => client.Channel.GetDatapoints()).Result;
+						DataToUI dataToUI = cache.InvokeWithRetryAsync(client => client.Channel.CreateDataForUI()).Result;
+
+						await NotifyTree(tree, NetworkModelTreeClass, (int)Enums.Topics.NetworkModelTreeClass_NodeData);
+						await NotifyDataPoint(dataPoints, (int)Enums.Topics.DataPoints);
+						await Notify(dataToUI, (int)Enums.Topics.DerForecastDayAhead);
+					}
 				}
 
 				//if ((int)Enums.Topics.NetworkModelTreeClass_NodeData == gidOfTopic)
@@ -500,5 +513,5 @@ namespace CEPubSubMicroservice
 
 			return true;
 		}
-    }
+	}
 }

@@ -90,23 +90,73 @@ namespace UI.ViewModel
         public double MinHeightFilter { get { return _minHeightFilter; } set { _minHeightFilter = value; OnPropertyChanged("MinHeightFilter"); } }
         public ObservableCollection<DataPoint> Points 
         {
-            get { return _points; } 
-            set 
-            { 
+            get { return _points; }
+            set
+            {
                 _points = value;
                 PointsUI.Clear();
-
-                foreach (DataPoint dataPoint in _points) 
+                List<DataPointUI> dpANALOG_INPUT = new List<DataPointUI>(), dpANALOG_OUTPUT = new List<DataPointUI>()
+                    , dpDIGITAL_INPUT = new List<DataPointUI>(), dpDIGITAL_OUTPUT = new List<DataPointUI>();
+                foreach (DataPoint dataPoint in _points)
                 {
-                    PointsUI.Add(new DataPointUI(dataPoint.Gid, dataPoint.Type, dataPoint.Address, dataPoint.Timestamp,
+                    if (dataPoint.Type == PointType.ANALOG_INPUT)
+                        dpANALOG_INPUT.Add(new DataPointUI(dataPoint.Gid, dataPoint.Type, dataPoint.Address, dataPoint.Timestamp,
                                                  dataPoint.Name, dataPoint.Value,
                                                  (dataPoint.Type == PointType.ANALOG_INPUT || dataPoint.Type == PointType.ANALOG_OUTPUT) ? dataPoint.RawValue + " kW" :
                                                  (dataPoint.RawValue == 1) ? "OPEN" : "CLOSE",
                                                  dataPoint.Alarm, dataPoint.GidGeneratora)
-                    { AlarmImageColor = dataPoint.AlarmImageColor, AlarmImage = dataPoint.AlarmImage, Value = dataPoint.Value
-});
+                        {
+                            AlarmImageColor = dataPoint.AlarmImageColor,
+                            AlarmImage = dataPoint.AlarmImage,
+                            Value = dataPoint.Value
+                        });
+                    else if (dataPoint.Type == PointType.ANALOG_OUTPUT)
+                        dpANALOG_OUTPUT.Add(new DataPointUI(dataPoint.Gid, dataPoint.Type, dataPoint.Address, dataPoint.Timestamp,
+                                                 dataPoint.Name, dataPoint.Value,
+                                                 (dataPoint.Type == PointType.ANALOG_INPUT || dataPoint.Type == PointType.ANALOG_OUTPUT) ? dataPoint.RawValue + " kW" :
+                                                 (dataPoint.RawValue == 1) ? "OPEN" : "CLOSE",
+                                                 dataPoint.Alarm, dataPoint.GidGeneratora)
+                        {
+                            AlarmImageColor = dataPoint.AlarmImageColor,
+                            AlarmImage = dataPoint.AlarmImage,
+                            Value = dataPoint.Value
+                        });
+                    else if (dataPoint.Type == PointType.DIGITAL_INPUT)
+                        dpDIGITAL_INPUT.Add(new DataPointUI(dataPoint.Gid, dataPoint.Type, dataPoint.Address, dataPoint.Timestamp,
+                                                 dataPoint.Name, dataPoint.Value,
+                                                 (dataPoint.Type == PointType.ANALOG_INPUT || dataPoint.Type == PointType.ANALOG_OUTPUT) ? dataPoint.RawValue + " kW" :
+                                                 (dataPoint.RawValue == 1) ? "OPEN" : "CLOSE",
+                                                 dataPoint.Alarm, dataPoint.GidGeneratora)
+                        {
+                            AlarmImageColor = dataPoint.AlarmImageColor,
+                            AlarmImage = dataPoint.AlarmImage,
+                            Value = dataPoint.Value
+                        });
+                    else if (dataPoint.Type == PointType.DIGITAL_OUTPUT)
+                        dpDIGITAL_OUTPUT.Add(new DataPointUI(dataPoint.Gid, dataPoint.Type, dataPoint.Address, dataPoint.Timestamp,
+                                                 dataPoint.Name, dataPoint.Value,
+                                                 (dataPoint.Type == PointType.ANALOG_INPUT || dataPoint.Type == PointType.ANALOG_OUTPUT) ? dataPoint.RawValue + " kW" :
+                                                 (dataPoint.RawValue == 1) ? "OPEN" : "CLOSE",
+                                                 dataPoint.Alarm, dataPoint.GidGeneratora)
+                        {
+                            AlarmImageColor = dataPoint.AlarmImageColor,
+                            AlarmImage = dataPoint.AlarmImage,
+                            Value = dataPoint.Value
+                        });
                 }
-            } 
+
+                dpANALOG_INPUT.OrderBy(x => (int)x.Address);
+                dpANALOG_OUTPUT.OrderBy(x => (int)x.Address);
+                dpDIGITAL_INPUT.OrderBy(x => (int)x.Address);
+                dpDIGITAL_OUTPUT.OrderBy(x => (int)x.Address);
+
+                List<DataPointUI> temp = new List<DataPointUI>();
+                temp.AddRange(dpANALOG_INPUT);
+                temp.AddRange(dpANALOG_OUTPUT);
+                temp.AddRange(dpDIGITAL_INPUT);
+                temp.AddRange(dpDIGITAL_OUTPUT);
+                PointsUI = new ObservableCollection<DataPointUI>(temp);
+            }
         }
         public ObservableCollection<DataPointUI> PointsUI { get { return _pointsUI; } set { _pointsUI = value; OnPropertyChanged("PointsUI"); } }
 

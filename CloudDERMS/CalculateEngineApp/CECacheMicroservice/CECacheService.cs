@@ -979,6 +979,12 @@ namespace CECacheMicroservice
                 List<DataPoint> points = dict.TryGetValueAsync(tx, 0).Result.Value;
                 if (points == null)
                     points = new List<DataPoint>();
+
+                if (points.Where(x => x.Gid == datapoint.Gid).FirstOrDefault() != null)
+                {
+                    DataPoint data = points.Where(x => x.Gid == datapoint.Gid).FirstOrDefault();
+                    points.Remove(data);
+                }
                 points.Add(datapoint);
 
                 await dict.AddOrUpdateAsync(tx, 0, points, (key, value) => value = points);
