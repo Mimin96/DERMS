@@ -270,3 +270,13 @@ C:\Users\Caki\Desktop\2809Filip\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLab
 C:\Users\Caki\Desktop\2809Filip\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.csproj.CopyComplete
 C:\Users\Caki\Desktop\2809Filip\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.exe
 C:\Users\Caki\Desktop\2809Filip\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.pdb
+C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\Cosmos.CRTCompat.dll
+C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\NMSTestClient.exe.config
+C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\NMSTestClient.exe
+C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\bin64\NMSTestClient.pdb
+C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.csprojAssemblyReference.cache
+C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.csproj.CoreCompileInputs.cache
+C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.csproj.CopyComplete
+C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.exe
+C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\NMS\ModelLabs\NetworkModelService\Test\NMSTestClient\obj\x64\Debug\NMSTestClient.pdb

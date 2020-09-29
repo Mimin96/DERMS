@@ -69,8 +69,15 @@ namespace CECommandMicroservice
                             //
                             transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromDerForecastDayAhead(generatorGid)).Wait();
                             ////
-                            if (tempTurnedOnGen[0].Contains(generatorGid))
+                            if(tempTurnedOnGen.Count != 0)
+                            {
+                                if (tempTurnedOnGen[0].Contains(generatorGid))
+                                    transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(generatorGid)).Wait();
+                            }
+                            else
+                            {
                                 transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.RemoveFromTurnedOnGenerators(generatorGid)).Wait();
+                            }
                             transactionCoordinator.InvokeWithRetryAsync(client => client.Channel.SendDerForecastDayAhead()).Wait(); // Ovde pubsub zezne
                         }
                     }
