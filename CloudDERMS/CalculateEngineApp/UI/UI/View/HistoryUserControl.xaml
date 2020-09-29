@@ -92,7 +92,7 @@
                     </TextBlock>
 
                 </ListBox>
-                <CheckBox x:Name="Min" Foreground="#FF0398E2" Background="#FF0398E2" Margin="192,10,521,182">
+                <CheckBox x:Name="Min" Foreground="#FF0398E2" Background="#FF0398E2" Margin="184,26,529.2,166.4">
                     <TextBlock Margin="-38 30 0 0">Minimum</TextBlock>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Checked">
@@ -103,7 +103,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </CheckBox>
-                <CheckBox x:Name="Max" Foreground="#FF0398E2"  Background="#FF0398E2" Margin="258,10,455,182">
+                <CheckBox x:Name="Max" Foreground="Tomato"  Background="Tomato" Margin="252,26,461.2,165.4">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Checked">
                             <i:CallMethodAction MethodName="HistoryFilter" TargetObject="{Binding}" />
@@ -114,7 +114,7 @@
                     </i:Interaction.Triggers>
                     <TextBlock Margin="-38 30 0 0">Maximum</TextBlock>
                 </CheckBox>
-                <CheckBox x:Name="Avg" Foreground="#FF0398E2"  Background="#FF0398E2" Margin="323,10,390,182">
+                <CheckBox x:Name="Avg" Foreground="Yellow"  Background="Yellow" Margin="322,26,391.2,166.4">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Checked">
                             <i:CallMethodAction MethodName="HistoryFilter" TargetObject="{Binding}" />
@@ -125,7 +125,7 @@
                     </i:Interaction.Triggers>
                     <TextBlock Margin="-34 30 0 0">Average</TextBlock>
                 </CheckBox>
-                <Button  Margin="651,29,0,0" VerticalAlignment="Top" Width="98" Height="28" Content="Filter" Background="Transparent" Foreground="#FF0398E2" Style="{DynamicResource HoverButtonEffect}" Command="{Binding Path=ApplyFiltersCommand}" Visibility="{Binding FilterVisibility}" HorizontalAlignment="Left" />
+                <Button  Margin="393,23,0,0" VerticalAlignment="Top" Width="98" Height="28" Content="Filter" Background="Transparent" Foreground="#FF0398E2" Style="{DynamicResource HoverButtonEffect}" Command="{Binding Path=ApplyFiltersCommand}" Visibility="{Binding FilterVisibility}" HorizontalAlignment="Left" />
             </Grid>
 
             <Grid Grid.Row="1" Visibility="{Binding IsDan}">
