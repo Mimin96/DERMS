@@ -223,8 +223,17 @@ namespace CEPubSubMicroservice
 					ServerSideProxy subscriberProxy = subscribersCopy[subscriberAddress];
 					try
 					{
-						subscriberProxy.Proxy.SendScadaDataToUI(forcastDayAhead);
-						//return true;
+						if (subscriberProxy.Proxy != null)
+						{
+							subscriberProxy.Proxy.SendScadaDataToUI(forcastDayAhead);
+						}
+						else
+						{
+							subscriberProxy.Connect();
+							subscriberProxy.Proxy.SendScadaDataToUI(forcastDayAhead);
+						}
+
+						return true;
 					}
 					catch (CommunicationException)
 					{
@@ -284,7 +293,15 @@ namespace CEPubSubMicroservice
 
 					try
 					{
-						subscriber.Proxy.SendScadaDataToUIDataPoint(data);
+						if (subscriber.Proxy != null)
+						{
+							subscriber.Proxy.SendScadaDataToUIDataPoint(data);
+						}
+						else
+						{
+							subscriber.Connect();
+							subscriber.Proxy.SendScadaDataToUIDataPoint(data);
+						}
 					}
 					catch (CommunicationException ee)
 					{
@@ -344,7 +361,15 @@ namespace CEPubSubMicroservice
 
 					try
 					{
-						subscriber.Proxy.SendDataUI(data, NetworkModelTreeClass);
+						if (subscriber.Proxy != null)
+						{
+							subscriber.Proxy.SendDataUI(data, NetworkModelTreeClass);
+						}
+						else
+						{
+							subscriber.Connect();
+							subscriber.Proxy.SendDataUI(data, NetworkModelTreeClass);
+						}
 					}
 					catch (CommunicationException)
 					{
@@ -403,8 +428,17 @@ namespace CEPubSubMicroservice
 					ServerSideProxy subscriberProxy = subscribersCopy[subscriberAddress];
 					try
 					{
-						subscriberProxy.Proxy.GetNewEvent(@event);
-						//return true;
+						if (subscriberProxy.Proxy != null)
+						{
+							subscriberProxy.Proxy.GetNewEvent(@event);
+						}
+						else
+						{
+							subscriberProxy.Connect();
+							subscriberProxy.Proxy.GetNewEvent(@event);
+						}
+
+						return true;
 					}
 					catch (CommunicationException)
 					{

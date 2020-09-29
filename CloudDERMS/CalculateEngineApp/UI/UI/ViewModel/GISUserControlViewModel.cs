@@ -33,7 +33,7 @@ namespace UI.ViewModel
         private Dictionary<string, bool> _visibilityOfElements;
         private RelayCommand<object> _searchCommand;
         private string _searchParam;
-        private List<NetworkModelTreeClass> _networkModelTreeClass;
+        private List<NetworkModelTreeClass> _networkModelTreeClassList;
         CommunicationProxy proxy;
         private List<Generator> TurnedOffGenerators { get; set; }
         #endregion
@@ -42,7 +42,7 @@ namespace UI.ViewModel
         {
             Mediator.Register("NMSNetworkModelDataGIS", NMSNetworkModelDataGIS);
             TurnedOffGenerators = new List<Generator>();
-            _networkModelTreeClass = new List<NetworkModelTreeClass>();
+            NetworkModelTreeClassList = new List<NetworkModelTreeClass>();
             VisibilityOfElements = new Dictionary<string, bool>();
             VisibilityOfElementPopulate();
             SearchParameter = "Element Name";
@@ -65,6 +65,18 @@ namespace UI.ViewModel
             {
                 _tree = value;
                 SetTreeOnMap();
+            }
+        }
+
+        public List<NetworkModelTreeClass> NetworkModelTreeClassList
+        {
+            get
+            {
+                return _networkModelTreeClassList;
+            }
+            set
+            {
+                _networkModelTreeClassList = value;
             }
         }
 
@@ -125,7 +137,7 @@ namespace UI.ViewModel
             List<NetworkModelTreeClass>  _networkModelTreeClassTemp = new List<NetworkModelTreeClass>();
             _networkModelTreeClassTemp = (List<NetworkModelTreeClass>)obj[1];
             if(_networkModelTreeClassTemp.Count > 0)
-                _networkModelTreeClass = (List<NetworkModelTreeClass>)obj[1]; 
+                NetworkModelTreeClassList = (List<NetworkModelTreeClass>)obj[1]; 
     }
         public void GetCoordinatesOnMouseClick(object sender, MouseButtonEventArgs e)
         {
@@ -170,7 +182,7 @@ namespace UI.ViewModel
                 bool canManualCommand = true;
                 string text = "";
                 Generator generator = (Generator)selected.Data.IdentifiedObject;
-                foreach(NetworkModelTreeClass networkModelTreeClass in _networkModelTreeClass)
+                foreach(NetworkModelTreeClass networkModelTreeClass in NetworkModelTreeClassList)
 				{            
                     foreach(GeographicalRegionTreeClass gr in networkModelTreeClass.GeographicalRegions)
 					{

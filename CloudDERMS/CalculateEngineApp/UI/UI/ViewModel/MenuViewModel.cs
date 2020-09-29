@@ -267,6 +267,7 @@ namespace UI.ViewModel
                 case "GIS":
                     UserControlPresenter = new GISUserControl();
                     ((GISUserControlViewModel)UserControlPresenter.DataContext).Tree = _tree;
+                    ((GISUserControlViewModel)UserControlPresenter.DataContext).NetworkModelTreeClassList = _networkModelTreeClass;
                     break;
                 case "DERDashboard":
                     if (_dERDashboardDerForecastDayAhead == null)
