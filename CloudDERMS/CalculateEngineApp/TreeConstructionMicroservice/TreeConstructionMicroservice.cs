@@ -29,11 +29,14 @@ namespace TreeConstructionMicroservice
         {
             var ip = Context.NodeContext.IPAddressOrFQDN;
 
+            TreeConstructionService tcs = new TreeConstructionService();
+            tcs.MessageRcv += (sender, s) => MessageForDiagnosticEvents(s);
+
             return new[]
             {
                 new ServiceInstanceListener((context) =>
                     new WcfCommunicationListener<ITreeConstruction>(
-                        wcfServiceObject: new TreeConstructionService(),
+                        wcfServiceObject: tcs,
                         serviceContext: context,
                         endpointResourceName: "BuildTreeServiceEndpoint",
                         listenerBinding: WcfUtility.CreateTcpListenerBinding()
@@ -62,6 +65,11 @@ namespace TreeConstructionMicroservice
 
                 await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
             }
+        }
+
+        private void MessageForDiagnosticEvents(string message)
+        {
+            ServiceEventSource.Current.Message(message);
         }
     }
 }

@@ -16,10 +16,11 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudCommon;
 
 namespace TreeConstructionMicroservice
 {
-    public class TreeConstructionService : ITreeConstruction
+    public class TreeConstructionService : MessageWriting, ITreeConstruction
     {
         // Treba da se proveri pre poziva ove metode da li postoji odr
 
@@ -39,6 +40,7 @@ namespace TreeConstructionMicroservice
 
         public async Task<TreeNode<NodeData>> ConstructTree1(NetworkModelTransfer networkModelTransfer)
         {
+            MessageReceivedEvent("Information: Started Tree Construction.");
             PopulateGraphCached(networkModelTransfer);
             return GraphCached;
         }

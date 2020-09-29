@@ -242,6 +242,8 @@
     <Compile Include="CalculateEngine\IPubSubTopic.cs" />
     <Compile Include="CalculateEngine\ISubscribe.cs" />
     <Compile Include="CalculateEngine\ITreeConstruction.cs" />
+    <Compile Include="IMessageWriting.cs" />
+    <Compile Include="MessageWriting.cs" />
     <Compile Include="NMSCLoudClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCADA\AzureStorage\AzureTableStorage.cs" />
