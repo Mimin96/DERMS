@@ -126,14 +126,17 @@ namespace SCADACacheMicroservice.MockDatabaseData
             {
                 for (int i = 0; i < 24; i++)
                 {
-                    dateTime = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, i , i + 1, i + 5);
+                    for (int j = 0; j < random.Next(2,4); j++)
+                    {
+                        dateTime = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, i, j + 1, j + 5);
 
-                    _collectItems.Add(new CollectItem(21474836481, random.Next(random.Next(0, 15), random.Next(190, 250)), dateTime));//solar
-                    _collectItems.Add(new CollectItem(21474836483, random.Next(random.Next(0, 15), random.Next(190, 250)), dateTime));//solar
-                    _collectItems.Add(new CollectItem(21474836486, random.Next(random.Next(0, 15), random.Next(190, 250)), dateTime));//solar
-                    _collectItems.Add(new CollectItem(21474836482, random.Next(random.Next(0, 15), random.Next(90, 100)), dateTime));//wind
-                    _collectItems.Add(new CollectItem(21474836484, random.Next(random.Next(0, 15), random.Next(90, 100)), dateTime));//wind
-                    _collectItems.Add(new CollectItem(21474836485, random.Next(random.Next(0, 15), random.Next(90, 100)), dateTime));//wind
+                        _collectItems.Add(new CollectItem(21474836481, random.Next(random.Next(0, 15), random.Next(190, 250)), dateTime));//solar
+                        _collectItems.Add(new CollectItem(21474836483, random.Next(random.Next(0, 15), random.Next(190, 250)), dateTime));//solar
+                        _collectItems.Add(new CollectItem(21474836486, random.Next(random.Next(0, 15), random.Next(190, 250)), dateTime));//solar
+                        _collectItems.Add(new CollectItem(21474836482, random.Next(random.Next(0, 15), random.Next(90, 100)), dateTime));//wind
+                        _collectItems.Add(new CollectItem(21474836484, random.Next(random.Next(0, 15), random.Next(90, 100)), dateTime));//wind
+                        _collectItems.Add(new CollectItem(21474836485, random.Next(random.Next(0, 15), random.Next(90, 100)), dateTime));//wind
+                    }
                 }
 
                 dateTime = new DateTime(2019, 10, 1);

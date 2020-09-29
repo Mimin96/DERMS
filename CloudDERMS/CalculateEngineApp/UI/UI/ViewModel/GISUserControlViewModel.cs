@@ -278,118 +278,127 @@ namespace UI.ViewModel
         }
         private string BuildToolTipOnClick(TreeNode<NodeData> selected)
         {
-            StringBuilder stringBuilderFinal = new StringBuilder();
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendFormat("GID: {0}{1}", selected.Data.IdentifiedObject.GlobalId, Environment.NewLine);
-            stringBuilder.AppendFormat("Name: {0}{1}", selected.Data.IdentifiedObject.Name, Environment.NewLine);
-            stringBuilder.AppendFormat("Description: {0}{1}", selected.Data.IdentifiedObject.Description, Environment.NewLine);
-            stringBuilder.AppendFormat("{0}", Environment.NewLine);
-            stringBuilder.AppendFormat("{0}{1}", selected.Data.Type.ToString(), Environment.NewLine);
-            stringBuilder.AppendFormat("Energized: {0}{1}", selected.Data.Energized.ToString(), Environment.NewLine);
+            
 
-            long substationGID = 0;
-            List<long> measurementGIDs = new List<long>();
-
-            switch (selected.Data.Type)
+            try
             {
-                case FTN.Common.DMSType.ACLINESEGMENT:
-                    ACLineSegment lineSegment = (ACLineSegment)selected.Data.IdentifiedObject;
-                    stringBuilder.AppendFormat("Current Flow: {0}{1}", lineSegment.CurrentFlow, Environment.NewLine);
-                    stringBuilder.AppendFormat("Type of AC Line Segment: {0}{1}", lineSegment.Type.ToString(), Environment.NewLine);
-                    substationGID = lineSegment.Container;
-                    measurementGIDs = lineSegment.Measurements;
-                    break;
-                case FTN.Common.DMSType.BREAKER:
-                    Breaker breaker = (Breaker)selected.Data.IdentifiedObject;
-                    
-                    if (breaker.NormalOpen)
+                StringBuilder stringBuilderFinal = new StringBuilder();
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.AppendFormat("GID: {0}{1}", selected.Data.IdentifiedObject.GlobalId, Environment.NewLine);
+                stringBuilder.AppendFormat("Name: {0}{1}", selected.Data.IdentifiedObject.Name, Environment.NewLine);
+                stringBuilder.AppendFormat("Description: {0}{1}", selected.Data.IdentifiedObject.Description, Environment.NewLine);
+                stringBuilder.AppendFormat("{0}", Environment.NewLine);
+                stringBuilder.AppendFormat("{0}{1}", selected.Data.Type.ToString(), Environment.NewLine);
+                stringBuilder.AppendFormat("Energized: {0}{1}", selected.Data.Energized.ToString(), Environment.NewLine);
+
+                long substationGID = 0;
+                List<long> measurementGIDs = new List<long>();
+
+                switch (selected.Data.Type)
+                {
+                    case FTN.Common.DMSType.ACLINESEGMENT:
+                        ACLineSegment lineSegment = (ACLineSegment)selected.Data.IdentifiedObject;
+                        stringBuilder.AppendFormat("Current Flow: {0}{1}", lineSegment.CurrentFlow, Environment.NewLine);
+                        stringBuilder.AppendFormat("Type of AC Line Segment: {0}{1}", lineSegment.Type.ToString(), Environment.NewLine);
+                        substationGID = lineSegment.Container;
+                        measurementGIDs = lineSegment.Measurements;
+                        break;
+                    case FTN.Common.DMSType.BREAKER:
+                        Breaker breaker = (Breaker)selected.Data.IdentifiedObject;
+
+                        if (breaker.NormalOpen)
+                        {
+                            stringBuilder.AppendFormat("Normal open state: true (0) {1}", breaker.NormalOpen.ToString(), Environment.NewLine);
+                        }
+                        else
+                        {
+                            stringBuilder.AppendFormat("Normal open state: false (1) {1}", breaker.NormalOpen.ToString(), Environment.NewLine);
+                        }
+                        substationGID = breaker.Container;
+                        measurementGIDs = breaker.Measurements;
+                        break;
+                    case FTN.Common.DMSType.ENEGRYSOURCE:
+                        EnergySource energySource = (EnergySource)selected.Data.IdentifiedObject;
+                        stringBuilder.AppendFormat("Type: {0}{1}", energySource.Type.ToString(), Environment.NewLine);
+                        stringBuilder.AppendFormat("Nominal Voltage: {0}     ", energySource.NominalVoltage);
+                        stringBuilder.AppendFormat("Magnitude Voltage: {0}     ", energySource.MagnitudeVoltage);
+                        stringBuilder.AppendFormat("Active Power: {0}{1}", energySource.ActivePower, Environment.NewLine);
+                        substationGID = energySource.Container;
+                        measurementGIDs = energySource.Measurements;
+                        break;
+                    case FTN.Common.DMSType.ENERGYCONSUMER:
+                        EnergyConsumer energyConsumer = (EnergyConsumer)selected.Data.IdentifiedObject;
+                        stringBuilder.AppendFormat("P Fixed: {0}     ", energyConsumer.PFixed);
+                        stringBuilder.AppendFormat("Q Fixed: {0}{1}", energyConsumer.QFixed, Environment.NewLine);
+                        substationGID = energyConsumer.Container;
+                        measurementGIDs = energyConsumer.Measurements;
+                        break;
+                    case FTN.Common.DMSType.GENERATOR:
+                        Generator generator = (Generator)selected.Data.IdentifiedObject;
+                        stringBuilder.AppendFormat("Type: {0}{1}", generator.GeneratorType.ToString(), Environment.NewLine);
+                        stringBuilder.AppendFormat("Consider P: {0}{1}", generator.ConsiderP, Environment.NewLine);
+                        substationGID = generator.Container;
+                        measurementGIDs = generator.Measurements;
+                        break;
+                    default:
+                        break;
+                }
+
+                Substation substation = (Substation)_tree.Where(x => x.Data.IdentifiedObject.GlobalId == substationGID).FirstOrDefault().Data.IdentifiedObject;
+                SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)_tree.Where(x => x.Data.IdentifiedObject.GlobalId == substation.SubGeoReg).FirstOrDefault().Data.IdentifiedObject;
+                GeographicalRegion geographicalRegion = (GeographicalRegion)_tree.Where(x => x.Data.IdentifiedObject.GlobalId == subGeographicalRegion.GeoReg).FirstOrDefault().Data.IdentifiedObject;
+
+                stringBuilderFinal.AppendFormat("Geographical Region: {0}     ", geographicalRegion.Name);
+                stringBuilderFinal.AppendFormat("SubGeographical Region: {0}     ", subGeographicalRegion.Name);
+                stringBuilderFinal.AppendFormat("Substation: {0}{1}", substation.Name, Environment.NewLine);
+                stringBuilderFinal.AppendFormat("{0}", Environment.NewLine);
+                stringBuilderFinal.Append(stringBuilder.ToString());
+                stringBuilderFinal.AppendFormat("{0}Measurements {1}", Environment.NewLine, Environment.NewLine);
+                int i = 0;
+
+                if (measurementGIDs.Count == 0)
+                {
+                    stringBuilderFinal.AppendFormat("NaN");
+                }
+
+                foreach (long gid in measurementGIDs)
+                {
+                    stringBuilderFinal.AppendFormat("[{0}]{1}", i++, Environment.NewLine);
+                    TreeNode<NodeData> treeNode = _tree.Where(x => x.Data.IdentifiedObject.GlobalId == gid).FirstOrDefault();
+
+                    if (treeNode.Data.Type == FTN.Common.DMSType.ANALOG)
                     {
-                        stringBuilder.AppendFormat("Normal open state: true (0) {1}", breaker.NormalOpen.ToString(), Environment.NewLine);
+                        Analog analog = (Analog)treeNode.Data.IdentifiedObject;
+                        stringBuilderFinal.AppendFormat("Name: {0}{1}", analog.Name, Environment.NewLine);
+                        stringBuilderFinal.AppendFormat("Measurement Type: {0}{1}", analog.MeasurementType, Environment.NewLine);
+                        stringBuilderFinal.AppendFormat("Min Value: {0}     ", analog.MinValue);
+                        stringBuilderFinal.AppendFormat("Max Value: {0}     ", analog.MaxValue);
+                        stringBuilderFinal.AppendFormat("Normal Value: {0}{1}", analog.NormalValue, Environment.NewLine);
                     }
                     else
                     {
-                        stringBuilder.AppendFormat("Normal open state: false (1) {1}", breaker.NormalOpen.ToString(), Environment.NewLine);
-                    }
-                    substationGID = breaker.Container;
-                    measurementGIDs = breaker.Measurements;
-                    break;
-                case FTN.Common.DMSType.ENEGRYSOURCE:
-                    EnergySource energySource = (EnergySource)selected.Data.IdentifiedObject;
-                    stringBuilder.AppendFormat("Type: {0}{1}", energySource.Type.ToString(), Environment.NewLine);
-                    stringBuilder.AppendFormat("Nominal Voltage: {0}     ", energySource.NominalVoltage);
-                    stringBuilder.AppendFormat("Magnitude Voltage: {0}     ", energySource.MagnitudeVoltage);
-                    stringBuilder.AppendFormat("Active Power: {0}{1}", energySource.ActivePower, Environment.NewLine);
-                    substationGID = energySource.Container;
-                    measurementGIDs = energySource.Measurements;
-                    break;
-                case FTN.Common.DMSType.ENERGYCONSUMER:
-                    EnergyConsumer energyConsumer = (EnergyConsumer)selected.Data.IdentifiedObject;
-                    stringBuilder.AppendFormat("P Fixed: {0}     ", energyConsumer.PFixed);
-                    stringBuilder.AppendFormat("Q Fixed: {0}{1}", energyConsumer.QFixed, Environment.NewLine);
-                    substationGID = energyConsumer.Container;
-                    measurementGIDs = energyConsumer.Measurements;
-                    break;
-                case FTN.Common.DMSType.GENERATOR:
-                    Generator generator = (Generator)selected.Data.IdentifiedObject;
-                    stringBuilder.AppendFormat("Type: {0}{1}", generator.GeneratorType.ToString(), Environment.NewLine);
-                    stringBuilder.AppendFormat("Consider P: {0}{1}", generator.ConsiderP, Environment.NewLine);
-                    substationGID = generator.Container;
-                    measurementGIDs = generator.Measurements;
-                    break;
-                default:
-                    break;
-            }
-
-            Substation substation = (Substation)_tree.Where(x => x.Data.IdentifiedObject.GlobalId == substationGID).FirstOrDefault().Data.IdentifiedObject;
-            SubGeographicalRegion subGeographicalRegion = (SubGeographicalRegion)_tree.Where(x => x.Data.IdentifiedObject.GlobalId == substation.SubGeoReg).FirstOrDefault().Data.IdentifiedObject;
-            GeographicalRegion geographicalRegion = (GeographicalRegion)_tree.Where(x => x.Data.IdentifiedObject.GlobalId == subGeographicalRegion.GeoReg).FirstOrDefault().Data.IdentifiedObject;
-
-            stringBuilderFinal.AppendFormat("Geographical Region: {0}     ", geographicalRegion.Name);
-            stringBuilderFinal.AppendFormat("SubGeographical Region: {0}     ", subGeographicalRegion.Name);
-            stringBuilderFinal.AppendFormat("Substation: {0}{1}", substation.Name, Environment.NewLine);
-            stringBuilderFinal.AppendFormat("{0}", Environment.NewLine);
-            stringBuilderFinal.Append(stringBuilder.ToString());
-            stringBuilderFinal.AppendFormat("{0}Measurements {1}", Environment.NewLine, Environment.NewLine);
-            int i = 0;
-
-            if (measurementGIDs.Count == 0)
-            {
-                stringBuilderFinal.AppendFormat("NaN");
-            }
-
-            foreach (long gid in measurementGIDs)
-            {
-                stringBuilderFinal.AppendFormat("[{0}]{1}", i++, Environment.NewLine);
-                TreeNode<NodeData> treeNode = _tree.Where(x => x.Data.IdentifiedObject.GlobalId == gid).FirstOrDefault();
-
-                if (treeNode.Data.Type == FTN.Common.DMSType.ANALOG)
-                {
-                    Analog analog = (Analog)treeNode.Data.IdentifiedObject;
-                    stringBuilderFinal.AppendFormat("Name: {0}{1}", analog.Name, Environment.NewLine);
-                    stringBuilderFinal.AppendFormat("Measurement Type: {0}{1}", analog.MeasurementType, Environment.NewLine);
-                    stringBuilderFinal.AppendFormat("Min Value: {0}     ", analog.MinValue);
-                    stringBuilderFinal.AppendFormat("Max Value: {0}     ", analog.MaxValue);
-                    stringBuilderFinal.AppendFormat("Normal Value: {0}{1}", analog.NormalValue, Environment.NewLine);
-                }
-                else
-                {
-                    Discrete discrete = (Discrete)treeNode.Data.IdentifiedObject;
-                    stringBuilderFinal.AppendFormat("Name: {0}{1}", discrete.Name, Environment.NewLine);
-                    stringBuilderFinal.AppendFormat("Measurement Type: {0}{1}", discrete.MeasurementType, Environment.NewLine);
-                    stringBuilderFinal.AppendFormat("Min Value: {0}     ", discrete.MinValue);
-                    stringBuilderFinal.AppendFormat("Max Value: {0}     ", discrete.MaxValue);
-                    if (discrete.NormalValue == 1)
-                    {
-                        stringBuilderFinal.AppendFormat("Normal Value: OPEN({0}){1}", discrete.NormalValue, Environment.NewLine);
-                    }
-                    else
-                    {
-                        stringBuilderFinal.AppendFormat("Normal Value: CLOSED({0}){1}", discrete.NormalValue, Environment.NewLine);
+                        Discrete discrete = (Discrete)treeNode.Data.IdentifiedObject;
+                        stringBuilderFinal.AppendFormat("Name: {0}{1}", discrete.Name, Environment.NewLine);
+                        stringBuilderFinal.AppendFormat("Measurement Type: {0}{1}", discrete.MeasurementType, Environment.NewLine);
+                        stringBuilderFinal.AppendFormat("Min Value: {0}     ", discrete.MinValue);
+                        stringBuilderFinal.AppendFormat("Max Value: {0}     ", discrete.MaxValue);
+                        if (discrete.NormalValue == 1)
+                        {
+                            stringBuilderFinal.AppendFormat("Normal Value: OPEN({0}){1}", discrete.NormalValue, Environment.NewLine);
+                        }
+                        else
+                        {
+                            stringBuilderFinal.AppendFormat("Normal Value: CLOSED({0}){1}", discrete.NormalValue, Environment.NewLine);
+                        }
                     }
                 }
-            }
 
-            return stringBuilderFinal.ToString();
+                return stringBuilderFinal.ToString();
+            }
+            catch (Exception e)
+            {
+                return "";
+            }
         }
         private void SetTreeOnMap()
         {
@@ -772,6 +781,8 @@ namespace UI.ViewModel
             //Nadji u stablu entitet koji ti treba na osnovu _search param
             try
             {
+                //ServiceEventSource.Current.Message("TransactionCoordinatorMicroservice, Up and running.");
+
                 TreeNode<NodeData> node = _tree.Where(x => x.Data.IdentifiedObject.Name == SearchParameter).ToList().First();
                 if (node != null && node.Data.Type != DMSType.DISCRETE && node.Data.Type != DMSType.ANALOG)
                 {

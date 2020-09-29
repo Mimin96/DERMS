@@ -91,8 +91,8 @@ namespace SCADACacheMicroservice
 
             // Start_MockDatabase
 
-            MockHistoryDatabaseData historyDatabaseData = new MockHistoryDatabaseData();
-            historyDatabaseData.SetDatabaseData().Wait();
+            //MockHistoryDatabaseData historyDatabaseData = new MockHistoryDatabaseData();
+            //historyDatabaseData.SetDatabaseData().Wait();
 
             // End_MockDatabase
 
@@ -111,6 +111,8 @@ namespace SCADACacheMicroservice
                 CalculateMonthItem();
             }, null, millisecondInMonth - currentMillisecondsInAMont + 350000, Timeout.Infinite);
 
+            ServiceEventSource.Current.Message("SCADACacheMicroservice, Up and running.");
+
             while (true)
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -119,8 +121,8 @@ namespace SCADACacheMicroservice
                 {
                     var result = await myDictionary.TryGetValueAsync(tx, "Counter");
 
-                    ServiceEventSource.Current.ServiceMessage(this.Context, "Current Counter Value: {0}",
-                        result.HasValue ? result.Value.ToString() : "Value does not exist.");
+                    //ServiceEventSource.Current.ServiceMessage(this.Context, "Current Counter Value: {0}",
+                    //    result.HasValue ? result.Value.ToString() : "Value does not exist.");
 
                     await myDictionary.AddOrUpdateAsync(tx, "Counter", 0, (key, value) => ++value);
 

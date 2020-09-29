@@ -70,6 +70,8 @@ namespace CEPubSubMicroservice
 
             var myDictionary = await this.StateManager.GetOrAddAsync<IReliableDictionary<string, long>>("myDictionary");
 
+            ServiceEventSource.Current.Message("CEPubSubMicroservice, Up and running.");
+
             while (true)
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -78,8 +80,8 @@ namespace CEPubSubMicroservice
                 {
                     var result = await myDictionary.TryGetValueAsync(tx, "Counter");
 
-                    ServiceEventSource.Current.ServiceMessage(this.Context, "Current Counter Value: {0}",
-                        result.HasValue ? result.Value.ToString() : "Value does not exist.");
+                    //ServiceEventSource.Current.ServiceMessage(this.Context, "Current Counter Value: {0}",
+                    //    result.HasValue ? result.Value.ToString() : "Value does not exist.");
 
                     await myDictionary.AddOrUpdateAsync(tx, "Counter", 0, (key, value) => ++value);
 

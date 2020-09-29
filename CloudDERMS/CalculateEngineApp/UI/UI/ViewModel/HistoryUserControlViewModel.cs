@@ -108,13 +108,13 @@ namespace UI.ViewModel
             _yearMax = new ChartValues<double>();
             _yearAvg = new ChartValues<double>();
 
-            for (int j = 0; j <= 24; j++)
+            for (int j = 0; j <= 23; j++)
                 _dayMax.Add((double)0);
 
-            for (int j = 0; j <= 24; j++)
+            for (int j = 0; j <= 23; j++)
                 _dayMin.Add((double)0);
 
-            for (int j = 0; j <= 24; j++)
+            for (int j = 0; j <= 23; j++)
                 _dayAvg.Add((double)0);
 
             for (int j = 0; j <= 31; j++)
@@ -759,6 +759,7 @@ namespace UI.ViewModel
                 {
                     if (SelectedDan == null && SelectedMesec == null && SelectedGodina == null)
                     {
+                        populateInitialLinesValues();
                         PopUpWindow popUpWindow = new PopUpWindow("You must select time period.");
                         popUpWindow.ShowDialog();
                         return;
@@ -782,17 +783,42 @@ namespace UI.ViewModel
                     //My day mins by hour
                     if (IsDan == Visibility.Visible)
                     {
+                        if (SelectedDan == "" || SelectedDan == null)
+                        {
+                            populateInitialLinesValues();
+                            PopUpWindow popUpWindow = new PopUpWindow("You must select date.");
+                            popUpWindow.ShowDialog();
+                            return;
+                        }
+                             
                         collectItems = uIClient.GetCollectItemsDateTime(DateTime.Parse(SelectedDan), _selectedGID);
                         collectItems = collectItems.OrderBy(x => x.Timestamp.Hour).ToList();
                     }
                     else if (IsMesec == Visibility.Visible)
                     {
+                        if (SelectedMesec == "" || SelectedMesec == null || SelectedGodina == "")
+                        {
+                            populateInitialLinesValues();
+                            PopUpWindow popUpWindow = new PopUpWindow("You must select date.");
+                            popUpWindow.ShowDialog();
+                            return;
+
+                        }
                         DateTime dateTime = new DateTime(Int32.Parse(SelectedGodina), Int32.Parse(SelectedMesec), 1);
                         _itemsDay = new ObservableCollection<DayItemUI>(uIClient.GetDayItemsDateTime(dateTime, _selectedGID));
                         _itemsDay = new ObservableCollection<DayItemUI>(_itemsDay.OrderBy(x=>x.Timestamp).ToList());
                     }
                     else if (IsGodina == Visibility.Visible)
                     {
+                        if (SelectedGodina == null || SelectedGodina == "")
+                        {
+                            populateInitialLinesValues();
+                            PopUpWindow popUpWindow = new PopUpWindow("You must select date.");
+                            popUpWindow.ShowDialog();
+                            return;
+
+                        }
+
                         DateTime dateTime = new DateTime(Int32.Parse(SelectedGodina), 1, 1);
                         _itemsMonth = new ObservableCollection<MonthItemUI>(uIClient.GetMonthItemsDateTime(dateTime, _selectedGID));
                         _itemsMonth = new ObservableCollection<MonthItemUI>(_itemsMonth.OrderBy(x => x.Timestamp).ToList());
@@ -831,6 +857,7 @@ namespace UI.ViewModel
                         else
                         {
                             bool1 = true;
+                            populateInitialLinesValues();
                         }
                     }
                     else if (_min && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
@@ -867,6 +894,7 @@ namespace UI.ViewModel
                         else
                         {
                             bool2 = true;
+                            populateInitialLinesValues();
                         }
                     }
                     else if (_min && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
@@ -900,6 +928,8 @@ namespace UI.ViewModel
                         else
                         {
                             bool3 = true;
+                            populateInitialLinesValues();
+
                         }
                     }
 
@@ -936,6 +966,7 @@ namespace UI.ViewModel
                         else
                         {
                             bool1 = true;
+                            populateInitialLinesValues();
                         }
 
                     }
@@ -972,6 +1003,7 @@ namespace UI.ViewModel
                         else
                         {
                             bool2 = true;
+                            populateInitialLinesValues();
                         }
                     }
                     else if (_max && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
@@ -1006,6 +1038,7 @@ namespace UI.ViewModel
                         else
                         {
                             bool3 = true;
+                            populateInitialLinesValues();
                         }
                     }
 
@@ -1044,6 +1077,7 @@ namespace UI.ViewModel
                         else
                         {
                             bool1 = true;
+                            populateInitialLinesValues();
                         }
                     }
                     else if (_avg && IsMesec == Visibility.Visible && IsGodina == Visibility.Visible)
@@ -1079,6 +1113,7 @@ namespace UI.ViewModel
                         else
                         {
                             bool2 = true;
+                            populateInitialLinesValues();
                         }
                     }
                     else if (_avg && IsMesec == Visibility.Hidden && IsGodina == Visibility.Visible)
@@ -1123,6 +1158,7 @@ namespace UI.ViewModel
                         else
                         {
                             bool3 = true;
+                            populateInitialLinesValues();
                         }
                     }
 

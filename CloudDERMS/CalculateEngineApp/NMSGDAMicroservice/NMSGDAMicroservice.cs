@@ -64,6 +64,7 @@ namespace NMSGDAMicroservice
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service replica.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
+            ServiceEventSource.Current.Message("NMSGDAMicroservice, Up and running.");
             try
             {
                 using (NetworkModelService nms = new NetworkModelService())

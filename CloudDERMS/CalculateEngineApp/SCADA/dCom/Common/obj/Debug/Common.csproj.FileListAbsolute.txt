@@ -704,3 +704,11 @@ C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Commo
 C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
 C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.dll
 C:\Users\boske\Desktop\maca\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.pdb
+C:\Users\Caki\Desktop\2909\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\Common.dll
+C:\Users\Caki\Desktop\2909\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\Common.pdb
+C:\Users\Caki\Desktop\2909\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\bin\Debug\EasyModbus.dll
+C:\Users\Caki\Desktop\2909\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Caki\Desktop\2909\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Caki\Desktop\2909\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\Caki\Desktop\2909\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.dll
+C:\Users\Caki\Desktop\2909\DERMS\CloudDERMS\CalculateEngineApp\SCADA\dCom\Common\obj\Debug\Common.pdb
