@@ -1,4 +1,5 @@
 ﻿using CalculationEngineServiceCommon;
+using CloudCommon;
 using CloudCommon.CalculateEngine;
 using CloudCommon.CalculateEngine.Communication;
 using CloudCommon.SCADA;
@@ -19,10 +20,11 @@ using static DERMSCommon.Enums;
 namespace CECommandMicroservice
 {
     [DataContract]
-    public class FlexibilityFromUIToCEService : IFlexibilityFromUIToCE
+    public class FlexibilityFromUIToCEService : MessageWriting, IFlexibilityFromUIToCE
     {
         public async Task ChangeBreakerStatus(long GID, bool NormalOpen)
         {
+            MessageReceivedEvent("Information: Change Breaker Status started.");
             Dictionary<long, double> keyValues = new Dictionary<long, double>();
             keyValues[GID] = NormalOpen ? 1 : 0;
 
@@ -186,6 +188,7 @@ namespace CECommandMicroservice
 
         public async Task UpdateFlexibilityFromUIToCE(double valueKW, FlexibilityIncDec incOrDec, long gid)
         {
+            MessageReceivedEvent("Information: Update Flexibility From UI To CE started.");
             // POZOVI METODU ZA RACUNANJE FLEXIBILITY
             DataToUI data = new DataToUI();
             data.Flexibility = valueKW;

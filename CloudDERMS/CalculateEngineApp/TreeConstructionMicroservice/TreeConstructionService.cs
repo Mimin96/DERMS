@@ -63,6 +63,7 @@ namespace TreeConstructionMicroservice
         #region Build Tree
         public void PopulateGraphCached(NetworkModelTransfer networkModelTransfer)
         {
+            MessageReceivedEvent("Information: Build Graph started.");
             NetworkModelTreeClass = new List<NetworkModelTreeClass>();
             NetworkModelTreeClass.Add(new NetworkModelTreeClass("Network Model", -1, DMSType.MASK_TYPE, -1, -1));
 
@@ -417,6 +418,7 @@ namespace TreeConstructionMicroservice
         }
         private void ColorGraph()
         {
+            MessageReceivedEvent("Information: Color Graph started.");
             //TreeNode<NodeData> rootNode = graphCached.FindTreeNode(x => x.IsRoot);
             TreeNode<NodeData> rootNode = GraphCached.Where(x => x.IsRoot).FirstOrDefault();
 

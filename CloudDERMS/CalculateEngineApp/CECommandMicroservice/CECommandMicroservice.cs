@@ -31,11 +31,20 @@ namespace CECommandMicroservice
         {
             var ip = Context.NodeContext.IPAddressOrFQDN;
 
+            CEUpdateThroughUIService tcs = new CEUpdateThroughUIService();
+            tcs.MessageRcv += (sender, s) => MessageForDiagnosticEvents(s);
+
+            CEUpdateThroughUIService tcs2 = new CEUpdateThroughUIService();
+            tcs2.MessageRcv += (sender, s) => MessageForDiagnosticEvents(s);
+
+            FlexibilityFromUIToCEService tcfs = new FlexibilityFromUIToCEService();
+            tcfs.MessageRcv += (sender, s) => MessageForDiagnosticEvents(s);
+
             return new[]
             {
                 new ServiceInstanceListener((context) =>
                     new WcfCommunicationListener<ICEUpdateThroughUI>(
-                        wcfServiceObject: new CEUpdateThroughUIService(),
+                        wcfServiceObject: tcs,
                         serviceContext: context,
                         endpointResourceName: "CEUpdateThroughUIServiceEndpoint",
                         listenerBinding: WcfUtility.CreateTcpListenerBinding()
@@ -44,7 +53,7 @@ namespace CECommandMicroservice
                 ),
                 new ServiceInstanceListener((context) =>
                     new WcfCommunicationListener<ICEUpdateThroughUI>(
-                        wcfServiceObject: new CEUpdateThroughUIService(),
+                        wcfServiceObject: tcs2,
                         serviceContext: context,
                         address: new EndpointAddress("net.tcp://localhost:55556/CECommandMicroservice"),
                         listenerBinding: new NetTcpBinding()
@@ -53,7 +62,7 @@ namespace CECommandMicroservice
                 ),
                 new ServiceInstanceListener((context) =>
                     new WcfCommunicationListener<IFlexibilityFromUIToCE>(
-                        wcfServiceObject: new FlexibilityFromUIToCEService(),
+                        wcfServiceObject: tcfs,
                         serviceContext: context,
                         address: new EndpointAddress("net.tcp://localhost:8080/CECommandMicroservice"),
                         listenerBinding: new NetTcpBinding()
@@ -83,5 +92,10 @@ namespace CECommandMicroservice
                 await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
             }
         }
-    }
+
+        private void MessageForDiagnosticEvents(string message)
+        {
+            ServiceEventSource.Current.Message(message);
+        }
+}
 }

@@ -1,4 +1,5 @@
 ﻿using CalculationEngineServiceCommon;
+using CloudCommon;
 using CloudCommon.CalculateEngine;
 using CloudCommon.CalculateEngine.Communication;
 using CloudCommon.SCADA;
@@ -19,10 +20,11 @@ using System.Threading.Tasks;
 
 namespace CalculationEngineService
 {
-    public class CEUpdateThroughUIService : ICEUpdateThroughUI
+    public class CEUpdateThroughUIService : MessageWriting, ICEUpdateThroughUI
     {
         public async Task UpdateThroughUI(long data)
         {
+            MessageReceivedEvent("Information: Automatic Optimization started.");
             PopulateBalance(data).Wait();
 
             CloudClient<IEvetnsDatabase> transactionCoordinator = new CloudClient<IEvetnsDatabase>

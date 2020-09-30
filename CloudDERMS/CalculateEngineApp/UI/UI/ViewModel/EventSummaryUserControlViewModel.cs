@@ -125,10 +125,22 @@ namespace UI.ViewModel
         }
         private void ShowCommanding()
         {
-            UIClientEvents uIClientEvents = new UIClientEvents("GetEventsEndpoint");
-            _allEvents = new ObservableCollection<Event>(uIClientEvents.GetEvents().Result);
+            bool isTrue = false;
+            while (!isTrue) {
+                try
+                {
+                    UIClientEvents uIClientEvents = new UIClientEvents("GetEventsEndpoint");
+                    _allEvents = new ObservableCollection<Event>(uIClientEvents.GetEvents().Result);
 
-            Events = new ObservableCollection<Event>(_allEvents);
+                    Events = new ObservableCollection<Event>(_allEvents);
+
+                    isTrue = true;
+                }
+                catch
+                {
+                    isTrue = false;
+                }
+            }
         }
         private void FilterOnOff(object obj)
         {
