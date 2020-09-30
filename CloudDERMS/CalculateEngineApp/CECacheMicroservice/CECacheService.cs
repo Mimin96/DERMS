@@ -20,10 +20,11 @@ using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using CalculationEngineServiceCommon;
 using DERMSCommon.UIModel.ThreeViewModel;
+using CloudCommon;
 
 namespace CECacheMicroservice
 {
-    public class CECacheService : ICache
+    public class CECacheService : MessageWriting, ICache
     {
         // fali svuda pubsub notify
         // listOfGeneratorsForScada -- obratiti paznju na ovo kod CEUpdateThroughUI -- metoda Balance 
@@ -87,6 +88,7 @@ namespace CECacheMicroservice
         #region nmsCache methods
         public async Task PopulateNSMModelCache(NetworkModelTransfer networkModelTransfer)
         {
+            MessageReceivedEvent("Information: PopulateNSMModelCache started.");
             foreach (KeyValuePair<DMSType, Dictionary<long, IdentifiedObject>> dictionary in networkModelTransfer.Delete)
             {
                 foreach (IdentifiedObject io in dictionary.Value.Values)
@@ -307,6 +309,7 @@ namespace CECacheMicroservice
         #region derWeatherCached methods
         public async Task PopulateWeatherForecast(NetworkModelTransfer networkModel)
         {
+            MessageReceivedEvent("Information: PopulateWeatherForecast started.");
             CloudClient<IDarkSkyApi> transactionCoordinator = new CloudClient<IDarkSkyApi>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CEWeatherForecastMicroservice"),
@@ -364,6 +367,7 @@ namespace CECacheMicroservice
         }
         public async Task PopulateConsumptionForecast(NetworkModelTransfer networkModel)
         {
+            MessageReceivedEvent("Information: PopulateConsumptionForecast started.");
             CloudClient<IConsumptionCalculator> transactionCoordinator = new CloudClient<IConsumptionCalculator>
             (
               serviceUri: new Uri("fabric:/CalculateEngineApp/CECalculationMicroservice"),
@@ -415,6 +419,7 @@ namespace CECacheMicroservice
         //SendDerForecastDayAhead Otkomentarisati metodu 
         public async Task PopulateProductionForecast(NetworkModelTransfer networkModel)
         {
+            MessageReceivedEvent("Information: PopulateProductionForecast started.");
             //Communication with Microservice in same application
             CloudClient<IProductionCalculator> transactionCoordinator = new CloudClient<IProductionCalculator>
             (
@@ -854,6 +859,7 @@ namespace CECacheMicroservice
         //NOT COMPLETE CALC FLEXIBILITY treba da se pozove odavde //CalculateFlexibility -- calc flexibility bi trebalo da stoji u nekom drugom servisu
         private async Task PopulateGraph(NetworkModelTransfer networkModelTransfer)
         {
+            MessageReceivedEvent("Information: PopulateGraph started.");
             CloudClient<ITreeConstruction> transactionCoordinator = new CloudClient<ITreeConstruction>
             (
                 serviceUri: new Uri("fabric:/CalculateEngineApp/TreeConstructionMicroservice"),
@@ -1052,6 +1058,7 @@ namespace CECacheMicroservice
         //NOT COMPLETE -- Trebalo bi da stoje na nekom drugom servisu
         public async Task UpdateMinAndMaxFlexibilityForChangedGenerators(Dictionary<long, double> listOfGeneratorsForScada)
         {
+            MessageReceivedEvent("Information: UpdateMinAndMaxFlexibilityForChangedGenerators started.");
             double minProd = 0;
             double maxProd = 0;
             double currentProd = 0;
@@ -1102,6 +1109,7 @@ namespace CECacheMicroservice
         //NOT COMPLETE -- Trebalo bi da stoje na nekom drugom servisu
         public async Task CalculateFlexibility(List<NetworkModelTreeClass> NetworkModelTreeClass)
         {
+            MessageReceivedEvent("Information: CalculateFlexibility started.");
             float minFlexibilitySubstation = 0;
             float maxFlexibilitySubstation = 0;
             float productionSubstation = 0;

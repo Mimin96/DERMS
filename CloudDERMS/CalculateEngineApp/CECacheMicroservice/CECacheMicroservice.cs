@@ -36,7 +36,8 @@ namespace CECacheMicroservice
         {
             var ip = Context.NodeContext.IPAddressOrFQDN;
 
-            ICache cECache = new CECacheService(StateManager);
+            CECacheService cECache = new CECacheService(StateManager);
+            cECache.MessageRcv += (sender, s) => MessageForDiagnosticEvents(s);
             SendDataFromNMSToCE sendDataFromNMSToCE = new SendDataFromNMSToCE(StateManager, cECache);
             SendDataToCEThroughScada sendDataToCEThroughScada = new SendDataToCEThroughScada(StateManager, cECache);
 
@@ -123,6 +124,11 @@ namespace CECacheMicroservice
 
                 await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
             }
+        }
+
+        private void MessageForDiagnosticEvents(string message)
+        {
+            ServiceEventSource.Current.Message(message);
         }
     }
 }
