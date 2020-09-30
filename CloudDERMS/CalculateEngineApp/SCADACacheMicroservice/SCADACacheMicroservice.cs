@@ -99,7 +99,7 @@ namespace SCADACacheMicroservice
             long millisecondInDay = 86400000;
             long millisecondInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) * millisecondInDay;
             long currentMillisecondsInADay = DateTime.Now.Hour * 3600000 + DateTime.Now.Minute * 60000 + DateTime.Now.Second * 1000 + DateTime.Now.Millisecond;
-            long currentMillisecondsInAMont = DateTime.Now.Day * millisecondInDay + currentMillisecondsInADay;
+            long currentMillisecondsInAMont = (DateTime.Now.Day - 1) * millisecondInDay + currentMillisecondsInADay;
 
             Timer timerForDayItem = new Timer(x =>
             {

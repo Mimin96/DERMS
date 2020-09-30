@@ -128,7 +128,8 @@ namespace UI.ViewModel
 
             try
             {
-                ((SignalsSummaryUserControlViewModel)UserControlPresenter.DataContext).GetSCADAData(_SCADAData);
+                if((SignalsSummaryUserControlViewModel)UserControlPresenter.DataContext != null)
+                    ((SignalsSummaryUserControlViewModel)UserControlPresenter.DataContext).GetSCADAData(_SCADAData);
             }
             catch
             {
