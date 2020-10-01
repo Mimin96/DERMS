@@ -2566,3 +2566,6 @@ C:\Users\djordje.tosic\Desktop\Projekat 29.9\DERMS\CloudDERMS\CalculateEngineApp
 C:\Users\djordje.tosic\Desktop\Projekat 29.9\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.csproj.CopyComplete
 C:\Users\djordje.tosic\Desktop\Projekat 29.9\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.exe
 C:\Users\djordje.tosic\Desktop\Projekat 29.9\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\obj\x64\Debug\CEPubSubMicroservice.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\CloudDERMS\CalculateEngineApp\CEPubSubMicroservice\bin\x64\Debug\CalculationEngineServiceCommon.dll.config

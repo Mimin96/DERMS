@@ -2681,3 +2681,5 @@ C:\Users\djordje.tosic\Desktop\Projekat 29.9\DERMS\CloudDERMS\CalculateEngineApp
 C:\Users\djordje.tosic\Desktop\Projekat 29.9\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\obj\x64\Debug\CECacheMicroservice.csproj.CopyComplete
 C:\Users\djordje.tosic\Desktop\Projekat 29.9\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\obj\x64\Debug\CECacheMicroservice.exe
 C:\Users\djordje.tosic\Desktop\Projekat 29.9\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\obj\x64\Debug\CECacheMicroservice.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\bin\x64\Debug\System.Collections.Immutable.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\CloudDERMS\CalculateEngineApp\CECacheMicroservice\bin\x64\Debug\System.Collections.Immutable.xml

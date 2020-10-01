@@ -1821,3 +1821,37 @@ C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinator\
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csproj.CopyComplete
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.exe
 C:\Users\djordje.tosic\Desktop\Projekat 21.9\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinator.exe.config
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinator.exe
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinator.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineService.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\DERMSCommon.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Common.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Services.NetworkModelService.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinatorService.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\DarkSkyApi.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\WeatherForecast.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineServiceCommon.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\Polenter.SharpSerializer.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\Innovative.SolarCalculator.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\Innovative.Geometry.Angle.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\MaterialDesignColors.dll
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineService.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\DERMSCommon.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\TransactionCoordinatorService.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Common.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.Services.NetworkModelService.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\WeatherForecast.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\CalculationEngineServiceCommon.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\Polenter.SharpSerializer.xml
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\FTN.ServiceContracts.ServiceContracts.NetworkModelQueryContract.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\bin\Debug\MaterialDesignColors.pdb
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csprojAssemblyReference.cache
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csproj.CoreCompileInputs.cache
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.csproj.CopyComplete
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.exe
+C:\Users\Nemanja\Desktop\MasterProject\DERMS\DERMS\TransactionCoordinator\obj\Debug\TransactionCoordinator.pdb

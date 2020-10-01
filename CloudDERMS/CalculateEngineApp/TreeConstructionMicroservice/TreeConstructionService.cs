@@ -262,6 +262,7 @@ namespace TreeConstructionMicroservice
         private void DoEndTerminal(Terminal terminal, NetworkModelTransfer networkModelTransfer, SubstationTreeClass substationTreeClass)
         {
             // Dodaj terminal na conn node 
+            //TreeNode<NodeData> treeNode = graphCached.FindTreeNode(x => x.Data.IdentifiedObject.GlobalId == terminal.ConnectivityNode).FirstOrDefault();
             TreeNode<NodeData> foundConnectivityNode = graphCached.Where(x => x.Data.IdentifiedObject.GlobalId == terminal.ConnectivityNode).FirstOrDefault();
             foundConnectivityNode.AddChild(new NodeData(terminal, DMSType.TERMINAL, false));
 
