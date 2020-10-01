@@ -7,10 +7,10 @@
         xmlns:local="clr-namespace:UI.View"
         mc:Ignorable="d"
         Background="#FF303030"
-        Title="" Height="150.993" Width="366.917" ResizeMode="NoResize">
+        Title="" Height="150.993" Width="452.462" ResizeMode="NoResize">
 
     <Grid Background="#FF303030" Margin="0,0,0,-1">
-        <Button Content="Close" FontSize="14" Margin="143,0,0,10" Click="Button_Click" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
-        <AccessText x:Name="Message" Text="" TextAlignment="Center" Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.358,1.281" Height="66" Width="341" FontSize="16"/>
+        <Button Content="Close" FontSize="14" Margin="191,0,0,4" Click="Button_Click" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75"/>
+        <AccessText x:Name="Message" Text="" TextAlignment="Center" Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.358,1.281" Height="66" Width="426" FontSize="16"/>
     </Grid>
 </Window>
