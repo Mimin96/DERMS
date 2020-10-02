@@ -508,7 +508,10 @@ namespace UI.ViewModel
                                 SubstationElementTreeClass generator = substationTreeClass.SubstationElements.Where(x => x.GID.Equals(gid)).FirstOrDefault();
 
                                 if (generator.Type.Equals(DMSType.GENERATOR))
+                                {
                                     dERDashboardUserControl.ManualCommanding.IsEnabled = true;
+                                    SetChartValuesForGenerator(generator.GID);
+                                }
                                 else
                                     dERDashboardUserControl.ManualCommanding.IsEnabled = false;
 
@@ -856,6 +859,48 @@ namespace UI.ViewModel
                     }
                 }
             }
+            string tempx = String.Format("{0:0.00}", tempSource);
+            EnergySourceValue = "0";
+            EnergySourceValue = tempx;
+        }
+        public void SetChartValuesForGenerator(long gid)
+        {
+
+            foreach (HourDataPoint hdp in ProductionDerForecastDayAhead[gid].Production.Hourly)
+            {
+                if (hdp.Time.Hour.Equals(DateTime.Now.Hour))
+                {
+                    float x = hdp.ActivePower;
+                    string temp = String.Format("{0:0.00}", x);
+                    double y = Double.Parse(temp);
+                    float z = (float)y;
+                    ProductionGenerators = temp;
+                }
+            }
+            float h = (float)0.0;
+            string tempCons = String.Format("{0:0.00}", h);
+            double u = Double.Parse(tempCons);
+            Consumption = tempCons;
+            ChartValues3 = new ChartValues<double>();
+            ChartValues2 = new ChartValues<double>();
+            ChartValues1 = new ChartValues<double>();
+            List<HourDataPoint> tempListProduction = new List<HourDataPoint>();
+            tempListProduction = ProductionDerForecastDayAhead[gid].Production.Hourly.OrderBy(x => x.Time).ToList();            
+            foreach (HourDataPoint hc in tempListProduction)
+            {
+                ChartValues3.Add((double)hc.ActivePower);
+            }
+            for (int i = 0; i < 2; i++)
+            {
+
+                double chart3 = (double)ChartValues3[i];
+                ChartValues3.Add(chart3);
+
+
+            }
+            ChartValues3.RemoveAt(0);
+            ChartValues3.RemoveAt(1);
+            float tempSource = (float)0.0;
             string tempx = String.Format("{0:0.00}", tempSource);
             EnergySourceValue = "0";
             EnergySourceValue = tempx;
