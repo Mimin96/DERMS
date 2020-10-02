@@ -88,7 +88,7 @@ namespace UI.ViewModel
             set;
         }
         public double MinHeightFilter { get { return _minHeightFilter; } set { _minHeightFilter = value; OnPropertyChanged("MinHeightFilter"); } }
-        public ObservableCollection<DataPoint> Points 
+        public ObservableCollection<DataPoint> Points
         {
             get { return _points; }
             set
@@ -160,7 +160,7 @@ namespace UI.ViewModel
         }
         public ObservableCollection<DataPointUI> PointsUI { get { return _pointsUI; } set { _pointsUI = value; OnPropertyChanged("PointsUI"); } }
 
-public DataPoint SelectedDataItem
+        public DataPoint SelectedDataItem
         {
             get
             {
@@ -244,7 +244,7 @@ public DataPoint SelectedDataItem
         {
             TextBox textBox = (TextBox)sender;
 
-            if (textBox.Text.Trim() == "Owners GID")
+            if (textBox.Text.Trim() == "Elements GID")
             {
                 textBox.FontStyle = FontStyles.Normal;
                 textBox.Text = "";
@@ -254,10 +254,10 @@ public DataPoint SelectedDataItem
         {
             TextBox textBox = (TextBox)sender;
 
-            if (textBox.Text.Trim() == "" || textBox.Text.Trim() == "Owners GID")
+            if (textBox.Text.Trim() == "" || textBox.Text.Trim() == "Elements GID")
             {
-                textBox.Text = "Owners GID";
-                SignalsSummaryFilter.Name = "Owners GID";
+                textBox.Text = "Elements GID";
+                SignalsSummaryFilter.Name = "Elements GID";
                 textBox.FontStyle = FontStyles.Italic;
             }
         }
@@ -307,7 +307,7 @@ public DataPoint SelectedDataItem
         {
             TextBox textBox = (TextBox)sender;
 
-            if (textBox.Text.Trim() == "GID")
+            if (textBox.Text.Trim() == "Signal GID")
             {
                 textBox.FontStyle = FontStyles.Normal;
                 textBox.Text = "";
@@ -317,10 +317,10 @@ public DataPoint SelectedDataItem
         {
             TextBox textBox = (TextBox)sender;
 
-            if (textBox.Text.Trim() == "" || textBox.Text.Trim() == "GID")
+            if (textBox.Text.Trim() == "" || textBox.Text.Trim() == "Signal GID")
             {
-                textBox.Text = "GID";
-                SignalsSummaryFilter.GID = "GID";
+                textBox.Text = "Signal GID";
+                SignalsSummaryFilter.GID = "Signal GID";
                 textBox.FontStyle = FontStyles.Italic;
             }
         }

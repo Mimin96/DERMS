@@ -232,8 +232,6 @@ namespace CEPubSubMicroservice
 							subscriberProxy.Connect();
 							subscriberProxy.Proxy.SendScadaDataToUI(forcastDayAhead);
 						}
-
-						return true;
 					}
 					catch (CommunicationException)
 					{
@@ -437,8 +435,6 @@ namespace CEPubSubMicroservice
 							subscriberProxy.Connect();
 							subscriberProxy.Proxy.GetNewEvent(@event);
 						}
-
-						return true;
 					}
 					catch (CommunicationException)
 					{

@@ -63,7 +63,12 @@ namespace dCom.ViewModel
 
                 lock (SetDatabaseDataObjectLock)
                 {
-                    sCADAClient.SetDatabaseData(datapoints).Wait();
+                    try
+                    {
+                        sCADAClient.SetDatabaseData(datapoints).Wait();
+                    }
+                    catch
+                    { }
                 }
             }
 

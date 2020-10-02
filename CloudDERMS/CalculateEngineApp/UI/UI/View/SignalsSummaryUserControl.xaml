@@ -32,7 +32,7 @@
                 </i:Interaction.Triggers>
             </TextBox>
             <ComboBox ToolTip="Type" Foreground="#FF0398E2" HorizontalContentAlignment="Center" ItemsSource="{Binding FilterType}" SelectedItem="{Binding SignalsSummaryFilter.SelectedFilterType}" Visibility="{Binding Path=FilterVisibility}" HorizontalAlignment="Left" Margin="65,40,0,0" VerticalAlignment="Top" Width="150" BorderThickness="1" BorderBrush="#FF0398E2"/>
-            <TextBox Background="Transparent"  FontStyle="Italic" Foreground="#FF0398E2" BorderBrush="#FF0398E2" Width="150" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{Binding SignalsSummaryFilter.Address}" Margin="230,5,0,0" ToolTip="Address" BorderThickness="0 0 0 1" Visibility="{Binding Path=FilterVisibility}">
+            <TextBox Background="Transparent"  FontStyle="Italic" Foreground="#FF0398E2" BorderBrush="#FF0398E2" Width="150" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{Binding SignalsSummaryFilter.Address}" Margin="230,5,0,0" ToolTip="Elements GID" BorderThickness="0 0 0 1" Visibility="{Binding Path=FilterVisibility}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="GotFocus">
                         <i:CallMethodAction MethodName="OnFocusAddress" TargetObject="{Binding}" />
@@ -65,7 +65,7 @@
             <DatePicker SelectedDate="{Binding SignalsSummaryFilter.From}" Height="25" ToolTip="From" Margin="560,6,0,54" BorderBrush="#FF0398E2" BorderThickness="0" Foreground="#FF0398E2" Visibility="{Binding Path=FilterVisibility}" HorizontalAlignment="Left" Width="150"/>
             <DatePicker SelectedDate="{Binding SignalsSummaryFilter.To}" Height="25" ToolTip="To" Margin="560,40,0,20" BorderBrush="#FF0398E2" BorderThickness="0" Foreground="#FF0398E2" Visibility="{Binding Path=FilterVisibility}" HorizontalAlignment="Left" Width="150"/>
             <ComboBox ToolTip="Alarm" Foreground="#FF0398E2" HorizontalContentAlignment="Center" ItemsSource="{Binding FilterAlarm}" SelectedItem="{Binding SignalsSummaryFilter.SelectedFilterAlarm}" Visibility="{Binding Path=FilterVisibility}" HorizontalAlignment="Left" Margin="725,5,0,0" VerticalAlignment="Top" Width="150" BorderThickness="1" BorderBrush="#FF0398E2"/>
-            <TextBox  Background="Transparent"  FontStyle="Italic" Foreground="#FF0398E2" BorderBrush="#FF0398E2" Width="150" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{Binding SignalsSummaryFilter.GID}" Margin="725,40,0,0" ToolTip="GID" BorderThickness="0 0 0 1" Visibility="{Binding Path=FilterVisibility}">
+            <TextBox  Background="Transparent"  FontStyle="Italic" Foreground="#FF0398E2" BorderBrush="#FF0398E2" Width="150" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{Binding SignalsSummaryFilter.GID}" Margin="725,40,0,0" ToolTip="Signal GID" BorderThickness="0 0 0 1" Visibility="{Binding Path=FilterVisibility}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="GotFocus">
                         <i:CallMethodAction MethodName="OnFocusGID" TargetObject="{Binding}" />

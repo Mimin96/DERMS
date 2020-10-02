@@ -117,6 +117,7 @@ namespace UI.ViewModel
             for (int j = 0; j <= 23; j++)
                 _dayAvg.Add((double)0);
 
+
             for (int j = 0; j <= 31; j++)
                 _monthMin.Add((double)0);
 
@@ -125,6 +126,7 @@ namespace UI.ViewModel
 
             for (int j = 0; j <= 31; j++)
                 _monthAvg.Add((double)0);
+
 
             for (int j = 0; j <= 13; j++)
                 _yearMin.Add((double)0);
@@ -136,26 +138,26 @@ namespace UI.ViewModel
                 _yearAvg.Add((double)0);
         }
 
-        private void PopulateMonthDays(string month)
+        private void PopulateMonthDays(string month, string year)
         {
             _monthMin = new ChartValues<double>();
             _monthMax = new ChartValues<double>();
             _monthAvg = new ChartValues<double>();
 
             //{ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-            if (month == "Jan" || month == "Mar" || month == "May" || month == "Jul" || month == "Aug" || month == "Oct" || month == "Dec")
+            if (month == "1" || month == "3" || month == "5" || month == "7" || month == "8" || month == "10" || month == "12")
             {
-                for (int j = 0; j <= 32; j++)
+                for (int j = 0; j <= 31; j++)
                     _monthMin.Add((double)0);
 
-                for (int j = 0; j <= 32; j++)
+                for (int j = 0; j <= 31; j++)
                     _monthMax.Add((double)0);
 
-                for (int j = 0; j <= 32; j++)
+                for (int j = 0; j <= 31; j++)
                     _monthAvg.Add((double)0);
 
             }
-            else if (month == "Feb")
+            else if (month == "2" && DateTime.IsLeapYear(Int32.Parse(year)))
             {
                 for (int j = 0; j <= 29; j++)
                     _monthMin.Add((double)0);
@@ -164,17 +166,28 @@ namespace UI.ViewModel
                     _monthMax.Add((double)0);
 
                 for (int j = 0; j <= 29; j++)
+                    _monthAvg.Add((double)0);
+            }
+            else if (month == "2")
+            {
+                for (int j = 0; j <= 28; j++)
+                    _monthMin.Add((double)0);
+
+                for (int j = 0; j <= 28; j++)
+                    _monthMax.Add((double)0);
+
+                for (int j = 0; j <= 28; j++)
                     _monthAvg.Add((double)0);
             }
             else
             {
-                for (int j = 0; j <= 31; j++)
+                for (int j = 0; j <= 30; j++)
                     _monthMin.Add((double)0);
 
-                for (int j = 0; j <= 31; j++)
+                for (int j = 0; j <= 30; j++)
                     _monthMax.Add((double)0);
 
-                for (int j = 0; j <= 31; j++)
+                for (int j = 0; j <= 30; j++)
                     _monthAvg.Add((double)0);
             }
 
@@ -282,7 +295,7 @@ namespace UI.ViewModel
                     return _isDanMinVisible = Visibility.Visible;
                 else
                     return _isDanMinVisible = Visibility.Collapsed;
-               // return _isDanMinVisible;
+                // return _isDanMinVisible;
             }
             set
             {
@@ -518,40 +531,40 @@ namespace UI.ViewModel
             {
                 _networkModel = value;
                 NetworkModelUI.Clear();
-                
-                                foreach (NetworkModelTreeClass treeClass in NetworkModel)
-                                    {
+
+                foreach (NetworkModelTreeClass treeClass in NetworkModel)
+                {
                     NetworkModelTreeClass treeClassUI = new NetworkModelTreeClass(treeClass.Name, treeClass.GID, treeClass.Type, treeClass.MinFlexibility, treeClass.MinFlexibility);
-                    
-                                        foreach (GeographicalRegionTreeClass geographicalRegion in treeClass.GeographicalRegions)
-                                            {
+
+                    foreach (GeographicalRegionTreeClass geographicalRegion in treeClass.GeographicalRegions)
+                    {
                         GeographicalRegionTreeClass geographicalRegionUI = new GeographicalRegionTreeClass(geographicalRegion.Name, geographicalRegion.GID, geographicalRegion.Type, geographicalRegion.MinFlexibility, geographicalRegion.MaxFlexibility);
-                        
-                                                foreach (GeographicalSubRegionTreeClass geographicalSub in geographicalRegion.GeographicalSubRegions)
-                                                    {
+
+                        foreach (GeographicalSubRegionTreeClass geographicalSub in geographicalRegion.GeographicalSubRegions)
+                        {
                             GeographicalSubRegionTreeClass geographicalSubUI = new GeographicalSubRegionTreeClass(geographicalSub.Name, geographicalSub.GID, geographicalSub.Type, geographicalSub.MinFlexibility, geographicalSub.MaxFlexibility);
-                            
-                                                        foreach (SubstationTreeClass substation in geographicalSub.Substations)
-                                                            {
+
+                            foreach (SubstationTreeClass substation in geographicalSub.Substations)
+                            {
                                 SubstationTreeClass substationUI = new SubstationTreeClass(substation.Name, substation.GID, substation.Type, substation.MinFlexibility, substation.MaxFlexibility);
-                                
-                                                                foreach (SubstationElementTreeClass substationElement in substation.SubstationElements)
-                                                                    {
-                                                                        if (substationElement.Type == FTN.Common.DMSType.GENERATOR)
+
+                                foreach (SubstationElementTreeClass substationElement in substation.SubstationElements)
+                                {
+                                    if (substationElement.Type == FTN.Common.DMSType.GENERATOR)
                                         substationUI.SubstationElements.Add(new SubstationElementTreeClass(substationElement.Name, substationElement.GID, substationElement.Type, substationElement.P, substationElement.MinFlexibility, substationElement.MaxFlexibility));
-                                                                    }
-                                
+                                }
+
                                 geographicalSubUI.Substations.Add(substationUI);
-                                                            }
-                            
+                            }
+
                             geographicalRegionUI.GeographicalSubRegions.Add(geographicalSubUI);
-                                                    }
-                        
+                        }
+
                         treeClassUI.GeographicalRegions.Add(geographicalRegionUI);
-                                            }
-                    
+                    }
+
                     NetworkModelUI.Add(treeClassUI);
-                                    }
+                }
             }
         }
         public ICommand NetworkModelCommand
@@ -623,8 +636,8 @@ namespace UI.ViewModel
 
         #region TreeView Commands Execute
         public void NetworkModelCommandExecute(long gid)
-        { 
-            _selectedGID = 0; 
+        {
+            _selectedGID = 0;
         }
         public void GeographicalRegionCommandExecute(long gid)
         {
@@ -769,7 +782,7 @@ namespace UI.ViewModel
                     List<CollectItemUI> collectItems = new List<CollectItemUI>();
 
                     populateInitialLinesValues();
-                    PopulateMonthDays(SelectedMesec);
+                    PopulateMonthDays(SelectedMesec, SelectedGodina);
 
                     int hour = 0;
                     int day = 0;
@@ -790,7 +803,7 @@ namespace UI.ViewModel
                             popUpWindow.ShowDialog();
                             return;
                         }
-                             
+
                         collectItems = uIClient.GetCollectItemsDateTime(DateTime.Parse(SelectedDan), _selectedGID);
                         collectItems = collectItems.OrderBy(x => x.Timestamp.Hour).ToList();
                     }
@@ -804,9 +817,10 @@ namespace UI.ViewModel
                             return;
 
                         }
+
                         DateTime dateTime = new DateTime(Int32.Parse(SelectedGodina), Int32.Parse(SelectedMesec), 1);
                         _itemsDay = new ObservableCollection<DayItemUI>(uIClient.GetDayItemsDateTime(dateTime, _selectedGID));
-                        _itemsDay = new ObservableCollection<DayItemUI>(_itemsDay.OrderBy(x=>x.Timestamp).ToList());
+                        _itemsDay = new ObservableCollection<DayItemUI>(_itemsDay.OrderBy(x => x.Timestamp).ToList());
                     }
                     else if (IsGodina == Visibility.Visible)
                     {
@@ -844,13 +858,23 @@ namespace UI.ViewModel
                                 }
                                 else
                                 {
-                                    DayMin[hour] = min;
+                                    try
+                                    {
+                                        DayMin[hour] = min;
+                                    }
+                                    catch
+                                    { }
                                     hour = l.Timestamp.Hour;
                                     currentTime = l.Timestamp;
                                     min = l.P;
                                 }
                                 //
-                                DayMin[hour] = min;
+                                try
+                                {
+                                    DayMin[hour] = min;
+                                }
+                                catch
+                                { }
                             }
                             OnPropertyChanged("DayMin");
                         }
@@ -886,8 +910,12 @@ namespace UI.ViewModel
                                 //}
                                 ////
                                 //MonthMin[day] = min;
-                                MonthMin[l.Timestamp.Day] = l.PMin;
-
+                                try
+                                {
+                                    MonthMin[l.Timestamp.Day] = l.PMin;
+                                }
+                                catch
+                                { }
                             }
                             OnPropertyChanged("MonthMin");
                         }
@@ -921,7 +949,12 @@ namespace UI.ViewModel
                                 //    min = l.PMin;
                                 //}
                                 //YearMin[month] = min;
-                                YearMin[l.Timestamp.Month] = l.PMin;
+                                try
+                                {
+                                    YearMin[l.Timestamp.Month] = l.PMin;
+                                }
+                                catch
+                                { }
                             }
                             OnPropertyChanged("YearMin");
                         }
@@ -951,14 +984,23 @@ namespace UI.ViewModel
                                 }
                                 else
                                 {
-                                    DayMax[hour] = max;
+                                    try
+                                    {
+                                        DayMax[hour] = max;
+                                    }
+                                    catch
+                                    { }
                                     hour = l.Timestamp.Hour;
                                     currentTime = l.Timestamp;
                                     max = l.P;
                                 }
                                 //
-                                DayMax[hour] = max;
-
+                                try
+                                {
+                                    DayMax[hour] = max;
+                                }
+                                catch
+                                { }
                             }
                             OnPropertyChanged("DayMax");
                             //_chartValues[hour] = max;
@@ -995,7 +1037,12 @@ namespace UI.ViewModel
                                 //}
                                 ////
                                 //MonthMax[day] = max;
-                                MonthMax[l.Timestamp.Day] = l.PMax;
+                                try
+                                {
+                                    MonthMax[l.Timestamp.Day] = l.PMax;
+                                }
+                                catch
+                                { }
 
                             }
                             OnPropertyChanged("MonthMax");
@@ -1031,7 +1078,12 @@ namespace UI.ViewModel
                                 //}
                                 //
 
-                                YearMax[l.Timestamp.Month] = l.PMax;
+                                try
+                                {
+                                    YearMax[l.Timestamp.Month] = l.PMax;
+                                }
+                                catch
+                                { }
                             }
                             OnPropertyChanged("YearMax");
                         }
@@ -1062,7 +1114,12 @@ namespace UI.ViewModel
                                 else
                                 {
                                     sumForHour = sum / counter;
-                                    DayAvg[hour] = sumForHour;
+                                    try
+                                    {
+                                        DayAvg[hour] = sumForHour;
+                                    }
+                                    catch
+                                    { }
                                     hour = l.Timestamp.Hour;
                                     currentTime = l.Timestamp;
                                     counter = 1;
@@ -1070,7 +1127,13 @@ namespace UI.ViewModel
                                 }
                                 //
                                 sumForHour = sum / counter;
-                                DayAvg[hour] = sumForHour;
+
+                                try
+                                {
+                                    DayAvg[hour] = sumForHour;
+                                }
+                                catch
+                                { }
                             }
                             OnPropertyChanged("DayAvg");
                         }
@@ -1106,7 +1169,12 @@ namespace UI.ViewModel
                                 ////
                                 //sumForDay = sum / counter;
 
-                                MonthAvg[l.Timestamp.Day] = l.PAvg ;
+                                try
+                                {
+                                    MonthAvg[l.Timestamp.Day] = l.PAvg;
+                                }
+                                catch
+                                { }
                             }
                             OnPropertyChanged("MonthAvg");
                         }
@@ -1132,24 +1200,29 @@ namespace UI.ViewModel
                             //DateTime currentTime = listYearItems[0].Timestamp;
                             foreach (var l in _itemsMonth)
                             {
-                            //    if (currentTime.Month == l.Timestamp.Month)
-                            //    {
-                            //        sum += l.PAvg;
-                            //        counter++;
-                            //        month = l.Timestamp.Month;
-                            //    }
-                            //    else
-                            //    {
-                            //        sumForMonth = sum / counter;
-                            //        YearAvg[month] = sumForMonth;
-                            //        month = l.Timestamp.Month;
-                            //        currentTime = l.Timestamp;
-                            //        counter = 1;
-                            //        sum = l.PAvg;
-                            //    }
-                            //    //
-                            //    sumForMonth = sum / counter;
-                                YearAvg[l.Timestamp.Month] = l.PAvg;
+                                //    if (currentTime.Month == l.Timestamp.Month)
+                                //    {
+                                //        sum += l.PAvg;
+                                //        counter++;
+                                //        month = l.Timestamp.Month;
+                                //    }
+                                //    else
+                                //    {
+                                //        sumForMonth = sum / counter;
+                                //        YearAvg[month] = sumForMonth;
+                                //        month = l.Timestamp.Month;
+                                //        currentTime = l.Timestamp;
+                                //        counter = 1;
+                                //        sum = l.PAvg;
+                                //    }
+                                //    //
+                                //    sumForMonth = sum / counter;
+                                try
+                                {
+                                    YearAvg[l.Timestamp.Month] = l.PAvg;
+                                }
+                                catch
+                                { }
                             }
 
                             OnPropertyChanged("YearAvg");
@@ -1162,13 +1235,13 @@ namespace UI.ViewModel
                         }
                     }
 
-                    if (bool1) 
+                    if (bool1)
                     {
                         PopUpWindow popUpWindow = new PopUpWindow("Data for that day doesnt exist.");
                         popUpWindow.ShowDialog();
                     }
 
-                    if (bool2) 
+                    if (bool2)
                     {
                         PopUpWindow popUpWindow = new PopUpWindow("Data for that month doesnt exist.");
                         popUpWindow.ShowDialog();

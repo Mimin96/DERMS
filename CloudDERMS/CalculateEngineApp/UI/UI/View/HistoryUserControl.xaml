@@ -125,7 +125,7 @@
                     </i:Interaction.Triggers>
                     <TextBlock Margin="-34 30 0 0">Average</TextBlock>
                 </CheckBox>
-                <Button  Margin="393,23,0,0" VerticalAlignment="Top" Width="98" Height="28" Content="Filter" Background="Transparent" Foreground="#FF0398E2" Style="{DynamicResource HoverButtonEffect}" Command="{Binding Path=ApplyFiltersCommand}" Visibility="{Binding FilterVisibility}" HorizontalAlignment="Left" />
+                <Button  Margin="393,29,0,0" VerticalAlignment="Top" Width="98" Height="28" Content="Filter" Background="Transparent" Foreground="#FF0398E2" Style="{DynamicResource HoverButtonEffect}" Command="{Binding Path=ApplyFiltersCommand}" Visibility="{Binding FilterVisibility}" HorizontalAlignment="Left" />
             </Grid>
 
             <Grid Grid.Row="1" Visibility="{Binding IsDan}">
